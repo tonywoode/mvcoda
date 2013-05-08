@@ -9,7 +9,7 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/Tony/CODE/Repo/mvoda/MVODA/libs/slf4j-api-1.7.5.jar"/>
 	<classpathentry kind="lib" path="libs/gstreamer-java-1.5.jar"/>
-	<classpathentry kind="lib" path="libs/platform-3.5.2.jar"/>
-	<classpathentry kind="lib" path="libs/older jna/jna.jar"/>
+	<classpathentry kind="lib" path="libs/jna3.3.0/jna.jar"/>
+	<classpathentry kind="lib" path="libs/jna3.3.0/platform.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
