@@ -3,8 +3,8 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="libs/jna3.3.0/jna.jar"/>
 	<classpathentry kind="lib" path="libs/jna3.3.0/platform.jar"/>
-	<classpathentry kind="lib" path="libs/sl4j/slf4j-api-1.7.5.jar"/>
-	<classpathentry kind="lib" path="libs/sl4j/slf4j-simple-1.7.5.jar"/>
+	<classpathentry kind="lib" path="libs/sl4j/slf4j-api-1.7.5.jar" sourcepath="libs/sl4j/slf4j-api-1.7.5-sources.jar"/>
+	<classpathentry kind="lib" path="libs/sl4j/slf4j-simple-1.7.5.jar" sourcepath="libs/sl4j/slf4j-simple-1.7.5-sources.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="libs/gstreamer-java/gstreamer-java-1.5.jar" sourcepath="libs/gstreamer-java/gstreamer-java-src-1.5">
 		<attributes>
@@ -12,6 +12,10 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="libs/gstreamer-java/gstreamer-java-swt-1.5.jar"/>
-	<classpathentry kind="lib" path="libs/xuggler/xuggle-xuggler-5.4.jar"/>
+	<classpathentry kind="lib" path="libs/xuggler/xuggle-xuggler-5.4.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://www.xuggle.com/public/documentation/java/api/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
