@@ -17,7 +17,7 @@ public class VideoThumbnailsExample {
     public static final double SECONDS_BETWEEN_FRAMES = 10;
 
     private static final String inputFilename = "C:/Users/Tony/Inputs/4kAvi/BrunoMarsJustTheWay.avi";
-    private static final String outputFilePrefix = "c:/snapshots/mysnapshot";
+    private static final String outputFilePrefix = "C:/Users/Tony/Outputs/Snapshots/";
     
     // The video stream index, used to ensure we display frames from one and
     // only one video stream from the media container.
