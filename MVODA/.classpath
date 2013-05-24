@@ -17,5 +17,6 @@
 			<attribute name="javadoc_location" value="http://www.xuggle.com/public/documentation/java/api/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="libs/im4java/im4java-1.4.0/im4java-1.4.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
