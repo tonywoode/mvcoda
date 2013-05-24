@@ -7,6 +7,7 @@ import org.im4java.core.CommandException;
 import org.im4java.core.ConvertCmd;
 import org.im4java.core.IM4JavaException;
 import org.im4java.core.IMOperation;
+import org.im4java.process.ProcessStarter;
 
 public class Im4JavaTest {
 
@@ -17,6 +18,14 @@ public class Im4JavaTest {
 	 * @throws IOException 
 	 */
 	public static void main(String[] args)  {
+		
+		
+		//create what should be the GLOBAL searchpath (otherwise set IM4JAVA_TOOLPATH in windows path)
+		String myPath="C:\\Program Files\\ImageMagick-6.8.5-Q16";
+		ProcessStarter.setGlobalSearchPath(myPath);
+		
+		
+		
 		// create command
 		ConvertCmd cmd = new ConvertCmd();
 
@@ -26,7 +35,7 @@ public class Im4JavaTest {
 		op.alpha("copy"); 
 		
 		//op.resize(200,200);
-		op.addImage("C:\\Users\\Tony\\Inputs\\Elements\\LOGOS\\arcTOST.jpg");
+		op.addImage("C:\\Users\\Tony\\Inputs\\Elements\\LOGOS\\arcTEST.jpg");
 		
 		//it works!
 		
