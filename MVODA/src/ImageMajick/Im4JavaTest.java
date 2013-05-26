@@ -31,11 +31,11 @@ public class Im4JavaTest {
 
 		// create the operation, add images and operators/options
 		IMOperation op = new IMOperation();
-		op.addImage("C:\\Users\\Tony\\Inputs\\Elements\\LOGOS\\arc.jpg");	
+		op.addImage("E:\\Inputs\\Elements\\LOGOS\\arc.jpg");	
 		op.alpha("copy"); 
 		
 		//op.resize(200,200);
-		op.addImage("C:\\Users\\Tony\\Inputs\\Elements\\LOGOS\\arcTEST.jpg");
+		op.addImage("E:\\Inputs\\Elements\\LOGOS\\arcTEST.jpg");
 		
 		//it works!
 		
