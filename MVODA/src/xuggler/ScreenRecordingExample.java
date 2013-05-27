@@ -18,7 +18,7 @@ public class ScreenRecordingExample {
     
     private static final int SECONDS_TO_RUN_FOR = 20;
     
-    private static final String outputFilename = "c:/mydesktop.mp4";
+    private static final String outputFilename = "../../../MVODAOutputs/MyScreenRecording.mov";
     
     private static Dimension screenBounds;
 

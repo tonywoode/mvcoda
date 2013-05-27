@@ -20,9 +20,9 @@ import com.xuggle.mediatool.event.IVideoPictureEvent;
 
 public class ModifyMediaExample {
 
-    private static final String inputFilename = "C:/Users/Tony/Inputs/4kAvi/ColdplayFixYou.avi";
-    private static final String outputFilename = "C:/ColdplayFixYou.avi";
-    private static final String imageFilename = "C:/snapshots/mysnapshot1367590860272.png";
+    private static final String inputFilename = "../../../MVODAInputs/Love/BrunoMarsJustTheWay.avi";
+    private static final String outputFilename = "../../../MVODAOutputs/ModifyMedia.mov";
+    private static final String imageFilename = "../../../Software/ImageMagick-6.8.5-Q16/images/bluebells_clipped.jpg";
 
     public static void main(String[] args) {
 

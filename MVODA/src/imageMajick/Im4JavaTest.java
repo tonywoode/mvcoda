@@ -1,4 +1,4 @@
-package ImageMajick;
+package imageMajick;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class Im4JavaTest {
 		
 		
 		//create what should be the GLOBAL searchpath (otherwise set IM4JAVA_TOOLPATH in windows path)
-		String myPath="C://Users//tony//CODE//Software//ImageMagick-6.8.5-Q16";
+		String myPath="..//..//..//Software//ImageMagick-6.8.5-Q16";
 		ProcessStarter.setGlobalSearchPath(myPath);
 		
 		
@@ -31,11 +31,11 @@ public class Im4JavaTest {
 
 		// create the operation, add images and operators/options
 		IMOperation op = new IMOperation();
-		op.addImage("C://Users//tony//CODE//Software//ImageMagick-6.8.5-Q16//images//bluebells_clipped.jpg");	
+		op.addImage("..//..//..//Software//ImageMagick-6.8.5-Q16//images//bluebells_clipped.jpg");	
 		op.alpha("copy"); 
 		
 		//op.resize(200,200);
-		op.addImage("C://Users//tony//CODE//Software//ImageMagick-6.8.5-Q16//images//bluebells_clipped_ALPHA.jpg");
+		op.addImage("..//..//..//MVODAOutputs//bluebells_clipped_ALPHA.jpg");
 		
 		//it works!
 		

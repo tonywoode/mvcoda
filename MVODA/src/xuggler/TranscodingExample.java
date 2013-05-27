@@ -7,8 +7,8 @@ import com.xuggle.mediatool.ToolFactory;
 
 public class TranscodingExample {
 
-    private static final String inputFilename = "C:/Users/Tony/Inputs/4kAvi/ColdplayFixYou.avi";
-    private static final String outputFilename = "C:/ColdplayFixYou.avi";
+    private static final String inputFilename = "../../../MVODAInputs/Love/BrunoMarsJustTheWay.avi";
+    private static final String outputFilename = "../../../MVODAOutputs/BrunoTranscoded.mov";
 
     public static void main(String[] args) {
 
