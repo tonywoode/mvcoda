@@ -1,8 +1,8 @@
 setlocal
 set FFPLAY="C:\Users\Tony\CODE\Repo\mvoda\MVODA\FFmpeg\ffmpeg-20130418-git-ee94362-win64-static\bin\ffplay.exe"
-set AVILOC="C:\Users\Tony\Inputs\4kAvi\\"
-set OUTPUTLOC="C:\Users\Tony\Outputs\\"
+set AVILOC="C:\Users\Tony\CODE\MVODAInputs\Love\\"
+set OUTPUTLOC="C:\Users\Tony\CODE\MVODAOutputs\\"
 
-%FFPLAY% %OUTPUTLOC%GFXplaylist.avi
+%FFPLAY% %AVILOC%BrunoMarsJustTheWay.avi
 
 pause

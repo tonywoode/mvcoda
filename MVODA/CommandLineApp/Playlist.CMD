@@ -1,21 +1,21 @@
 setlocal
 set FFMPEG="C:\Users\Tony\CODE\Repo\mvoda\MVODA\FFmpeg\ffmpeg-20130418-git-ee94362-win64-static\bin\ffmpeg.exe"
 
-set AVILOC="C:\Users\Tony\Inputs\4kAvi\\"
+set AVILOC="C:\Users\Tony\CODE\MVODAInputs\Love\\"
 
-set OUTPUTLOC="C:\Users\Tony\Outputs\\"
+set OUTPUTLOC="C:\Users\Tony\CODE\MVODAOutputs\\"
 
 ::The files
-set FILE1=%AVILOC%"FalloutBoySugar.avi"
-set FILE2=%AVILOC%"ColdplayClocks.avi"
-set FILE3=%AVILOC%"ColdplayFixYou.avi"
-set FILE4=%AVILOC%"JustJackStars.avi"
-set FILE5=%AVILOC%"KasabianFire.avi"
-set FILE6=%AVILOC%"LadyGagaPaparazzi.avi"
-set FILE7=%AVILOC%"LouiseNaked.avi"
-set FILE8=%AVILOC%"MelBFeelsSoGood.avi"
-set FILE9=%AVILOC%"NickiMinajStarships.avi"
-set FILE10=%AVILOC%"PinkSoWhat.avi"
+set FILE1=%AVILOC%"BrunoMarsJustTheWay.avi"
+set FILE2=%AVILOC%"FlorenceAndTheMachineLoverToLover.avi"
+set FILE3=%AVILOC%"GloriaEstefanAnythingForYou.avi"
+set FILE4=%AVILOC%"KateBushWutheringHeights.avi"
+set FILE5=%AVILOC%"LeonaLewisHappy.avi"
+set FILE6=%AVILOC%"Maroon5SheWillBeLoved.avi"
+set FILE7=%AVILOC%"NeyoStay.avi"
+set FILE8=%AVILOC%"NickiMinajYourLove.avi"
+set FILE9=%AVILOC%"PinkOneLastKiss.avi"
+set FILE10=%AVILOC%"RihannaYouDaOne.avi"
 
 
 
