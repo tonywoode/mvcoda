@@ -16,7 +16,7 @@ public class ScreenRecordingExample {
     
     private static final double FRAME_RATE = 50;
     
-    private static final int SECONDS_TO_RUN_FOR = 20;
+    private static final int SECONDS_TO_RUN_FOR = 05;
     
     private static final String outputFilename = "../../../MVODAOutputs/MyScreenRecording.mov";
     
