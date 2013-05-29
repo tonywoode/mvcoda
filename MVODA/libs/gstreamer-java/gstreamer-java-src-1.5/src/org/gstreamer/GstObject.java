@@ -5,7 +5,7 @@
  *                    2000 Wim Taymans <wtay@chello.be>
  *                    2005 Wim Taymans <wim@fluendo.com>
  * 
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU Lesser General Public License version 3 only, as
@@ -134,7 +134,7 @@ public class GstObject extends GObject {
     /**
      * Adds an {@link EventListenerProxy} on this object.
      * This is used by subclasses that wish to map between java style event listeners 
-     * and gstreamer signals.
+     * and moduleExamples.gstreamer signals.
      * 
      * @param listenerClass Class of the listener being added.
      * @param listener The listener being added.
@@ -155,7 +155,7 @@ public class GstObject extends GObject {
     /**
      * Removes an {@link EventListenerProxy} from this object.
      * This is used by subclasses that wish to map between java style event listeners 
-     * and gstreamer signals.
+     * and moduleExamples.gstreamer signals.
      * 
      * @param listenerClass The class of listener the proxy was added for.
      * @param listener The listener the proxy was added for.

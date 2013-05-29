@@ -4,7 +4,7 @@
  * Copyright (c) 2009 Andres Colubri
  * Copyright (c) 2007 Wayne Meissner
  * 
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU Lesser General Public License version 3 only, as
@@ -80,7 +80,7 @@ public abstract class GObject extends RefCountedObject {
      *
      * @param property The property to set.
      * @param data The value for the property.  This must be of the type expected
-     * by gstreamer.
+     * by moduleExamples.gstreamer.
      */
     public void set(String property, Object data) {
         logger.entering("GObject", "set", new Object[] { property, data });
@@ -116,12 +116,12 @@ public abstract class GObject extends RefCountedObject {
             GVALUE_API.g_value_set_double(propValue, doubleValue(data));
         } else if (propType.equals(GType.STRING)) {
             //
-            // Special conversion of java URI to gstreamer compatible uri
+            // Special conversion of java URI to moduleExamples.gstreamer compatible uri
             //
             if (data instanceof URI) {
                 URI uri = (URI) data;
                 String uriString = uri.toString();
-                // Need to fixup file:/ to be file:/// for gstreamer
+                // Need to fixup file:/ to be file:/// for moduleExamples.gstreamer
                 if ("file".equals(uri.getScheme()) && uri.getHost() == null) {
                     final String path = uri.getRawPath();
                     uriString = "file://" + path;

@@ -1,7 +1,7 @@
 /* 
  * Copyright (c) 2007 Wayne Meissner
  * 
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU Lesser General Public License version 3 only, as
@@ -23,7 +23,7 @@ import org.gstreamer.lowlevel.GstAPI.GErrorStruct;
 import static org.gstreamer.lowlevel.GlibAPI.GLIB_API;
 
 /**
- * Base gstreamer error type.
+ * Base moduleExamples.gstreamer error type.
  */
 public class GError {
     /** 

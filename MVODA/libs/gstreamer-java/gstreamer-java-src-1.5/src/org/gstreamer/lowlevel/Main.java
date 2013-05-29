@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2008 Wayne Meissner
  *
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3 only, as
@@ -38,7 +38,7 @@ import org.gstreamer.swing.VideoComponent;
 import org.gstreamer.swing.VideoPlayer;
 
 /**
- * Simple startup tests that can be run via: java -jar gstreamer-java.jar
+ * Simple startup tests that can be run via: java -jar moduleExamples.gstreamer-java.jar
  */
 public class Main {
     static Pipeline pipe;
@@ -63,7 +63,7 @@ public class Main {
 
         args = Gst.init("unknown", args);
         Version v = Gst.getVersion();
-        System.out.println(PREFIX + "Gst.init succeeded. gstreamer version " + v);
+        System.out.println(PREFIX + "Gst.init succeeded. moduleExamples.gstreamer version " + v);
         System.out.flush();
         pipe = new Pipeline();
         if (pipe == null) {
@@ -108,7 +108,7 @@ public class Main {
         });
     }
     private static void play(String[] args) {
-        args = Gst.init("gstreamer-java", args);
+        args = Gst.init("moduleExamples.gstreamer-java", args);
         final List<URI> playList = new LinkedList<URI>();
         for (String arg : args) {
             playList.add(new File(arg).toURI());

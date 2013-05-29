@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2011 Andres Colubri
  *
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3 only, as
@@ -132,7 +132,7 @@ public class BufferDataSink extends Bin {
     }
 
     /**
-     * Gets the actual gstreamer sink element.
+     * Gets the actual moduleExamples.gstreamer sink element.
      *
      * @return a AppSink
      */
@@ -167,7 +167,7 @@ public class BufferDataSink extends Bin {
             listener.bufferFrame(width, height, buffer);
             
             //
-            // Dispose of the gstreamer buffer immediately to avoid more being
+            // Dispose of the moduleExamples.gstreamer buffer immediately to avoid more being
             // allocated before the java GC kicks in
             if (autoDisposeBuffer) { 
                 buffer.dispose();

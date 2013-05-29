@@ -133,7 +133,7 @@ public class PiPDemo {
                         ((PlayBin2) pipe).setAudioSink(ElementFactory.make("fakesink", "audio"));
                     }
                     pip.add(player);
-                    // Stagger the start times, so gstreamer doesn't choke
+                    // Stagger the start times, so moduleExamples.gstreamer doesn't choke
                     javax.swing.Timer timer = new javax.swing.Timer(1000 * i, new ActionListener() {
                         public void actionPerformed(ActionEvent evt) {
                             player.getMediaPlayer().play();

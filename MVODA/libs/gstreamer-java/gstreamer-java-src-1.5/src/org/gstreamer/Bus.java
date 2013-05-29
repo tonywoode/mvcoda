@@ -2,7 +2,7 @@
  * Copyright (C) 2007 Wayne Meissner
  * Copyright (C) 2004 Wim Taymans <wim@fluendo.com>
  * 
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU Lesser General Public License version 3 only, as
@@ -80,7 +80,7 @@ public class Bus extends GstObject {
     private static final API gst = GstNative.load(API.class);
 
     /**
-     * This constructor is used internally by gstreamer-java
+     * This constructor is used internally by moduleExamples.gstreamer-java
      * 
      * @param init internal initialization data
      */

@@ -97,12 +97,12 @@ function windowTitle()
 <B>Deprecated Classes</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="org/gstreamer/elements/DecodeBin.html" title="class in org.gstreamer.elements">org.gstreamer.elements.DecodeBin</A>
+<TD><A HREF="org/moduleExamples.gstreamer/elements/DecodeBin.html" title="class in org.gstreamer.elements">org.gstreamer.elements.DecodeBin</A>
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<I>This element is deprecated and no longer supported. You should use the uridecodebin or decodebin2 element instead (or, even better: playbin2).</I>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="org/gstreamer/elements/PlayBin.html" title="class in org.gstreamer.elements">org.gstreamer.elements.PlayBin</A>
+<TD><A HREF="org/moduleExamples.gstreamer/elements/PlayBin.html" title="class in org.gstreamer.elements">org.gstreamer.elements.PlayBin</A>
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<I>This element is deprecated and no longer supported. You should use the PlayBin2 element instead.
  
@@ -125,21 +125,21 @@ function windowTitle()
  <h3>Usage</h3>
  <p>
  A playbin element can be created just like any other element using
- <A HREF="org/gstreamer/ElementFactory.html#make(java.lang.String, java.lang.String)"><CODE>ElementFactory.make(java.lang.String, java.lang.String)</CODE></A>, although to call PlayBin specific methods, it 
- is best to create one via a <A HREF="org/gstreamer/elements/PlayBin.html#PlayBin(java.lang.String)"><CODE>PlayBin.PlayBin(String)</CODE></A> or <A HREF="org/gstreamer/elements/PlayBin.html#PlayBin(java.lang.String, java.net.URI)"><CODE>PlayBin.PlayBin(String, URI)</CODE></A> constructor.
+ <A HREF="org/moduleExamples.gstreamer/ElementFactory.html#make(java.lang.String, java.lang.String)"><CODE>ElementFactory.make(java.lang.String, java.lang.String)</CODE></A>, although to call PlayBin specific methods, it 
+ is best to create one via a <A HREF="org/moduleExamples.gstreamer/elements/PlayBin.html#PlayBin(java.lang.String)"><CODE>PlayBin.PlayBin(String)</CODE></A> or <A HREF="org/moduleExamples.gstreamer/elements/PlayBin.html#PlayBin(java.lang.String, java.net.URI)"><CODE>PlayBin.PlayBin(String, URI)</CODE></A> constructor.
  
  <p>
- The file/URI to play should be set via <A HREF="org/gstreamer/elements/PlayBin.html#setInputFile(java.io.File)"><CODE>PlayBin.setInputFile(java.io.File)</CODE></A> or <A HREF="org/gstreamer/elements/PlayBin.html#setURI(java.net.URI)"><CODE>PlayBin.setURI(java.net.URI)</CODE></A>
+ The file/URI to play should be set via <A HREF="org/moduleExamples.gstreamer/elements/PlayBin.html#setInputFile(java.io.File)"><CODE>PlayBin.setInputFile(java.io.File)</CODE></A> or <A HREF="org/moduleExamples.gstreamer/elements/PlayBin.html#setURI(java.net.URI)"><CODE>PlayBin.setURI(java.net.URI)</CODE></A>
  
  <p>
- Playbin is a <A HREF="org/gstreamer/Pipeline.html" title="class in org.gstreamer"><CODE>Pipeline</CODE></A>. It will notify the application of everything
+ Playbin is a <A HREF="org/moduleExamples.gstreamer/Pipeline.html" title="class in org.gstreamer"><CODE>Pipeline</CODE></A>. It will notify the application of everything
  that's happening (errors, end of stream, tags found, state changes, etc.)
- by posting messages on its <A HREF="org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>Bus</CODE></A>. The application needs to watch the
+ by posting messages on its <A HREF="org/moduleExamples.gstreamer/Bus.html" title="class in org.gstreamer"><CODE>Bus</CODE></A>. The application needs to watch the
  bus.
  
  <p>
  Playback can be initiated by setting the PlayBin to PLAYING state using
- <A HREF="org/gstreamer/Element.html#setState(org.gstreamer.State)"><CODE>setState</CODE></A> or <A HREF="org/gstreamer/Element.html#play()"><CODE>play</CODE></A>. Note that the state change will take place in
+ <A HREF="org/moduleExamples.gstreamer/Element.html#setState(org.gstreamer.State)"><CODE>setState</CODE></A> or <A HREF="org/moduleExamples.gstreamer/Element.html#play()"><CODE>play</CODE></A>. Note that the state change will take place in
  the background in a separate thread, when the function returns playback
  is probably not happening yet and any errors might not have occured yet.
  Applications using playbin should ideally be written to deal with things
@@ -155,24 +155,24 @@ function windowTitle()
  </p>
  
  <p>
- Seeking can be done using <A HREF="org/gstreamer/Pipeline.html#seek(org.gstreamer.ClockTime)"><CODE>seek</CODE></A> on the playbin element. 
+ Seeking can be done using <A HREF="org/moduleExamples.gstreamer/Pipeline.html#seek(org.gstreamer.ClockTime)"><CODE>seek</CODE></A> on the playbin element. 
  Again, the seek will not be executed instantaneously, but will be done in a
  background thread. When the seek call returns the seek will most likely still
  be in process. An application may wait for the seek to finish (or fail) using 
- <A HREF="org/gstreamer/Element.html#getState(long)"><CODE>Element.getState(long)</CODE></A> with -1 as the timeout, but this will block the user 
+ <A HREF="org/moduleExamples.gstreamer/Element.html#getState(long)"><CODE>Element.getState(long)</CODE></A> with -1 as the timeout, but this will block the user 
  interface and is not recommended at all.
  
  <p>
  Applications may query the current position and duration of the stream
- via <A HREF="org/gstreamer/Pipeline.html#queryPosition()"><CODE>Pipeline.queryPosition()</CODE></A> and <A HREF="org/gstreamer/Pipeline.html#queryDuration()"><CODE>Pipeline.queryDuration()</CODE></A> and
- setting the format passed to <A HREF="org/gstreamer/Format.html#TIME"><CODE>Format.TIME</CODE></A>. If the query was successful,
+ via <A HREF="org/moduleExamples.gstreamer/Pipeline.html#queryPosition()"><CODE>Pipeline.queryPosition()</CODE></A> and <A HREF="org/moduleExamples.gstreamer/Pipeline.html#queryDuration()"><CODE>Pipeline.queryDuration()</CODE></A> and
+ setting the format passed to <A HREF="org/moduleExamples.gstreamer/Format.html#TIME"><CODE>Format.TIME</CODE></A>. If the query was successful,
  the duration or position will have been returned in units of nanoseconds.
  </p>
  
  <h3>Advanced Usage: specifying the audio and video sink</h3>
  <p>
- By default, if no audio sink or video sink has been specified via <A HREF="org/gstreamer/elements/PlayBin.html#setAudioSink(org.gstreamer.Element)"><CODE>PlayBin.setAudioSink(org.gstreamer.Element)</CODE></A> 
- and <A HREF="org/gstreamer/elements/PlayBin.html#setVideoSink(org.gstreamer.Element)"><CODE>PlayBin.setVideoSink(org.gstreamer.Element)</CODE></A>, playbin will use the autoaudiosink and autovideosink
+ By default, if no audio sink or video sink has been specified via <A HREF="org/moduleExamples.gstreamer/elements/PlayBin.html#setAudioSink(org.gstreamer.Element)"><CODE>PlayBin.setAudioSink(org.gstreamer.Element)</CODE></A> 
+ and <A HREF="org/moduleExamples.gstreamer/elements/PlayBin.html#setVideoSink(org.gstreamer.Element)"><CODE>PlayBin.setVideoSink(org.gstreamer.Element)</CODE></A>, playbin will use the autoaudiosink and autovideosink
  elements to find the first-best available output method.
  This should work in most cases, but is not always desirable. Often either
  the user or application might want to specify more explicitly what to use
@@ -181,8 +181,8 @@ function windowTitle()
  <p>
  If the application wants more control over how audio or video should be
  output, it may create the audio/video sink elements itself (for example
- using <A HREF="org/gstreamer/ElementFactory.html#make(java.lang.String, java.lang.String)"><CODE>ElementFactory.make(java.lang.String, java.lang.String)</CODE></A>) and provide them to playbin using <A HREF="org/gstreamer/elements/PlayBin.html#setAudioSink(org.gstreamer.Element)"><CODE>PlayBin.setAudioSink(org.gstreamer.Element)</CODE></A> 
- and <A HREF="org/gstreamer/elements/PlayBin.html#setVideoSink(org.gstreamer.Element)"><CODE>PlayBin.setVideoSink(org.gstreamer.Element)</CODE></A>
+ using <A HREF="org/moduleExamples.gstreamer/ElementFactory.html#make(java.lang.String, java.lang.String)"><CODE>ElementFactory.make(java.lang.String, java.lang.String)</CODE></A>) and provide them to playbin using <A HREF="org/moduleExamples.gstreamer/elements/PlayBin.html#setAudioSink(org.gstreamer.Element)"><CODE>PlayBin.setAudioSink(org.gstreamer.Element)</CODE></A> 
+ and <A HREF="org/moduleExamples.gstreamer/elements/PlayBin.html#setVideoSink(org.gstreamer.Element)"><CODE>PlayBin.setVideoSink(org.gstreamer.Element)</CODE></A>
  </p>
  <p>
  GNOME-based applications, for example, will usually want to create
@@ -194,8 +194,8 @@ function windowTitle()
  The sink elements do not necessarily need to be ready-made sinks. It is
  possible to create container elements that look like a sink to playbin,
  but in reality contain a number of custom elements linked together. This
- can be achieved by creating a <A HREF="org/gstreamer/Bin.html" title="class in org.gstreamer"><CODE>Bin</CODE></A> and putting elements in there and
- linking them, and then creating a sink <A HREF="org/gstreamer/GhostPad.html" title="class in org.gstreamer"><CODE>GhostPad</CODE></A> for the bin and pointing
+ can be achieved by creating a <A HREF="org/moduleExamples.gstreamer/Bin.html" title="class in org.gstreamer"><CODE>Bin</CODE></A> and putting elements in there and
+ linking them, and then creating a sink <A HREF="org/moduleExamples.gstreamer/GhostPad.html" title="class in org.gstreamer"><CODE>GhostPad</CODE></A> for the bin and pointing
  it to the sink pad of the first element within the bin. This can be used
  for a number of purposes, for example to force output to a particular
  format or to modify or observe the data before it is output.
@@ -319,44 +319,44 @@ function windowTitle()
 <B>Deprecated Methods</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="org/gstreamer/swing/VideoComponent.html#getAlpha()">org.gstreamer.swing.VideoComponent.getAlpha()</A>
+<TD><A HREF="org/moduleExamples.gstreamer/swing/VideoComponent.html#getAlpha()">org.gstreamer.swing.VideoComponent.getAlpha()</A>
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="org/gstreamer/Element.html#getPad(java.lang.String)">org.gstreamer.Element.getPad(String)</A>
+<TD><A HREF="org/moduleExamples.gstreamer/Element.html#getPad(java.lang.String)">org.gstreamer.Element.getPad(String)</A>
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<I>Use <A HREF="org/gstreamer/Element.html#getStaticPad(java.lang.String)"><CODE>Element.getStaticPad(java.lang.String)</CODE></A></I>&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<I>Use <A HREF="org/moduleExamples.gstreamer/Element.html#getStaticPad(java.lang.String)"><CODE>Element.getStaticPad(java.lang.String)</CODE></A></I>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="org/gstreamer/lowlevel/GstXOverlayAPI.html#gst_x_overlay_got_xwindow_id(org.gstreamer.interfaces.XOverlay, com.sun.jna.NativeLong)">org.gstreamer.lowlevel.GstXOverlayAPI.gst_x_overlay_got_xwindow_id(XOverlay, NativeLong)</A>
+<TD><A HREF="org/moduleExamples.gstreamer/lowlevel/GstXOverlayAPI.html#gst_x_overlay_got_xwindow_id(org.gstreamer.interfaces.XOverlay, com.sun.jna.NativeLong)">org.gstreamer.lowlevel.GstXOverlayAPI.gst_x_overlay_got_xwindow_id(XOverlay, NativeLong)</A>
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="org/gstreamer/lowlevel/GstXOverlayAPI.html#gst_x_overlay_set_xwindow_id(org.gstreamer.interfaces.XOverlay, com.sun.jna.NativeLong)">org.gstreamer.lowlevel.GstXOverlayAPI.gst_x_overlay_set_xwindow_id(XOverlay, NativeLong)</A>
+<TD><A HREF="org/moduleExamples.gstreamer/lowlevel/GstXOverlayAPI.html#gst_x_overlay_set_xwindow_id(org.gstreamer.interfaces.XOverlay, com.sun.jna.NativeLong)">org.gstreamer.lowlevel.GstXOverlayAPI.gst_x_overlay_set_xwindow_id(XOverlay, NativeLong)</A>
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="org/gstreamer/lowlevel/GstXOverlayAPI.html#gst_x_overlay_set_xwindow_id(org.gstreamer.interfaces.XOverlay, com.sun.jna.Pointer)">org.gstreamer.lowlevel.GstXOverlayAPI.gst_x_overlay_set_xwindow_id(XOverlay, Pointer)</A>
+<TD><A HREF="org/moduleExamples.gstreamer/lowlevel/GstXOverlayAPI.html#gst_x_overlay_set_xwindow_id(org.gstreamer.interfaces.XOverlay, com.sun.jna.Pointer)">org.gstreamer.lowlevel.GstXOverlayAPI.gst_x_overlay_set_xwindow_id(XOverlay, Pointer)</A>
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="org/gstreamer/swing/VideoComponent.html#setAlpha(float)">org.gstreamer.swing.VideoComponent.setAlpha(float)</A>
+<TD><A HREF="org/moduleExamples.gstreamer/swing/VideoComponent.html#setAlpha(float)">org.gstreamer.swing.VideoComponent.setAlpha(float)</A>
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="org/gstreamer/interfaces/XOverlay.html#setWindowID(java.awt.Component)">org.gstreamer.interfaces.XOverlay.setWindowID(Component)</A>
+<TD><A HREF="org/moduleExamples.gstreamer/interfaces/XOverlay.html#setWindowID(java.awt.Component)">org.gstreamer.interfaces.XOverlay.setWindowID(Component)</A>
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<I>use <A HREF="org/gstreamer/interfaces/XOverlay.html#setWindowHandle(java.awt.Component)"><CODE>XOverlay.setWindowHandle(java.awt.Component)</CODE></A> instead</I>&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<I>use <A HREF="org/moduleExamples.gstreamer/interfaces/XOverlay.html#setWindowHandle(java.awt.Component)"><CODE>XOverlay.setWindowHandle(java.awt.Component)</CODE></A> instead</I>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><A HREF="org/gstreamer/interfaces/XOverlay.html#setWindowID(long)">org.gstreamer.interfaces.XOverlay.setWindowID(long)</A>
+<TD><A HREF="org/moduleExamples.gstreamer/interfaces/XOverlay.html#setWindowID(long)">org.gstreamer.interfaces.XOverlay.setWindowID(long)</A>
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<I>use <A HREF="org/gstreamer/interfaces/XOverlay.html#setWindowHandle(long)"><CODE>XOverlay.setWindowHandle(long)</CODE></A> instead</I>&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<I>use <A HREF="org/moduleExamples.gstreamer/interfaces/XOverlay.html#setWindowHandle(long)"><CODE>XOverlay.setWindowHandle(long)</CODE></A> instead</I>&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;

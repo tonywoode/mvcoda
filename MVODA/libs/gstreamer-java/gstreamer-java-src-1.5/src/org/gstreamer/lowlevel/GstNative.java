@@ -2,7 +2,7 @@
  * Copyright (c) 2009 Levente Farkas
  * Copyright (c) 2007, 2008 Wayne Meissner
  * 
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3 only, as
@@ -36,7 +36,7 @@ public final class GstNative {
         put(Library.OPTION_FUNCTION_MAPPER, new GFunctionMapper());
     }};
     public static <T extends Library> T load(Class<T> interfaceClass) {
-        return load("gstreamer", interfaceClass);
+        return load("moduleExamples.gstreamer", interfaceClass);
     }
     public static <T extends Library> T load(String libraryName, Class<T> interfaceClass) {
         return GNative.loadLibrary(libraryName + "-0.10", interfaceClass, options);

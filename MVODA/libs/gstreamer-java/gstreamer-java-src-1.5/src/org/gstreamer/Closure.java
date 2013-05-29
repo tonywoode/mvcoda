@@ -1,7 +1,7 @@
 /* 
  * Copyright (c) 2008 Wayne Meissner
  * 
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU Lesser General Public License version 3 only, as
@@ -22,7 +22,7 @@ package org.gstreamer;
  * A signal callback.
  * <p>
  * Each closure should have exactly one method named 'invoke' which will be invoked
- * when the signal is triggered from gstreamer
+ * when the signal is triggered from moduleExamples.gstreamer
  * </p>
  */
 public interface Closure {

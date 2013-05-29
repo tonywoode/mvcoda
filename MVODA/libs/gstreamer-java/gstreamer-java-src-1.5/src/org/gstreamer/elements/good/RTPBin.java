@@ -1,7 +1,7 @@
 /* 
  * Copyright (c) 2010 Levente Farkas <lfarkas@lfarkas.org>
  * 
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3 only, as
@@ -22,7 +22,7 @@ import org.gstreamer.Caps;
 import org.gstreamer.lowlevel.GstAPI.GstCallback;
 
 /**
- * Java representation of gstreamer gstrtpbin
+ * Java representation of moduleExamples.gstreamer gstrtpbin
  */
 public class RTPBin extends Bin {
 	public static final String GST_NAME = "gstrtpbin";

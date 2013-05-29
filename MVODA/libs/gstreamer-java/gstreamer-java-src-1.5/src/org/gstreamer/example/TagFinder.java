@@ -45,7 +45,7 @@ public class TagFinder {
         final CountDownLatch done = new CountDownLatch(1);
         
         //
-        // Initialize the gstreamer framework, and let it interpret any command
+        // Initialize the moduleExamples.gstreamer framework, and let it interpret any command
         // line flags it is interested in.
         //
         args = Gst.init(progname, args);

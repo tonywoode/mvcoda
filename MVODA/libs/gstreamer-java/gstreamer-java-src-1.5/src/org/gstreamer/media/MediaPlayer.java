@@ -1,7 +1,7 @@
 /* 
  * Copyright (c) 2007 Wayne Meissner
  * 
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3 only, as
@@ -26,7 +26,7 @@ import org.gstreamer.Pipeline;
 import org.gstreamer.media.event.MediaListener;
 
 /**
- * The control interface used to control/query the gstreamer pipeline that
+ * The control interface used to control/query the moduleExamples.gstreamer pipeline that
  * {@link org.gstreamer.swing.VideoPlayer} uses to play media files.
  * @author wayne
  */

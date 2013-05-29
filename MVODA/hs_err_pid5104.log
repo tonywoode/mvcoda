@@ -87,12 +87,12 @@ j  com.sun.jna.Function.invokePointer(I[Ljava/lang/Object;)Lcom/sun/jna/Pointer;
 j  com.sun.jna.Function.invoke([Ljava/lang/Object;Ljava/lang/Class;Z)Ljava/lang/Object;+642
 j  com.sun.jna.Function.invoke(Ljava/lang/Class;[Ljava/lang/Object;Ljava/util/Map;)Ljava/lang/Object;+214
 j  com.sun.jna.Library$Handler.invoke(Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;+341
-j  org.gstreamer.$Proxy8.gst_pad_get_negotiated_caps(Lorg/gstreamer/Pad;)Lorg/gstreamer/Caps;+16
-j  org.gstreamer.Pad.getNegotiatedCaps()Lorg/gstreamer/Caps;+4
+j  org.gstreamer.$Proxy8.gst_pad_get_negotiated_caps(Lorg/moduleExamples.gstreamer/Pad;)Lorg/moduleExamples.gstreamer/Caps;+16
+j  org.gstreamer.Pad.getNegotiatedCaps()Lorg/moduleExamples.gstreamer/Caps;+4
 j  org.gstreamer.swing.VideoComponent$RGBListener.rgbFrame(ZIILjava/nio/IntBuffer;)V+152
-j  org.gstreamer.elements.RGBDataSink$VideoHandoffListener.doHandoff(Lorg/gstreamer/Buffer;Lorg/gstreamer/Pad;Z)V+107
-j  org.gstreamer.elements.RGBDataSink$VideoHandoffListener.handoff(Lorg/gstreamer/elements/BaseSink;Lorg/gstreamer/Buffer;Lorg/gstreamer/Pad;)V+4
-j  org.gstreamer.elements.BaseSink$1.callback(Lorg/gstreamer/elements/BaseSink;Lorg/gstreamer/Buffer;Lorg/gstreamer/Pad;)V+7
+j  org.gstreamer.elements.RGBDataSink$VideoHandoffListener.doHandoff(Lorg/moduleExamples.gstreamer/Buffer;Lorg/moduleExamples.gstreamer/Pad;Z)V+107
+j  org.gstreamer.elements.RGBDataSink$VideoHandoffListener.handoff(Lorg/moduleExamples.gstreamer/elements/BaseSink;Lorg/moduleExamples.gstreamer/Buffer;Lorg/moduleExamples.gstreamer/Pad;)V+4
+j  org.gstreamer.elements.BaseSink$1.callback(Lorg/moduleExamples.gstreamer/elements/BaseSink;Lorg/moduleExamples.gstreamer/Buffer;Lorg/moduleExamples.gstreamer/Pad;)V+7
 j  sun.reflect.GeneratedMethodAccessor4.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+56
 j  sun.reflect.DelegatingMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+6
 j  java.lang.reflect.Method.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+57
@@ -106,12 +106,12 @@ j  com.sun.jna.Function.invokePointer(I[Ljava/lang/Object;)Lcom/sun/jna/Pointer;
 j  com.sun.jna.Function.invoke([Ljava/lang/Object;Ljava/lang/Class;Z)Ljava/lang/Object;+642
 j  com.sun.jna.Function.invoke(Ljava/lang/Class;[Ljava/lang/Object;Ljava/util/Map;)Ljava/lang/Object;+214
 j  com.sun.jna.Library$Handler.invoke(Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;+341
-j  org.gstreamer.$Proxy8.gst_pad_get_negotiated_caps(Lorg/gstreamer/Pad;)Lorg/gstreamer/Caps;+16
-j  org.gstreamer.Pad.getNegotiatedCaps()Lorg/gstreamer/Caps;+4
+j  org.gstreamer.$Proxy8.gst_pad_get_negotiated_caps(Lorg/moduleExamples.gstreamer/Pad;)Lorg/moduleExamples.gstreamer/Caps;+16
+j  org.gstreamer.Pad.getNegotiatedCaps()Lorg/moduleExamples.gstreamer/Caps;+4
 j  org.gstreamer.swing.VideoComponent$RGBListener.rgbFrame(ZIILjava/nio/IntBuffer;)V+152
-j  org.gstreamer.elements.RGBDataSink$VideoHandoffListener.doHandoff(Lorg/gstreamer/Buffer;Lorg/gstreamer/Pad;Z)V+107
-j  org.gstreamer.elements.RGBDataSink$VideoHandoffListener.handoff(Lorg/gstreamer/elements/BaseSink;Lorg/gstreamer/Buffer;Lorg/gstreamer/Pad;)V+4
-j  org.gstreamer.elements.BaseSink$1.callback(Lorg/gstreamer/elements/BaseSink;Lorg/gstreamer/Buffer;Lorg/gstreamer/Pad;)V+7
+j  org.gstreamer.elements.RGBDataSink$VideoHandoffListener.doHandoff(Lorg/moduleExamples.gstreamer/Buffer;Lorg/moduleExamples.gstreamer/Pad;Z)V+107
+j  org.gstreamer.elements.RGBDataSink$VideoHandoffListener.handoff(Lorg/moduleExamples.gstreamer/elements/BaseSink;Lorg/moduleExamples.gstreamer/Buffer;Lorg/moduleExamples.gstreamer/Pad;)V+4
+j  org.gstreamer.elements.BaseSink$1.callback(Lorg/moduleExamples.gstreamer/elements/BaseSink;Lorg/moduleExamples.gstreamer/Buffer;Lorg/moduleExamples.gstreamer/Pad;)V+7
 j  sun.reflect.GeneratedMethodAccessor4.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+56
 j  sun.reflect.DelegatingMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+6
 j  java.lang.reflect.Method.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+57
@@ -124,7 +124,7 @@ v  ~StubRoutines::call_stub
 Java Threads: ( => current thread )
 =>0x000000000ad57000 JavaThread "Thread-431" [_thread_in_native, id=4424, stack(0x0000000011bc0000,0x0000000011cc0000)]
   0x000000000f80d800 JavaThread "TimerQueue" daemon [_thread_blocked, id=2112, stack(0x0000000011a90000,0x0000000011b90000)]
-  0x000000000f80d000 JavaThread "gstreamer service thread 1" daemon [_thread_blocked, id=3852, stack(0x0000000011990000,0x0000000011a90000)]
+  0x000000000f80d000 JavaThread "moduleExamples.gstreamer service thread 1" daemon [_thread_blocked, id=3852, stack(0x0000000011990000,0x0000000011a90000)]
   0x00000000024ad800 JavaThread "DestroyJavaVM" [_thread_blocked, id=4916, stack(0x0000000002710000,0x0000000002810000)]
   0x000000000f7bd000 JavaThread "AWT-EventQueue-0" [_thread_blocked, id=4716, stack(0x00000000104b0000,0x00000000105b0000)]
   0x000000000adfd000 JavaThread "AWT-Shutdown" [_thread_blocked, id=3224, stack(0x00000000101a0000,0x00000000102a0000)]
@@ -356,7 +356,7 @@ Dynamic libraries:
 0x0000000066000000 - 0x0000000066167000 	C:\Users\tony\CODE\Software\Gstreamer-SDK\0.10\x86_64\bin\libiconv-2.dll
 0x00000000026c0000 - 0x00000000026e0000 	C:\Users\tony\CODE\Software\Gstreamer-SDK\0.10\x86_64\bin\libz.dll
 0x000007fefd580000 - 0x000007fefd5a5000 	C:\Windows\system32\SspiCli.dll
-0x0000000066dc0000 - 0x0000000066e08000 	C:\Users\tony\CODE\Software\Gstreamer-SDK\0.10\x86_64\lib\gstreamer-0.10\libgstclutter.dll
+0x0000000066dc0000 - 0x0000000066e08000 	C:\Users\tony\CODE\Software\Gstreamer-SDK\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstclutter.dll
 0x00000000642c0000 - 0x0000000064723000 	C:\Users\tony\CODE\Software\Gstreamer-SDK\0.10\x86_64\bin\libclutter-win32-1.0-0.dll
 0x0000000062940000 - 0x00000000629ec000 	C:\Users\tony\CODE\Software\Gstreamer-SDK\0.10\x86_64\bin\libatk-1.0-0.dll
 0x000000006cf40000 - 0x000000006cf65000 	C:\Users\tony\CODE\Software\Gstreamer-SDK\0.10\x86_64\bin\libcairo-gobject-2.dll
@@ -395,11 +395,11 @@ Dynamic libraries:
 0x000007fefc840000 - 0x000007fefc86d000 	C:\Windows\system32\ntmarta.dll
 0x000007fefdd40000 - 0x000007fefdd92000 	C:\Windows\system32\WLDAP32.dll
 0x000000000cbb0000 - 0x000000000de80000 	C:\Windows\system32\ig4icd64.dll
-0x0000000061e40000 - 0x0000000061e93000 	C:\Users\tony\CODE\Software\Gstreamer-SDK\0.10\x86_64\lib\gstreamer-0.10\libgstvideotestsrc.dll
+0x0000000061e40000 - 0x0000000061e93000 	C:\Users\tony\CODE\Software\Gstreamer-SDK\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstvideotestsrc.dll
 0x000000000f580000 - 0x000000000f76c000 	C:\Users\tony\CODE\Software\Gstreamer-SDK\0.10\x86_64\bin\liborc-0.4-0.dll
-0x000000006e080000 - 0x000000006e1c3000 	C:\Users\tony\CODE\Software\Gstreamer-SDK\0.10\x86_64\lib\gstreamer-0.10\libgstcoreelements.dll
+0x000000006e080000 - 0x000000006e1c3000 	C:\Users\tony\CODE\Software\Gstreamer-SDK\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstcoreelements.dll
 0x000000006c2c0000 - 0x000000006c453000 	C:\Program Files\Java\jdk1.7.0_17\jre\bin\awt.dll
-0x0000000063c80000 - 0x0000000063deb000 	C:\Users\tony\CODE\Software\Gstreamer-SDK\0.10\x86_64\lib\gstreamer-0.10\libgstffmpegcolorspace.dll
+0x0000000063c80000 - 0x0000000063deb000 	C:\Users\tony\CODE\Software\Gstreamer-SDK\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstffmpegcolorspace.dll
 0x0000000062ac0000 - 0x0000000062b45000 	C:\Users\tony\CODE\Software\Gstreamer-SDK\0.10\x86_64\bin\libgstvideo-0.10-0.dll
 0x0000000077fc0000 - 0x0000000077ff4000 	C:\Program Files\Java\jdk1.7.0_17\jre\bin\fontmanager.dll
 0x000000000a080000 - 0x000000000a092000 	c:\Program Files\Eracent\EPM\EracentEPMHookLib.dll
@@ -407,13 +407,13 @@ Dynamic libraries:
 
 VM Arguments:
 jvm_args: -Dfile.encoding=Cp1252 
-java_command: gstreamer.VideoTest
+java_command: moduleExamples.gstreamer.VideoTest
 Launcher Type: SUN_STANDARD
 
 Environment Variables:
 JAVA_HOME=C:\Program Files\Java\jdk1.7.0_17
 CLASSPATH=.;C:\Program Files (x86)\Java\jre7\lib\ext\QTJava.zip
-PATH=C:\Users\Tony\CODE\Software\ImageMagick-6.8.5-Q16;C:\Oracle_x64\Ora112\bin;C:\Oracle_x86\Ora112\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Enterprise Vault\EVClient\;C:\Program Files\Java\jdk1.7.0_17\bin;C:\Program Files (x86)\QuickTime\QTSystem\;C:\Program Files\TortoiseSVN\bin;C:\Users\tony\CODE\Software\Gstreamer-SDK\0.10\x86_64\\bin;C:\Users\tony\CODE\Software\Gstreamer-SDK\0.10\x86_64\\lib\gstreamer-0.10;C:\Program Files (x86)\SSH Communications Security\SSH Secure Shell
+PATH=C:\Users\Tony\CODE\Software\ImageMagick-6.8.5-Q16;C:\Oracle_x64\Ora112\bin;C:\Oracle_x86\Ora112\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Enterprise Vault\EVClient\;C:\Program Files\Java\jdk1.7.0_17\bin;C:\Program Files (x86)\QuickTime\QTSystem\;C:\Program Files\TortoiseSVN\bin;C:\Users\tony\CODE\Software\Gstreamer-SDK\0.10\x86_64\\bin;C:\Users\tony\CODE\Software\Gstreamer-SDK\0.10\x86_64\\lib\moduleExamples.gstreamer-0.10;C:\Program Files (x86)\SSH Communications Security\SSH Secure Shell
 USERNAME=twoode
 OS=Windows_NT
 PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 42 Stepping 7, GenuineIntel

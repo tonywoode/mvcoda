@@ -3,7 +3,7 @@
  * Copyright (C) 2008 Wayne Meissner
  * Copyright (C) 2004 Wim Taymans <wim@fluendo.com>
  * 
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU Lesser General Public License version 3 only, as
@@ -150,7 +150,7 @@ public enum MessageType implements IntegerEnum {
     /**
      * Gets the native integer value for this type.
      * 
-     * @return the native gstreamer value.
+     * @return the native moduleExamples.gstreamer value.
      */
     public int intValue() {
         return type;
@@ -178,7 +178,7 @@ public enum MessageType implements IntegerEnum {
     /**
      * Gets a MessageType that corresponds to the name
      * 
-     * @param name the gstreamer name of the type.
+     * @param name the moduleExamples.gstreamer name of the type.
      * @return a MessageType.
      */
     public static final MessageType forName(String name) {

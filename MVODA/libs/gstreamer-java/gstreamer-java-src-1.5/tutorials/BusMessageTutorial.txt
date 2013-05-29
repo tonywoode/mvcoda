@@ -58,7 +58,7 @@ the call to Gst.main() at the end of the program, return.
 
 
 Next up, we connect a listener for ERROR events - these will get posted if 
-gstreamer cannot play the file for any reason, or errors are discovered in the
+moduleExamples.gstreamer cannot play the file for any reason, or errors are discovered in the
 stream.
 
         playbin.getBus().connect(new Bus.ERROR() {
@@ -69,7 +69,7 @@ stream.
         });
 
 Lastly, we connect a listener for state-changed events.  This is instructive to
-see how gstreamer changes the pipeline state in response to a 
+see how moduleExamples.gstreamer changes the pipeline state in response to a 
 Pipeline.setState() method call.
 
         playbin.getBus().connect(new Bus.STATE_CHANGED() {
@@ -85,7 +85,7 @@ that the message source is the pipeline - i.e. the state change is a top level
 pipeline state change, and not some internal element changing state.
 
 
-Finally, we have the standard gstreamer boilerplate to keep the main thread 
+Finally, we have the standard moduleExamples.gstreamer boilerplate to keep the main thread 
 alive whilst the media file is playing, and clean up at its completion.
 
         playbin.setState(State.PLAYING);

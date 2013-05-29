@@ -1,6 +1,6 @@
-This is a port of the gstreamer tutorial from http://gstreamer.freedesktop.org/data/doc/gstreamer/head/manual/html/chapter-init.html
+This is a port of the moduleExamples.gstreamer tutorial from http://moduleExamples.gstreamer.freedesktop.org/data/doc/moduleExamples.gstreamer/head/manual/html/chapter-init.html
 
-It demonstrates how to initialize the gstreamer framework before using it.
+It demonstrates how to initialize the moduleExamples.gstreamer framework before using it.
 
 public class InitTest {
     public static void main(String[] args) {
@@ -20,31 +20,31 @@ public class InitTest {
     }
 }
 
-The first line simply initializes gstreamer itself:
+The first line simply initializes moduleExamples.gstreamer itself:
 
        args = Gst.init("InitTest", args);
 
 The first argument is the program name.  You can supply any string here, as it
-is only used by gstreamer for debugging and error messages, but supplying the
+is only used by moduleExamples.gstreamer for debugging and error messages, but supplying the
 name of your main class would be a good idea.
 
-If gstreamer fails to initialize, Gst.init() will throw a GstException which you
+If moduleExamples.gstreamer fails to initialize, Gst.init() will throw a GstException which you
 might want to catch if you want to report the error in a GUI.
 
 
-After initializing gstreamer, we get the version information of the currently
-loaded version of gstreamer.
+After initializing moduleExamples.gstreamer, we get the version information of the currently
+loaded version of moduleExamples.gstreamer.
 
         Version version = Gst.getVersion();
 
-Each gstreamer version has a major, minor, micro and nano component.  The major 
+Each moduleExamples.gstreamer version has a major, minor, micro and nano component.  The major 
 is always '0', the minor will always be '10', and the micro is incremented for
 each release.  The nano component is used between releases to signify a 
 non-release version (either compiled from CVS, or a pre-release).
 
 To get the version as a string as shown above, simply use Version.toString().
 
-After we've finished with gstreamer, shut it down via;
+After we've finished with moduleExamples.gstreamer, shut it down via;
 
         Gst.deinit();
 

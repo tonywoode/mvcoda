@@ -33,7 +33,7 @@ import org.gstreamer.Pipeline;
 public class SimplePipeline {
     public static void main(String[] args) {
         //
-        // Initialize the gstreamer framework, and let it interpret any command
+        // Initialize the moduleExamples.gstreamer framework, and let it interpret any command
         // line flags it is interested in.
         //
         args = Gst.init("SimplePipeline", args);

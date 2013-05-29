@@ -3,7 +3,7 @@
  * Copyright (C) 2009 Tamas Korodi <kotyo@zamba.fm> 
  * Copyright (c) 2008 Wayne Meissner
  * 
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3 only, as
@@ -44,7 +44,7 @@ public class TunerChannel extends GObject {
     }
     
     /**
-     * For internal gstreamer-java use only
+     * For internal moduleExamples.gstreamer-java use only
      * 
      * @param init initialization data
      */

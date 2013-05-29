@@ -4,7 +4,7 @@
  *                    2000 Wim Taymans <wim.taymans@chello.be>
  *                    2005 Wim Taymans <wim@fluendo.com>
  *
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU Lesser General Public License version 3 only, as
@@ -83,9 +83,9 @@ public final class QueryType implements Comparable<QueryType> {
     }
     
     /**
-     * Looks up a query type by its gstreamer nick.
+     * Looks up a query type by its moduleExamples.gstreamer nick.
      * 
-     * @param nick the gstreamer nick.
+     * @param nick the moduleExamples.gstreamer nick.
      * @return the query type.
      */
     public static QueryType fromNick(String nick) {
@@ -107,7 +107,7 @@ public final class QueryType implements Comparable<QueryType> {
     /**
      * gets the name of this type.
      * 
-     * @return the gstreamer name for this type.
+     * @return the moduleExamples.gstreamer name for this type.
      */
     public String getName() {
         return gst.gst_query_type_get_name(this);

@@ -4,7 +4,7 @@
  * Copyright (C) 1999,2000 Erik Walthinsen <omega@cse.ogi.edu>
  *                    2004 Wim Taymans <wim@fluendo.com>
  * 
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU Lesser General Public License version 3 only, as
@@ -248,11 +248,11 @@ public class Bin extends Element {
     
     /**
      * To aid debugging applications one can use this method to write out the whole
-     * network of gstreamer elements that form the pipeline into an dot file.
+     * network of moduleExamples.gstreamer elements that form the pipeline into an dot file.
      * This file can be processed with graphviz to get an image.
      * e.g. dot -Tpng -oimage.png graph_lowlevel.dot
      * 
-     * The function is only active if gstreamer is configured with
+     * The function is only active if moduleExamples.gstreamer is configured with
      * "--gst-enable-gst-debug" and the environment variable
      * GST_DEBUG_DUMP_DOT_DIR is set to a basepath (e.g. /tmp).
      *

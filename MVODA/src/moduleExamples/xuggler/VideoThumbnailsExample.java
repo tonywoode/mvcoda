@@ -1,4 +1,4 @@
-package xuggler;
+package moduleExamples.xuggler;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

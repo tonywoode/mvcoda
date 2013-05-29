@@ -102,7 +102,7 @@ public class ButtonDemo {
                     box.setOpaque(false);
                     button.add(box);
                     panel.add(button);
-                    // Delay the startup a bit so gstreamer doesn't get swamped
+                    // Delay the startup a bit so moduleExamples.gstreamer doesn't get swamped
                     javax.swing.Timer timer = new javax.swing.Timer(2000 * i, new ActionListener() {
                         public void actionPerformed(ActionEvent evt) {
                             player.getMediaPlayer().play();

@@ -1,4 +1,4 @@
-package xuggler;
+package moduleExamples.xuggler;
 
 import java.awt.AWTException;
 import java.awt.Dimension;

@@ -1,7 +1,7 @@
 /* 
  * Copyright (c) 2008 Levente Farkas
  * 
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3 only, as
@@ -21,7 +21,7 @@ package org.gstreamer.elements;
 import org.gstreamer.Element;
 
 /**
- * A gstreamer element for data queue.
+ * A moduleExamples.gstreamer element for data queue.
  */
 public class Tee extends Element {
 	public static final String GST_NAME = "tee";

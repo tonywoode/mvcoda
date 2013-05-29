@@ -1,4 +1,4 @@
-package imageMajick;
+package moduleExamples.imageMajick;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -2,7 +2,7 @@
  * Copyright (c) 2009 Levente Farkas
  * Copyright (c) 2008 Wayne Meissner
  * 
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3 only, as
@@ -33,7 +33,7 @@ import com.sun.jna.Pointer;
 import static org.gstreamer.lowlevel.GstInterfacesAPI.GSTINTERFACES_API;
 
 /**
- * Base type for all gstreamer interface proxies
+ * Base type for all moduleExamples.gstreamer interface proxies
  */
 public class GstInterface extends NativeValue {
     protected final Pointer handle;

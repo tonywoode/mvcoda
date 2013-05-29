@@ -38,7 +38,7 @@ import org.gstreamer.elements.PlayBin2;
 public class AudioPlayerMetadata {
     public static void main(String[] args) {
         //
-        // Initialize the gstreamer framework, and let it interpret any command
+        // Initialize the moduleExamples.gstreamer framework, and let it interpret any command
         // line flags it is interested in.
         //
         args = Gst.init("AudioPlayerMetadata", args);
@@ -76,7 +76,7 @@ public class AudioPlayerMetadata {
         playbin.play();
         Gst.main();
         
-        // Clean up (gstreamer requires elements to be in State.NULL before disposal)
+        // Clean up (moduleExamples.gstreamer requires elements to be in State.NULL before disposal)
         playbin.stop();
     }
 }

@@ -1,15 +1,15 @@
 %global arch_with_swt %{ix86} x86_64 ppc ppc64 ia64 sparc sparc64
 
-Summary:	Java interface to the gstreamer framework
-Name:		gstreamer-java
+Summary:	Java interface to the moduleExamples.gstreamer framework
+Name:		moduleExamples.gstreamer-java
 Version:	1.5
 Release:	1%{?dist}
 License:	LGPLv3 and CC-BY-SA
 Group:		System Environment/Libraries
-URL:		http://code.google.com/p/gstreamer-java/
-# zip -r ~/rpm/SOURCES/gstreamer-java-src-1.5.zip gstreamer-java -x \*/.svn*
-Source:		http://gstreamer-java.googlecode.com/files/%{name}-src-%{version}.zip
-Patch1:		gstreamer-java-swt.patch
+URL:		http://code.google.com/p/moduleExamples.gstreamer-java/
+# zip -r ~/rpm/SOURCES/moduleExamples.gstreamer-java-src-1.5.zip moduleExamples.gstreamer-java -x \*/.svn*
+Source:		http://moduleExamples.gstreamer-java.googlecode.com/files/%{name}-src-%{version}.zip
+Patch1:		moduleExamples.gstreamer-java-swt.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 # for ExcludeArch and no noarch see bug: 468831
 # since noarch pacakge can't contain ExcludeArch :-( imho it's an rpm bug
@@ -19,9 +19,9 @@ ExcludeArch:	ppc ppc64
 %global debug_package %{nil}
 
 Requires:	java >= 1:1.6.0, jpackage-utils, jna
-Requires:	gstreamer, gstreamer-plugins-base, gstreamer-plugins-good
+Requires:	moduleExamples.gstreamer, moduleExamples.gstreamer-plugins-base, moduleExamples.gstreamer-plugins-good
 BuildRequires:	java-devel >= 1:1.6.0, jpackage-utils, jna
-BuildRequires:	gstreamer-devel, gstreamer-plugins-base-devel, gstreamer-plugins-good
+BuildRequires:	moduleExamples.gstreamer-devel, moduleExamples.gstreamer-plugins-base-devel, moduleExamples.gstreamer-plugins-good
 BuildRequires:	ant, ant-junit
 %if 0%{?fedora} >= 9 || 0%{?rhel} > 5
 BuildRequires:	junit4
@@ -31,7 +31,7 @@ BuildRequires:	libswt3-gtk2, jna-contrib
 %endif
 
 %description
-An unofficial/alternative set of java bindings for the gstreamer multimedia
+An unofficial/alternative set of java bindings for the moduleExamples.gstreamer multimedia
 framework.
 
 %ifarch %{arch_with_swt} noarch
@@ -70,7 +70,7 @@ find . -name '*.jar' -delete
 # replace included jar files with the system packaged version (JNA, SWT, GStreamer plugins dir)
 sed -i -e "s,\(file.reference.jna.jar=\).*,\1$(build-classpath jna)," \
 	-e "s,\(file.reference.platform.jar=\).*,\1$(build-classpath jna/platform.jar)," \
-	-e "s,\(run.jvmargs=-Djna.library.path=\).*,\1%{_libdir}:$(pkg-config --variable=pluginsdir gstreamer-0.10)," \
+	-e "s,\(run.jvmargs=-Djna.library.path=\).*,\1%{_libdir}:$(pkg-config --variable=pluginsdir moduleExamples.gstreamer-0.10)," \
 	nbproject/project.properties
 
 # from Fedora-9 we've got ant-1.7.0 and junit4 while on older releases and EPEL

@@ -1,7 +1,7 @@
 /* 
  * Copyright (c) 2007 Wayne Meissner
  * 
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU Lesser General Public License version 3 only, as
@@ -231,7 +231,7 @@ public class TagList extends Structure {
     
     //
     // Put the maps in a holder class so they don't get initialized until used.
-    // This helps avoid calling gstreamer methods before Gst.init().
+    // This helps avoid calling moduleExamples.gstreamer methods before Gst.init().
     //
     private static final class MapHolder {
         private static final Map<GType, TagGetter> getterMap = new HashMap<GType, TagGetter>() {{

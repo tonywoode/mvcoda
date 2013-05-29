@@ -1,4 +1,4 @@
-package xuggler;
+package moduleExamples.xuggler;
 
 import com.xuggle.mediatool.IMediaReader;
 import com.xuggle.mediatool.IMediaViewer;

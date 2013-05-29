@@ -1,7 +1,7 @@
 /* 
  * Copyright (c) 2007 Wayne Meissner
  * 
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3 only, as
@@ -174,7 +174,7 @@ public abstract class NativeObject extends org.gstreamer.lowlevel.Handle {
         NativeObject obj = GObject.class.isAssignableFrom(cls) ? NativeObject.instanceFor(ptr) : null;
         if (obj != null && cls.isInstance(obj)) {
             if (refAdjust < 0) {
-                ((RefCountedObject) obj).unref(); // Lose the extra ref added by gstreamer
+                ((RefCountedObject) obj).unref(); // Lose the extra ref added by moduleExamples.gstreamer
             }
             return cls.cast(obj);
         }

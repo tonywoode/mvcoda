@@ -1,7 +1,7 @@
 /* 
  * Copyright (c) 2007 Wayne Meissner
  * 
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU Lesser General Public License version 3 only, as
@@ -107,9 +107,9 @@ public final class Gst {
     }
     
     /**
-     * Gets the version of gstreamer currently in use.
+     * Gets the version of moduleExamples.gstreamer currently in use.
      * 
-     * @return the version of gstreamer
+     * @return the version of moduleExamples.gstreamer
      */
     public static Version getVersion() {
         long[] major = { 0 }, minor = { 0 }, micro = { 0 }, nano = { 0 };
@@ -118,7 +118,7 @@ public final class Gst {
     }
     
     /**
-     * Gets the the version of gstreamer currently in use, as a String.
+     * Gets the the version of moduleExamples.gstreamer currently in use, as a String.
      * 
      * @return a string representation of the version.
      */
@@ -185,9 +185,9 @@ public final class Gst {
     }
     
     /**
-     * Waits for the gstreamer system to shutdown via a call to {@link #quit}.
+     * Waits for the moduleExamples.gstreamer system to shutdown via a call to {@link #quit}.
      * <p> For most gui programs, this is of little use.  However, it can be
-     * a convenient way of keeping the main thread alive whilst gstreamer 
+     * a convenient way of keeping the main thread alive whilst moduleExamples.gstreamer 
      * processing on other threads continues.
      */
     public static void main() {
@@ -203,7 +203,7 @@ public final class Gst {
     }
     
     /**
-     * Schedules a task for execution on the gstreamer background
+     * Schedules a task for execution on the moduleExamples.gstreamer background
      * {@link java.util.concurrent.Executor}.
      *
      * @param task the task to execute.
@@ -213,7 +213,7 @@ public final class Gst {
     }
     
     /**
-     * Executes a task on the gstreamer background
+     * Executes a task on the moduleExamples.gstreamer background
      * {@link java.util.concurrent.Executor}, waiting until the task completes
      * before returning.
      *
@@ -238,7 +238,7 @@ public final class Gst {
     
     /**
      * Initializes the GStreamer library.
-     * <p> This is a shortcut if no arguments are to be passed to gstreamer.
+     * <p> This is a shortcut if no arguments are to be passed to moduleExamples.gstreamer.
      *
      * @throws org.gstreamer.GstException
      */
@@ -262,7 +262,7 @@ public final class Gst {
      * 
      * @param progname the java program name.
      * @param args the java argument list.
-     * @return the list of arguments with any gstreamer specific options stripped 
+     * @return the list of arguments with any moduleExamples.gstreamer specific options stripped 
      * out.
      * @throws org.gstreamer.GstException
      */
@@ -298,7 +298,7 @@ public final class Gst {
     /**
      * Undoes all the initialization done in {@link #init}.
      * <p> This will run any cleanup tasks, terminate any timers and other
-     * asynchronous tasks, and de-initialize the gstreamer library.
+     * asynchronous tasks, and de-initialize the moduleExamples.gstreamer library.
      */
     public static synchronized final void deinit() {
         //
@@ -342,7 +342,7 @@ public final class Gst {
     }
     
     /**
-     * Instructs gstreamer-java to use the default main context.
+     * Instructs moduleExamples.gstreamer-java to use the default main context.
      * <p>
      * This may be useful if integration with the GTK main loop is desirable,
      * as all {@link Bus} signals and timers will be executed in the context
@@ -358,7 +358,7 @@ public final class Gst {
         useDefaultContext = useDefault;
     }
     
-    // Make the gstreamer executor threads daemon, so they don't stop the main 
+    // Make the moduleExamples.gstreamer executor threads daemon, so they don't stop the main 
     // program from exiting
     private static final ThreadFactory threadFactory = new ThreadFactory() {
         private final AtomicInteger counter = new AtomicInteger(0);
@@ -383,7 +383,7 @@ public final class Gst {
             }
         }
         public Thread newThread(Runnable task) {
-            final String name = "gstreamer service thread " + counter.incrementAndGet();
+            final String name = "moduleExamples.gstreamer service thread " + counter.incrementAndGet();
             Thread t = new Thread(getThreadGroup(), task, name);
             t.setDaemon(true);
             t.setPriority(Thread.NORM_PRIORITY);

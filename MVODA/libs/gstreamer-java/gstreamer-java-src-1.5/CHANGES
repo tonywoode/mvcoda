@@ -31,7 +31,7 @@ Changes since 0.5:
 - Update to JNA 3.0 
 - Improvements to seeking in VideoPlayer.
 - Rename setPosition() to seek(), getPosition() to queryPosition(), and 
-  getDuration(0 to queryDuration() to match the gstreamer API
+  getDuration(0 to queryDuration() to match the moduleExamples.gstreamer API
 - Add a version of Element.getState() that allows the TimeUnit to be specified
 - VideoComponent now supports navigation events - which means DVD navigation 
   should work - test it with org.gstreamer.example.NavigationTest

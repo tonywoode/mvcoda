@@ -1,7 +1,7 @@
 /* 
  * Copyright (c) 2007 Wayne Meissner
  * 
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU Lesser General Public License version 3 only, as
@@ -21,7 +21,7 @@ package org.gstreamer;
 import java.util.concurrent.TimeUnit;
 
 /**
- * A representation of time in the gstreamer framework.
+ * A representation of time in the moduleExamples.gstreamer framework.
  */
 public final class ClockTime implements Comparable<ClockTime> {
     //--------------------------------------------------------------------------

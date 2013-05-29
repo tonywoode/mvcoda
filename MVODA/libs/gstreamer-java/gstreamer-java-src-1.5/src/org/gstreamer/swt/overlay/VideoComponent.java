@@ -2,7 +2,7 @@
  * Copyright (c) 2009 Tamas Korodi <kotyo@zamba.fm>
  * Copyright (c) 2010 Levente Farkas <lfarkas@lfarkas.org>
  *
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3 only, as
@@ -91,8 +91,8 @@ public class VideoComponent extends Canvas implements BusSyncHandler, DisposeLis
 					videosink = (BaseSink)element;
 					for (Map.Entry<String, Object> e : properties.entrySet())
 						videosink.set(e.getKey(), e.getValue());
-					// according to gstreamer docs:
-					// http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gst-plugins-base-libs/html/gst-plugins-base-libs-gstxoverlay.html
+					// according to moduleExamples.gstreamer docs:
+					// http://moduleExamples.gstreamer.freedesktop.org/data/doc/moduleExamples.gstreamer/head/gst-plugins-base-libs/html/gst-plugins-base-libs-gstxoverlay.html
 					// the overlay should have to be set from bus's SyncHandler,
 					// but we use autosink and in element-added the pipe already 
 					// created so the windows must be prepared so we simple call
@@ -204,7 +204,7 @@ public class VideoComponent extends Canvas implements BusSyncHandler, DisposeLis
 	 * On Linux by default the handling of mouse move, enter and leave event are not propagated.
 	 * Unfortunately the "handle-events" properties hide some important expose events too, 
 	 * sowe've to do some lowlevel trick to be able to get these events.
-	 * In this case we (gstreamer-linux) must handle redraw too!
+	 * In this case we (moduleExamples.gstreamer-linux) must handle redraw too!
 	 *
 	 * @param enableX11Events true if X11 event should have to be grabbed (mouse move, enter and leave event on Linux).
 	 */

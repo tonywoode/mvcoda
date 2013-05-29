@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2007 Wayne Meissner
  *
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3 only, as
@@ -68,7 +68,7 @@ public final class GNative {
     }
     private static <T extends Library> T loadWin32Library(String name, Class<T> interfaceClass, Map<String, ?> options) {        
         //
-        // gstreamer on win32 names the dll files one of foo.dll, libfoo.dll and libfoo-0.dll
+        // moduleExamples.gstreamer on win32 names the dll files one of foo.dll, libfoo.dll and libfoo-0.dll
         //
         String[] nameFormats = { 
             "%s", "lib%s", "lib%s-0",
@@ -84,7 +84,7 @@ public final class GNative {
     }
     private static NativeLibrary getWin32NativeLibrary(String name) {
         //
-        // gstreamer on win32 names the dll files one of foo.dll, libfoo.dll and libfoo-0.dll
+        // moduleExamples.gstreamer on win32 names the dll files one of foo.dll, libfoo.dll and libfoo-0.dll
         //
         String[] nameFormats = { 
             "%s", "lib%s", "lib%s-0",

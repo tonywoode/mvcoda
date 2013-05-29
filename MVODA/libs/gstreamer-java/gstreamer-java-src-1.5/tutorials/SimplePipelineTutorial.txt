@@ -1,4 +1,4 @@
-The basic way of building gstreamer applications, is to construct a pipeline of
+The basic way of building moduleExamples.gstreamer applications, is to construct a pipeline of
 Elements together.
 
 Lets have a look at a simple pipeline that demonstrates this linking.
@@ -20,13 +20,13 @@ public class SimplePipeline {
 Although that is a very simple pipeline, it can look a bit daunting at first, 
 so lets break it up.
 
-The first thing you need to do is to initialize the gstreamer framework.  This
+The first thing you need to do is to initialize the moduleExamples.gstreamer framework.  This
 is achieved via a call to Gst.init():
 
         args = Gst.init("SimplePipeline", args);
 
 The first argument is the program name.  You can supply any string here, as it
-is only used by gstreamer for debugging and error messages, but supplying the
+is only used by moduleExamples.gstreamer for debugging and error messages, but supplying the
 name of your main class would be a good idea.
 
 
@@ -36,7 +36,7 @@ Next, we get a new Pipeline element to hold the other elements.
         Pipeline pipe = new Pipeline("SimplePipeline");
 
 Every application you construct will have a Pipeline (or a Pipeline subclass), 
-as it is the primary mechanism by which gstreamer processing happens.
+as it is the primary mechanism by which moduleExamples.gstreamer processing happens.
 
 
 
@@ -88,9 +88,9 @@ when you don't have a GUI, and you want to wait until the pipeline finishes.
 
 
 Finally, after processing has completed, we need to clean up the pipeline by 
-setting its state back to the default state, or else gstreamer will get upset.
+setting its state back to the default state, or else moduleExamples.gstreamer will get upset.
 
         pipe.setState(State.NULL);
 
-Thats it!   You have now built a gstreamer application, using all the basic
+Thats it!   You have now built a moduleExamples.gstreamer application, using all the basic
 operations you will need to build something more complex.

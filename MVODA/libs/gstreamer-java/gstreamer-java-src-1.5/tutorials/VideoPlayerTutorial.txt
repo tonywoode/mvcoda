@@ -1,5 +1,5 @@
 
-Like the audio player, gstreamer can be used to build a simple video player:
+Like the audio player, moduleExamples.gstreamer can be used to build a simple video player:
 
 public class VideoPlayer {
     public static void main(String[] args) {
@@ -27,7 +27,7 @@ public class VideoPlayer {
     }
 }
 
-The first few lines once again, just initialize gstreamer and set up the 
+The first few lines once again, just initialize moduleExamples.gstreamer and set up the 
 PlayBin to play a file:
 
         args = Gst.init("VideoPlayer", args);
@@ -71,11 +71,11 @@ Lastly, we set the pipeline playing.
 
                 playbin.setState(State.PLAYING);
 
-At the end of the main method we have the usual gstreamer boilerplate:
+At the end of the main method we have the usual moduleExamples.gstreamer boilerplate:
 
         Gst.main();
         playbin.setState(State.NULL);
 
-Whilst that isn't strictly neccessary for GUI gstreamer applications, it keeps
+Whilst that isn't strictly neccessary for GUI moduleExamples.gstreamer applications, it keeps
 the same pattern as used in the other tutorials for familiarity.
 

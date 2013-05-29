@@ -56,10 +56,10 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../org/gstreamer/GError.html" title="class in org.gstreamer"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../org/gstreamer/GObject.html" title="class in org.gstreamer"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../org/moduleExamples.gstreamer/GError.html" title="class in org.gstreamer"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../org/moduleExamples.gstreamer/GObject.html" title="class in org.gstreamer"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../index.html?org/gstreamer/GhostPad.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+  <A HREF="../../index.html?org/moduleExamples.gstreamer/GhostPad.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="GhostPad.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
@@ -94,42 +94,42 @@ org.gstreamer</FONT>
 Class GhostPad</H2>
 <PRE>
 java.lang.Object
-  <IMG SRC="../../resources/inherit.gif" ALT="extended by "><A HREF="../../org/gstreamer/lowlevel/NativeValue.html" title="class in org.gstreamer.lowlevel">org.gstreamer.lowlevel.NativeValue</A>
-      <IMG SRC="../../resources/inherit.gif" ALT="extended by "><A HREF="../../org/gstreamer/lowlevel/Handle.html" title="class in org.gstreamer.lowlevel">org.gstreamer.lowlevel.Handle</A>
-          <IMG SRC="../../resources/inherit.gif" ALT="extended by "><A HREF="../../org/gstreamer/lowlevel/NativeObject.html" title="class in org.gstreamer.lowlevel">org.gstreamer.lowlevel.NativeObject</A>
-              <IMG SRC="../../resources/inherit.gif" ALT="extended by "><A HREF="../../org/gstreamer/lowlevel/RefCountedObject.html" title="class in org.gstreamer.lowlevel">org.gstreamer.lowlevel.RefCountedObject</A>
-                  <IMG SRC="../../resources/inherit.gif" ALT="extended by "><A HREF="../../org/gstreamer/GObject.html" title="class in org.gstreamer">org.gstreamer.GObject</A>
-                      <IMG SRC="../../resources/inherit.gif" ALT="extended by "><A HREF="../../org/gstreamer/GstObject.html" title="class in org.gstreamer">org.gstreamer.GstObject</A>
-                          <IMG SRC="../../resources/inherit.gif" ALT="extended by "><A HREF="../../org/gstreamer/Pad.html" title="class in org.gstreamer">org.gstreamer.Pad</A>
+  <IMG SRC="../../resources/inherit.gif" ALT="extended by "><A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeValue.html" title="class in org.gstreamer.lowlevel">org.gstreamer.lowlevel.NativeValue</A>
+      <IMG SRC="../../resources/inherit.gif" ALT="extended by "><A HREF="../../org/moduleExamples.gstreamer/lowlevel/Handle.html" title="class in org.gstreamer.lowlevel">org.gstreamer.lowlevel.Handle</A>
+          <IMG SRC="../../resources/inherit.gif" ALT="extended by "><A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html" title="class in org.gstreamer.lowlevel">org.gstreamer.lowlevel.NativeObject</A>
+              <IMG SRC="../../resources/inherit.gif" ALT="extended by "><A HREF="../../org/moduleExamples.gstreamer/lowlevel/RefCountedObject.html" title="class in org.gstreamer.lowlevel">org.gstreamer.lowlevel.RefCountedObject</A>
+                  <IMG SRC="../../resources/inherit.gif" ALT="extended by "><A HREF="../../org/moduleExamples.gstreamer/GObject.html" title="class in org.gstreamer">org.gstreamer.GObject</A>
+                      <IMG SRC="../../resources/inherit.gif" ALT="extended by "><A HREF="../../org/moduleExamples.gstreamer/GstObject.html" title="class in org.gstreamer">org.gstreamer.GstObject</A>
+                          <IMG SRC="../../resources/inherit.gif" ALT="extended by "><A HREF="../../org/moduleExamples.gstreamer/Pad.html" title="class in org.gstreamer">org.gstreamer.Pad</A>
                               <IMG SRC="../../resources/inherit.gif" ALT="extended by "><B>org.gstreamer.GhostPad</B>
 </PRE>
 <HR>
 <DL>
-<DT><PRE>public class <B>GhostPad</B><DT>extends <A HREF="../../org/gstreamer/Pad.html" title="class in org.gstreamer">Pad</A></DL>
+<DT><PRE>public class <B>GhostPad</B><DT>extends <A HREF="../../org/moduleExamples.gstreamer/Pad.html" title="class in org.gstreamer">Pad</A></DL>
 </PRE>
 
 <P>
 Pseudo link pads.
  
  <p>
- GhostPads are useful when organizing pipelines with <A HREF="../../org/gstreamer/Bin.html" title="class in org.gstreamer"><CODE>Bin</CODE></A> like elements.
+ GhostPads are useful when organizing pipelines with <A HREF="../../org/moduleExamples.gstreamer/Bin.html" title="class in org.gstreamer"><CODE>Bin</CODE></A> like elements.
  The idea here is to create hierarchical element graphs. The bin element
  contains a sub-graph. Now one would like to treat the bin-element like any other
- <A HREF="../../org/gstreamer/Element.html" title="class in org.gstreamer"><CODE>Element</CODE></A>. This is where GhostPads come into play. A GhostPad acts as a
+ <A HREF="../../org/moduleExamples.gstreamer/Element.html" title="class in org.gstreamer"><CODE>Element</CODE></A>. This is where GhostPads come into play. A GhostPad acts as a
  proxy for another pad. Thus the bin can have sink and source ghost-pads that
  are associated with sink and source pads of the child elements.
  
  <p>
- If the target pad is known at creation time, <A HREF="../../org/gstreamer/GhostPad.html#GhostPad(java.lang.String, org.gstreamer.Pad)"><CODE>GhostPad(String, Pad)</CODE></A> is the
- function to use to get a ghost-pad. Otherwise one can use <A HREF="../../org/gstreamer/GhostPad.html#GhostPad(java.lang.String, org.gstreamer.PadDirection)"><CODE>GhostPad(String, PadDirection)</CODE></A>
- to create the ghost-pad and use <A HREF="../../org/gstreamer/GhostPad.html#setTarget(org.gstreamer.Pad)"><CODE>setTarget(org.gstreamer.Pad)</CODE></A> to establish the association later on.
+ If the target pad is known at creation time, <A HREF="../../org/moduleExamples.gstreamer/GhostPad.html#GhostPad(java.lang.String, org.gstreamer.Pad)"><CODE>GhostPad(String, Pad)</CODE></A> is the
+ function to use to get a ghost-pad. Otherwise one can use <A HREF="../../org/moduleExamples.gstreamer/GhostPad.html#GhostPad(java.lang.String, org.gstreamer.PadDirection)"><CODE>GhostPad(String, PadDirection)</CODE></A>
+ to create the ghost-pad and use <A HREF="../../org/moduleExamples.gstreamer/GhostPad.html#setTarget(org.gstreamer.Pad)"><CODE>setTarget(org.gstreamer.Pad)</CODE></A> to establish the association later on.
 
  <p>Note that GhostPads add overhead to the data processing of a pipeline.
 <P>
 
 <P>
 <DL>
-<DT><B>See Also:</B><DD><A HREF="../../org/gstreamer/Pad.html" title="class in org.gstreamer"><CODE>Pad</CODE></A></DL>
+<DT><B>See Also:</B><DD><A HREF="../../org/moduleExamples.gstreamer/Pad.html" title="class in org.gstreamer"><CODE>Pad</CODE></A></DL>
 <HR>
 
 <P>
@@ -145,30 +145,30 @@ Pseudo link pads.
 &nbsp;<A NAME="nested_classes_inherited_from_class_org.gstreamer.Pad"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Nested classes/interfaces inherited from class org.gstreamer.<A HREF="../../org/gstreamer/Pad.html" title="class in org.gstreamer">Pad</A></B></TH>
+<TH ALIGN="left"><B>Nested classes/interfaces inherited from class org.gstreamer.<A HREF="../../org/moduleExamples.gstreamer/Pad.html" title="class in org.gstreamer">Pad</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../org/gstreamer/Pad.EVENT_PROBE.html" title="interface in org.gstreamer">Pad.EVENT_PROBE</A>, <A HREF="../../org/gstreamer/Pad.HAVE_DATA.html" title="interface in org.gstreamer">Pad.HAVE_DATA</A>, <A HREF="../../org/gstreamer/Pad.LINKED.html" title="interface in org.gstreamer">Pad.LINKED</A>, <A HREF="../../org/gstreamer/Pad.REQUEST_LINK.html" title="interface in org.gstreamer">Pad.REQUEST_LINK</A>, <A HREF="../../org/gstreamer/Pad.UNLINKED.html" title="interface in org.gstreamer">Pad.UNLINKED</A></CODE></TD>
+<TD><CODE><A HREF="../../org/moduleExamples.gstreamer/Pad.EVENT_PROBE.html" title="interface in org.gstreamer">Pad.EVENT_PROBE</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.HAVE_DATA.html" title="interface in org.gstreamer">Pad.HAVE_DATA</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.LINKED.html" title="interface in org.gstreamer">Pad.LINKED</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.REQUEST_LINK.html" title="interface in org.gstreamer">Pad.REQUEST_LINK</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.UNLINKED.html" title="interface in org.gstreamer">Pad.UNLINKED</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;
 <A NAME="nested_classes_inherited_from_class_org.gstreamer.GObject"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Nested classes/interfaces inherited from class org.gstreamer.<A HREF="../../org/gstreamer/GObject.html" title="class in org.gstreamer">GObject</A></B></TH>
+<TH ALIGN="left"><B>Nested classes/interfaces inherited from class org.gstreamer.<A HREF="../../org/moduleExamples.gstreamer/GObject.html" title="class in org.gstreamer">GObject</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../org/gstreamer/GObject.GCallback.html" title="class in org.gstreamer">GObject.GCallback</A></CODE></TD>
+<TD><CODE><A HREF="../../org/moduleExamples.gstreamer/GObject.GCallback.html" title="class in org.gstreamer">GObject.GCallback</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;
 <A NAME="nested_classes_inherited_from_class_org.gstreamer.lowlevel.NativeObject"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Nested classes/interfaces inherited from class org.gstreamer.lowlevel.<A HREF="../../org/gstreamer/lowlevel/NativeObject.html" title="class in org.gstreamer.lowlevel">NativeObject</A></B></TH>
+<TH ALIGN="left"><B>Nested classes/interfaces inherited from class org.gstreamer.lowlevel.<A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html" title="class in org.gstreamer.lowlevel">NativeObject</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../org/gstreamer/lowlevel/NativeObject.Initializer.html" title="class in org.gstreamer.lowlevel">NativeObject.Initializer</A></CODE></TD>
+<TD><CODE><A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.Initializer.html" title="class in org.gstreamer.lowlevel">NativeObject.Initializer</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -184,10 +184,10 @@ Pseudo link pads.
 &nbsp;<A NAME="fields_inherited_from_class_org.gstreamer.lowlevel.NativeObject"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Fields inherited from class org.gstreamer.lowlevel.<A HREF="../../org/gstreamer/lowlevel/NativeObject.html" title="class in org.gstreamer.lowlevel">NativeObject</A></B></TH>
+<TH ALIGN="left"><B>Fields inherited from class org.gstreamer.lowlevel.<A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html" title="class in org.gstreamer.lowlevel">NativeObject</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../org/gstreamer/lowlevel/NativeObject.html#defaultInit">defaultInit</A>, <A HREF="../../org/gstreamer/lowlevel/NativeObject.html#ownsHandle">ownsHandle</A></CODE></TD>
+<TD><CODE><A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#defaultInit">defaultInit</A>, <A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#ownsHandle">ownsHandle</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -200,36 +200,36 @@ Pseudo link pads.
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../org/gstreamer/GhostPad.html#GhostPad(org.gstreamer.lowlevel.NativeObject.Initializer)">GhostPad</A></B>(<A HREF="../../org/gstreamer/lowlevel/NativeObject.Initializer.html" title="class in org.gstreamer.lowlevel">NativeObject.Initializer</A>&nbsp;init)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/GhostPad.html#GhostPad(org.gstreamer.lowlevel.NativeObject.Initializer)">GhostPad</A></B>(<A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.Initializer.html" title="class in org.gstreamer.lowlevel">NativeObject.Initializer</A>&nbsp;init)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new instance of GhostPad</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../org/gstreamer/GhostPad.html#GhostPad(java.lang.String, org.gstreamer.Pad)">GhostPad</A></B>(java.lang.String&nbsp;name,
-         <A HREF="../../org/gstreamer/Pad.html" title="class in org.gstreamer">Pad</A>&nbsp;target)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/GhostPad.html#GhostPad(java.lang.String, org.gstreamer.Pad)">GhostPad</A></B>(java.lang.String&nbsp;name,
+         <A HREF="../../org/moduleExamples.gstreamer/Pad.html" title="class in org.gstreamer">Pad</A>&nbsp;target)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create a new ghostpad with target as the target.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../org/gstreamer/GhostPad.html#GhostPad(java.lang.String, org.gstreamer.PadDirection)">GhostPad</A></B>(java.lang.String&nbsp;name,
-         <A HREF="../../org/gstreamer/PadDirection.html" title="enum in org.gstreamer">PadDirection</A>&nbsp;direction)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/GhostPad.html#GhostPad(java.lang.String, org.gstreamer.PadDirection)">GhostPad</A></B>(java.lang.String&nbsp;name,
+         <A HREF="../../org/moduleExamples.gstreamer/PadDirection.html" title="enum in org.gstreamer">PadDirection</A>&nbsp;direction)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create a new ghostpad without a target with the given direction.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../org/gstreamer/GhostPad.html#GhostPad(java.lang.String, org.gstreamer.Pad, org.gstreamer.PadTemplate)">GhostPad</A></B>(java.lang.String&nbsp;name,
-         <A HREF="../../org/gstreamer/Pad.html" title="class in org.gstreamer">Pad</A>&nbsp;target,
-         <A HREF="../../org/gstreamer/PadTemplate.html" title="class in org.gstreamer">PadTemplate</A>&nbsp;template)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/GhostPad.html#GhostPad(java.lang.String, org.gstreamer.Pad, org.gstreamer.PadTemplate)">GhostPad</A></B>(java.lang.String&nbsp;name,
+         <A HREF="../../org/moduleExamples.gstreamer/Pad.html" title="class in org.gstreamer">Pad</A>&nbsp;target,
+         <A HREF="../../org/moduleExamples.gstreamer/PadTemplate.html" title="class in org.gstreamer">PadTemplate</A>&nbsp;template)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create a new ghostpad with target as the target.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../org/gstreamer/GhostPad.html#GhostPad(java.lang.String, org.gstreamer.PadTemplate)">GhostPad</A></B>(java.lang.String&nbsp;name,
-         <A HREF="../../org/gstreamer/PadTemplate.html" title="class in org.gstreamer">PadTemplate</A>&nbsp;template)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/GhostPad.html#GhostPad(java.lang.String, org.gstreamer.PadTemplate)">GhostPad</A></B>(java.lang.String&nbsp;name,
+         <A HREF="../../org/moduleExamples.gstreamer/PadTemplate.html" title="class in org.gstreamer">PadTemplate</A>&nbsp;template)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create a new ghostpad based on template, without setting a target.</TD>
@@ -246,8 +246,8 @@ Pseudo link pads.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../org/gstreamer/Pad.html" title="class in org.gstreamer">Pad</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/GhostPad.html#getTarget()">getTarget</A></B>()</CODE>
+<CODE>&nbsp;<A HREF="../../org/moduleExamples.gstreamer/Pad.html" title="class in org.gstreamer">Pad</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/GhostPad.html#getTarget()">getTarget</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get the target pad of this ghostpad.</TD>
@@ -255,7 +255,7 @@ Pseudo link pads.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/GhostPad.html#setTarget(org.gstreamer.Pad)">setTarget</A></B>(<A HREF="../../org/gstreamer/Pad.html" title="class in org.gstreamer">Pad</A>&nbsp;pad)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/GhostPad.html#setTarget(org.gstreamer.Pad)">setTarget</A></B>(<A HREF="../../org/moduleExamples.gstreamer/Pad.html" title="class in org.gstreamer">Pad</A>&nbsp;pad)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set the new target of the ghostpad.</TD>
@@ -264,37 +264,37 @@ Pseudo link pads.
 &nbsp;<A NAME="methods_inherited_from_class_org.gstreamer.Pad"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from class org.gstreamer.<A HREF="../../org/gstreamer/Pad.html" title="class in org.gstreamer">Pad</A></B></TH>
+<TH ALIGN="left"><B>Methods inherited from class org.gstreamer.<A HREF="../../org/moduleExamples.gstreamer/Pad.html" title="class in org.gstreamer">Pad</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../org/gstreamer/Pad.html#acceptCaps(org.gstreamer.Caps)">acceptCaps</A>, <A HREF="../../org/gstreamer/Pad.html#addEventProbe(org.gstreamer.Pad.EVENT_PROBE)">addEventProbe</A>, <A HREF="../../org/gstreamer/Pad.html#chain(org.gstreamer.Buffer)">chain</A>, <A HREF="../../org/gstreamer/Pad.html#connect(org.gstreamer.Pad.HAVE_DATA)">connect</A>, <A HREF="../../org/gstreamer/Pad.html#connect(org.gstreamer.Pad.LINKED)">connect</A>, <A HREF="../../org/gstreamer/Pad.html#connect(org.gstreamer.Pad.REQUEST_LINK)">connect</A>, <A HREF="../../org/gstreamer/Pad.html#connect(org.gstreamer.Pad.UNLINKED)">connect</A>, <A HREF="../../org/gstreamer/Pad.html#disconnect(org.gstreamer.Pad.HAVE_DATA)">disconnect</A>, <A HREF="../../org/gstreamer/Pad.html#disconnect(org.gstreamer.Pad.LINKED)">disconnect</A>, <A HREF="../../org/gstreamer/Pad.html#disconnect(org.gstreamer.Pad.REQUEST_LINK)">disconnect</A>, <A HREF="../../org/gstreamer/Pad.html#disconnect(org.gstreamer.Pad.UNLINKED)">disconnect</A>, <A HREF="../../org/gstreamer/Pad.html#getAllowedCaps()">getAllowedCaps</A>, <A HREF="../../org/gstreamer/Pad.html#getCaps()">getCaps</A>, <A HREF="../../org/gstreamer/Pad.html#getDirection()">getDirection</A>, <A HREF="../../org/gstreamer/Pad.html#getNegotiatedCaps()">getNegotiatedCaps</A>, <A HREF="../../org/gstreamer/Pad.html#getParentElement()">getParentElement</A>, <A HREF="../../org/gstreamer/Pad.html#getPeer()">getPeer</A>, <A HREF="../../org/gstreamer/Pad.html#getPeerCaps()">getPeerCaps</A>, <A HREF="../../org/gstreamer/Pad.html#getRange(long, int, org.gstreamer.Buffer[])">getRange</A>, <A HREF="../../org/gstreamer/Pad.html#isBlocked()">isBlocked</A>, <A HREF="../../org/gstreamer/Pad.html#isBlocking()">isBlocking</A>, <A HREF="../../org/gstreamer/Pad.html#isLinked()">isLinked</A>, <A HREF="../../org/gstreamer/Pad.html#link(org.gstreamer.Pad)">link</A>, <A HREF="../../org/gstreamer/Pad.html#peerAcceptCaps(org.gstreamer.Caps)">peerAcceptCaps</A>, <A HREF="../../org/gstreamer/Pad.html#pullRange(long, int, org.gstreamer.Buffer[])">pullRange</A>, <A HREF="../../org/gstreamer/Pad.html#pushEvent(org.gstreamer.Event)">pushEvent</A>, <A HREF="../../org/gstreamer/Pad.html#removeEventProbe(org.gstreamer.Pad.EVENT_PROBE)">removeEventProbe</A>, <A HREF="../../org/gstreamer/Pad.html#sendEvent(org.gstreamer.Event)">sendEvent</A>, <A HREF="../../org/gstreamer/Pad.html#setActive(boolean)">setActive</A>, <A HREF="../../org/gstreamer/Pad.html#setBlocked(boolean)">setBlocked</A>, <A HREF="../../org/gstreamer/Pad.html#setBlockedAsync(boolean, org.gstreamer.lowlevel.GstPadAPI.PadBlockCallback)">setBlockedAsync</A>, <A HREF="../../org/gstreamer/Pad.html#setCaps(org.gstreamer.Caps)">setCaps</A>, <A HREF="../../org/gstreamer/Pad.html#unlink(org.gstreamer.Pad)">unlink</A></CODE></TD>
+<TD><CODE><A HREF="../../org/moduleExamples.gstreamer/Pad.html#acceptCaps(org.gstreamer.Caps)">acceptCaps</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.html#addEventProbe(org.gstreamer.Pad.EVENT_PROBE)">addEventProbe</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.html#chain(org.gstreamer.Buffer)">chain</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.html#connect(org.gstreamer.Pad.HAVE_DATA)">connect</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.html#connect(org.gstreamer.Pad.LINKED)">connect</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.html#connect(org.gstreamer.Pad.REQUEST_LINK)">connect</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.html#connect(org.gstreamer.Pad.UNLINKED)">connect</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.html#disconnect(org.gstreamer.Pad.HAVE_DATA)">disconnect</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.html#disconnect(org.gstreamer.Pad.LINKED)">disconnect</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.html#disconnect(org.gstreamer.Pad.REQUEST_LINK)">disconnect</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.html#disconnect(org.gstreamer.Pad.UNLINKED)">disconnect</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.html#getAllowedCaps()">getAllowedCaps</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.html#getCaps()">getCaps</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.html#getDirection()">getDirection</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.html#getNegotiatedCaps()">getNegotiatedCaps</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.html#getParentElement()">getParentElement</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.html#getPeer()">getPeer</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.html#getPeerCaps()">getPeerCaps</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.html#getRange(long, int, org.gstreamer.Buffer[])">getRange</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.html#isBlocked()">isBlocked</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.html#isBlocking()">isBlocking</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.html#isLinked()">isLinked</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.html#link(org.gstreamer.Pad)">link</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.html#peerAcceptCaps(org.gstreamer.Caps)">peerAcceptCaps</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.html#pullRange(long, int, org.gstreamer.Buffer[])">pullRange</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.html#pushEvent(org.gstreamer.Event)">pushEvent</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.html#removeEventProbe(org.gstreamer.Pad.EVENT_PROBE)">removeEventProbe</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.html#sendEvent(org.gstreamer.Event)">sendEvent</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.html#setActive(boolean)">setActive</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.html#setBlocked(boolean)">setBlocked</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.html#setBlockedAsync(boolean, org.gstreamer.lowlevel.GstPadAPI.PadBlockCallback)">setBlockedAsync</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.html#setCaps(org.gstreamer.Caps)">setCaps</A>, <A HREF="../../org/moduleExamples.gstreamer/Pad.html#unlink(org.gstreamer.Pad)">unlink</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_org.gstreamer.GstObject"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from class org.gstreamer.<A HREF="../../org/gstreamer/GstObject.html" title="class in org.gstreamer">GstObject</A></B></TH>
+<TH ALIGN="left"><B>Methods inherited from class org.gstreamer.<A HREF="../../org/moduleExamples.gstreamer/GstObject.html" title="class in org.gstreamer">GstObject</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../org/gstreamer/GstObject.html#addListenerProxy(java.lang.Class, java.util.EventListener, java.util.EventListenerProxy)">addListenerProxy</A>, <A HREF="../../org/gstreamer/GstObject.html#getName()">getName</A>, <A HREF="../../org/gstreamer/GstObject.html#getParent()">getParent</A>, <A HREF="../../org/gstreamer/GstObject.html#initializer(com.sun.jna.Pointer)">initializer</A>, <A HREF="../../org/gstreamer/GstObject.html#initializer(com.sun.jna.Pointer, boolean)">initializer</A>, <A HREF="../../org/gstreamer/GstObject.html#ref()">ref</A>, <A HREF="../../org/gstreamer/GstObject.html#removeListenerProxy(java.lang.Class, java.util.EventListener)">removeListenerProxy</A>, <A HREF="../../org/gstreamer/GstObject.html#setName(java.lang.String)">setName</A>, <A HREF="../../org/gstreamer/GstObject.html#steal(org.gstreamer.GstObject)">steal</A>, <A HREF="../../org/gstreamer/GstObject.html#toString()">toString</A>, <A HREF="../../org/gstreamer/GstObject.html#unref()">unref</A></CODE></TD>
+<TD><CODE><A HREF="../../org/moduleExamples.gstreamer/GstObject.html#addListenerProxy(java.lang.Class, java.util.EventListener, java.util.EventListenerProxy)">addListenerProxy</A>, <A HREF="../../org/moduleExamples.gstreamer/GstObject.html#getName()">getName</A>, <A HREF="../../org/moduleExamples.gstreamer/GstObject.html#getParent()">getParent</A>, <A HREF="../../org/moduleExamples.gstreamer/GstObject.html#initializer(com.sun.jna.Pointer)">initializer</A>, <A HREF="../../org/moduleExamples.gstreamer/GstObject.html#initializer(com.sun.jna.Pointer, boolean)">initializer</A>, <A HREF="../../org/moduleExamples.gstreamer/GstObject.html#ref()">ref</A>, <A HREF="../../org/moduleExamples.gstreamer/GstObject.html#removeListenerProxy(java.lang.Class, java.util.EventListener)">removeListenerProxy</A>, <A HREF="../../org/moduleExamples.gstreamer/GstObject.html#setName(java.lang.String)">setName</A>, <A HREF="../../org/moduleExamples.gstreamer/GstObject.html#steal(org.gstreamer.GstObject)">steal</A>, <A HREF="../../org/moduleExamples.gstreamer/GstObject.html#toString()">toString</A>, <A HREF="../../org/moduleExamples.gstreamer/GstObject.html#unref()">unref</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_org.gstreamer.GObject"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from class org.gstreamer.<A HREF="../../org/gstreamer/GObject.html" title="class in org.gstreamer">GObject</A></B></TH>
+<TH ALIGN="left"><B>Methods inherited from class org.gstreamer.<A HREF="../../org/moduleExamples.gstreamer/GObject.html" title="class in org.gstreamer">GObject</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../org/gstreamer/GObject.html#addCallback(java.lang.Class, T, org.gstreamer.GObject.GCallback)">addCallback</A>, <A HREF="../../org/gstreamer/GObject.html#connect(java.lang.Class, T, com.sun.jna.Callback)">connect</A>, <A HREF="../../org/gstreamer/GObject.html#connect(java.lang.String, java.lang.Class, T, com.sun.jna.Callback)">connect</A>, <A HREF="../../org/gstreamer/GObject.html#connect(java.lang.String, org.gstreamer.Closure)">connect</A>, <A HREF="../../org/gstreamer/GObject.html#disconnect(java.lang.Class, T)">disconnect</A>, <A HREF="../../org/gstreamer/GObject.html#disconnect(java.lang.String, org.gstreamer.Closure)">disconnect</A>, <A HREF="../../org/gstreamer/GObject.html#disposeNativeHandle(com.sun.jna.Pointer)">disposeNativeHandle</A>, <A HREF="../../org/gstreamer/GObject.html#emit(int, org.gstreamer.glib.GQuark, java.lang.Object...)">emit</A>, <A HREF="../../org/gstreamer/GObject.html#emit(java.lang.String, java.lang.Object...)">emit</A>, <A HREF="../../org/gstreamer/GObject.html#g_signal_connect(java.lang.String, com.sun.jna.Callback)">g_signal_connect</A>, <A HREF="../../org/gstreamer/GObject.html#get(java.lang.String)">get</A>, <A HREF="../../org/gstreamer/GObject.html#getPointer(java.lang.String)">getPointer</A>, <A HREF="../../org/gstreamer/GObject.html#getPropertyDefaultValue(java.lang.String)">getPropertyDefaultValue</A>, <A HREF="../../org/gstreamer/GObject.html#getPropertyMaximumValue(java.lang.String)">getPropertyMaximumValue</A>, <A HREF="../../org/gstreamer/GObject.html#getPropertyMinimumValue(java.lang.String)">getPropertyMinimumValue</A>, <A HREF="../../org/gstreamer/GObject.html#getType(java.lang.String)">getType</A>, <A HREF="../../org/gstreamer/GObject.html#invalidate()">invalidate</A>, <A HREF="../../org/gstreamer/GObject.html#objectFor(com.sun.jna.Pointer, java.lang.Class)">objectFor</A>, <A HREF="../../org/gstreamer/GObject.html#removeCallback(java.lang.Class, T)">removeCallback</A>, <A HREF="../../org/gstreamer/GObject.html#set(java.lang.String, java.lang.Object)">set</A></CODE></TD>
+<TD><CODE><A HREF="../../org/moduleExamples.gstreamer/GObject.html#addCallback(java.lang.Class, T, org.gstreamer.GObject.GCallback)">addCallback</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#connect(java.lang.Class, T, com.sun.jna.Callback)">connect</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#connect(java.lang.String, java.lang.Class, T, com.sun.jna.Callback)">connect</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#connect(java.lang.String, org.gstreamer.Closure)">connect</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#disconnect(java.lang.Class, T)">disconnect</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#disconnect(java.lang.String, org.gstreamer.Closure)">disconnect</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#disposeNativeHandle(com.sun.jna.Pointer)">disposeNativeHandle</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#emit(int, org.gstreamer.glib.GQuark, java.lang.Object...)">emit</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#emit(java.lang.String, java.lang.Object...)">emit</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#g_signal_connect(java.lang.String, com.sun.jna.Callback)">g_signal_connect</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#get(java.lang.String)">get</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#getPointer(java.lang.String)">getPointer</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#getPropertyDefaultValue(java.lang.String)">getPropertyDefaultValue</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#getPropertyMaximumValue(java.lang.String)">getPropertyMaximumValue</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#getPropertyMinimumValue(java.lang.String)">getPropertyMinimumValue</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#getType(java.lang.String)">getType</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#invalidate()">invalidate</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#objectFor(com.sun.jna.Pointer, java.lang.Class)">objectFor</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#removeCallback(java.lang.Class, T)">removeCallback</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#set(java.lang.String, java.lang.Object)">set</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_org.gstreamer.lowlevel.NativeObject"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from class org.gstreamer.lowlevel.<A HREF="../../org/gstreamer/lowlevel/NativeObject.html" title="class in org.gstreamer.lowlevel">NativeObject</A></B></TH>
+<TH ALIGN="left"><B>Methods inherited from class org.gstreamer.lowlevel.<A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html" title="class in org.gstreamer.lowlevel">NativeObject</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../org/gstreamer/lowlevel/NativeObject.html#classFor(com.sun.jna.Pointer, java.lang.Class)">classFor</A>, <A HREF="../../org/gstreamer/lowlevel/NativeObject.html#disown()">disown</A>, <A HREF="../../org/gstreamer/lowlevel/NativeObject.html#dispose()">dispose</A>, <A HREF="../../org/gstreamer/lowlevel/NativeObject.html#equals(java.lang.Object)">equals</A>, <A HREF="../../org/gstreamer/lowlevel/NativeObject.html#finalize()">finalize</A>, <A HREF="../../org/gstreamer/lowlevel/NativeObject.html#getNativeAddress()">getNativeAddress</A>, <A HREF="../../org/gstreamer/lowlevel/NativeObject.html#handle()">handle</A>, <A HREF="../../org/gstreamer/lowlevel/NativeObject.html#hashCode()">hashCode</A>, <A HREF="../../org/gstreamer/lowlevel/NativeObject.html#initializer(com.sun.jna.Pointer, boolean, boolean)">initializer</A>, <A HREF="../../org/gstreamer/lowlevel/NativeObject.html#instanceFor(com.sun.jna.Pointer)">instanceFor</A>, <A HREF="../../org/gstreamer/lowlevel/NativeObject.html#isDisposed()">isDisposed</A>, <A HREF="../../org/gstreamer/lowlevel/NativeObject.html#nativeValue()">nativeValue</A>, <A HREF="../../org/gstreamer/lowlevel/NativeObject.html#objectFor(com.sun.jna.Pointer, java.lang.Class, boolean)">objectFor</A>, <A HREF="../../org/gstreamer/lowlevel/NativeObject.html#objectFor(com.sun.jna.Pointer, java.lang.Class, boolean, boolean)">objectFor</A>, <A HREF="../../org/gstreamer/lowlevel/NativeObject.html#objectFor(com.sun.jna.Pointer, java.lang.Class, int, boolean)">objectFor</A></CODE></TD>
+<TD><CODE><A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#classFor(com.sun.jna.Pointer, java.lang.Class)">classFor</A>, <A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#disown()">disown</A>, <A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#dispose()">dispose</A>, <A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#equals(java.lang.Object)">equals</A>, <A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#finalize()">finalize</A>, <A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#getNativeAddress()">getNativeAddress</A>, <A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#handle()">handle</A>, <A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#hashCode()">hashCode</A>, <A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#initializer(com.sun.jna.Pointer, boolean, boolean)">initializer</A>, <A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#instanceFor(com.sun.jna.Pointer)">instanceFor</A>, <A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#isDisposed()">isDisposed</A>, <A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#nativeValue()">nativeValue</A>, <A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#objectFor(com.sun.jna.Pointer, java.lang.Class, boolean)">objectFor</A>, <A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#objectFor(com.sun.jna.Pointer, java.lang.Class, boolean, boolean)">objectFor</A>, <A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#objectFor(com.sun.jna.Pointer, java.lang.Class, int, boolean)">objectFor</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -322,7 +322,7 @@ Pseudo link pads.
 <A NAME="GhostPad(org.gstreamer.lowlevel.NativeObject.Initializer)"><!-- --></A><H3>
 GhostPad</H3>
 <PRE>
-public <B>GhostPad</B>(<A HREF="../../org/gstreamer/lowlevel/NativeObject.Initializer.html" title="class in org.gstreamer.lowlevel">NativeObject.Initializer</A>&nbsp;init)</PRE>
+public <B>GhostPad</B>(<A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.Initializer.html" title="class in org.gstreamer.lowlevel">NativeObject.Initializer</A>&nbsp;init)</PRE>
 <DL>
 <DD>Creates a new instance of GhostPad
 <P>
@@ -333,13 +333,13 @@ public <B>GhostPad</B>(<A HREF="../../org/gstreamer/lowlevel/NativeObject.Initia
 GhostPad</H3>
 <PRE>
 public <B>GhostPad</B>(java.lang.String&nbsp;name,
-                <A HREF="../../org/gstreamer/Pad.html" title="class in org.gstreamer">Pad</A>&nbsp;target)</PRE>
+                <A HREF="../../org/moduleExamples.gstreamer/Pad.html" title="class in org.gstreamer">Pad</A>&nbsp;target)</PRE>
 <DL>
 <DD>Create a new ghostpad with target as the target. The direction will be taken
  from the target pad. The target pad must be unlinked.
 <P>
 <DL>
-<DT><B>Parameters:</B><DD><CODE>name</CODE> - The name of the new pad, or null to assign a default name.<DD><CODE>target</CODE> - The <A HREF="../../org/gstreamer/Pad.html" title="class in org.gstreamer"><CODE>Pad</CODE></A> to ghost.</DL>
+<DT><B>Parameters:</B><DD><CODE>name</CODE> - The name of the new pad, or null to assign a default name.<DD><CODE>target</CODE> - The <A HREF="../../org/moduleExamples.gstreamer/Pad.html" title="class in org.gstreamer"><CODE>Pad</CODE></A> to ghost.</DL>
 </DL>
 <HR>
 
@@ -347,14 +347,14 @@ public <B>GhostPad</B>(java.lang.String&nbsp;name,
 GhostPad</H3>
 <PRE>
 public <B>GhostPad</B>(java.lang.String&nbsp;name,
-                <A HREF="../../org/gstreamer/Pad.html" title="class in org.gstreamer">Pad</A>&nbsp;target,
-                <A HREF="../../org/gstreamer/PadTemplate.html" title="class in org.gstreamer">PadTemplate</A>&nbsp;template)</PRE>
+                <A HREF="../../org/moduleExamples.gstreamer/Pad.html" title="class in org.gstreamer">Pad</A>&nbsp;target,
+                <A HREF="../../org/moduleExamples.gstreamer/PadTemplate.html" title="class in org.gstreamer">PadTemplate</A>&nbsp;template)</PRE>
 <DL>
 <DD>Create a new ghostpad with target as the target. The direction will be taken
  from the target pad. The template used on the ghostpad will be template.
 <P>
 <DL>
-<DT><B>Parameters:</B><DD><CODE>name</CODE> - The name of the new pad, or null to assign a default name.<DD><CODE>target</CODE> - The <A HREF="../../org/gstreamer/Pad.html" title="class in org.gstreamer"><CODE>Pad</CODE></A> to ghost.<DD><CODE>template</CODE> - The <A HREF="../../org/gstreamer/PadTemplate.html" title="class in org.gstreamer"><CODE>PadTemplate</CODE></A> to use on the ghostpad.</DL>
+<DT><B>Parameters:</B><DD><CODE>name</CODE> - The name of the new pad, or null to assign a default name.<DD><CODE>target</CODE> - The <A HREF="../../org/moduleExamples.gstreamer/Pad.html" title="class in org.gstreamer"><CODE>Pad</CODE></A> to ghost.<DD><CODE>template</CODE> - The <A HREF="../../org/moduleExamples.gstreamer/PadTemplate.html" title="class in org.gstreamer"><CODE>PadTemplate</CODE></A> to use on the ghostpad.</DL>
 </DL>
 <HR>
 
@@ -362,10 +362,10 @@ public <B>GhostPad</B>(java.lang.String&nbsp;name,
 GhostPad</H3>
 <PRE>
 public <B>GhostPad</B>(java.lang.String&nbsp;name,
-                <A HREF="../../org/gstreamer/PadDirection.html" title="enum in org.gstreamer">PadDirection</A>&nbsp;direction)</PRE>
+                <A HREF="../../org/moduleExamples.gstreamer/PadDirection.html" title="enum in org.gstreamer">PadDirection</A>&nbsp;direction)</PRE>
 <DL>
 <DD>Create a new ghostpad without a target with the given direction.
- A target can be set on the ghostpad later with the <A HREF="../../org/gstreamer/GhostPad.html#setTarget(org.gstreamer.Pad)"><CODE>setTarget(org.gstreamer.Pad)</CODE></A> method.
+ A target can be set on the ghostpad later with the <A HREF="../../org/moduleExamples.gstreamer/GhostPad.html#setTarget(org.gstreamer.Pad)"><CODE>setTarget(org.gstreamer.Pad)</CODE></A> method.
  <p>
  The created ghostpad will not have a padtemplate.
 <P>
@@ -378,13 +378,13 @@ public <B>GhostPad</B>(java.lang.String&nbsp;name,
 GhostPad</H3>
 <PRE>
 public <B>GhostPad</B>(java.lang.String&nbsp;name,
-                <A HREF="../../org/gstreamer/PadTemplate.html" title="class in org.gstreamer">PadTemplate</A>&nbsp;template)</PRE>
+                <A HREF="../../org/moduleExamples.gstreamer/PadTemplate.html" title="class in org.gstreamer">PadTemplate</A>&nbsp;template)</PRE>
 <DL>
 <DD>Create a new ghostpad based on template, without setting a target. The
  direction will be taken from the template.
 <P>
 <DL>
-<DT><B>Parameters:</B><DD><CODE>name</CODE> - The name of the new pad, or null to assign a default name.<DD><CODE>template</CODE> - The <A HREF="../../org/gstreamer/PadTemplate.html" title="class in org.gstreamer"><CODE>PadTemplate</CODE></A> to use on the ghostpad.</DL>
+<DT><B>Parameters:</B><DD><CODE>name</CODE> - The name of the new pad, or null to assign a default name.<DD><CODE>template</CODE> - The <A HREF="../../org/moduleExamples.gstreamer/PadTemplate.html" title="class in org.gstreamer"><CODE>PadTemplate</CODE></A> to use on the ghostpad.</DL>
 </DL>
 
 <!-- ============ METHOD DETAIL ========== -->
@@ -400,13 +400,13 @@ public <B>GhostPad</B>(java.lang.String&nbsp;name,
 <A NAME="getTarget()"><!-- --></A><H3>
 getTarget</H3>
 <PRE>
-public <A HREF="../../org/gstreamer/Pad.html" title="class in org.gstreamer">Pad</A> <B>getTarget</B>()</PRE>
+public <A HREF="../../org/moduleExamples.gstreamer/Pad.html" title="class in org.gstreamer">Pad</A> <B>getTarget</B>()</PRE>
 <DL>
 <DD>Get the target pad of this ghostpad.
 <P>
 <DD><DL>
 
-<DT><B>Returns:</B><DD>the target <A HREF="../../org/gstreamer/Pad.html" title="class in org.gstreamer"><CODE>Pad</CODE></A>, can be null if the ghostpad has no target set</DL>
+<DT><B>Returns:</B><DD>the target <A HREF="../../org/moduleExamples.gstreamer/Pad.html" title="class in org.gstreamer"><CODE>Pad</CODE></A>, can be null if the ghostpad has no target set</DL>
 </DD>
 </DL>
 <HR>
@@ -414,7 +414,7 @@ public <A HREF="../../org/gstreamer/Pad.html" title="class in org.gstreamer">Pad
 <A NAME="setTarget(org.gstreamer.Pad)"><!-- --></A><H3>
 setTarget</H3>
 <PRE>
-public boolean <B>setTarget</B>(<A HREF="../../org/gstreamer/Pad.html" title="class in org.gstreamer">Pad</A>&nbsp;pad)</PRE>
+public boolean <B>setTarget</B>(<A HREF="../../org/moduleExamples.gstreamer/Pad.html" title="class in org.gstreamer">Pad</A>&nbsp;pad)</PRE>
 <DL>
 <DD>Set the new target of the ghostpad. Any existing target
  is unlinked and links to the new target are established.
@@ -456,10 +456,10 @@ public boolean <B>setTarget</B>(<A HREF="../../org/gstreamer/Pad.html" title="cl
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../org/gstreamer/GError.html" title="class in org.gstreamer"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../org/gstreamer/GObject.html" title="class in org.gstreamer"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../org/moduleExamples.gstreamer/GError.html" title="class in org.gstreamer"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../org/moduleExamples.gstreamer/GObject.html" title="class in org.gstreamer"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../index.html?org/gstreamer/GhostPad.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+  <A HREF="../../index.html?org/moduleExamples.gstreamer/GhostPad.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="GhostPad.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--

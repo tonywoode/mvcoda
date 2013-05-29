@@ -2,7 +2,7 @@
  * Copyright (c) 2009 Levente Farkas
  * Copyright (c) 2007 Wayne Meissner
  * 
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3 only, as
@@ -60,7 +60,7 @@ abstract public class CustomSrc extends BaseSrc {
         PadTemplate template;
         Caps caps;
         
-        // Per-class callbacks used by gstreamer to initialize the subclass
+        // Per-class callbacks used by moduleExamples.gstreamer to initialize the subclass
         GClassInitFunc classInit;
         GBaseInitFunc baseInit;
         
@@ -115,7 +115,7 @@ abstract public class CustomSrc extends BaseSrc {
     
     /**
      * Used when you just want to fill a Buffer with data.  The Buffer
-     * will be allocated and initialized by gstreamer.
+     * will be allocated and initialized by moduleExamples.gstreamer.
      * @param offset
      * @param size
      * @param buffer
@@ -432,7 +432,7 @@ abstract public class CustomSrc extends BaseSrc {
         };
         
         //
-        // gstreamer boilerplate to hook the plugin in
+        // moduleExamples.gstreamer boilerplate to hook the plugin in
         //
         GTypeInfo ginfo = new GTypeInfo();
         ginfo.class_init = info.classInit;

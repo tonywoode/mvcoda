@@ -4,7 +4,7 @@
  * Copyright (C) 1999,2000 Erik Walthinsen <omega@cse.ogi.edu>
  *                    2000 Wim Taymans <wtay@chello.be>
  * 
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU Lesser General Public License version 3 only, as
@@ -490,7 +490,7 @@ public class Pad extends GstObject {
     public void addEventProbe(final EVENT_PROBE listener) {
         final GstPadAPI.PadEventProbe probe = new GstPadAPI.PadEventProbe() {
             public boolean callback(Pad pad, Event ev, Pointer unused) {
-            	//We have to negate the return value to keep consistency with gstreamer's API
+            	//We have to negate the return value to keep consistency with moduleExamples.gstreamer's API
                 return !listener.eventReceived(pad, ev);
             }
         };

@@ -35,7 +35,7 @@ public class ElementTest {
     public ElementTest() {
     }
     public static void main(String[] args) {
-        // Load some gstreamer dependencies
+        // Load some moduleExamples.gstreamer dependencies
         args = Gst.init("foo", args);
         System.out.println("Creating fakesrc element");
         Element fakesrc = ElementFactory.make("fakesrc", "fakesrc");

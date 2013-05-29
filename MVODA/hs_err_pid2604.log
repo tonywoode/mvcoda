@@ -101,7 +101,7 @@ v  ~StubRoutines::call_stub
 
 Java Threads: ( => current thread )
   0x000000000ca52800 JavaThread "TimerQueue" daemon [_thread_blocked, id=4808, stack(0x000000000e670000,0x000000000e770000)]
-  0x000000000ca30000 JavaThread "gstreamer service thread 1" daemon [_thread_blocked, id=1624, stack(0x000000000dc50000,0x000000000dd50000)]
+  0x000000000ca30000 JavaThread "moduleExamples.gstreamer service thread 1" daemon [_thread_blocked, id=1624, stack(0x000000000dc50000,0x000000000dd50000)]
   0x000000000061c800 JavaThread "DestroyJavaVM" [_thread_blocked, id=4180, stack(0x00000000027e0000,0x00000000028e0000)]
   0x000000000ad84000 JavaThread "AWT-EventQueue-0" [_thread_blocked, id=4100, stack(0x000000000c010000,0x000000000c110000)]
   0x000000000ad82800 JavaThread "AWT-Shutdown" [_thread_blocked, id=2144, stack(0x000000000bd60000,0x000000000be60000)]
@@ -300,34 +300,34 @@ Dynamic libraries:
 0x000007fefa760000 - 0x000007fefa768000 	C:\Windows\system32\rasadhlp.dll
 0x000007fefb0c0000 - 0x000007fefb113000 	C:\Windows\System32\fwpuclnt.dll
 0x00000000659d0000 - 0x00000000659e1000 	C:\Program Files\Java\jre7\bin\nio.dll
-0x000000006b6c0000 - 0x000000006ba46000 	C:\gstreamer-sdk\0.10\x86_64\bin\libgstreamer-0.10-0.dll
-0x00000000685c0000 - 0x00000000689fb000 	C:\gstreamer-sdk\0.10\x86_64\bin\libglib-2.0-0.dll
-0x0000000061cc0000 - 0x0000000061d33000 	C:\gstreamer-sdk\0.10\x86_64\bin\libintl-8.dll
+0x000000006b6c0000 - 0x000000006ba46000 	C:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libgstreamer-0.10-0.dll
+0x00000000685c0000 - 0x00000000689fb000 	C:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libglib-2.0-0.dll
+0x0000000061cc0000 - 0x0000000061d33000 	C:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libintl-8.dll
 0x000007fefdd90000 - 0x000007fefdf93000 	C:\Windows\system32\ole32.dll
 0x000007fefe210000 - 0x000007fefef98000 	C:\Windows\system32\SHELL32.dll
-0x000000006dd00000 - 0x000000006dd29000 	C:\gstreamer-sdk\0.10\x86_64\bin\libgmodule-2.0-0.dll
-0x0000000063a40000 - 0x0000000063baa000 	C:\gstreamer-sdk\0.10\x86_64\bin\libgobject-2.0-0.dll
-0x0000000068d40000 - 0x0000000068d76000 	C:\gstreamer-sdk\0.10\x86_64\bin\libffi-5.dll
-0x0000000070f40000 - 0x0000000071416000 	C:\gstreamer-sdk\0.10\x86_64\bin\libxml2-2.dll
-0x0000000066000000 - 0x0000000066167000 	C:\gstreamer-sdk\0.10\x86_64\bin\libiconv-2.dll
-0x000000006e8c0000 - 0x000000006e8e0000 	C:\gstreamer-sdk\0.10\x86_64\bin\libz.dll
+0x000000006dd00000 - 0x000000006dd29000 	C:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libgmodule-2.0-0.dll
+0x0000000063a40000 - 0x0000000063baa000 	C:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libgobject-2.0-0.dll
+0x0000000068d40000 - 0x0000000068d76000 	C:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libffi-5.dll
+0x0000000070f40000 - 0x0000000071416000 	C:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libxml2-2.dll
+0x0000000066000000 - 0x0000000066167000 	C:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libiconv-2.dll
+0x000000006e8c0000 - 0x000000006e8e0000 	C:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libz.dll
 0x000007fefd820000 - 0x000007fefd845000 	C:\Windows\system32\SspiCli.dll
-0x0000000061e00000 - 0x0000000061e63000 	C:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstgio.dll
-0x000000006d580000 - 0x000000006db71000 	C:\gstreamer-sdk\0.10\x86_64\bin\libgio-2.0-0.dll
-0x000000006cac0000 - 0x000000006cc18000 	C:\gstreamer-sdk\0.10\x86_64\bin\libgstbase-0.10-0.dll
+0x0000000061e00000 - 0x0000000061e63000 	C:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstgio.dll
+0x000000006d580000 - 0x000000006db71000 	C:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libgio-2.0-0.dll
+0x000000006cac0000 - 0x000000006cc18000 	C:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libgstbase-0.10-0.dll
 0x000007fefa0e0000 - 0x000007fefa151000 	C:\Windows\system32\winhttp.dll
 0x000007fefa070000 - 0x000007fefa0d4000 	C:\Windows\system32\webio.dll
 0x000007fefce00000 - 0x000007fefce0a000 	C:\Windows\system32\credssp.dll
-0x0000000064240000 - 0x00000000642a6000 	C:\gstreamer-sdk\0.10\x86_64\bin\libgstinterfaces-0.10-0.dll
-0x0000000006010000 - 0x0000000006063000 	C:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstvideotestsrc.dll
-0x0000000065680000 - 0x000000006586c000 	C:\gstreamer-sdk\0.10\x86_64\bin\liborc-0.4-0.dll
-0x000000006e080000 - 0x000000006e1c3000 	C:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstcoreelements.dll
+0x0000000064240000 - 0x00000000642a6000 	C:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libgstinterfaces-0.10-0.dll
+0x0000000006010000 - 0x0000000006063000 	C:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstvideotestsrc.dll
+0x0000000065680000 - 0x000000006586c000 	C:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\liborc-0.4-0.dll
+0x000000006e080000 - 0x000000006e1c3000 	C:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstcoreelements.dll
 0x00000000651c0000 - 0x0000000065353000 	C:\Program Files\Java\jre7\bin\awt.dll
 0x000007feff370000 - 0x000007feff447000 	C:\Windows\system32\OLEAUT32.dll
 0x000007fefc2c0000 - 0x000007fefc316000 	C:\Windows\system32\uxtheme.dll
 0x000007fefbd80000 - 0x000007fefbd98000 	C:\Windows\system32\dwmapi.dll
-0x0000000063c80000 - 0x0000000063deb000 	C:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstffmpegcolorspace.dll
-0x0000000062ac0000 - 0x0000000062b45000 	C:\gstreamer-sdk\0.10\x86_64\bin\libgstvideo-0.10-0.dll
+0x0000000063c80000 - 0x0000000063deb000 	C:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstffmpegcolorspace.dll
+0x0000000062ac0000 - 0x0000000062b45000 	C:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libgstvideo-0.10-0.dll
 0x00000000654c0000 - 0x00000000654f4000 	C:\Program Files\Java\jre7\bin\fontmanager.dll
 0x000007fefe0d0000 - 0x000007fefe169000 	C:\Windows\system32\CLBCatQ.DLL
 0x0000000008d60000 - 0x0000000008d72000 	c:\Program Files\Eracent\EPM\EracentEPMHookLib.dll
@@ -335,13 +335,13 @@ Dynamic libraries:
 
 VM Arguments:
 jvm_args: -Dfile.encoding=Cp1252 
-java_command: gstreamer.VideoTest
+java_command: moduleExamples.gstreamer.VideoTest
 Launcher Type: SUN_STANDARD
 
 Environment Variables:
 JAVA_HOME=C:\Program Files\Java\jdk1.7.0_17
 CLASSPATH=.;C:\Program Files (x86)\Java\jre7\lib\ext\QTJava.zip
-PATH=C:\Oracle_x64\Ora112\bin;C:\Oracle_x86\Ora112\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Enterprise Vault\EVClient\;C:\Program Files\Java\jdk1.7.0_17\bin;C:\Program Files (x86)\QuickTime\QTSystem\;C:\Program Files\TortoiseSVN\bin;C:\gstreamer-sdk\0.10\x86_64\\bin;C:\gstreamer-sdk\0.10\x86_64\\lib\gstreamer-0.10;C:\Program Files (x86)\SSH Communications Security\SSH Secure Shell
+PATH=C:\Oracle_x64\Ora112\bin;C:\Oracle_x86\Ora112\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Enterprise Vault\EVClient\;C:\Program Files\Java\jdk1.7.0_17\bin;C:\Program Files (x86)\QuickTime\QTSystem\;C:\Program Files\TortoiseSVN\bin;C:\moduleExamples.gstreamer-sdk\0.10\x86_64\\bin;C:\moduleExamples.gstreamer-sdk\0.10\x86_64\\lib\moduleExamples.gstreamer-0.10;C:\Program Files (x86)\SSH Communications Security\SSH Secure Shell
 USERNAME=twoode
 OS=Windows_NT
 PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 42 Stepping 7, GenuineIntel

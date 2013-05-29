@@ -44,7 +44,7 @@ public class AudioPanorama {
     
     public static void main(String[] args) {
         //
-        // Initialize the gstreamer framework, and let it interpret any command
+        // Initialize the moduleExamples.gstreamer framework, and let it interpret any command
         // line flags it is interested in.
         //
         args = Gst.init("AudioPanorama", args);
@@ -73,7 +73,7 @@ public class AudioPanorama {
 
         Gst.main();
 
-        // Clean up (gstreamer requires elements to be in State.NULL before disposal)
+        // Clean up (moduleExamples.gstreamer requires elements to be in State.NULL before disposal)
         pipe.stop();
     }
     

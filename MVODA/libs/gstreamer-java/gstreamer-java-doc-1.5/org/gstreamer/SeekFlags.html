@@ -56,10 +56,10 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../org/gstreamer/Registry.PluginFilter.html" title="interface in org.gstreamer"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../org/gstreamer/SeekType.html" title="enum in org.gstreamer"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../org/moduleExamples.gstreamer/Registry.PluginFilter.html" title="interface in org.gstreamer"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../org/moduleExamples.gstreamer/SeekType.html" title="enum in org.gstreamer"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../index.html?org/gstreamer/SeekFlags.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+  <A HREF="../../index.html?org/moduleExamples.gstreamer/SeekFlags.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="SeekFlags.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
@@ -102,8 +102,8 @@ java.lang.Object
 </PRE>
 
 <P>
-Flags to be used with <A HREF="../../org/gstreamer/Pipeline.html#seek(org.gstreamer.ClockTime)"><CODE>seek</CODE></A> or 
- <A HREF="../../org/gstreamer/event/SeekEvent.html#SeekEvent(double, org.gstreamer.Format, int, org.gstreamer.SeekType, long, org.gstreamer.SeekType, long)"><CODE>SeekEvent</CODE></A>
+Flags to be used with <A HREF="../../org/moduleExamples.gstreamer/Pipeline.html#seek(org.gstreamer.ClockTime)"><CODE>seek</CODE></A> or 
+ <A HREF="../../org/moduleExamples.gstreamer/event/SeekEvent.html#SeekEvent(double, org.gstreamer.Format, int, org.gstreamer.SeekType, long, org.gstreamer.SeekType, long)"><CODE>SeekEvent</CODE></A>
  <p>
  All flags can be used together.
 <p>
@@ -116,7 +116,7 @@ Flags to be used with <A HREF="../../org/gstreamer/Pipeline.html#seek(org.gstrea
 <p>
  When performing a segment seek: after the playback of the segment completes,
  no EOS will be emitted by the element that performed the seek, but a
- <A HREF="../../org/gstreamer/Bus.SEGMENT_DONE.html" title="interface in org.gstreamer"><CODE>Bus.SEGMENT_DONE</CODE></A> message will be posted on the bus by the element.
+ <A HREF="../../org/moduleExamples.gstreamer/Bus.SEGMENT_DONE.html" title="interface in org.gstreamer"><CODE>Bus.SEGMENT_DONE</CODE></A> message will be posted on the bus by the element.
  When this message is posted, it is possible to send a new seek event to
  continue playback. With this seek method it is possible to perform seamless
  looping or simple linear editing.
@@ -137,7 +137,7 @@ Flags to be used with <A HREF="../../org/gstreamer/Pipeline.html#seek(org.gstrea
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/SeekFlags.html#ACCURATE">ACCURATE</A></B></CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/SeekFlags.html#ACCURATE">ACCURATE</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Accurate position is requested, this might be considerably slower for some formats.</TD>
@@ -145,7 +145,7 @@ Flags to be used with <A HREF="../../org/gstreamer/Pipeline.html#seek(org.gstrea
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/SeekFlags.html#FLUSH">FLUSH</A></B></CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/SeekFlags.html#FLUSH">FLUSH</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Flush pipeline.</TD>
@@ -153,7 +153,7 @@ Flags to be used with <A HREF="../../org/gstreamer/Pipeline.html#seek(org.gstrea
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/SeekFlags.html#KEY_UNIT">KEY_UNIT</A></B></CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/SeekFlags.html#KEY_UNIT">KEY_UNIT</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Seek to the nearest keyframe.</TD>
@@ -161,7 +161,7 @@ Flags to be used with <A HREF="../../org/gstreamer/Pipeline.html#seek(org.gstrea
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/SeekFlags.html#NONE">NONE</A></B></CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/SeekFlags.html#NONE">NONE</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No flag.</TD>
@@ -169,7 +169,7 @@ Flags to be used with <A HREF="../../org/gstreamer/Pipeline.html#seek(org.gstrea
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/SeekFlags.html#SEGMENT">SEGMENT</A></B></CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/SeekFlags.html#SEGMENT">SEGMENT</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Perform a segment seek.</TD>
@@ -177,7 +177,7 @@ Flags to be used with <A HREF="../../org/gstreamer/Pipeline.html#seek(org.gstrea
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/SeekFlags.html#SKIP">SKIP</A></B></CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/SeekFlags.html#SKIP">SKIP</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;when doing fast forward or fast reverse playback, allow elements to skip frames instead of generating all frames.</TD>
@@ -193,7 +193,7 @@ Flags to be used with <A HREF="../../org/gstreamer/Pipeline.html#seek(org.gstrea
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../org/gstreamer/SeekFlags.html#SeekFlags()">SeekFlags</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/SeekFlags.html#SeekFlags()">SeekFlags</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -349,10 +349,10 @@ public <B>SeekFlags</B>()</PRE>
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../org/gstreamer/Registry.PluginFilter.html" title="interface in org.gstreamer"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../org/gstreamer/SeekType.html" title="enum in org.gstreamer"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../org/moduleExamples.gstreamer/Registry.PluginFilter.html" title="interface in org.gstreamer"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../org/moduleExamples.gstreamer/SeekType.html" title="enum in org.gstreamer"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../index.html?org/gstreamer/SeekFlags.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+  <A HREF="../../index.html?org/moduleExamples.gstreamer/SeekFlags.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="SeekFlags.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--

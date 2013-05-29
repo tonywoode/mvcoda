@@ -1,4 +1,4 @@
-package gstreamer;
+package moduleExamples.gstreamer;
 
 import java.io.File;
 

@@ -3,7 +3,7 @@
  * Copyright (C) 2007 Wayne Meissner
  * Copyright (C) <2003> David A. Schleef <ds@schleef.org>
  * 
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU Lesser General Public License version 3 only, as

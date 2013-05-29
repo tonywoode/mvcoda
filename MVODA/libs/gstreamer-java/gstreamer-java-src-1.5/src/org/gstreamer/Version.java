@@ -1,7 +1,7 @@
 /* 
  * Copyright (c) 2007, 2008 Wayne Meissner
  * 
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3 only, as
@@ -19,7 +19,7 @@
 package org.gstreamer;
 
 /**
- * Describes the version of gstreamer currently in use.
+ * Describes the version of moduleExamples.gstreamer currently in use.
  */
 public class Version {
     public Version(long major, long minor, long micro, long nano) {

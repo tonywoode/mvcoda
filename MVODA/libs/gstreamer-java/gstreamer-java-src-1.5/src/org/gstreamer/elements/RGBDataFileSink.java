@@ -2,7 +2,7 @@
  * Copyright (c) 2009 Levente Farkas
  * Copyright (c) 2009 Andres Colubri
  *
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3 only, as
@@ -81,7 +81,7 @@ public class RGBDataFileSink extends Bin {
         preQueue = new LinkedList<Buffer>();
  
         // Maximum number of frames that can be buffered before the entering into the
-        // encoding queue in gstreamer. 0 means no limit.   
+        // encoding queue in moduleExamples.gstreamer. 0 means no limit.   
         PRE_QUEUE_SIZE = 0;
         
         // Maximum number of frames that can be enqueued in the endcoding pipeline.

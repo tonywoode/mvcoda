@@ -1,7 +1,7 @@
 /* 
  * Copyright (c) 2007 Wayne Meissner
  * 
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3 only, as
@@ -87,7 +87,7 @@ public class GTypeMapper extends com.sun.jna.DefaultTypeMapper {
             Pointer ptr = ((NativeObject) arg).handle();
             
             //
-            // Deal with any adjustments to the proxy neccessitated by gstreamer
+            // Deal with any adjustments to the proxy neccessitated by moduleExamples.gstreamer
             // breaking their reference-counting idiom with special cases
             //
             if (context instanceof MethodParameterContext) {
@@ -118,7 +118,7 @@ public class GTypeMapper extends com.sun.jna.DefaultTypeMapper {
             }
             if (context instanceof MethodResultContext) {
                 //
-                // By default, gstreamer increments the refcount on objects 
+                // By default, moduleExamples.gstreamer increments the refcount on objects 
                 // returned from functions, so drop a ref here
                 //
                 boolean ownsHandle = ((MethodResultContext) context).getMethod().isAnnotationPresent(CallerOwnsReturn.class);
@@ -252,7 +252,7 @@ public class GTypeMapper extends com.sun.jna.DefaultTypeMapper {
         public Object toNative(Object arg0, ToNativeContext arg1) {
             URI uri = (URI) arg0;
             String uriString = uri.toString();
-            // Need to fixup file:/ to be file:/// for gstreamer
+            // Need to fixup file:/ to be file:/// for moduleExamples.gstreamer
             if ("file".equals(uri.getScheme()) && uri.getHost() == null) {
                 final String path = uri.getRawPath();
                 if (com.sun.jna.Platform.isWindows()) {

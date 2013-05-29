@@ -3,12 +3,12 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.googlecode.gstreamer-java</groupId>
-  <artifactId>gstreamer-java</artifactId>
+  <artifactId>moduleExamples.gstreamer-java</artifactId>
   <packaging>jar</packaging>
   <name>Gstreamer Java</name>
   <version>1.5-SNAPSHOT</version>
   <description>Java binding for the Gstreamer framework</description>
-  <url>http://code.google.com/p/gstreamer-java</url>
+  <url>http://code.google.com/p/moduleExamples.gstreamer-java</url>
   <developers>
     <developer>
       <id>wmeissner</id>
@@ -60,9 +60,9 @@
     </license>
   </licenses>
   <scm>
-    <url>http://code.google.com/p/gstreamer-java/source/browse</url>   
-    <connection>scm:svn:https://gstreamer-java.googlecode.com/svn/trunk/gstreamer-java</connection> 
-    <developerConnection>scm:svn:https://gstreamer-java.googlecode.com/svn/trunk/gstreamer-java</developerConnection> 
+    <url>http://code.google.com/p/moduleExamples.gstreamer-java/source/browse</url>   
+    <connection>scm:svn:https://moduleExamples.gstreamer-java.googlecode.com/svn/trunk/moduleExamples.gstreamer-java</connection> 
+    <developerConnection>scm:svn:https://moduleExamples.gstreamer-java.googlecode.com/svn/trunk/moduleExamples.gstreamer-java</developerConnection> 
   </scm>
   <dependencies>
     <dependency>
@@ -153,7 +153,7 @@
     tanaka> LANG=en_GB.UTF-8  mvn -Dgpg.Dkeyname=xxx@example.com \
     -Dgpg.passphrase=xxxx \
     -Darguments="-Dgpg.passphrase=xxxx" \
-    -DconnectionUrl=scm:svn:https://gstreamer-java.googlecode.com/svn/branches/1.x-maven/gstreamer-java \
+    -DconnectionUrl=scm:svn:https://moduleExamples.gstreamer-java.googlecode.com/svn/branches/1.x-maven/moduleExamples.gstreamer-java \
     release:perform
     -->
     <repository> 

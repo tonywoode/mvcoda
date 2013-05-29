@@ -1,7 +1,7 @@
 Now for a real application - playing audio files.
 
 Since putting together pipelines is tedious, boring and somewhat error-prone 
-for newcomers to gstreamer, there are already pre-fabricated Pipelines that 
+for newcomers to moduleExamples.gstreamer, there are already pre-fabricated Pipelines that 
 do it all for you, such as a PlayBin.
 
 So, we will be lazy and use a PlayBin to build our AudioPlayer.

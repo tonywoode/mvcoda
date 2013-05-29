@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2010 Levente Farkas
  *
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3 only, as
@@ -56,7 +56,7 @@ public class Controller extends GObject {
 	static Logger logger = Logger.getLogger(Controller.class.getName());
     private static final GstControllerAPI gst = GstNative.load(GstControllerAPI.class);
 	static {
-		NativeArgs argv = new NativeArgs("gstreamer-java", new String[] {});
+		NativeArgs argv = new NativeArgs("moduleExamples.gstreamer-java", new String[] {});
 		if (!gst.gst_controller_init(argv.argcRef, argv.argvRef)) {
             throw new GstException("Can't initialize GstController");
         }
@@ -64,7 +64,7 @@ public class Controller extends GObject {
         logger.fine("after gst_init, argc=" + argv.argcRef.getValue());
 	}
     /**
-     * For internal gstreamer-java use only
+     * For internal moduleExamples.gstreamer-java use only
      *
      * @param init initialization data
      */

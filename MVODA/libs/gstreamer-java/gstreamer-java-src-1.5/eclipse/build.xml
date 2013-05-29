@@ -16,7 +16,7 @@
 	
 	<property name="javaVersion" value="1.5"/>
 	
-	<property name="libraryName"  value="gstreamer-java"/>
+	<property name="libraryName"  value="moduleExamples.gstreamer-java"/>
 	
 	<property name="versionNumber"  value="1.5"/>	
 	

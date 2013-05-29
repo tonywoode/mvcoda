@@ -1,7 +1,7 @@
 /* 
  * Copyright (c) 2008 Levente Farkas
  * 
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3 only, as
@@ -22,7 +22,7 @@ import org.gstreamer.Element;
 import org.gstreamer.lowlevel.GstAPI.GstCallback;
 
 /**
- * A gstreamer element for Multiple data queue.
+ * A moduleExamples.gstreamer element for Multiple data queue.
  */
 public class MultiQueue extends Element {
 	public static final String GST_NAME = "multiqueue";

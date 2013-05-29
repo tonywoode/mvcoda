@@ -4,7 +4,7 @@
  *                    2000 Wim Taymans <wtay@chello.be>
  *                    2005 David A. Schleef <ds@schleef.org>
  * 
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU Lesser General Public License version 3 only, as

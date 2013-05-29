@@ -56,10 +56,10 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../org/gstreamer/BufferFlag.html" title="enum in org.gstreamer"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../org/gstreamer/Bus.ASYNC_DONE.html" title="interface in org.gstreamer"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../org/moduleExamples.gstreamer/BufferFlag.html" title="enum in org.gstreamer"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../org/moduleExamples.gstreamer/Bus.ASYNC_DONE.html" title="interface in org.gstreamer"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../index.html?org/gstreamer/Bus.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+  <A HREF="../../index.html?org/moduleExamples.gstreamer/Bus.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="Bus.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
@@ -94,21 +94,21 @@ org.gstreamer</FONT>
 Class Bus</H2>
 <PRE>
 java.lang.Object
-  <IMG SRC="../../resources/inherit.gif" ALT="extended by "><A HREF="../../org/gstreamer/lowlevel/NativeValue.html" title="class in org.gstreamer.lowlevel">org.gstreamer.lowlevel.NativeValue</A>
-      <IMG SRC="../../resources/inherit.gif" ALT="extended by "><A HREF="../../org/gstreamer/lowlevel/Handle.html" title="class in org.gstreamer.lowlevel">org.gstreamer.lowlevel.Handle</A>
-          <IMG SRC="../../resources/inherit.gif" ALT="extended by "><A HREF="../../org/gstreamer/lowlevel/NativeObject.html" title="class in org.gstreamer.lowlevel">org.gstreamer.lowlevel.NativeObject</A>
-              <IMG SRC="../../resources/inherit.gif" ALT="extended by "><A HREF="../../org/gstreamer/lowlevel/RefCountedObject.html" title="class in org.gstreamer.lowlevel">org.gstreamer.lowlevel.RefCountedObject</A>
-                  <IMG SRC="../../resources/inherit.gif" ALT="extended by "><A HREF="../../org/gstreamer/GObject.html" title="class in org.gstreamer">org.gstreamer.GObject</A>
-                      <IMG SRC="../../resources/inherit.gif" ALT="extended by "><A HREF="../../org/gstreamer/GstObject.html" title="class in org.gstreamer">org.gstreamer.GstObject</A>
+  <IMG SRC="../../resources/inherit.gif" ALT="extended by "><A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeValue.html" title="class in org.gstreamer.lowlevel">org.gstreamer.lowlevel.NativeValue</A>
+      <IMG SRC="../../resources/inherit.gif" ALT="extended by "><A HREF="../../org/moduleExamples.gstreamer/lowlevel/Handle.html" title="class in org.gstreamer.lowlevel">org.gstreamer.lowlevel.Handle</A>
+          <IMG SRC="../../resources/inherit.gif" ALT="extended by "><A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html" title="class in org.gstreamer.lowlevel">org.gstreamer.lowlevel.NativeObject</A>
+              <IMG SRC="../../resources/inherit.gif" ALT="extended by "><A HREF="../../org/moduleExamples.gstreamer/lowlevel/RefCountedObject.html" title="class in org.gstreamer.lowlevel">org.gstreamer.lowlevel.RefCountedObject</A>
+                  <IMG SRC="../../resources/inherit.gif" ALT="extended by "><A HREF="../../org/moduleExamples.gstreamer/GObject.html" title="class in org.gstreamer">org.gstreamer.GObject</A>
+                      <IMG SRC="../../resources/inherit.gif" ALT="extended by "><A HREF="../../org/moduleExamples.gstreamer/GstObject.html" title="class in org.gstreamer">org.gstreamer.GstObject</A>
                           <IMG SRC="../../resources/inherit.gif" ALT="extended by "><B>org.gstreamer.Bus</B>
 </PRE>
 <HR>
 <DL>
-<DT><PRE>public class <B>Bus</B><DT>extends <A HREF="../../org/gstreamer/GstObject.html" title="class in org.gstreamer">GstObject</A></DL>
+<DT><PRE>public class <B>Bus</B><DT>extends <A HREF="../../org/moduleExamples.gstreamer/GstObject.html" title="class in org.gstreamer">GstObject</A></DL>
 </PRE>
 
 <P>
-The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>Bus</CODE></A> is an object responsible for delivering <A HREF="../../org/gstreamer/Message.html" title="class in org.gstreamer"><CODE>Message</CODE></A>s in
+The <A HREF="../../org/moduleExamples.gstreamer/Bus.html" title="class in org.gstreamer"><CODE>Bus</CODE></A> is an object responsible for delivering <A HREF="../../org/moduleExamples.gstreamer/Message.html" title="class in org.gstreamer"><CODE>Message</CODE></A>s in
  a first-in first-out way from the streaming threads to the application.
  <p>
  Since the application typically only wants to deal with delivery of these
@@ -126,12 +126,12 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
  bus to handle them.
  <p>
  It is also possible to get messages from the bus without any thread
- marshalling with the <A HREF="../../org/gstreamer/Bus.html#setSyncHandler(org.gstreamer.event.BusSyncHandler)"><CODE>setSyncHandler(org.gstreamer.event.BusSyncHandler)</CODE></A> method. This makes it
+ marshalling with the <A HREF="../../org/moduleExamples.gstreamer/Bus.html#setSyncHandler(org.gstreamer.event.BusSyncHandler)"><CODE>setSyncHandler(org.gstreamer.event.BusSyncHandler)</CODE></A> method. This makes it
  possible to react to a message in the same thread that posted the
  message on the bus. This should only be used if the application is able
  to deal with messages from different threads.
  <p>
- Every <A HREF="../../org/gstreamer/Pipeline.html" title="class in org.gstreamer"><CODE>Pipeline</CODE></A> has one bus.
+ Every <A HREF="../../org/moduleExamples.gstreamer/Pipeline.html" title="class in org.gstreamer"><CODE>Pipeline</CODE></A> has one bus.
  <p>
  Note that a Pipeline will set its bus into flushing state when changing
  from READY to NULL state.
@@ -152,7 +152,7 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;interface</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.ASYNC_DONE.html" title="interface in org.gstreamer">Bus.ASYNC_DONE</A></B></CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.ASYNC_DONE.html" title="interface in org.gstreamer">Bus.ASYNC_DONE</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Signal emitted by elements when they complete an ASYNC state change.</TD>
@@ -160,7 +160,7 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;interface</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.BUFFERING.html" title="interface in org.gstreamer">Bus.BUFFERING</A></B></CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.BUFFERING.html" title="interface in org.gstreamer">Bus.BUFFERING</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Signal emitted when the pipeline is buffering data.</TD>
@@ -168,7 +168,7 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;interface</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.DURATION.html" title="interface in org.gstreamer">Bus.DURATION</A></B></CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.DURATION.html" title="interface in org.gstreamer">Bus.DURATION</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Signal sent when a new duration message is posted by an element that
@@ -177,7 +177,7 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;interface</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.EOS.html" title="interface in org.gstreamer">Bus.EOS</A></B></CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.EOS.html" title="interface in org.gstreamer">Bus.EOS</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Signal emitted when end-of-stream is reached in a pipeline.</TD>
@@ -185,7 +185,7 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;interface</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.ERROR.html" title="interface in org.gstreamer">Bus.ERROR</A></B></CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.ERROR.html" title="interface in org.gstreamer">Bus.ERROR</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Signal emitted when an error occurs.</TD>
@@ -193,7 +193,7 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;interface</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.INFO.html" title="interface in org.gstreamer">Bus.INFO</A></B></CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.INFO.html" title="interface in org.gstreamer">Bus.INFO</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Signal emitted when an informational message is delivered.</TD>
@@ -201,7 +201,7 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;interface</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.MESSAGE.html" title="interface in org.gstreamer">Bus.MESSAGE</A></B></CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.MESSAGE.html" title="interface in org.gstreamer">Bus.MESSAGE</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Catch all signals emitted on the Bus.</TD>
@@ -209,7 +209,7 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;interface</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.SEGMENT_DONE.html" title="interface in org.gstreamer">Bus.SEGMENT_DONE</A></B></CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.SEGMENT_DONE.html" title="interface in org.gstreamer">Bus.SEGMENT_DONE</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Signal emitted when the pipeline has completed playback of a segment.</TD>
@@ -217,7 +217,7 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;interface</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.SEGMENT_START.html" title="interface in org.gstreamer">Bus.SEGMENT_START</A></B></CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.SEGMENT_START.html" title="interface in org.gstreamer">Bus.SEGMENT_START</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This message is posted by elements that start playback of a segment as a 
@@ -226,7 +226,7 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;interface</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.STATE_CHANGED.html" title="interface in org.gstreamer">Bus.STATE_CHANGED</A></B></CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.STATE_CHANGED.html" title="interface in org.gstreamer">Bus.STATE_CHANGED</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Signal emitted when a state change happens.</TD>
@@ -234,7 +234,7 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;interface</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.TAG.html" title="interface in org.gstreamer">Bus.TAG</A></B></CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.TAG.html" title="interface in org.gstreamer">Bus.TAG</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Signal emitted when a new tag is identified on the stream.</TD>
@@ -242,7 +242,7 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;interface</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.WARNING.html" title="interface in org.gstreamer">Bus.WARNING</A></B></CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.WARNING.html" title="interface in org.gstreamer">Bus.WARNING</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Signal emitted when a warning message is delivered.</TD>
@@ -251,20 +251,20 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 &nbsp;<A NAME="nested_classes_inherited_from_class_org.gstreamer.GObject"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Nested classes/interfaces inherited from class org.gstreamer.<A HREF="../../org/gstreamer/GObject.html" title="class in org.gstreamer">GObject</A></B></TH>
+<TH ALIGN="left"><B>Nested classes/interfaces inherited from class org.gstreamer.<A HREF="../../org/moduleExamples.gstreamer/GObject.html" title="class in org.gstreamer">GObject</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../org/gstreamer/GObject.GCallback.html" title="class in org.gstreamer">GObject.GCallback</A></CODE></TD>
+<TD><CODE><A HREF="../../org/moduleExamples.gstreamer/GObject.GCallback.html" title="class in org.gstreamer">GObject.GCallback</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;
 <A NAME="nested_classes_inherited_from_class_org.gstreamer.lowlevel.NativeObject"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Nested classes/interfaces inherited from class org.gstreamer.lowlevel.<A HREF="../../org/gstreamer/lowlevel/NativeObject.html" title="class in org.gstreamer.lowlevel">NativeObject</A></B></TH>
+<TH ALIGN="left"><B>Nested classes/interfaces inherited from class org.gstreamer.lowlevel.<A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html" title="class in org.gstreamer.lowlevel">NativeObject</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../org/gstreamer/lowlevel/NativeObject.Initializer.html" title="class in org.gstreamer.lowlevel">NativeObject.Initializer</A></CODE></TD>
+<TD><CODE><A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.Initializer.html" title="class in org.gstreamer.lowlevel">NativeObject.Initializer</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -280,10 +280,10 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 &nbsp;<A NAME="fields_inherited_from_class_org.gstreamer.lowlevel.NativeObject"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Fields inherited from class org.gstreamer.lowlevel.<A HREF="../../org/gstreamer/lowlevel/NativeObject.html" title="class in org.gstreamer.lowlevel">NativeObject</A></B></TH>
+<TH ALIGN="left"><B>Fields inherited from class org.gstreamer.lowlevel.<A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html" title="class in org.gstreamer.lowlevel">NativeObject</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../org/gstreamer/lowlevel/NativeObject.html#defaultInit">defaultInit</A>, <A HREF="../../org/gstreamer/lowlevel/NativeObject.html#ownsHandle">ownsHandle</A></CODE></TD>
+<TD><CODE><A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#defaultInit">defaultInit</A>, <A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#ownsHandle">ownsHandle</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -296,10 +296,10 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.html#Bus(org.gstreamer.lowlevel.NativeObject.Initializer)">Bus</A></B>(<A HREF="../../org/gstreamer/lowlevel/NativeObject.Initializer.html" title="class in org.gstreamer.lowlevel">NativeObject.Initializer</A>&nbsp;init)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.html#Bus(org.gstreamer.lowlevel.NativeObject.Initializer)">Bus</A></B>(<A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.Initializer.html" title="class in org.gstreamer.lowlevel">NativeObject.Initializer</A>&nbsp;init)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This constructor is used internally by gstreamer-java</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This constructor is used internally by moduleExamples.gstreamer-java</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -314,23 +314,23 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.html#connect(org.gstreamer.Bus.ASYNC_DONE)">connect</A></B>(<A HREF="../../org/gstreamer/Bus.ASYNC_DONE.html" title="interface in org.gstreamer">Bus.ASYNC_DONE</A>&nbsp;listener)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.html#connect(org.gstreamer.Bus.ASYNC_DONE)">connect</A></B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.ASYNC_DONE.html" title="interface in org.gstreamer">Bus.ASYNC_DONE</A>&nbsp;listener)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add a listener for <A HREF="../../org/gstreamer/Bus.ASYNC_DONE.html" title="interface in org.gstreamer"><CODE>Bus.ASYNC_DONE</CODE></A> messages in the Pipeline.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add a listener for <A HREF="../../org/moduleExamples.gstreamer/Bus.ASYNC_DONE.html" title="interface in org.gstreamer"><CODE>Bus.ASYNC_DONE</CODE></A> messages in the Pipeline.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.html#connect(org.gstreamer.Bus.BUFFERING)">connect</A></B>(<A HREF="../../org/gstreamer/Bus.BUFFERING.html" title="interface in org.gstreamer">Bus.BUFFERING</A>&nbsp;listener)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.html#connect(org.gstreamer.Bus.BUFFERING)">connect</A></B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.BUFFERING.html" title="interface in org.gstreamer">Bus.BUFFERING</A>&nbsp;listener)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add a listener for <A HREF="../../org/gstreamer/Bus.BUFFERING.html" title="interface in org.gstreamer"><CODE>Bus.BUFFERING</CODE></A> messages in the Pipeline.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add a listener for <A HREF="../../org/moduleExamples.gstreamer/Bus.BUFFERING.html" title="interface in org.gstreamer"><CODE>Bus.BUFFERING</CODE></A> messages in the Pipeline.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.html#connect(org.gstreamer.Bus.DURATION)">connect</A></B>(<A HREF="../../org/gstreamer/Bus.DURATION.html" title="interface in org.gstreamer">Bus.DURATION</A>&nbsp;listener)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.html#connect(org.gstreamer.Bus.DURATION)">connect</A></B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.DURATION.html" title="interface in org.gstreamer">Bus.DURATION</A>&nbsp;listener)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add a listener for duration changes.</TD>
@@ -338,7 +338,7 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.html#connect(org.gstreamer.Bus.EOS)">connect</A></B>(<A HREF="../../org/gstreamer/Bus.EOS.html" title="interface in org.gstreamer">Bus.EOS</A>&nbsp;listener)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.html#connect(org.gstreamer.Bus.EOS)">connect</A></B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.EOS.html" title="interface in org.gstreamer">Bus.EOS</A>&nbsp;listener)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add a listener for end-of-stream messages.</TD>
@@ -346,7 +346,7 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.html#connect(org.gstreamer.Bus.ERROR)">connect</A></B>(<A HREF="../../org/gstreamer/Bus.ERROR.html" title="interface in org.gstreamer">Bus.ERROR</A>&nbsp;listener)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.html#connect(org.gstreamer.Bus.ERROR)">connect</A></B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.ERROR.html" title="interface in org.gstreamer">Bus.ERROR</A>&nbsp;listener)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add a listener for error messages.</TD>
@@ -354,7 +354,7 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.html#connect(org.gstreamer.Bus.INFO)">connect</A></B>(<A HREF="../../org/gstreamer/Bus.INFO.html" title="interface in org.gstreamer">Bus.INFO</A>&nbsp;listener)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.html#connect(org.gstreamer.Bus.INFO)">connect</A></B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.INFO.html" title="interface in org.gstreamer">Bus.INFO</A>&nbsp;listener)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add a listener for informational messages.</TD>
@@ -362,7 +362,7 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.html#connect(org.gstreamer.Bus.MESSAGE)">connect</A></B>(<A HREF="../../org/gstreamer/Bus.MESSAGE.html" title="interface in org.gstreamer">Bus.MESSAGE</A>&nbsp;listener)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.html#connect(org.gstreamer.Bus.MESSAGE)">connect</A></B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.MESSAGE.html" title="interface in org.gstreamer">Bus.MESSAGE</A>&nbsp;listener)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add a listener for all messages posted on the Bus.</TD>
@@ -370,31 +370,31 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.html#connect(org.gstreamer.Bus.SEGMENT_DONE)">connect</A></B>(<A HREF="../../org/gstreamer/Bus.SEGMENT_DONE.html" title="interface in org.gstreamer">Bus.SEGMENT_DONE</A>&nbsp;listener)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.html#connect(org.gstreamer.Bus.SEGMENT_DONE)">connect</A></B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.SEGMENT_DONE.html" title="interface in org.gstreamer">Bus.SEGMENT_DONE</A>&nbsp;listener)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add a listener for <A HREF="../../org/gstreamer/Bus.SEGMENT_DONE.html" title="interface in org.gstreamer"><CODE>Bus.SEGMENT_DONE</CODE></A> messages in the Pipeline.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add a listener for <A HREF="../../org/moduleExamples.gstreamer/Bus.SEGMENT_DONE.html" title="interface in org.gstreamer"><CODE>Bus.SEGMENT_DONE</CODE></A> messages in the Pipeline.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.html#connect(org.gstreamer.Bus.SEGMENT_START)">connect</A></B>(<A HREF="../../org/gstreamer/Bus.SEGMENT_START.html" title="interface in org.gstreamer">Bus.SEGMENT_START</A>&nbsp;listener)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.html#connect(org.gstreamer.Bus.SEGMENT_START)">connect</A></B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.SEGMENT_START.html" title="interface in org.gstreamer">Bus.SEGMENT_START</A>&nbsp;listener)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add a listener for <A HREF="../../org/gstreamer/Bus.SEGMENT_START.html" title="interface in org.gstreamer"><CODE>Bus.SEGMENT_START</CODE></A> messages in the Pipeline.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add a listener for <A HREF="../../org/moduleExamples.gstreamer/Bus.SEGMENT_START.html" title="interface in org.gstreamer"><CODE>Bus.SEGMENT_START</CODE></A> messages in the Pipeline.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.html#connect(org.gstreamer.Bus.STATE_CHANGED)">connect</A></B>(<A HREF="../../org/gstreamer/Bus.STATE_CHANGED.html" title="interface in org.gstreamer">Bus.STATE_CHANGED</A>&nbsp;listener)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.html#connect(org.gstreamer.Bus.STATE_CHANGED)">connect</A></B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.STATE_CHANGED.html" title="interface in org.gstreamer">Bus.STATE_CHANGED</A>&nbsp;listener)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add a listener for <A HREF="../../org/gstreamer/State.html" title="enum in org.gstreamer"><CODE>State</CODE></A> changes in the Pipeline.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add a listener for <A HREF="../../org/moduleExamples.gstreamer/State.html" title="enum in org.gstreamer"><CODE>State</CODE></A> changes in the Pipeline.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.html#connect(org.gstreamer.Bus.TAG)">connect</A></B>(<A HREF="../../org/gstreamer/Bus.TAG.html" title="interface in org.gstreamer">Bus.TAG</A>&nbsp;listener)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.html#connect(org.gstreamer.Bus.TAG)">connect</A></B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.TAG.html" title="interface in org.gstreamer">Bus.TAG</A>&nbsp;listener)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add a listener for new media tags.</TD>
@@ -402,7 +402,7 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.html#connect(org.gstreamer.Bus.WARNING)">connect</A></B>(<A HREF="../../org/gstreamer/Bus.WARNING.html" title="interface in org.gstreamer">Bus.WARNING</A>&nbsp;listener)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.html#connect(org.gstreamer.Bus.WARNING)">connect</A></B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.WARNING.html" title="interface in org.gstreamer">Bus.WARNING</A>&nbsp;listener)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add a listener for warning messages.</TD>
@@ -410,8 +410,8 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.html#connect(java.lang.String, org.gstreamer.Bus.MESSAGE)">connect</A></B>(java.lang.String&nbsp;signal,
-        <A HREF="../../org/gstreamer/Bus.MESSAGE.html" title="interface in org.gstreamer">Bus.MESSAGE</A>&nbsp;listener)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.html#connect(java.lang.String, org.gstreamer.Bus.MESSAGE)">connect</A></B>(java.lang.String&nbsp;signal,
+        <A HREF="../../org/moduleExamples.gstreamer/Bus.MESSAGE.html" title="interface in org.gstreamer">Bus.MESSAGE</A>&nbsp;listener)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add a listener for messages of type <code>signal</code> posted on the Bus.</TD>
@@ -426,7 +426,7 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 </TR>
 </TABLE>
 </CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.html#connect(java.lang.String, java.lang.Class, T, com.sun.jna.Callback)">connect</A></B>(java.lang.String&nbsp;signal,
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.html#connect(java.lang.String, java.lang.Class, T, com.sun.jna.Callback)">connect</A></B>(java.lang.String&nbsp;signal,
         java.lang.Class&lt;T&gt;&nbsp;listenerClass,
         T&nbsp;listener,
         com.sun.jna.Callback&nbsp;callback)</CODE>
@@ -437,7 +437,7 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.html#disconnect(org.gstreamer.Bus.ASYNC_DONE)">disconnect</A></B>(<A HREF="../../org/gstreamer/Bus.ASYNC_DONE.html" title="interface in org.gstreamer">Bus.ASYNC_DONE</A>&nbsp;listener)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.html#disconnect(org.gstreamer.Bus.ASYNC_DONE)">disconnect</A></B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.ASYNC_DONE.html" title="interface in org.gstreamer">Bus.ASYNC_DONE</A>&nbsp;listener)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Disconnect the listener for async-done messages.</TD>
@@ -445,7 +445,7 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.html#disconnect(org.gstreamer.Bus.BUFFERING)">disconnect</A></B>(<A HREF="../../org/gstreamer/Bus.BUFFERING.html" title="interface in org.gstreamer">Bus.BUFFERING</A>&nbsp;listener)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.html#disconnect(org.gstreamer.Bus.BUFFERING)">disconnect</A></B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.BUFFERING.html" title="interface in org.gstreamer">Bus.BUFFERING</A>&nbsp;listener)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Disconnect the listener for buffering messages.</TD>
@@ -453,7 +453,7 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.html#disconnect(org.gstreamer.Bus.DURATION)">disconnect</A></B>(<A HREF="../../org/gstreamer/Bus.DURATION.html" title="interface in org.gstreamer">Bus.DURATION</A>&nbsp;listener)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.html#disconnect(org.gstreamer.Bus.DURATION)">disconnect</A></B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.DURATION.html" title="interface in org.gstreamer">Bus.DURATION</A>&nbsp;listener)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Disconnect the listener for duration change messages.</TD>
@@ -461,7 +461,7 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.html#disconnect(org.gstreamer.Bus.EOS)">disconnect</A></B>(<A HREF="../../org/gstreamer/Bus.EOS.html" title="interface in org.gstreamer">Bus.EOS</A>&nbsp;listener)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.html#disconnect(org.gstreamer.Bus.EOS)">disconnect</A></B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.EOS.html" title="interface in org.gstreamer">Bus.EOS</A>&nbsp;listener)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Disconnect the listener for end-of-stream messages.</TD>
@@ -469,7 +469,7 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.html#disconnect(org.gstreamer.Bus.ERROR)">disconnect</A></B>(<A HREF="../../org/gstreamer/Bus.ERROR.html" title="interface in org.gstreamer">Bus.ERROR</A>&nbsp;listener)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.html#disconnect(org.gstreamer.Bus.ERROR)">disconnect</A></B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.ERROR.html" title="interface in org.gstreamer">Bus.ERROR</A>&nbsp;listener)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Disconnect the listener for error messages.</TD>
@@ -477,7 +477,7 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.html#disconnect(org.gstreamer.Bus.INFO)">disconnect</A></B>(<A HREF="../../org/gstreamer/Bus.INFO.html" title="interface in org.gstreamer">Bus.INFO</A>&nbsp;listener)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.html#disconnect(org.gstreamer.Bus.INFO)">disconnect</A></B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.INFO.html" title="interface in org.gstreamer">Bus.INFO</A>&nbsp;listener)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Disconnect the listener for informational messages.</TD>
@@ -485,7 +485,7 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.html#disconnect(org.gstreamer.Bus.MESSAGE)">disconnect</A></B>(<A HREF="../../org/gstreamer/Bus.MESSAGE.html" title="interface in org.gstreamer">Bus.MESSAGE</A>&nbsp;listener)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.html#disconnect(org.gstreamer.Bus.MESSAGE)">disconnect</A></B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.MESSAGE.html" title="interface in org.gstreamer">Bus.MESSAGE</A>&nbsp;listener)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Disconnect the listener for segment-done messages.</TD>
@@ -493,7 +493,7 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.html#disconnect(org.gstreamer.Bus.SEGMENT_DONE)">disconnect</A></B>(<A HREF="../../org/gstreamer/Bus.SEGMENT_DONE.html" title="interface in org.gstreamer">Bus.SEGMENT_DONE</A>&nbsp;listener)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.html#disconnect(org.gstreamer.Bus.SEGMENT_DONE)">disconnect</A></B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.SEGMENT_DONE.html" title="interface in org.gstreamer">Bus.SEGMENT_DONE</A>&nbsp;listener)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Disconnect the listener for segment-done messages.</TD>
@@ -501,7 +501,7 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.html#disconnect(org.gstreamer.Bus.SEGMENT_START)">disconnect</A></B>(<A HREF="../../org/gstreamer/Bus.SEGMENT_START.html" title="interface in org.gstreamer">Bus.SEGMENT_START</A>&nbsp;listener)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.html#disconnect(org.gstreamer.Bus.SEGMENT_START)">disconnect</A></B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.SEGMENT_START.html" title="interface in org.gstreamer">Bus.SEGMENT_START</A>&nbsp;listener)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Disconnect the listener for segment-start messages.</TD>
@@ -509,15 +509,15 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.html#disconnect(org.gstreamer.Bus.STATE_CHANGED)">disconnect</A></B>(<A HREF="../../org/gstreamer/Bus.STATE_CHANGED.html" title="interface in org.gstreamer">Bus.STATE_CHANGED</A>&nbsp;listener)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.html#disconnect(org.gstreamer.Bus.STATE_CHANGED)">disconnect</A></B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.STATE_CHANGED.html" title="interface in org.gstreamer">Bus.STATE_CHANGED</A>&nbsp;listener)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Disconnect the listener for <A HREF="../../org/gstreamer/State.html" title="enum in org.gstreamer"><CODE>State</CODE></A> change messages.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Disconnect the listener for <A HREF="../../org/moduleExamples.gstreamer/State.html" title="enum in org.gstreamer"><CODE>State</CODE></A> change messages.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.html#disconnect(org.gstreamer.Bus.TAG)">disconnect</A></B>(<A HREF="../../org/gstreamer/Bus.TAG.html" title="interface in org.gstreamer">Bus.TAG</A>&nbsp;listener)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.html#disconnect(org.gstreamer.Bus.TAG)">disconnect</A></B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.TAG.html" title="interface in org.gstreamer">Bus.TAG</A>&nbsp;listener)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Disconnect the listener for tag messages.</TD>
@@ -525,7 +525,7 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.html#disconnect(org.gstreamer.Bus.WARNING)">disconnect</A></B>(<A HREF="../../org/gstreamer/Bus.WARNING.html" title="interface in org.gstreamer">Bus.WARNING</A>&nbsp;listener)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.html#disconnect(org.gstreamer.Bus.WARNING)">disconnect</A></B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.WARNING.html" title="interface in org.gstreamer">Bus.WARNING</A>&nbsp;listener)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Disconnect the listener for warning messages.</TD>
@@ -540,7 +540,7 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 </TR>
 </TABLE>
 </CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.html#disconnect(java.lang.Class, T)">disconnect</A></B>(java.lang.Class&lt;T&gt;&nbsp;listenerClass,
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.html#disconnect(java.lang.Class, T)">disconnect</A></B>(java.lang.Class&lt;T&gt;&nbsp;listenerClass,
            T&nbsp;listener)</CODE>
 
 <BR>
@@ -548,8 +548,8 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../org/gstreamer/event/BusSyncHandler.html" title="interface in org.gstreamer.event">BusSyncHandler</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.html#getSyncHandler()">getSyncHandler</A></B>()</CODE>
+<CODE>&nbsp;<A HREF="../../org/moduleExamples.gstreamer/event/BusSyncHandler.html" title="interface in org.gstreamer.event">BusSyncHandler</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.html#getSyncHandler()">getSyncHandler</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -557,15 +557,15 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.html#post(org.gstreamer.Message)">post</A></B>(<A HREF="../../org/gstreamer/Message.html" title="class in org.gstreamer">Message</A>&nbsp;message)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.html#post(org.gstreamer.Message)">post</A></B>(<A HREF="../../org/moduleExamples.gstreamer/Message.html" title="class in org.gstreamer">Message</A>&nbsp;message)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Posts a <A HREF="../../org/gstreamer/Message.html" title="class in org.gstreamer"><CODE>Message</CODE></A> on this Bus.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Posts a <A HREF="../../org/moduleExamples.gstreamer/Message.html" title="class in org.gstreamer"><CODE>Message</CODE></A> on this Bus.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.html#setFlushing(boolean)">setFlushing</A></B>(boolean&nbsp;flushing)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.html#setFlushing(boolean)">setFlushing</A></B>(boolean&nbsp;flushing)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Instructs the bus to flush out any queued messages.</TD>
@@ -573,7 +573,7 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../org/gstreamer/Bus.html#setSyncHandler(org.gstreamer.event.BusSyncHandler)">setSyncHandler</A></B>(<A HREF="../../org/gstreamer/event/BusSyncHandler.html" title="interface in org.gstreamer.event">BusSyncHandler</A>&nbsp;handler)</CODE>
+<TD><CODE><B><A HREF="../../org/moduleExamples.gstreamer/Bus.html#setSyncHandler(org.gstreamer.event.BusSyncHandler)">setSyncHandler</A></B>(<A HREF="../../org/moduleExamples.gstreamer/event/BusSyncHandler.html" title="interface in org.gstreamer.event">BusSyncHandler</A>&nbsp;handler)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -582,28 +582,28 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 &nbsp;<A NAME="methods_inherited_from_class_org.gstreamer.GstObject"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from class org.gstreamer.<A HREF="../../org/gstreamer/GstObject.html" title="class in org.gstreamer">GstObject</A></B></TH>
+<TH ALIGN="left"><B>Methods inherited from class org.gstreamer.<A HREF="../../org/moduleExamples.gstreamer/GstObject.html" title="class in org.gstreamer">GstObject</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../org/gstreamer/GstObject.html#addListenerProxy(java.lang.Class, java.util.EventListener, java.util.EventListenerProxy)">addListenerProxy</A>, <A HREF="../../org/gstreamer/GstObject.html#getName()">getName</A>, <A HREF="../../org/gstreamer/GstObject.html#getParent()">getParent</A>, <A HREF="../../org/gstreamer/GstObject.html#initializer(com.sun.jna.Pointer)">initializer</A>, <A HREF="../../org/gstreamer/GstObject.html#initializer(com.sun.jna.Pointer, boolean)">initializer</A>, <A HREF="../../org/gstreamer/GstObject.html#ref()">ref</A>, <A HREF="../../org/gstreamer/GstObject.html#removeListenerProxy(java.lang.Class, java.util.EventListener)">removeListenerProxy</A>, <A HREF="../../org/gstreamer/GstObject.html#setName(java.lang.String)">setName</A>, <A HREF="../../org/gstreamer/GstObject.html#steal(org.gstreamer.GstObject)">steal</A>, <A HREF="../../org/gstreamer/GstObject.html#toString()">toString</A>, <A HREF="../../org/gstreamer/GstObject.html#unref()">unref</A></CODE></TD>
+<TD><CODE><A HREF="../../org/moduleExamples.gstreamer/GstObject.html#addListenerProxy(java.lang.Class, java.util.EventListener, java.util.EventListenerProxy)">addListenerProxy</A>, <A HREF="../../org/moduleExamples.gstreamer/GstObject.html#getName()">getName</A>, <A HREF="../../org/moduleExamples.gstreamer/GstObject.html#getParent()">getParent</A>, <A HREF="../../org/moduleExamples.gstreamer/GstObject.html#initializer(com.sun.jna.Pointer)">initializer</A>, <A HREF="../../org/moduleExamples.gstreamer/GstObject.html#initializer(com.sun.jna.Pointer, boolean)">initializer</A>, <A HREF="../../org/moduleExamples.gstreamer/GstObject.html#ref()">ref</A>, <A HREF="../../org/moduleExamples.gstreamer/GstObject.html#removeListenerProxy(java.lang.Class, java.util.EventListener)">removeListenerProxy</A>, <A HREF="../../org/moduleExamples.gstreamer/GstObject.html#setName(java.lang.String)">setName</A>, <A HREF="../../org/moduleExamples.gstreamer/GstObject.html#steal(org.gstreamer.GstObject)">steal</A>, <A HREF="../../org/moduleExamples.gstreamer/GstObject.html#toString()">toString</A>, <A HREF="../../org/moduleExamples.gstreamer/GstObject.html#unref()">unref</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_org.gstreamer.GObject"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from class org.gstreamer.<A HREF="../../org/gstreamer/GObject.html" title="class in org.gstreamer">GObject</A></B></TH>
+<TH ALIGN="left"><B>Methods inherited from class org.gstreamer.<A HREF="../../org/moduleExamples.gstreamer/GObject.html" title="class in org.gstreamer">GObject</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../org/gstreamer/GObject.html#addCallback(java.lang.Class, T, org.gstreamer.GObject.GCallback)">addCallback</A>, <A HREF="../../org/gstreamer/GObject.html#connect(java.lang.Class, T, com.sun.jna.Callback)">connect</A>, <A HREF="../../org/gstreamer/GObject.html#connect(java.lang.String, org.gstreamer.Closure)">connect</A>, <A HREF="../../org/gstreamer/GObject.html#disconnect(java.lang.String, org.gstreamer.Closure)">disconnect</A>, <A HREF="../../org/gstreamer/GObject.html#disposeNativeHandle(com.sun.jna.Pointer)">disposeNativeHandle</A>, <A HREF="../../org/gstreamer/GObject.html#emit(int, org.gstreamer.glib.GQuark, java.lang.Object...)">emit</A>, <A HREF="../../org/gstreamer/GObject.html#emit(java.lang.String, java.lang.Object...)">emit</A>, <A HREF="../../org/gstreamer/GObject.html#g_signal_connect(java.lang.String, com.sun.jna.Callback)">g_signal_connect</A>, <A HREF="../../org/gstreamer/GObject.html#get(java.lang.String)">get</A>, <A HREF="../../org/gstreamer/GObject.html#getPointer(java.lang.String)">getPointer</A>, <A HREF="../../org/gstreamer/GObject.html#getPropertyDefaultValue(java.lang.String)">getPropertyDefaultValue</A>, <A HREF="../../org/gstreamer/GObject.html#getPropertyMaximumValue(java.lang.String)">getPropertyMaximumValue</A>, <A HREF="../../org/gstreamer/GObject.html#getPropertyMinimumValue(java.lang.String)">getPropertyMinimumValue</A>, <A HREF="../../org/gstreamer/GObject.html#getType(java.lang.String)">getType</A>, <A HREF="../../org/gstreamer/GObject.html#invalidate()">invalidate</A>, <A HREF="../../org/gstreamer/GObject.html#objectFor(com.sun.jna.Pointer, java.lang.Class)">objectFor</A>, <A HREF="../../org/gstreamer/GObject.html#removeCallback(java.lang.Class, T)">removeCallback</A>, <A HREF="../../org/gstreamer/GObject.html#set(java.lang.String, java.lang.Object)">set</A></CODE></TD>
+<TD><CODE><A HREF="../../org/moduleExamples.gstreamer/GObject.html#addCallback(java.lang.Class, T, org.gstreamer.GObject.GCallback)">addCallback</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#connect(java.lang.Class, T, com.sun.jna.Callback)">connect</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#connect(java.lang.String, org.gstreamer.Closure)">connect</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#disconnect(java.lang.String, org.gstreamer.Closure)">disconnect</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#disposeNativeHandle(com.sun.jna.Pointer)">disposeNativeHandle</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#emit(int, org.gstreamer.glib.GQuark, java.lang.Object...)">emit</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#emit(java.lang.String, java.lang.Object...)">emit</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#g_signal_connect(java.lang.String, com.sun.jna.Callback)">g_signal_connect</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#get(java.lang.String)">get</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#getPointer(java.lang.String)">getPointer</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#getPropertyDefaultValue(java.lang.String)">getPropertyDefaultValue</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#getPropertyMaximumValue(java.lang.String)">getPropertyMaximumValue</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#getPropertyMinimumValue(java.lang.String)">getPropertyMinimumValue</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#getType(java.lang.String)">getType</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#invalidate()">invalidate</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#objectFor(com.sun.jna.Pointer, java.lang.Class)">objectFor</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#removeCallback(java.lang.Class, T)">removeCallback</A>, <A HREF="../../org/moduleExamples.gstreamer/GObject.html#set(java.lang.String, java.lang.Object)">set</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_org.gstreamer.lowlevel.NativeObject"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from class org.gstreamer.lowlevel.<A HREF="../../org/gstreamer/lowlevel/NativeObject.html" title="class in org.gstreamer.lowlevel">NativeObject</A></B></TH>
+<TH ALIGN="left"><B>Methods inherited from class org.gstreamer.lowlevel.<A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html" title="class in org.gstreamer.lowlevel">NativeObject</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../org/gstreamer/lowlevel/NativeObject.html#classFor(com.sun.jna.Pointer, java.lang.Class)">classFor</A>, <A HREF="../../org/gstreamer/lowlevel/NativeObject.html#disown()">disown</A>, <A HREF="../../org/gstreamer/lowlevel/NativeObject.html#dispose()">dispose</A>, <A HREF="../../org/gstreamer/lowlevel/NativeObject.html#equals(java.lang.Object)">equals</A>, <A HREF="../../org/gstreamer/lowlevel/NativeObject.html#finalize()">finalize</A>, <A HREF="../../org/gstreamer/lowlevel/NativeObject.html#getNativeAddress()">getNativeAddress</A>, <A HREF="../../org/gstreamer/lowlevel/NativeObject.html#handle()">handle</A>, <A HREF="../../org/gstreamer/lowlevel/NativeObject.html#hashCode()">hashCode</A>, <A HREF="../../org/gstreamer/lowlevel/NativeObject.html#initializer(com.sun.jna.Pointer, boolean, boolean)">initializer</A>, <A HREF="../../org/gstreamer/lowlevel/NativeObject.html#instanceFor(com.sun.jna.Pointer)">instanceFor</A>, <A HREF="../../org/gstreamer/lowlevel/NativeObject.html#isDisposed()">isDisposed</A>, <A HREF="../../org/gstreamer/lowlevel/NativeObject.html#nativeValue()">nativeValue</A>, <A HREF="../../org/gstreamer/lowlevel/NativeObject.html#objectFor(com.sun.jna.Pointer, java.lang.Class, boolean)">objectFor</A>, <A HREF="../../org/gstreamer/lowlevel/NativeObject.html#objectFor(com.sun.jna.Pointer, java.lang.Class, boolean, boolean)">objectFor</A>, <A HREF="../../org/gstreamer/lowlevel/NativeObject.html#objectFor(com.sun.jna.Pointer, java.lang.Class, int, boolean)">objectFor</A></CODE></TD>
+<TD><CODE><A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#classFor(com.sun.jna.Pointer, java.lang.Class)">classFor</A>, <A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#disown()">disown</A>, <A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#dispose()">dispose</A>, <A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#equals(java.lang.Object)">equals</A>, <A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#finalize()">finalize</A>, <A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#getNativeAddress()">getNativeAddress</A>, <A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#handle()">handle</A>, <A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#hashCode()">hashCode</A>, <A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#initializer(com.sun.jna.Pointer, boolean, boolean)">initializer</A>, <A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#instanceFor(com.sun.jna.Pointer)">instanceFor</A>, <A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#isDisposed()">isDisposed</A>, <A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#nativeValue()">nativeValue</A>, <A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#objectFor(com.sun.jna.Pointer, java.lang.Class, boolean)">objectFor</A>, <A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#objectFor(com.sun.jna.Pointer, java.lang.Class, boolean, boolean)">objectFor</A>, <A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.html#objectFor(com.sun.jna.Pointer, java.lang.Class, int, boolean)">objectFor</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -631,9 +631,9 @@ The <A HREF="../../org/gstreamer/Bus.html" title="class in org.gstreamer"><CODE>
 <A NAME="Bus(org.gstreamer.lowlevel.NativeObject.Initializer)"><!-- --></A><H3>
 Bus</H3>
 <PRE>
-public <B>Bus</B>(<A HREF="../../org/gstreamer/lowlevel/NativeObject.Initializer.html" title="class in org.gstreamer.lowlevel">NativeObject.Initializer</A>&nbsp;init)</PRE>
+public <B>Bus</B>(<A HREF="../../org/moduleExamples.gstreamer/lowlevel/NativeObject.Initializer.html" title="class in org.gstreamer.lowlevel">NativeObject.Initializer</A>&nbsp;init)</PRE>
 <DL>
-<DD>This constructor is used internally by gstreamer-java
+<DD>This constructor is used internally by moduleExamples.gstreamer-java
 <P>
 <DL>
 <DT><B>Parameters:</B><DD><CODE>init</CODE> - internal initialization data</DL>
@@ -657,7 +657,7 @@ public void <B>setFlushing</B>(boolean&nbsp;flushing)</PRE>
 <DD>Instructs the bus to flush out any queued messages.
  
  If flushing, flush out any messages queued in the bus. Will flush future 
- messages until <A HREF="../../org/gstreamer/Bus.html#setFlushing(boolean)"><CODE>setFlushing(boolean)</CODE></A> is called with false.
+ messages until <A HREF="../../org/moduleExamples.gstreamer/Bus.html#setFlushing(boolean)"><CODE>setFlushing(boolean)</CODE></A> is called with false.
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>flushing</CODE> - true if flushing is desired.</DL>
@@ -668,7 +668,7 @@ public void <B>setFlushing</B>(boolean&nbsp;flushing)</PRE>
 <A NAME="connect(org.gstreamer.Bus.EOS)"><!-- --></A><H3>
 connect</H3>
 <PRE>
-public void <B>connect</B>(<A HREF="../../org/gstreamer/Bus.EOS.html" title="interface in org.gstreamer">Bus.EOS</A>&nbsp;listener)</PRE>
+public void <B>connect</B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.EOS.html" title="interface in org.gstreamer">Bus.EOS</A>&nbsp;listener)</PRE>
 <DL>
 <DD>Add a listener for end-of-stream messages.
 <P>
@@ -681,7 +681,7 @@ public void <B>connect</B>(<A HREF="../../org/gstreamer/Bus.EOS.html" title="int
 <A NAME="disconnect(org.gstreamer.Bus.EOS)"><!-- --></A><H3>
 disconnect</H3>
 <PRE>
-public void <B>disconnect</B>(<A HREF="../../org/gstreamer/Bus.EOS.html" title="interface in org.gstreamer">Bus.EOS</A>&nbsp;listener)</PRE>
+public void <B>disconnect</B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.EOS.html" title="interface in org.gstreamer">Bus.EOS</A>&nbsp;listener)</PRE>
 <DL>
 <DD>Disconnect the listener for end-of-stream messages.
 <P>
@@ -694,7 +694,7 @@ public void <B>disconnect</B>(<A HREF="../../org/gstreamer/Bus.EOS.html" title="
 <A NAME="connect(org.gstreamer.Bus.ERROR)"><!-- --></A><H3>
 connect</H3>
 <PRE>
-public void <B>connect</B>(<A HREF="../../org/gstreamer/Bus.ERROR.html" title="interface in org.gstreamer">Bus.ERROR</A>&nbsp;listener)</PRE>
+public void <B>connect</B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.ERROR.html" title="interface in org.gstreamer">Bus.ERROR</A>&nbsp;listener)</PRE>
 <DL>
 <DD>Add a listener for error messages.
 <P>
@@ -707,7 +707,7 @@ public void <B>connect</B>(<A HREF="../../org/gstreamer/Bus.ERROR.html" title="i
 <A NAME="disconnect(org.gstreamer.Bus.ERROR)"><!-- --></A><H3>
 disconnect</H3>
 <PRE>
-public void <B>disconnect</B>(<A HREF="../../org/gstreamer/Bus.ERROR.html" title="interface in org.gstreamer">Bus.ERROR</A>&nbsp;listener)</PRE>
+public void <B>disconnect</B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.ERROR.html" title="interface in org.gstreamer">Bus.ERROR</A>&nbsp;listener)</PRE>
 <DL>
 <DD>Disconnect the listener for error messages.
 <P>
@@ -720,12 +720,12 @@ public void <B>disconnect</B>(<A HREF="../../org/gstreamer/Bus.ERROR.html" title
 <A NAME="connect(org.gstreamer.Bus.WARNING)"><!-- --></A><H3>
 connect</H3>
 <PRE>
-public void <B>connect</B>(<A HREF="../../org/gstreamer/Bus.WARNING.html" title="interface in org.gstreamer">Bus.WARNING</A>&nbsp;listener)</PRE>
+public void <B>connect</B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.WARNING.html" title="interface in org.gstreamer">Bus.WARNING</A>&nbsp;listener)</PRE>
 <DL>
 <DD>Add a listener for warning messages.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>listener</CODE> - The listener to be called when an <A HREF="../../org/gstreamer/Element.html" title="class in org.gstreamer"><CODE>Element</CODE></A> emits a warning.</DL>
+<DT><B>Parameters:</B><DD><CODE>listener</CODE> - The listener to be called when an <A HREF="../../org/moduleExamples.gstreamer/Element.html" title="class in org.gstreamer"><CODE>Element</CODE></A> emits a warning.</DL>
 </DD>
 </DL>
 <HR>
@@ -733,7 +733,7 @@ public void <B>connect</B>(<A HREF="../../org/gstreamer/Bus.WARNING.html" title=
 <A NAME="disconnect(org.gstreamer.Bus.WARNING)"><!-- --></A><H3>
 disconnect</H3>
 <PRE>
-public void <B>disconnect</B>(<A HREF="../../org/gstreamer/Bus.WARNING.html" title="interface in org.gstreamer">Bus.WARNING</A>&nbsp;listener)</PRE>
+public void <B>disconnect</B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.WARNING.html" title="interface in org.gstreamer">Bus.WARNING</A>&nbsp;listener)</PRE>
 <DL>
 <DD>Disconnect the listener for warning messages.
 <P>
@@ -746,12 +746,12 @@ public void <B>disconnect</B>(<A HREF="../../org/gstreamer/Bus.WARNING.html" tit
 <A NAME="connect(org.gstreamer.Bus.INFO)"><!-- --></A><H3>
 connect</H3>
 <PRE>
-public void <B>connect</B>(<A HREF="../../org/gstreamer/Bus.INFO.html" title="interface in org.gstreamer">Bus.INFO</A>&nbsp;listener)</PRE>
+public void <B>connect</B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.INFO.html" title="interface in org.gstreamer">Bus.INFO</A>&nbsp;listener)</PRE>
 <DL>
 <DD>Add a listener for informational messages.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>listener</CODE> - The listener to be called when an <A HREF="../../org/gstreamer/Element.html" title="class in org.gstreamer"><CODE>Element</CODE></A> emits a an informational message.</DL>
+<DT><B>Parameters:</B><DD><CODE>listener</CODE> - The listener to be called when an <A HREF="../../org/moduleExamples.gstreamer/Element.html" title="class in org.gstreamer"><CODE>Element</CODE></A> emits a an informational message.</DL>
 </DD>
 </DL>
 <HR>
@@ -759,7 +759,7 @@ public void <B>connect</B>(<A HREF="../../org/gstreamer/Bus.INFO.html" title="in
 <A NAME="disconnect(org.gstreamer.Bus.INFO)"><!-- --></A><H3>
 disconnect</H3>
 <PRE>
-public void <B>disconnect</B>(<A HREF="../../org/gstreamer/Bus.INFO.html" title="interface in org.gstreamer">Bus.INFO</A>&nbsp;listener)</PRE>
+public void <B>disconnect</B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.INFO.html" title="interface in org.gstreamer">Bus.INFO</A>&nbsp;listener)</PRE>
 <DL>
 <DD>Disconnect the listener for informational messages.
 <P>
@@ -772,9 +772,9 @@ public void <B>disconnect</B>(<A HREF="../../org/gstreamer/Bus.INFO.html" title=
 <A NAME="connect(org.gstreamer.Bus.STATE_CHANGED)"><!-- --></A><H3>
 connect</H3>
 <PRE>
-public void <B>connect</B>(<A HREF="../../org/gstreamer/Bus.STATE_CHANGED.html" title="interface in org.gstreamer">Bus.STATE_CHANGED</A>&nbsp;listener)</PRE>
+public void <B>connect</B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.STATE_CHANGED.html" title="interface in org.gstreamer">Bus.STATE_CHANGED</A>&nbsp;listener)</PRE>
 <DL>
-<DD>Add a listener for <A HREF="../../org/gstreamer/State.html" title="enum in org.gstreamer"><CODE>State</CODE></A> changes in the Pipeline.
+<DD>Add a listener for <A HREF="../../org/moduleExamples.gstreamer/State.html" title="enum in org.gstreamer"><CODE>State</CODE></A> changes in the Pipeline.
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>listener</CODE> - The listener to be called when the Pipeline changes state.</DL>
@@ -785,9 +785,9 @@ public void <B>connect</B>(<A HREF="../../org/gstreamer/Bus.STATE_CHANGED.html" 
 <A NAME="disconnect(org.gstreamer.Bus.STATE_CHANGED)"><!-- --></A><H3>
 disconnect</H3>
 <PRE>
-public void <B>disconnect</B>(<A HREF="../../org/gstreamer/Bus.STATE_CHANGED.html" title="interface in org.gstreamer">Bus.STATE_CHANGED</A>&nbsp;listener)</PRE>
+public void <B>disconnect</B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.STATE_CHANGED.html" title="interface in org.gstreamer">Bus.STATE_CHANGED</A>&nbsp;listener)</PRE>
 <DL>
-<DD>Disconnect the listener for <A HREF="../../org/gstreamer/State.html" title="enum in org.gstreamer"><CODE>State</CODE></A> change messages.
+<DD>Disconnect the listener for <A HREF="../../org/moduleExamples.gstreamer/State.html" title="enum in org.gstreamer"><CODE>State</CODE></A> change messages.
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>listener</CODE> - The listener that was registered to receive the message.</DL>
@@ -798,7 +798,7 @@ public void <B>disconnect</B>(<A HREF="../../org/gstreamer/Bus.STATE_CHANGED.htm
 <A NAME="connect(org.gstreamer.Bus.TAG)"><!-- --></A><H3>
 connect</H3>
 <PRE>
-public void <B>connect</B>(<A HREF="../../org/gstreamer/Bus.TAG.html" title="interface in org.gstreamer">Bus.TAG</A>&nbsp;listener)</PRE>
+public void <B>connect</B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.TAG.html" title="interface in org.gstreamer">Bus.TAG</A>&nbsp;listener)</PRE>
 <DL>
 <DD>Add a listener for new media tags.
 <P>
@@ -811,7 +811,7 @@ public void <B>connect</B>(<A HREF="../../org/gstreamer/Bus.TAG.html" title="int
 <A NAME="disconnect(org.gstreamer.Bus.TAG)"><!-- --></A><H3>
 disconnect</H3>
 <PRE>
-public void <B>disconnect</B>(<A HREF="../../org/gstreamer/Bus.TAG.html" title="interface in org.gstreamer">Bus.TAG</A>&nbsp;listener)</PRE>
+public void <B>disconnect</B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.TAG.html" title="interface in org.gstreamer">Bus.TAG</A>&nbsp;listener)</PRE>
 <DL>
 <DD>Disconnect the listener for tag messages.
 <P>
@@ -824,9 +824,9 @@ public void <B>disconnect</B>(<A HREF="../../org/gstreamer/Bus.TAG.html" title="
 <A NAME="connect(org.gstreamer.Bus.BUFFERING)"><!-- --></A><H3>
 connect</H3>
 <PRE>
-public void <B>connect</B>(<A HREF="../../org/gstreamer/Bus.BUFFERING.html" title="interface in org.gstreamer">Bus.BUFFERING</A>&nbsp;listener)</PRE>
+public void <B>connect</B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.BUFFERING.html" title="interface in org.gstreamer">Bus.BUFFERING</A>&nbsp;listener)</PRE>
 <DL>
-<DD>Add a listener for <A HREF="../../org/gstreamer/Bus.BUFFERING.html" title="interface in org.gstreamer"><CODE>Bus.BUFFERING</CODE></A> messages in the Pipeline.
+<DD>Add a listener for <A HREF="../../org/moduleExamples.gstreamer/Bus.BUFFERING.html" title="interface in org.gstreamer"><CODE>Bus.BUFFERING</CODE></A> messages in the Pipeline.
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>listener</CODE> - The listener to be called when the Pipeline buffers data.</DL>
@@ -837,7 +837,7 @@ public void <B>connect</B>(<A HREF="../../org/gstreamer/Bus.BUFFERING.html" titl
 <A NAME="disconnect(org.gstreamer.Bus.BUFFERING)"><!-- --></A><H3>
 disconnect</H3>
 <PRE>
-public void <B>disconnect</B>(<A HREF="../../org/gstreamer/Bus.BUFFERING.html" title="interface in org.gstreamer">Bus.BUFFERING</A>&nbsp;listener)</PRE>
+public void <B>disconnect</B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.BUFFERING.html" title="interface in org.gstreamer">Bus.BUFFERING</A>&nbsp;listener)</PRE>
 <DL>
 <DD>Disconnect the listener for buffering messages.
 <P>
@@ -850,7 +850,7 @@ public void <B>disconnect</B>(<A HREF="../../org/gstreamer/Bus.BUFFERING.html" t
 <A NAME="connect(org.gstreamer.Bus.DURATION)"><!-- --></A><H3>
 connect</H3>
 <PRE>
-public void <B>connect</B>(<A HREF="../../org/gstreamer/Bus.DURATION.html" title="interface in org.gstreamer">Bus.DURATION</A>&nbsp;listener)</PRE>
+public void <B>connect</B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.DURATION.html" title="interface in org.gstreamer">Bus.DURATION</A>&nbsp;listener)</PRE>
 <DL>
 <DD>Add a listener for duration changes.
 <P>
@@ -863,7 +863,7 @@ public void <B>connect</B>(<A HREF="../../org/gstreamer/Bus.DURATION.html" title
 <A NAME="disconnect(org.gstreamer.Bus.DURATION)"><!-- --></A><H3>
 disconnect</H3>
 <PRE>
-public void <B>disconnect</B>(<A HREF="../../org/gstreamer/Bus.DURATION.html" title="interface in org.gstreamer">Bus.DURATION</A>&nbsp;listener)</PRE>
+public void <B>disconnect</B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.DURATION.html" title="interface in org.gstreamer">Bus.DURATION</A>&nbsp;listener)</PRE>
 <DL>
 <DD>Disconnect the listener for duration change messages.
 <P>
@@ -876,9 +876,9 @@ public void <B>disconnect</B>(<A HREF="../../org/gstreamer/Bus.DURATION.html" ti
 <A NAME="connect(org.gstreamer.Bus.SEGMENT_START)"><!-- --></A><H3>
 connect</H3>
 <PRE>
-public void <B>connect</B>(<A HREF="../../org/gstreamer/Bus.SEGMENT_START.html" title="interface in org.gstreamer">Bus.SEGMENT_START</A>&nbsp;listener)</PRE>
+public void <B>connect</B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.SEGMENT_START.html" title="interface in org.gstreamer">Bus.SEGMENT_START</A>&nbsp;listener)</PRE>
 <DL>
-<DD>Add a listener for <A HREF="../../org/gstreamer/Bus.SEGMENT_START.html" title="interface in org.gstreamer"><CODE>Bus.SEGMENT_START</CODE></A> messages in the Pipeline.
+<DD>Add a listener for <A HREF="../../org/moduleExamples.gstreamer/Bus.SEGMENT_START.html" title="interface in org.gstreamer"><CODE>Bus.SEGMENT_START</CODE></A> messages in the Pipeline.
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>listener</CODE> - The listener to be called when the Pipeline has started a segment.</DL>
@@ -889,7 +889,7 @@ public void <B>connect</B>(<A HREF="../../org/gstreamer/Bus.SEGMENT_START.html" 
 <A NAME="disconnect(org.gstreamer.Bus.SEGMENT_START)"><!-- --></A><H3>
 disconnect</H3>
 <PRE>
-public void <B>disconnect</B>(<A HREF="../../org/gstreamer/Bus.SEGMENT_START.html" title="interface in org.gstreamer">Bus.SEGMENT_START</A>&nbsp;listener)</PRE>
+public void <B>disconnect</B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.SEGMENT_START.html" title="interface in org.gstreamer">Bus.SEGMENT_START</A>&nbsp;listener)</PRE>
 <DL>
 <DD>Disconnect the listener for segment-start messages.
 <P>
@@ -902,9 +902,9 @@ public void <B>disconnect</B>(<A HREF="../../org/gstreamer/Bus.SEGMENT_START.htm
 <A NAME="connect(org.gstreamer.Bus.SEGMENT_DONE)"><!-- --></A><H3>
 connect</H3>
 <PRE>
-public void <B>connect</B>(<A HREF="../../org/gstreamer/Bus.SEGMENT_DONE.html" title="interface in org.gstreamer">Bus.SEGMENT_DONE</A>&nbsp;listener)</PRE>
+public void <B>connect</B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.SEGMENT_DONE.html" title="interface in org.gstreamer">Bus.SEGMENT_DONE</A>&nbsp;listener)</PRE>
 <DL>
-<DD>Add a listener for <A HREF="../../org/gstreamer/Bus.SEGMENT_DONE.html" title="interface in org.gstreamer"><CODE>Bus.SEGMENT_DONE</CODE></A> messages in the Pipeline.
+<DD>Add a listener for <A HREF="../../org/moduleExamples.gstreamer/Bus.SEGMENT_DONE.html" title="interface in org.gstreamer"><CODE>Bus.SEGMENT_DONE</CODE></A> messages in the Pipeline.
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>listener</CODE> - The listener to be called when the Pipeline has finished a segment.</DL>
@@ -915,7 +915,7 @@ public void <B>connect</B>(<A HREF="../../org/gstreamer/Bus.SEGMENT_DONE.html" t
 <A NAME="disconnect(org.gstreamer.Bus.SEGMENT_DONE)"><!-- --></A><H3>
 disconnect</H3>
 <PRE>
-public void <B>disconnect</B>(<A HREF="../../org/gstreamer/Bus.SEGMENT_DONE.html" title="interface in org.gstreamer">Bus.SEGMENT_DONE</A>&nbsp;listener)</PRE>
+public void <B>disconnect</B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.SEGMENT_DONE.html" title="interface in org.gstreamer">Bus.SEGMENT_DONE</A>&nbsp;listener)</PRE>
 <DL>
 <DD>Disconnect the listener for segment-done messages.
 <P>
@@ -928,9 +928,9 @@ public void <B>disconnect</B>(<A HREF="../../org/gstreamer/Bus.SEGMENT_DONE.html
 <A NAME="connect(org.gstreamer.Bus.ASYNC_DONE)"><!-- --></A><H3>
 connect</H3>
 <PRE>
-public void <B>connect</B>(<A HREF="../../org/gstreamer/Bus.ASYNC_DONE.html" title="interface in org.gstreamer">Bus.ASYNC_DONE</A>&nbsp;listener)</PRE>
+public void <B>connect</B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.ASYNC_DONE.html" title="interface in org.gstreamer">Bus.ASYNC_DONE</A>&nbsp;listener)</PRE>
 <DL>
-<DD>Add a listener for <A HREF="../../org/gstreamer/Bus.ASYNC_DONE.html" title="interface in org.gstreamer"><CODE>Bus.ASYNC_DONE</CODE></A> messages in the Pipeline.
+<DD>Add a listener for <A HREF="../../org/moduleExamples.gstreamer/Bus.ASYNC_DONE.html" title="interface in org.gstreamer"><CODE>Bus.ASYNC_DONE</CODE></A> messages in the Pipeline.
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>listener</CODE> - The listener to be called when the an element has finished 
@@ -942,7 +942,7 @@ public void <B>connect</B>(<A HREF="../../org/gstreamer/Bus.ASYNC_DONE.html" tit
 <A NAME="disconnect(org.gstreamer.Bus.ASYNC_DONE)"><!-- --></A><H3>
 disconnect</H3>
 <PRE>
-public void <B>disconnect</B>(<A HREF="../../org/gstreamer/Bus.ASYNC_DONE.html" title="interface in org.gstreamer">Bus.ASYNC_DONE</A>&nbsp;listener)</PRE>
+public void <B>disconnect</B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.ASYNC_DONE.html" title="interface in org.gstreamer">Bus.ASYNC_DONE</A>&nbsp;listener)</PRE>
 <DL>
 <DD>Disconnect the listener for async-done messages.
 <P>
@@ -955,12 +955,12 @@ public void <B>disconnect</B>(<A HREF="../../org/gstreamer/Bus.ASYNC_DONE.html" 
 <A NAME="connect(org.gstreamer.Bus.MESSAGE)"><!-- --></A><H3>
 connect</H3>
 <PRE>
-public void <B>connect</B>(<A HREF="../../org/gstreamer/Bus.MESSAGE.html" title="interface in org.gstreamer">Bus.MESSAGE</A>&nbsp;listener)</PRE>
+public void <B>connect</B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.MESSAGE.html" title="interface in org.gstreamer">Bus.MESSAGE</A>&nbsp;listener)</PRE>
 <DL>
 <DD>Add a listener for all messages posted on the Bus.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>listener</CODE> - The listener to be called when a <A HREF="../../org/gstreamer/Message.html" title="class in org.gstreamer"><CODE>Message</CODE></A> is posted.</DL>
+<DT><B>Parameters:</B><DD><CODE>listener</CODE> - The listener to be called when a <A HREF="../../org/moduleExamples.gstreamer/Message.html" title="class in org.gstreamer"><CODE>Message</CODE></A> is posted.</DL>
 </DD>
 </DL>
 <HR>
@@ -969,12 +969,12 @@ public void <B>connect</B>(<A HREF="../../org/gstreamer/Bus.MESSAGE.html" title=
 connect</H3>
 <PRE>
 public void <B>connect</B>(java.lang.String&nbsp;signal,
-                    <A HREF="../../org/gstreamer/Bus.MESSAGE.html" title="interface in org.gstreamer">Bus.MESSAGE</A>&nbsp;listener)</PRE>
+                    <A HREF="../../org/moduleExamples.gstreamer/Bus.MESSAGE.html" title="interface in org.gstreamer">Bus.MESSAGE</A>&nbsp;listener)</PRE>
 <DL>
 <DD>Add a listener for messages of type <code>signal</code> posted on the Bus.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>signal</CODE> - the signal to connect to.<DD><CODE>listener</CODE> - The listener to be called when a <A HREF="../../org/gstreamer/Message.html" title="class in org.gstreamer"><CODE>Message</CODE></A> is posted.</DL>
+<DT><B>Parameters:</B><DD><CODE>signal</CODE> - the signal to connect to.<DD><CODE>listener</CODE> - The listener to be called when a <A HREF="../../org/moduleExamples.gstreamer/Message.html" title="class in org.gstreamer"><CODE>Message</CODE></A> is posted.</DL>
 </DD>
 </DL>
 <HR>
@@ -982,7 +982,7 @@ public void <B>connect</B>(java.lang.String&nbsp;signal,
 <A NAME="disconnect(org.gstreamer.Bus.MESSAGE)"><!-- --></A><H3>
 disconnect</H3>
 <PRE>
-public void <B>disconnect</B>(<A HREF="../../org/gstreamer/Bus.MESSAGE.html" title="interface in org.gstreamer">Bus.MESSAGE</A>&nbsp;listener)</PRE>
+public void <B>disconnect</B>(<A HREF="../../org/moduleExamples.gstreamer/Bus.MESSAGE.html" title="interface in org.gstreamer">Bus.MESSAGE</A>&nbsp;listener)</PRE>
 <DL>
 <DD>Disconnect the listener for segment-done messages.
 <P>
@@ -995,9 +995,9 @@ public void <B>disconnect</B>(<A HREF="../../org/gstreamer/Bus.MESSAGE.html" tit
 <A NAME="post(org.gstreamer.Message)"><!-- --></A><H3>
 post</H3>
 <PRE>
-public boolean <B>post</B>(<A HREF="../../org/gstreamer/Message.html" title="class in org.gstreamer">Message</A>&nbsp;message)</PRE>
+public boolean <B>post</B>(<A HREF="../../org/moduleExamples.gstreamer/Message.html" title="class in org.gstreamer">Message</A>&nbsp;message)</PRE>
 <DL>
-<DD>Posts a <A HREF="../../org/gstreamer/Message.html" title="class in org.gstreamer"><CODE>Message</CODE></A> on this Bus.
+<DD>Posts a <A HREF="../../org/moduleExamples.gstreamer/Message.html" title="class in org.gstreamer"><CODE>Message</CODE></A> on this Bus.
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>message</CODE> - the message to post.
@@ -1010,7 +1010,7 @@ public boolean <B>post</B>(<A HREF="../../org/gstreamer/Message.html" title="cla
 <A NAME="getSyncHandler()"><!-- --></A><H3>
 getSyncHandler</H3>
 <PRE>
-public <A HREF="../../org/gstreamer/event/BusSyncHandler.html" title="interface in org.gstreamer.event">BusSyncHandler</A> <B>getSyncHandler</B>()</PRE>
+public <A HREF="../../org/moduleExamples.gstreamer/event/BusSyncHandler.html" title="interface in org.gstreamer.event">BusSyncHandler</A> <B>getSyncHandler</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -1021,7 +1021,7 @@ public <A HREF="../../org/gstreamer/event/BusSyncHandler.html" title="interface 
 <A NAME="setSyncHandler(org.gstreamer.event.BusSyncHandler)"><!-- --></A><H3>
 setSyncHandler</H3>
 <PRE>
-public void <B>setSyncHandler</B>(<A HREF="../../org/gstreamer/event/BusSyncHandler.html" title="interface in org.gstreamer.event">BusSyncHandler</A>&nbsp;handler)</PRE>
+public void <B>setSyncHandler</B>(<A HREF="../../org/moduleExamples.gstreamer/event/BusSyncHandler.html" title="interface in org.gstreamer.event">BusSyncHandler</A>&nbsp;handler)</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -1039,11 +1039,11 @@ public &lt;T&gt; void <B>connect</B>(java.lang.String&nbsp;signal,
 <DL>
 <DD>Connects a callback to a signal.
  <p>
- This differs to <A HREF="../../org/gstreamer/GObject.html#connect(java.lang.Class, T, com.sun.jna.Callback)"><CODE>GObject.connect(java.lang.Class<T>, T, com.sun.jna.Callback)</CODE></A> in that it hooks up Bus signals
+ This differs to <A HREF="../../org/moduleExamples.gstreamer/GObject.html#connect(java.lang.Class, T, com.sun.jna.Callback)"><CODE>GObject.connect(java.lang.Class<T>, T, com.sun.jna.Callback)</CODE></A> in that it hooks up Bus signals
  to the sync callback, not the generic GObject signal mechanism.
 <P>
 <DD><DL>
-<DT><B>Overrides:</B><DD><CODE><A HREF="../../org/gstreamer/GObject.html#connect(java.lang.String, java.lang.Class, T, com.sun.jna.Callback)">connect</A></CODE> in class <CODE><A HREF="../../org/gstreamer/GObject.html" title="class in org.gstreamer">GObject</A></CODE></DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../org/moduleExamples.gstreamer/GObject.html#connect(java.lang.String, java.lang.Class, T, com.sun.jna.Callback)">connect</A></CODE> in class <CODE><A HREF="../../org/moduleExamples.gstreamer/GObject.html" title="class in org.gstreamer">GObject</A></CODE></DL>
 </DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>signal</CODE> - the name of the signal to connect to.<DD><CODE>listenerClass</CODE> - the class of the <code>listener</code><DD><CODE>listener</CODE> - the listener to associate with the <code>callback</code><DD><CODE>callback</CODE> - the callback to call when the signal is emitted.</DL>
@@ -1058,7 +1058,7 @@ public &lt;T&gt; void <B>disconnect</B>(java.lang.Class&lt;T&gt;&nbsp;listenerCl
                            T&nbsp;listener)</PRE>
 <DL>
 <DD><DL>
-<DT><B>Overrides:</B><DD><CODE><A HREF="../../org/gstreamer/GObject.html#disconnect(java.lang.Class, T)">disconnect</A></CODE> in class <CODE><A HREF="../../org/gstreamer/GObject.html" title="class in org.gstreamer">GObject</A></CODE></DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../org/moduleExamples.gstreamer/GObject.html#disconnect(java.lang.Class, T)">disconnect</A></CODE> in class <CODE><A HREF="../../org/moduleExamples.gstreamer/GObject.html" title="class in org.gstreamer">GObject</A></CODE></DL>
 </DD>
 <DD><DL>
 </DL>
@@ -1095,10 +1095,10 @@ public &lt;T&gt; void <B>disconnect</B>(java.lang.Class&lt;T&gt;&nbsp;listenerCl
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../org/gstreamer/BufferFlag.html" title="enum in org.gstreamer"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../org/gstreamer/Bus.ASYNC_DONE.html" title="interface in org.gstreamer"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../org/moduleExamples.gstreamer/BufferFlag.html" title="enum in org.gstreamer"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../org/moduleExamples.gstreamer/Bus.ASYNC_DONE.html" title="interface in org.gstreamer"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../index.html?org/gstreamer/Bus.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+  <A HREF="../../index.html?org/moduleExamples.gstreamer/Bus.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="Bus.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--

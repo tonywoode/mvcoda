@@ -1,4 +1,4 @@
-package xuggler;
+package moduleExamples.xuggler;
 
 import com.xuggle.xuggler.ICodec;
 import com.xuggle.xuggler.IContainer;

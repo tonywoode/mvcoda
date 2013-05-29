@@ -2,7 +2,7 @@
  * Copyright (c) 2009 Levente Farkas
  * Copyright (c) 2007 Wayne Meissner
  * 
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3 only, as
@@ -57,7 +57,7 @@ abstract public class CustomSink extends BaseSink {
         PadTemplate template;
         Caps caps;
         
-        // Per-class callbacks used by gstreamer to initialize the subclass
+        // Per-class callbacks used by moduleExamples.gstreamer to initialize the subclass
         GClassInitFunc classInit;
         GBaseInitFunc baseInit;
         
@@ -243,7 +243,7 @@ abstract public class CustomSink extends BaseSink {
         };
         
         //
-        // gstreamer boilerplate to hook the plugin in
+        // moduleExamples.gstreamer boilerplate to hook the plugin in
         //
         GTypeInfo ginfo = new GTypeInfo();
         ginfo.class_init = info.classInit;

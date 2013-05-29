@@ -1,7 +1,7 @@
 /* 
  * Copyright (c) 2007 Wayne Meissner
  * 
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3 only, as
@@ -126,7 +126,7 @@ public class RGBDataSink extends Bin {
     }
     
     /**
-     * Gets the actual gstreamer sink element.
+     * Gets the actual moduleExamples.gstreamer sink element.
      * 
      * @return a BaseSink
      */
@@ -164,7 +164,7 @@ public class RGBDataSink extends Bin {
             listener.rgbFrame(isPrerollFrame, width, height, rgb);
             
             //
-            // Dispose of the gstreamer buffer immediately to avoid more being 
+            // Dispose of the moduleExamples.gstreamer buffer immediately to avoid more being 
             // allocated before the java GC kicks in
             //
             buffer.dispose();

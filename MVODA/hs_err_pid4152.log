@@ -89,9 +89,9 @@ j  com.sun.jna.Library$Handler.invoke(Ljava/lang/Object;Ljava/lang/reflect/Metho
 j  $Proxy4.gst_mini_object_unref(Lcom/sun/jna/Pointer;)V+16
 j  org.gstreamer.MiniObject.disposeNativeHandle(Lcom/sun/jna/Pointer;)V+4
 j  org.gstreamer.lowlevel.NativeObject.dispose()V+89
-j  org.gstreamer.elements.RGBDataSink$VideoHandoffListener.doHandoff(Lorg/gstreamer/Buffer;Lorg/gstreamer/Pad;Z)V+113
-j  org.gstreamer.elements.RGBDataSink$VideoHandoffListener.handoff(Lorg/gstreamer/elements/BaseSink;Lorg/gstreamer/Buffer;Lorg/gstreamer/Pad;)V+4
-j  org.gstreamer.elements.BaseSink$1.callback(Lorg/gstreamer/elements/BaseSink;Lorg/gstreamer/Buffer;Lorg/gstreamer/Pad;)V+7
+j  org.gstreamer.elements.RGBDataSink$VideoHandoffListener.doHandoff(Lorg/moduleExamples.gstreamer/Buffer;Lorg/moduleExamples.gstreamer/Pad;Z)V+113
+j  org.gstreamer.elements.RGBDataSink$VideoHandoffListener.handoff(Lorg/moduleExamples.gstreamer/elements/BaseSink;Lorg/moduleExamples.gstreamer/Buffer;Lorg/moduleExamples.gstreamer/Pad;)V+4
+j  org.gstreamer.elements.BaseSink$1.callback(Lorg/moduleExamples.gstreamer/elements/BaseSink;Lorg/moduleExamples.gstreamer/Buffer;Lorg/moduleExamples.gstreamer/Pad;)V+7
 j  sun.reflect.GeneratedMethodAccessor4.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+56
 j  sun.reflect.DelegatingMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+6
 j  java.lang.reflect.Method.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+57
@@ -104,7 +104,7 @@ v  ~StubRoutines::call_stub
 Java Threads: ( => current thread )
 =>0x0000000008751800 JavaThread "Thread-287" [_thread_in_vm, id=3248, stack(0x0000000019860000,0x0000000019960000)]
   0x000000000a308800 JavaThread "TimerQueue" daemon [_thread_blocked, id=4376, stack(0x0000000019e80000,0x0000000019f80000)]
-  0x000000000a388800 JavaThread "gstreamer service thread 1" daemon [_thread_blocked, id=5168, stack(0x0000000018d20000,0x0000000018e20000)]
+  0x000000000a388800 JavaThread "moduleExamples.gstreamer service thread 1" daemon [_thread_blocked, id=5168, stack(0x0000000018d20000,0x0000000018e20000)]
   0x000000000216d000 JavaThread "DestroyJavaVM" [_thread_blocked, id=5892, stack(0x0000000002420000,0x0000000002520000)]
   0x000000000a107000 JavaThread "AWT-EventQueue-0" [_thread_blocked, id=6076, stack(0x00000000187f0000,0x00000000188f0000)]
   0x000000000a0ff800 JavaThread "AWT-Shutdown" [_thread_blocked, id=5740, stack(0x0000000018540000,0x0000000018640000)]
@@ -302,99 +302,99 @@ Dynamic libraries:
 0x000007fef9200000 - 0x000007fef9208000 	C:\Windows\system32\rasadhlp.dll
 0x000007fefaf80000 - 0x000007fefafd3000 	C:\Windows\System32\fwpuclnt.dll
 0x0000000064550000 - 0x0000000064561000 	C:\Program Files\Java\jdk1.7.0_11\jre\bin\nio.dll
-0x000000006b6c0000 - 0x000000006ba46000 	F:\gstreamer-sdk\0.10\x86_64\bin\libgstreamer-0.10-0.dll
-0x00000000685c0000 - 0x00000000689fb000 	F:\gstreamer-sdk\0.10\x86_64\bin\libglib-2.0-0.dll
-0x0000000002320000 - 0x0000000002393000 	F:\gstreamer-sdk\0.10\x86_64\bin\libintl-8.dll
+0x000000006b6c0000 - 0x000000006ba46000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libgstreamer-0.10-0.dll
+0x00000000685c0000 - 0x00000000689fb000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libglib-2.0-0.dll
+0x0000000002320000 - 0x0000000002393000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libintl-8.dll
 0x000007fefe6a0000 - 0x000007fefe8a3000 	C:\Windows\system32\ole32.dll
 0x000007fefeaa0000 - 0x000007feff828000 	C:\Windows\system32\SHELL32.dll
-0x000000006dd00000 - 0x000000006dd29000 	F:\gstreamer-sdk\0.10\x86_64\bin\libgmodule-2.0-0.dll
-0x0000000063a40000 - 0x0000000063baa000 	F:\gstreamer-sdk\0.10\x86_64\bin\libgobject-2.0-0.dll
-0x0000000068d40000 - 0x0000000068d76000 	F:\gstreamer-sdk\0.10\x86_64\bin\libffi-5.dll
-0x000000000ac00000 - 0x000000000b0d6000 	F:\gstreamer-sdk\0.10\x86_64\bin\libxml2-2.dll
-0x0000000066000000 - 0x0000000066167000 	F:\gstreamer-sdk\0.10\x86_64\bin\libiconv-2.dll
-0x000000006e8c0000 - 0x000000006e8e0000 	F:\gstreamer-sdk\0.10\x86_64\bin\libz.dll
+0x000000006dd00000 - 0x000000006dd29000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libgmodule-2.0-0.dll
+0x0000000063a40000 - 0x0000000063baa000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libgobject-2.0-0.dll
+0x0000000068d40000 - 0x0000000068d76000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libffi-5.dll
+0x000000000ac00000 - 0x000000000b0d6000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libxml2-2.dll
+0x0000000066000000 - 0x0000000066167000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libiconv-2.dll
+0x000000006e8c0000 - 0x000000006e8e0000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libz.dll
 0x000007fefd9d0000 - 0x000007fefd9f5000 	C:\Windows\system32\SspiCli.dll
-0x00000000626c0000 - 0x0000000062756000 	F:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgnl.dll
-0x0000000066340000 - 0x0000000066371000 	F:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgsta52dec.dll
-0x000000006ce80000 - 0x000000006cec9000 	F:\gstreamer-sdk\0.10\x86_64\bin\liba52-0.dll
-0x0000000070680000 - 0x0000000070771000 	F:\gstreamer-sdk\0.10\x86_64\bin\libgstaudio-0.10-0.dll
-0x0000000064240000 - 0x00000000642a6000 	F:\gstreamer-sdk\0.10\x86_64\bin\libgstinterfaces-0.10-0.dll
-0x0000000069f00000 - 0x0000000069f83000 	F:\gstreamer-sdk\0.10\x86_64\bin\libgstpbutils-0.10-0.dll
-0x000000006cac0000 - 0x000000006cc18000 	F:\gstreamer-sdk\0.10\x86_64\bin\libgstbase-0.10-0.dll
-0x0000000065680000 - 0x000000006586c000 	F:\gstreamer-sdk\0.10\x86_64\bin\liborc-0.4-0.dll
-0x0000000067b80000 - 0x0000000067bb9000 	F:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstadder.dll
-0x0000000071100000 - 0x000000007112b000 	F:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstadpcmdec.dll
-0x000000006a1c0000 - 0x000000006a1eb000 	F:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstadpcmenc.dll
-0x0000000070c00000 - 0x0000000070c49000 	F:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstaiff.dll
-0x00000000637c0000 - 0x0000000063892000 	F:\gstreamer-sdk\0.10\x86_64\bin\libgsttag-0.10-0.dll
-0x0000000061940000 - 0x0000000061974000 	F:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstalaw.dll
-0x0000000070480000 - 0x00000000704d6000 	F:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstalpha.dll
-0x00000000625c0000 - 0x000000006267c000 	F:\gstreamer-sdk\0.10\x86_64\bin\libgstcontroller-0.10-0.dll
-0x0000000062ac0000 - 0x0000000062b45000 	F:\gstreamer-sdk\0.10\x86_64\bin\libgstvideo-0.10-0.dll
-0x000000006c200000 - 0x000000006c230000 	F:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstalphacolor.dll
-0x0000000069400000 - 0x0000000069435000 	F:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstamrnb.dll
-0x000000006f540000 - 0x000000006f644000 	F:\gstreamer-sdk\0.10\x86_64\bin\libopencore-amrnb-0.dll
-0x0000000009210000 - 0x000000000923a000 	F:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstamrwbdec.dll
-0x0000000066bc0000 - 0x0000000066c38000 	F:\gstreamer-sdk\0.10\x86_64\bin\libopencore-amrwb-0.dll
-0x00000000682c0000 - 0x000000006831f000 	F:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstannodex.dll
-0x0000000064ec0000 - 0x0000000064eeb000 	F:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstapetag.dll
-0x000000006ab80000 - 0x000000006aba2000 	F:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstapp.dll
-0x000000006da40000 - 0x000000006da8e000 	F:\gstreamer-sdk\0.10\x86_64\bin\libgstapp-0.10-0.dll
-0x0000000070240000 - 0x00000000702cc000 	F:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstasf.dll
-0x0000000070140000 - 0x000000007017f000 	F:\gstreamer-sdk\0.10\x86_64\bin\libgstriff-0.10-0.dll
-0x000000006d580000 - 0x000000006d5f5000 	F:\gstreamer-sdk\0.10\x86_64\bin\libgstrtp-0.10-0.dll
-0x0000000069740000 - 0x00000000697a7000 	F:\gstreamer-sdk\0.10\x86_64\bin\libgstrtsp-0.10-0.dll
-0x00000000628c0000 - 0x00000000628f4000 	F:\gstreamer-sdk\0.10\x86_64\bin\libgstsdp-0.10-0.dll
-0x0000000009350000 - 0x00000000093b7000 	F:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstasfmux.dll
-0x000000006f900000 - 0x000000006f93e000 	F:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstassrender.dll
-0x000000006e140000 - 0x000000006e1d9000 	F:\gstreamer-sdk\0.10\x86_64\bin\libass-4.dll
-0x0000000064f80000 - 0x0000000065077000 	F:\gstreamer-sdk\0.10\x86_64\bin\libfontconfig-1.dll
-0x0000000068f40000 - 0x0000000068fd8000 	F:\gstreamer-sdk\0.10\x86_64\bin\libexpat-1.dll
-0x0000000069940000 - 0x0000000069c11000 	F:\gstreamer-sdk\0.10\x86_64\bin\libfreetype-6.dll
-0x0000000063980000 - 0x00000000639c8000 	F:\gstreamer-sdk\0.10\x86_64\bin\libfribidi-0.dll
-0x000000006c140000 - 0x000000006c1b6000 	F:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstaudioconvert.dll
-0x000000000a760000 - 0x000000000a831000 	F:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstaudiofx.dll
-0x000000006d300000 - 0x000000006d343000 	F:\gstreamer-sdk\0.10\x86_64\bin\libgstfft-0.10-0.dll
-0x0000000067440000 - 0x00000000674d5000 	F:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstaudioparsers.dll
-0x0000000066e40000 - 0x0000000066e6e000 	F:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstaudiorate.dll
-0x000000006cf00000 - 0x000000006cf61000 	F:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstaudioresample.dll
-0x0000000069d80000 - 0x0000000069db0000 	F:\gstreamer-sdk\0.10\x86_64\bin\liborc-test-0.4-0.dll
-0x0000000062b80000 - 0x0000000062bbf000 	F:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstaudiotestsrc.dll
-0x0000000009ba0000 - 0x0000000009c03000 	F:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstaudiovisualizers.dll
-0x0000000063c80000 - 0x0000000063cae000 	F:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstauparse.dll
-0x000000006ba80000 - 0x000000006babf000 	F:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstautoconvert.dll
-0x0000000063f80000 - 0x0000000063fce000 	F:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstautodetect.dll
-0x0000000009ed0000 - 0x0000000009f90000 	F:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstavi.dll
-0x00000000094e0000 - 0x0000000009527000 	F:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstbayer.dll
-0x000000006ed80000 - 0x000000006edab000 	F:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstcairo.dll
-0x0000000009630000 - 0x0000000009655000 	F:\gstreamer-sdk\0.10\x86_64\bin\libcairo-gobject-2.dll
-0x000000000b6e0000 - 0x000000000bacf000 	F:\gstreamer-sdk\0.10\x86_64\bin\libcairo-2.dll
-0x000000000bad0000 - 0x000000000bf5e000 	F:\gstreamer-sdk\0.10\x86_64\bin\libpixman-1-0.dll
-0x0000000064740000 - 0x0000000064803000 	F:\gstreamer-sdk\0.10\x86_64\bin\libpng15-15.dll
+0x00000000626c0000 - 0x0000000062756000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgnl.dll
+0x0000000066340000 - 0x0000000066371000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgsta52dec.dll
+0x000000006ce80000 - 0x000000006cec9000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\liba52-0.dll
+0x0000000070680000 - 0x0000000070771000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libgstaudio-0.10-0.dll
+0x0000000064240000 - 0x00000000642a6000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libgstinterfaces-0.10-0.dll
+0x0000000069f00000 - 0x0000000069f83000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libgstpbutils-0.10-0.dll
+0x000000006cac0000 - 0x000000006cc18000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libgstbase-0.10-0.dll
+0x0000000065680000 - 0x000000006586c000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\liborc-0.4-0.dll
+0x0000000067b80000 - 0x0000000067bb9000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstadder.dll
+0x0000000071100000 - 0x000000007112b000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstadpcmdec.dll
+0x000000006a1c0000 - 0x000000006a1eb000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstadpcmenc.dll
+0x0000000070c00000 - 0x0000000070c49000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstaiff.dll
+0x00000000637c0000 - 0x0000000063892000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libgsttag-0.10-0.dll
+0x0000000061940000 - 0x0000000061974000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstalaw.dll
+0x0000000070480000 - 0x00000000704d6000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstalpha.dll
+0x00000000625c0000 - 0x000000006267c000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libgstcontroller-0.10-0.dll
+0x0000000062ac0000 - 0x0000000062b45000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libgstvideo-0.10-0.dll
+0x000000006c200000 - 0x000000006c230000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstalphacolor.dll
+0x0000000069400000 - 0x0000000069435000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstamrnb.dll
+0x000000006f540000 - 0x000000006f644000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libopencore-amrnb-0.dll
+0x0000000009210000 - 0x000000000923a000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstamrwbdec.dll
+0x0000000066bc0000 - 0x0000000066c38000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libopencore-amrwb-0.dll
+0x00000000682c0000 - 0x000000006831f000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstannodex.dll
+0x0000000064ec0000 - 0x0000000064eeb000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstapetag.dll
+0x000000006ab80000 - 0x000000006aba2000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstapp.dll
+0x000000006da40000 - 0x000000006da8e000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libgstapp-0.10-0.dll
+0x0000000070240000 - 0x00000000702cc000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstasf.dll
+0x0000000070140000 - 0x000000007017f000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libgstriff-0.10-0.dll
+0x000000006d580000 - 0x000000006d5f5000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libgstrtp-0.10-0.dll
+0x0000000069740000 - 0x00000000697a7000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libgstrtsp-0.10-0.dll
+0x00000000628c0000 - 0x00000000628f4000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libgstsdp-0.10-0.dll
+0x0000000009350000 - 0x00000000093b7000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstasfmux.dll
+0x000000006f900000 - 0x000000006f93e000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstassrender.dll
+0x000000006e140000 - 0x000000006e1d9000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libass-4.dll
+0x0000000064f80000 - 0x0000000065077000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libfontconfig-1.dll
+0x0000000068f40000 - 0x0000000068fd8000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libexpat-1.dll
+0x0000000069940000 - 0x0000000069c11000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libfreetype-6.dll
+0x0000000063980000 - 0x00000000639c8000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libfribidi-0.dll
+0x000000006c140000 - 0x000000006c1b6000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstaudioconvert.dll
+0x000000000a760000 - 0x000000000a831000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstaudiofx.dll
+0x000000006d300000 - 0x000000006d343000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libgstfft-0.10-0.dll
+0x0000000067440000 - 0x00000000674d5000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstaudioparsers.dll
+0x0000000066e40000 - 0x0000000066e6e000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstaudiorate.dll
+0x000000006cf00000 - 0x000000006cf61000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstaudioresample.dll
+0x0000000069d80000 - 0x0000000069db0000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\liborc-test-0.4-0.dll
+0x0000000062b80000 - 0x0000000062bbf000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstaudiotestsrc.dll
+0x0000000009ba0000 - 0x0000000009c03000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstaudiovisualizers.dll
+0x0000000063c80000 - 0x0000000063cae000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstauparse.dll
+0x000000006ba80000 - 0x000000006babf000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstautoconvert.dll
+0x0000000063f80000 - 0x0000000063fce000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstautodetect.dll
+0x0000000009ed0000 - 0x0000000009f90000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstavi.dll
+0x00000000094e0000 - 0x0000000009527000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstbayer.dll
+0x000000006ed80000 - 0x000000006edab000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstcairo.dll
+0x0000000009630000 - 0x0000000009655000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libcairo-gobject-2.dll
+0x000000000b6e0000 - 0x000000000bacf000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libcairo-2.dll
+0x000000000bad0000 - 0x000000000bf5e000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libpixman-1-0.dll
+0x0000000064740000 - 0x0000000064803000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libpng15-15.dll
 0x000007fef6f20000 - 0x000007fef6f27000 	C:\Windows\system32\MSIMG32.dll
-0x000000006cd80000 - 0x000000006cdde000 	F:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstcamerabin2.dll
-0x00000000681c0000 - 0x00000000681f7000 	F:\gstreamer-sdk\0.10\x86_64\bin\libgstbasecamerabinsrc-0.10-23.dll
-0x000000006ca00000 - 0x000000006ca2e000 	F:\gstreamer-sdk\0.10\x86_64\bin\libgstphotography-0.10-23.dll
-0x0000000009c10000 - 0x0000000009c46000 	F:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstcdxaparse.dll
-0x0000000066dc0000 - 0x0000000066e08000 	F:\gstreamer-sdk\0.10\x86_64\lib\gstreamer-0.10\libgstclutter.dll
-0x000000000bf60000 - 0x000000000c3c3000 	F:\gstreamer-sdk\0.10\x86_64\bin\libclutter-win32-1.0-0.dll
-0x0000000062940000 - 0x00000000629ec000 	F:\gstreamer-sdk\0.10\x86_64\bin\libatk-1.0-0.dll
-0x000000006e7c0000 - 0x000000006e7fb000 	F:\gstreamer-sdk\0.10\x86_64\bin\libcogl-pango-0.dll
-0x000000000c3d0000 - 0x000000000c6d0000 	F:\gstreamer-sdk\0.10\x86_64\bin\libcogl-5.dll
-0x0000000065340000 - 0x0000000065457000 	F:\gstreamer-sdk\0.10\x86_64\bin\libgdk_pixbuf-2.0-0.dll
-0x000000000c6d0000 - 0x000000000ccc1000 	F:\gstreamer-sdk\0.10\x86_64\bin\libgio-2.0-0.dll
-0x000000000ccd0000 - 0x000000000ce1d000 	F:\gstreamer-sdk\0.10\x86_64\bin\libjpeg-8.dll
-0x000000000ce20000 - 0x000000000cfab000 	F:\gstreamer-sdk\0.10\x86_64\bin\libtiff-5.dll
+0x000000006cd80000 - 0x000000006cdde000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstcamerabin2.dll
+0x00000000681c0000 - 0x00000000681f7000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libgstbasecamerabinsrc-0.10-23.dll
+0x000000006ca00000 - 0x000000006ca2e000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libgstphotography-0.10-23.dll
+0x0000000009c10000 - 0x0000000009c46000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstcdxaparse.dll
+0x0000000066dc0000 - 0x0000000066e08000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\lib\moduleExamples.gstreamer-0.10\libgstclutter.dll
+0x000000000bf60000 - 0x000000000c3c3000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libclutter-win32-1.0-0.dll
+0x0000000062940000 - 0x00000000629ec000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libatk-1.0-0.dll
+0x000000006e7c0000 - 0x000000006e7fb000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libcogl-pango-0.dll
+0x000000000c3d0000 - 0x000000000c6d0000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libcogl-5.dll
+0x0000000065340000 - 0x0000000065457000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libgdk_pixbuf-2.0-0.dll
+0x000000000c6d0000 - 0x000000000ccc1000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libgio-2.0-0.dll
+0x000000000ccd0000 - 0x000000000ce1d000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libjpeg-8.dll
+0x000000000ce20000 - 0x000000000cfab000 	F:\moduleExamples.gstreamer-sdk\0.10\x86_64\bin\libtiff-5.dll
 
 VM Arguments:
 jvm_args: -Dfile.encoding=Cp1252 
-java_command: gstreamer.VideoTest
+java_command: moduleExamples.gstreamer.VideoTest
 Launcher Type: SUN_STANDARD
 
 Environment Variables:
 JAVA_HOME=C:\Program Files\Java\jdk1.7.0_11
 CLASSPATH=.;C:\Program Files (x86)\JavaSoft\JRE\1.3.1_20\lib\ext\QTJava.zip
-PATH=C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x86;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x64;C:\Program Files\Java\jdk1.7.0_11\bin;C:\Program Files\TortoiseHg\;C:\Program Files (x86)\QuickTime\QTSystem\;F:\gstreamer-sdk\0.10\x86_64\\bin;F:\gstreamer-sdk\0.10\x86_64\\lib;
+PATH=C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x86;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x64;C:\Program Files\Java\jdk1.7.0_11\bin;C:\Program Files\TortoiseHg\;C:\Program Files (x86)\QuickTime\QTSystem\;F:\moduleExamples.gstreamer-sdk\0.10\x86_64\\bin;F:\moduleExamples.gstreamer-sdk\0.10\x86_64\\lib;
 USERNAME=Tony
 OS=Windows_NT
 PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 42 Stepping 7, GenuineIntel

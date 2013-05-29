@@ -1,7 +1,7 @@
 /* 
  * Copyright (c) 2008 Wayne Meissner
  * 
- * This file is part of gstreamer-java.
+ * This file is part of moduleExamples.gstreamer-java.
  *
  * This code is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3 only, as
@@ -19,7 +19,7 @@
 package org.gstreamer.elements;
 
 /**
- * A gstreamer element that reads from a file.
+ * A moduleExamples.gstreamer element that reads from a file.
  */
 public class FileSrc extends BaseSrc {
 	public static final String GST_NAME = "filesrc";
