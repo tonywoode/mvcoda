@@ -23,7 +23,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="libs/lombok/lombok.jar"/>
 	<classpathentry kind="lib" path="libs/spring/aopalliance-1.0.jar"/>
 	<classpathentry kind="lib" path="libs/spring/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="lib" path="libs/spring/spring-aop-3.2.1.RELEASE.jar"/>
@@ -41,5 +40,6 @@
 	<classpathentry kind="lib" path="libs/spring/spring-oxm-3.2.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="libs/spring/spring-test-3.2.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="libs/spring/spring-tx-3.2.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tony/CODE/Repo/mvoda/MVODA/libs/lombok/lombok.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

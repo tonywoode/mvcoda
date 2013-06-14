@@ -1,13 +1,15 @@
 package runner;
+
+import media.MusicVideo;
+
 public class EntryPoint {
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.out.println("One day soon this will run an application");
-		
-		//testing bitbucket ssh again
+		MusicVideo test = new MusicVideo("C:/Users/Tony/CODE/MVODAInputs/Love/RihannaYouDaOne.avi");
+		System.out.println("Here is the height of your video: " + test.getHeight());
 
 	}
 
