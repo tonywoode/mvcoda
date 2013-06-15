@@ -6,13 +6,13 @@
 	<classpathentry kind="lib" path="libs/sl4j/slf4j-api-1.7.5.jar" sourcepath="libs/sl4j/slf4j-api-1.7.5-sources.jar"/>
 	<classpathentry kind="lib" path="libs/sl4j/slf4j-simple-1.7.5.jar" sourcepath="libs/sl4j/slf4j-simple-1.7.5-sources.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/Tony/CODE/Repo/mvoda/MVODA/libs/gstreamer-java/gstreamer-java-1.5.jar" sourcepath="libs/moduleExamples.gstreamer-java/moduleExamples.gstreamer-java-src-1.5">
+	<classpathentry kind="lib" path="C:/Users/Tony/CODE/Repo/mvoda/mvoda/libs/gstreamer-java/gstreamer-java-1.5.jar" sourcepath="libs/gstreamer-java/gstreamer-java-src-1.5">
 		<attributes>
-			<attribute name="javadoc_location" value="file:/C:/Users/Tony/CODE/Repo/mvoda/MVODA/libs/moduleExamples.gstreamer-java/moduleExamples.gstreamer-java-doc-1.5/"/>
+			<attribute name="javadoc_location" value="file:/C:/Users/Tony/CODE/Repo/mvoda/mvoda/libs/gstreamer-java/gstreamer-java-doc-1.5/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Tony/CODE/Repo/mvoda/MVODA/libs/gstreamer-java/gstreamer-java-swt-1.5.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Tony/CODE/Repo/mvoda/MVODA/libs/xuggler/xuggle-xuggler-5.4.jar" sourcepath="libs/xuggler/xuggle-xuggler-master.zip">
+	<classpathentry kind="lib" path="C:/Users/Tony/CODE/Repo/mvoda/mvoda/libs/gstreamer-java/gstreamer-java-swt-1.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tony/CODE/Repo/mvoda/mvoda/libs/xuggler/xuggle-xuggler-5.4.jar" sourcepath="libs/xuggler/xuggle-xuggler-master.zip">
 		<attributes>
 			<attribute name="javadoc_location" value="http://www.xuggle.com/public/documentation/java/api/"/>
 		</attributes>
@@ -40,6 +40,6 @@
 	<classpathentry kind="lib" path="libs/spring/spring-oxm-3.2.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="libs/spring/spring-test-3.2.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="libs/spring/spring-tx-3.2.1.RELEASE.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Tony/CODE/Repo/mvoda/MVODA/libs/lombok/lombok.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tony/CODE/Repo/mvoda/mvoda/libs/lombok/lombok.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
