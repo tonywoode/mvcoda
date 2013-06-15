@@ -5,6 +5,7 @@ import media.MusicVideo;
 public class EntryPoint {
 
 	/**
+	 * Main launcher for application
 	 * @param args
 	 */
 	public static void main(String[] args) {
