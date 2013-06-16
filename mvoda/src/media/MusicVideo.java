@@ -13,6 +13,12 @@ import com.xuggle.xuggler.IPixelFormat;
 import com.xuggle.xuggler.IStream;
 import com.xuggle.xuggler.IStreamCoder;
 
+/**
+ * Imp for music video class with Xuggler
+ * @author tony
+ *
+ */
+
 public class MusicVideo {
 
 	@Getter private static final int SIZE_AUDIO_BUFFER = 1024;
