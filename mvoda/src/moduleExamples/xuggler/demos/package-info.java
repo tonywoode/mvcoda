@@ -20,4 +20,4 @@
 /**
  * A collection of demonstration applications for the Xuggler API.
  */
-package moduleExamples.xuggler;
+package moduleExamples.xuggler.demos;

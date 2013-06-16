@@ -1,6 +1,5 @@
-package moduleExamples.xuggler;
+package moduleExamples.xuggler.demos;
 
-import moduleExamples.xuggler.DecodeAndPlayAudioAndVideo;
 
 public class runner {
 

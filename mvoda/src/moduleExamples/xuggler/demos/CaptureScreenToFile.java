@@ -17,7 +17,7 @@
  * along with Xuggle-Xuggler-Main.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
 
-package moduleExamples.xuggler;
+package moduleExamples.xuggler.demos;
 import java.awt.AWTException;
 import java.awt.Rectangle;
 import java.awt.Robot;

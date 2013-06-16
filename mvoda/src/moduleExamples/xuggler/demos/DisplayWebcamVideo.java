@@ -17,61 +17,116 @@
  * along with Xuggle-Xuggler-Main.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
 
-package moduleExamples.xuggler;
+package moduleExamples.xuggler.demos;
 
 import java.awt.image.BufferedImage;
 
-import com.xuggle.xuggler.Global;
+
+import com.xuggle.xuggler.ICodec;
 import com.xuggle.xuggler.IContainer;
+import com.xuggle.xuggler.IContainerFormat;
+import com.xuggle.xuggler.IError;
+import com.xuggle.xuggler.IMetaData;
 import com.xuggle.xuggler.IPacket;
 import com.xuggle.xuggler.IPixelFormat;
 import com.xuggle.xuggler.IStream;
 import com.xuggle.xuggler.IStreamCoder;
-import com.xuggle.xuggler.ICodec;
 import com.xuggle.xuggler.IVideoPicture;
 import com.xuggle.xuggler.IVideoResampler;
 import com.xuggle.xuggler.Utils;
 
 /**
- * Takes a media container, finds the first video stream,
- * decodes that stream, and then displays the video frames,
- * at the frame-rate specified by the container, on a 
- * window.
+ * Takes a FFMPEG device driver name (ex: "video4linux2"), and a device name (ex: /dev/video0), and displays video
+ * from that device.  For example, a web camera.
+ * <p>
+ * For example, to play the default camera on these operating systems:
+ * <ul>
+ * <li>Microsoft Windows:<pre>java -cp %XUGGLE_HOME%\share\java\jars\xuggle-xuggler.jar com.xuggle.xuggler.demos.DisplayWebcamVideo vfwcap 0</pre></li>
+ * <li>Linux:<pre>java -cp $XUGGLE_HOME/share/java/jars/xuggle-xuggler.jar com.xuggle.xuggler.demos.DisplayWebcamVideo video4linux2 /dev/video0</pre></li>
+ * </ul>
+ * </p>
  * @author aclarke
  *
  */
-public class DecodeAndPlayVideo
+public class DisplayWebcamVideo
 {
-
   /**
-   * Takes a media container (file) as the first argument, opens it,
-   * opens up a Swing window and displays
-   * video frames with <i>roughly</i> the right timing.
-   *  
-   * @param args Must contain one string which represents a filename
+   * Takes a FFMPEG webcam driver name, and a device name, opens the
+   * webcam, and displays its video in a Swing window.
+   * <p>
+   * Examples of device formats are:
+   * </p>
+   * <table border="1">
+   * <thead>
+   *  <tr>
+   *  <td>OS</td>
+   *  <td>Driver Name</td>
+   *  <td>Sample Device Name</td>
+   *  </tr>
+   *  </thead>
+   *  <tbody>
+   *  <tr>
+   *  <td>Windows</td>
+   *  <td>vfwcap</td>
+   *  <td>0</td>
+   *  </tr>
+   *  <tr>
+   *  <td>Linux</td>
+   *  <td>video4linux2</td>
+   *  <td>/dev/video0</td>
+   *  </tr>
+   *  </tbody>
+   *  </table>
+   * 
+   * <p>
+   * Webcam support is very limited; you can't query what devices are
+   * available, nor can you query what their capabilities are without
+   * actually opening the device.  Sorry, but that's how FFMPEG rolls.
+   * </p>
+   * 
+   * @param args Must contain two strings: a FFMPEG driver name and a device name
+   *   (which is dependent on the FFMPEG driver).
    */
   @SuppressWarnings("deprecation")
   public static void main(String[] args)
   {
-    if (args.length <= 0)
-      throw new IllegalArgumentException("must pass in a filename" +
-      		" as the first argument");
+    if (args.length != 2)
+      throw new IllegalArgumentException("must pass in driver and device name");
 
-    String filename = args[0];
+    String driverName = args[0];
+    String deviceName=  args[1];
 
     // Let's make sure that we can actually convert video pixel formats.
-    if (!IVideoResampler.isSupported(
-        IVideoResampler.Feature.FEATURE_COLORSPACECONVERSION))
-      throw new RuntimeException("you must install the GPL version" +
-      		" of Xuggler (with IVideoResampler support) for " +
-      		"this demo to work");
+    if (!IVideoResampler.isSupported(IVideoResampler.Feature.FEATURE_COLORSPACECONVERSION))
+      throw new RuntimeException("you must install the GPL version of Xuggler (with IVideoResampler support) for this demo to work");
 
     // Create a Xuggler container object
     IContainer container = IContainer.make();
 
+    // Tell Xuggler about the device format
+    IContainerFormat format = IContainerFormat.make();
+    if (format.setInputFormat(driverName) < 0)
+      throw new IllegalArgumentException("couldn't open webcam device: " + driverName);
+
+    // devices, unlike most files, need to have parameters set in order
+    // for Xuggler to know how to configure them, for a webcam, these
+    // parameters make sense
+
+    IMetaData params = IMetaData.make();
+    
+    params.setValue("framerate", "30/1");
+    params.setValue("video_size", "320x240");    
+
     // Open up the container
-    if (container.open(filename, IContainer.Type.READ, null) < 0)
-      throw new IllegalArgumentException("could not open file: " + filename);
+    int retval = container.open(deviceName, IContainer.Type.READ, format,
+        false, true, params, null);
+    if (retval < 0)
+    {
+      // This little trick converts the non friendly integer return value into
+      // a slightly more friendly object to get a human-readable error name
+      IError error = IError.make(retval);
+      throw new IllegalArgumentException("could not open file: " + deviceName + "; Error: " + error.getDescription());
+    }      
 
     // query how many streams the call to open found
     int numStreams = container.getNumStreams();
@@ -94,28 +149,24 @@ public class DecodeAndPlayVideo
       }
     }
     if (videoStreamId == -1)
-      throw new RuntimeException("could not find video stream in container: "
-          +filename);
+      throw new RuntimeException("could not find video stream in container: "+deviceName);
 
     /*
      * Now we have found the video stream in this file.  Let's open up our decoder so it can
      * do work.
      */
     if (videoCoder.open() < 0)
-      throw new RuntimeException("could not open video decoder for container: "
-          +filename);
+      throw new RuntimeException("could not open video decoder for container: "+deviceName);
 
     IVideoResampler resampler = null;
     if (videoCoder.getPixelType() != IPixelFormat.Type.BGR24)
     {
       // if this stream is not in BGR24, we're going to need to
       // convert it.  The VideoResampler does that for us.
-      resampler = IVideoResampler.make(videoCoder.getWidth(), 
-          videoCoder.getHeight(), IPixelFormat.Type.BGR24,
+      resampler = IVideoResampler.make(videoCoder.getWidth(), videoCoder.getHeight(), IPixelFormat.Type.BGR24,
           videoCoder.getWidth(), videoCoder.getHeight(), videoCoder.getPixelType());
       if (resampler == null)
-        throw new RuntimeException("could not create color space " +
-        		"resampler for: " + filename);
+        throw new RuntimeException("could not create color space resampler for: " + deviceName);
     }
     /*
      * And once we have that, we draw a window on screen
@@ -126,8 +177,6 @@ public class DecodeAndPlayVideo
      * Now, we start walking through the container looking at each packet.
      */
     IPacket packet = IPacket.make();
-    long firstTimestampInStream = Global.NO_PTS;
-    long systemClockStartTime = 0;
     while(container.readNextPacket(packet) >= 0)
     {
       /*
@@ -150,8 +199,7 @@ public class DecodeAndPlayVideo
            */
           int bytesDecoded = videoCoder.decodeVideo(picture, packet, offset);
           if (bytesDecoded < 0)
-            throw new RuntimeException("got error decoding video in: "
-                + filename);
+            throw new RuntimeException("got error decoding video in: " + deviceName);
           offset += bytesDecoded;
 
           /*
@@ -163,76 +211,20 @@ public class DecodeAndPlayVideo
           {
             IVideoPicture newPic = picture;
             /*
-             * If the resampler is not null, that means we didn't get the
-             * video in BGR24 format and
+             * If the resampler is not null, that means we didn't get the video in BGR24 format and
              * need to convert it into BGR24 format.
              */
             if (resampler != null)
             {
               // we must resample
-              newPic = IVideoPicture.make(resampler.getOutputPixelFormat(),
-                  picture.getWidth(), picture.getHeight());
+              newPic = IVideoPicture.make(resampler.getOutputPixelFormat(), picture.getWidth(), picture.getHeight());
               if (resampler.resample(newPic, picture) < 0)
-                throw new RuntimeException("could not resample video from: "
-                    + filename);
+                throw new RuntimeException("could not resample video from: " + deviceName);
             }
             if (newPic.getPixelType() != IPixelFormat.Type.BGR24)
-              throw new RuntimeException("could not decode video" +
-              		" as BGR 24 bit data in: " + filename);
+              throw new RuntimeException("could not decode video as BGR 24 bit data in: " + deviceName);
 
-            /**
-             * We could just display the images as quickly as we decode them,
-             * but it turns out we can decode a lot faster than you think.
-             * 
-             * So instead, the following code does a poor-man's version of
-             * trying to match up the frame-rate requested for each
-             * IVideoPicture with the system clock time on your computer.
-             * 
-             * Remember that all Xuggler IAudioSamples and IVideoPicture objects
-             * always give timestamps in Microseconds, relative to the first
-             * decoded item. If instead you used the packet timestamps, they can
-             * be in different units depending on your IContainer, and IStream
-             * and things can get hairy quickly.
-             */
-            if (firstTimestampInStream == Global.NO_PTS)
-            {
-              // This is our first time through
-              firstTimestampInStream = picture.getTimeStamp();
-              // get the starting clock time so we can hold up frames
-              // until the right time.
-              systemClockStartTime = System.currentTimeMillis();
-            } else {
-              long systemClockCurrentTime = System.currentTimeMillis();
-              long millisecondsClockTimeSinceStartofVideo =
-                systemClockCurrentTime - systemClockStartTime;
-              // compute how long for this frame since the first frame in the
-              // stream.
-              // remember that IVideoPicture and IAudioSamples timestamps are
-              // always in MICROSECONDS,
-              // so we divide by 1000 to get milliseconds.
-              long millisecondsStreamTimeSinceStartOfVideo =
-                (picture.getTimeStamp() - firstTimestampInStream)/1000;
-              final long millisecondsTolerance = 50; // and we give ourselfs 50 ms of tolerance
-              final long millisecondsToSleep = 
-                (millisecondsStreamTimeSinceStartOfVideo -
-                  (millisecondsClockTimeSinceStartofVideo +
-                      millisecondsTolerance));
-              if (millisecondsToSleep > 0)
-              {
-                try
-                {
-                  Thread.sleep(millisecondsToSleep);
-                }
-                catch (InterruptedException e)
-                {
-                  // we might get this when the user closes the dialog box, so
-                  // just return from the method.
-                  return;
-                }
-              }
-            }
-
-            // And finally, convert the BGR24 to an Java buffered image
+            // Convert the BGR24 to an Java buffered image
             BufferedImage javaImage = Utils.videoPictureToImage(newPic);
 
             // and display it on the Java Swing window
@@ -243,8 +235,7 @@ public class DecodeAndPlayVideo
       else
       {
         /*
-         * This packet isn't part of our video stream, so we just
-         * silently drop it.
+         * This packet isn't part of our video stream, so we just silently drop it.
          */
         do {} while(false);
       }
@@ -296,4 +287,5 @@ public class DecodeAndPlayVideo
   {
     System.exit(0);
   }
+
 }
