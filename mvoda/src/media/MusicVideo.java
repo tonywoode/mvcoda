@@ -2,6 +2,7 @@ package media;
 
 import java.awt.image.BufferedImage;
 
+
 import lombok.Getter;
 
 import com.xuggle.xuggler.Global;
@@ -13,6 +14,7 @@ import com.xuggle.xuggler.IPixelFormat;
 import com.xuggle.xuggler.IRational;
 import com.xuggle.xuggler.IStream;
 import com.xuggle.xuggler.IStreamCoder;
+import com.xuggle.xuggler.IVideoPicture;
 import com.xuggle.xuggler.IVideoResampler;
 import com.xuggle.xuggler.video.BgrConverter;
 
@@ -27,9 +29,9 @@ public class MusicVideo {
 
 	private IContainer container;
 	private IPixelFormat.Type pixFormat;
-	private IStreamCoder audioCoder;
+	@Getter private IStreamCoder audioCoder;
 	private IStreamCoder videoCoder;
-	private IAudioSamples audioSamples;
+	@Getter private IAudioSamples audioSamples;
 	private BgrConverter converter;
 	private IPixelFormat.Type format;
 	private IVideoResampler resampler;
@@ -46,10 +48,15 @@ public class MusicVideo {
 	@Getter private int height;
 	@Getter private int numChannelsAudio;
 	@Getter private IRational framesPerSecond;
+	@Getter private double framesPerSecondAsDouble;
 	@Getter private int numFrames;
 	@Getter private int audioStreamId;
 	@Getter private int videoStreamId;
 	@Getter private long duration;
+	@Getter private BufferedImage videoFrame;
+	@Getter private long numVidFrames;
+	@Getter private long timeStamp;
+	
 
 	/**
 	 * Constructor takes only a filename, returns an open container with its properties available
@@ -80,6 +87,7 @@ public class MusicVideo {
 			if ( videoStreamId < 0 && coder.getCodecType().equals(ICodec.Type.CODEC_TYPE_VIDEO) ) {
 				videoCoder = coder;
 				videoStreamId = index;
+				numVidFrames = stream.getNumFrames();
 			}
 		}
 
@@ -94,6 +102,7 @@ public class MusicVideo {
 		height = videoCoder.getHeight();
 		numChannelsAudio = audioCoder.getChannels();
 		framesPerSecond = videoCoder.getFrameRate();
+		framesPerSecondAsDouble = videoCoder.getFrameRate().getDouble();
 		//numFrames = videoCoder. //how DO YOU WORK OUT THE NUMBER OF FRAMES? CAN'T FIND DURATION?
 		duration = ( container.getDuration() == Global.NO_PTS ? 0 : container.getDuration()/1000 ); //milliseconds
 	}
@@ -124,7 +133,82 @@ private void makeResampler(int outputWidth, int outputHeight) {
 			);
 		}
 	}
+
+private void readVideo(IPacket packet) throws RuntimeException {
 	
+	IVideoPicture picture = IVideoPicture.make(format, width, height);
+	
+	int offset = 0;
+	while (offset < packet.getSize()) {
+		
+		int numBytesDecoded = videoCoder.decodeVideo(picture, packet, offset);
+		if (numBytesDecoded < 0) {
+			throw new RuntimeException("Could not decode video");
+		}
+		offset += numBytesDecoded;
+		
+		if (picture.isComplete()) {
+			
+			IVideoPicture resampled = picture;
+			if (picture.getPixelType() != IPixelFormat.Type.BGR24) {
+				resampled = IVideoPicture.make(IPixelFormat.Type.BGR24, outputWidth, outputHeight);
+				timeStamp = resampled.getTimeStamp(); //I put this here to try to get a timestamp for drawOntoVideo
+				if (resampler.resample(resampled, picture) < 0) {
+					throw new RuntimeException("Could not resample video");
+				}
+			}
+			
+			videoFrame = converter.toImage(resampled);
+			break;
+		}
+	}
+}
+
+private void readAudio(IPacket packet) throws RuntimeException {
+	
+	audioSamples = IAudioSamples.make(SIZE_AUDIO_BUFFER, numChannelsAudio);
+	
+	int offset = 0;
+	while (offset < packet.getSize()) {
+		
+		int numBytesDecoded = audioCoder.decodeAudio(audioSamples, packet, offset);
+		if (numBytesDecoded < 0) {
+			throw new RuntimeException("Unable to decode audio samples");
+		}
+		
+		offset += numBytesDecoded;
+		
+		if (audioSamples.isComplete()) {
+			break;
+		}
+	}
+}
+
+public boolean hasNextPacket() throws RuntimeException {
+	
+	IPacket packet = IPacket.make();
+	while (container.readNextPacket(packet) >= 0) {
+		
+		audioSamples = null;
+		videoFrame = null;
+		
+		int index = packet.getStreamIndex();
+		if (index == audioStreamId) {
+			readAudio(packet);
+			return true;
+		} else if (index == videoStreamId) {
+			readVideo(packet);
+			return true;
+		} else {
+			continue;
+		}
+	}
+	
+	return false;
+}
+	
+
+
 	
 	public void close() {
 		container.close();

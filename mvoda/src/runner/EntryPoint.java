@@ -1,6 +1,7 @@
 package runner;
 
 import media.MusicVideo;
+import media.DrawOntoVideo;
 
 public class EntryPoint {
 
@@ -12,6 +13,7 @@ public class EntryPoint {
 		MusicVideo test = new MusicVideo("C:/Users/Tony/CODE/MVODAInputs/Love/RihannaYouDaOne.avi");
 		System.out.println("Here is the height of your video: " + test.getHeight());
 		System.out.println("Here is the duration of your video (ms): " + test.getDuration());
+		DrawOntoVideo draw = new DrawOntoVideo("C:/Users/Tony/CODE/MVODAInputs/Love/RihannaYouDaOne.avi");
 		
 
 	}

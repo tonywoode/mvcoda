@@ -22,7 +22,7 @@ public class ModifyMediaExample {
 
     private static final String inputFilename = "../../../MVODAInputs/Love/BrunoMarsJustTheWay.avi";
     private static final String outputFilename = "../../../MVODAOutputs/ModifyMedia.mov";
-    private static final String imageFilename = "../../../Software/ImageMagick-6.8.5-Q16/images/bluebells_clipped.jpg";
+    private static final String imageFilename = "../../../Repo/mvoda/mvoda/Theme/Pop/Logo/4music.png";
 
     public static void main(String[] args) {
 

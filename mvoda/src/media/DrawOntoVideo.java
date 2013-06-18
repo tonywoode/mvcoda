@@ -46,10 +46,10 @@ public class DrawOntoVideo {
 			setVideo();
 			writer = getWriter(filename);
 			long frame = 0;
-			long lastFrame = video.getTotalFrames();
+			long lastFrame = video.getNumVidFrames();
 			while (video.hasNextPacket()) {
 				if (video.getVideoFrame() != null) {frame++;} // don't increase counter if not a video frame
-				continue;				
+							
 				IAudioSamples audioSamples = video.getAudioSamples();
 				if (audioSamples != null) {
 					writer.encodeAudio(AUDIO_STREAM_INDEX, audioSamples);
@@ -58,18 +58,19 @@ public class DrawOntoVideo {
 				if (videoFrame != null) {
 					Graphics2D graphics = (Graphics2D) videoFrame.getGraphics();
 					graphics.setRenderingHints(hints);
-					for (Gauge gauge : gauges) {
+					System.out.println("at video timestamp" + video.getTimeStamp());
+					/* for (Gauge gauge : gauges) {
 						gauge.updateValue(trackPoint, extensions);
 						gauge.draw(graphics);
 					}
-					long timeStamp = (long) (trackPoint.elapsedSeconds * 1000.0);
-					writer.encodeVideo(0, videoFrame, timeStamp, TimeUnit.MILLISECONDS);
+					long timeStamp = (long) (trackPoint.elapsedSeconds * 1000.0);*/
+					writer.encodeVideo(0, videoFrame, video.getTimeStamp(), TimeUnit.MILLISECONDS);
 					if (++frame >= lastFrame) break;
 				}
 			}
 
 		} catch (Exception ex) {
-			showError(ex);
+			ex.printStackTrace();
 		} finally {
 			if (writer != null) {
 				try {
@@ -84,24 +85,20 @@ public class DrawOntoVideo {
 	private void showError(Exception ex) {JOptionPane.showMessageDialog(new JFrame(), ex.getMessage(),ex.getClass().getName(),JOptionPane.ERROR_MESSAGE);} //I put a random jframe in there
 
 	private void setVideo() {
-		String filename = video.getVideoFilename();
-		if (video.shouldResample()) {
-			int outputWidth = video.getResampledWidth();
-			int outputHeight = video.getResampledHeight();
-			video = new MusicVideo(filename, outputWidth, outputHeight);
-		} else {
-			video = new MusicVideo(filename);
-		}
+		String filename = "C:/Users/Tony/CODE/MVODAInputs/Love/RihannaYouDaOne.avi";
+		
+		video = new MusicVideo(filename);
+		
 		width = video.getWidth();
 		height = video.getHeight();
-		fps = video.getFps();
+		fps = video.getFramesPerSecondAsDouble();
 	}
 
 
 	private IMediaWriter getWriter(String filename) {
 		IMediaWriter writer = ToolFactory.makeWriter(filename);
 		addVideoStreamTo(writer);
-		IStreamCoder audioCodec = video.getAudioCodec();
+		IStreamCoder audioCodec = video.getAudioCoder();
 		if (audioCodec != null) {
 			addAudioStreamTo(writer, audioCodec);
 		}
@@ -112,11 +109,6 @@ public class DrawOntoVideo {
 		IRational frameRate = IRational.make(fps);
 		int outputWidth = width;
 		int outputHeight = height;
-
-		if (video.shouldResample()) {
-			outputWidth = model.getResampledWidth();
-			outputHeight = model.getResampledHeight();
-		}
 
 		writer.addVideoStream(VIDEO_STREAM_INDEX,VIDEO_STREAM_ID,VIDEO_CODEC,frameRate,outputWidth,outputHeight);
 	}

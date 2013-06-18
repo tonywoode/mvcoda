@@ -1,4 +1,4 @@
-package runner;
+package moduleExamples.xuggler;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -18,11 +18,10 @@ import com.xuggle.mediatool.ToolFactory;
 import com.xuggle.mediatool.event.IAudioSamplesEvent;
 import com.xuggle.mediatool.event.IVideoPictureEvent;
 
-public class PlayWithXuggler {
+public class TimeStamp {
 
     private static final String inputFilename = "../../../MVODAInputs/Love/BrunoMarsJustTheWay.avi";
     private static final String outputFilename = "../../../MVODAOutputs/ModifyMedia.mov";
-    private static final String imageFilename = "../../../Software/ImageMagick-6.8.5-Q16/images/bluebells_clipped.jpg";
 
     public static void main(String[] args) {
 
