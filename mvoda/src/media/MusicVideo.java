@@ -42,7 +42,6 @@ public class MusicVideo {
 	@Getter private static final int SIZE_AUDIO_BUFFER = 1024;
 	@Getter private long frames;
 	@Getter private int audioChannels;
-	@Getter private BufferedImage frameOfVideo;
 	@Getter private String fileUNC;	
 	@Getter private int width;
 	@Getter private int height;

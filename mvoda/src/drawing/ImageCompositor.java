@@ -13,10 +13,11 @@ import javax.imageio.ImageIO;
  * @author twoode
  *
  */
-public class OverlayFrames {
+public class ImageCompositor {
 	
 	private BufferedImage image;
 	private BufferedImage overlay;
+	private String outputFile;
 
 	/**
 	 * WE take the 2 image files
@@ -24,14 +25,27 @@ public class OverlayFrames {
 	 * @param OverlayFile
 	 * @throws IOException 
 	 */
-  public OverlayFrames(String backgroundFile, String overlayFile, String OutputFile) throws IOException {
+  public ImageCompositor(String backgroundFile, String overlayFile, String outputFile) throws IOException {
 		   
 	  Image back = ImageIO.read(new File(backgroundFile));
       image = (BufferedImage) back;
       
       Image over = ImageIO.read(new File(overlayFile));
       overlay = (BufferedImage) over;
-	  
+      
+      this.outputFile = outputFile;
+  }
+  
+  public ImageCompositor(BufferedImage image, BufferedImage overlay, String outputFile) throws IOException {
+  
+	  this.image = image;
+	  this.overlay = overlay;
+	  this.outputFile = outputFile;
+  }
+  
+  
+  
+  public void overlay() throws IOException {
   
   		// create the new image, canvas size is the max. of both image sizes
 		int w = Math.max(image.getWidth(), overlay.getWidth());
@@ -44,7 +58,7 @@ public class OverlayFrames {
 		g.drawImage(overlay, 0, 0, null);
 
 		// Save as new image
-		ImageIO.write(combined, "PNG", new File(OutputFile));
+		ImageIO.write(combined, "PNG", new File(outputFile));
   
   }
   

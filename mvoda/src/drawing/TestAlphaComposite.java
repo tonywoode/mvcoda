@@ -30,7 +30,7 @@ public class TestAlphaComposite extends JPanel {
       //backgroundImage = createBackGroundImage();
       //overlayImage = createOverlayImage();
       
-      Image back = ImageIO.read(new File("../../../Repo/mvoda/mvoda/temp/bru.png"));
+      Image back = ImageIO.read(new File("../../../MVODAInputs/bru.png"));
       backgroundImage = (BufferedImage) back;
       
       Image over = ImageIO.read(new File("../../../Repo/mvoda/mvoda/Theme/Pop/Logo/4MLogoFrames/4M68.png"));
