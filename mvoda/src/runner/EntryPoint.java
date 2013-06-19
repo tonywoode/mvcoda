@@ -5,8 +5,10 @@ import java.io.IOException;
 
 import drawing.ShowImageInFrame;
 
+import media.DecodePlayVid;
 import media.MusicVideo;
 import media.DrawOntoVideo;
+import media.VideoInfo;
 
 public class EntryPoint {
 
@@ -16,18 +18,28 @@ public class EntryPoint {
 	 * @throws IOException 
 	 */
 	public static void main(String[] args) throws IOException {
-		MusicVideo test = new MusicVideo("C:/Users/Tony/CODE/MVODAInputs/Love/RihannaYouDaOne.avi");
+		//load a music vid
+		String fileUNC = "../../../MVODAInputs/Love/BrunoMarsJustTheWay.avi";
+		MusicVideo test = new MusicVideo(fileUNC);
+
+		//get some properties
 		System.out.println("Here is the height of your video: " + test.getHeight());
 		System.out.println("Here is the duration of your video (ms): " + test.getDuration());
 		//DrawOntoVideo draw = new DrawOntoVideo("C:/Users/Tony/CODE/MVODAInputs/Love/RihannaYouDaOne.avi");
-	while (test.hasNextPacket()) {
-		BufferedImage image = test.getVideoFrame();
-		ShowImageInFrame gui = new ShowImageInFrame(image);
-		gui.createAndShowGui();
+		VideoInfo info = new VideoInfo(test.getFileUNC());
+		//DecodePlayVid player = new DecodePlayVid(fileUNC);
+
+		while (test.hasNextPacket()) {
+			BufferedImage image = test.getVideoFrame();
+			if (image != null) {
+				ShowImageInFrame gui = new ShowImageInFrame(image);
+				//gui.createAndShowGui();
+			}
+		}	
+		//hmm that's not working well, let's try xugglers own....
 		
-		
-	}
+
+
 
 	}
-
 }
