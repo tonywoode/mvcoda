@@ -26,17 +26,23 @@ public class EntryPoint {
 		System.out.println("Here is the height of your video: " + test.getHeight());
 		System.out.println("Here is the duration of your video (ms): " + test.getDuration());
 		//DrawOntoVideo draw = new DrawOntoVideo("C:/Users/Tony/CODE/MVODAInputs/Love/RihannaYouDaOne.avi");
+		
+		//get Xuggler's video info - idea could Junit test compare MY music vid class to THIS info?
 		VideoInfo info = new VideoInfo(test.getFileUNC());
-		//DecodePlayVid player = new DecodePlayVid(fileUNC);
+		
+		//play it in xugglers media player
+		DecodePlayVid player = new DecodePlayVid(fileUNC);
 
-		while (test.hasNextPacket()) {
+		
+		//hmm that's not working well...
+/*		while (test.hasNextPacket()) {
 			BufferedImage image = test.getVideoFrame();
 			if (image != null) {
 				ShowImageInFrame gui = new ShowImageInFrame(image);
 				//gui.createAndShowGui();
 			}
 		}	
-		//hmm that's not working well, let's try xugglers own....
+*/	
 		
 
 
