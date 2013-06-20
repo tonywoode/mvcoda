@@ -2,14 +2,11 @@ package media;
 
 import java.awt.image.BufferedImage;
 
-
 import lombok.Getter;
 
 import com.xuggle.xuggler.Global;
 import com.xuggle.xuggler.IAudioSamples;
 import com.xuggle.xuggler.ICodec;
-import com.xuggle.xuggler.ICodec.ID;
-import com.xuggle.xuggler.ICodec.Type;
 import com.xuggle.xuggler.IContainer;
 import com.xuggle.xuggler.IPacket;
 import com.xuggle.xuggler.IPixelFormat;
@@ -28,20 +25,19 @@ import com.xuggle.xuggler.video.BgrConverter;
 
 public class MusicVideo {
 
+	public static final int SIZE_AUDIO_BUFFER = 1024;
 
 	private IContainer container;
-	private IPixelFormat.Type pixFormat;
 	@Getter private IStreamCoder audioCoder;
 	private IStreamCoder videoCoder;
 	@Getter private IAudioSamples audioSamples;
 	private BgrConverter converter;
 	private IPixelFormat.Type format;
 	private IVideoResampler resampler;
-	
+
 	private int outputWidth;
 	private int outputHeight;
 
-	@Getter private static final int SIZE_AUDIO_BUFFER = 1024;
 	@Getter private long frames;
 	@Getter private int audioChannels;
 	@Getter private String fileUNC;	
@@ -51,15 +47,14 @@ public class MusicVideo {
 	@Getter private IRational framesPerSecond;
 	@Getter private double framesPerSecondAsDouble;
 	@Getter private int numFrames;
-	@Getter private int audioStreamId;
-	@Getter private int videoStreamId;
+	@Getter private int audioStreamId = -1; //set to negative because 0 is a valid ID
+	@Getter private int videoStreamId = -1; //set to negative because 0 is a valid ID
 	@Getter private long duration;
 	@Getter private BufferedImage videoFrame;
 	@Getter private long numVidFrames;
 	@Getter private long timeStamp;
 	@Getter private String formattedTimestamp;
-	
-	
+
 
 	/**
 	 * Constructor takes only a filename, returns an open container with its properties available
@@ -73,9 +68,6 @@ public class MusicVideo {
 		}
 
 		//then iterate through the container trying to find the video and audio streams
-
-		audioStreamId = -1; videoStreamId = -1; //set these to negative
-
 		int numStreams = container.getNumStreams();  
 		for(int i = 0; i < numStreams; i++) {  
 			IStream stream = container.getStream(i);
@@ -94,8 +86,7 @@ public class MusicVideo {
 			}
 		}
 
-		//error if we haven't found any streams
-		if ( videoStreamId < 0 && audioStreamId < 0 ) {
+		if ( videoStreamId < 0 && audioStreamId < 0 ) { //error if we haven't found any streams
 			throw new RuntimeException( fileUNC + " Doesn't contain audio or video streams" );
 		}
 		if ( audioCoder != null && ( audioCoder.open(null, null) < 0 ) ) { throw new RuntimeException(fileUNC + ": audio can't be opened");}
@@ -107,115 +98,96 @@ public class MusicVideo {
 		numChannelsAudio = audioCoder.getChannels();
 		framesPerSecond = videoCoder.getFrameRate();
 		framesPerSecondAsDouble = videoCoder.getFrameRate().getDouble();
-		//numFrames = videoCoder. //how DO YOU WORK OUT THE NUMBER OF FRAMES? CAN'T FIND DURATION?
-		duration = ( container.getDuration() == Global.NO_PTS ? 0 : container.getDuration()/1000 ); //milliseconds
+		duration = ( container.getDuration() == Global.NO_PTS ? 0 : container.getDuration()/1000 ); //gives result in milliseconds
 	}
-	
-	
-private void makeResampler(int outputWidth, int outputHeight) {
-		
+
+	/**
+	 * If the video codec of the video is not in pix format BGR24 we make it so, otherwise we aren't going to get a picture out of it
+	 * TODO: investigate and really this should be capable of converting back to YUV420 surely?
+	 * @param outputWidth
+	 * @param outputHeight
+	 */
+	private void makeResampler(int outputWidth, int outputHeight) {
+
 		this.outputWidth = outputWidth;
 		this.outputHeight = outputHeight;
-		
+
 		format = videoCoder.getPixelType();
-		
 		if (format != IPixelFormat.Type.BGR24) {
-			
-			resampler = IVideoResampler.make(
-				outputWidth, outputHeight, IPixelFormat.Type.BGR24,
-				width, height, format
-			);
-			
-			if (resampler == null) {
-				throw new RuntimeException("Unable to make a resampler");
-			}
-			
-			converter = new BgrConverter(
-				IPixelFormat.Type.BGR24,
-				outputWidth, outputHeight,
-				width, height
-			);
+
+			resampler = IVideoResampler.make(outputWidth, outputHeight, IPixelFormat.Type.BGR24, width, height, format);
+
+			if (resampler == null) {throw new RuntimeException("Problem generating resampler");}
+			converter = new BgrConverter( IPixelFormat.Type.BGR24, outputWidth, outputHeight, width, height	);
 		}
 	}
 
-private void readVideo(IPacket packet) throws RuntimeException {
-	
-	IVideoPicture picture = IVideoPicture.make(format, width, height);
-	
-	int offset = 0;
-	while (offset < packet.getSize()) {
-		
-		int numBytesDecoded = videoCoder.decodeVideo(picture, packet, offset);
-		if (numBytesDecoded < 0) {
-			throw new RuntimeException("Could not decode video");
-		}
-		offset += numBytesDecoded;
-		
-		if (picture.isComplete()) {
-			/*we DIVIDE BY 1000 TO GET TIMESTAMP IN MILLI FROM MICROSECONDS, theres still some divide by 2 problem I'm only decoding half?!?*/
-			timeStamp = picture.getTimeStamp() /1000; //I put this here to try to get a timestamp for drawOntoVideo
-			formattedTimestamp = picture.getFormattedTimeStamp();
-			IVideoPicture resampled = picture;
-			if (picture.getPixelType() != IPixelFormat.Type.BGR24) {
-				resampled = IVideoPicture.make(IPixelFormat.Type.BGR24, outputWidth, outputHeight);
-				//timeStamp = resampled.getTimeStamp(); //I put this here to try to get a timestamp for drawOntoVideo
-				if (resampler.resample(resampled, picture) < 0) {
-					throw new RuntimeException("Could not resample video");
+	private void readVideo(IPacket packet) throws RuntimeException {
+
+		IVideoPicture picture = IVideoPicture.make(format, width, height);
+
+		int offset = 0;
+		while (offset < packet.getSize()) {
+
+			int numBytesDecoded = videoCoder.decodeVideo(picture, packet, offset);
+			if (numBytesDecoded < 0) {throw new RuntimeException("Problem decoding audio");}
+			offset += numBytesDecoded;
+
+			if (picture.isComplete()) {
+				/*we DIVIDE BY 1000 TO GET TIMESTAMP IN MILLI FROM MICROSECONDS*/
+				timeStamp = picture.getTimeStamp() / 1000; //I put this here to try to get a timestamp for drawOntoVideo
+				formattedTimestamp = picture.getFormattedTimeStamp();
+				IVideoPicture resampled = picture;
+				if (picture.getPixelType() != IPixelFormat.Type.BGR24) {
+					resampled = IVideoPicture.make(IPixelFormat.Type.BGR24, outputWidth, outputHeight);
+					if (resampler.resample(resampled, picture) < 0) {
+						throw new RuntimeException("Problem decoding video");
+					}
 				}
+				videoFrame = converter.toImage(resampled);
+				break;
 			}
-			
-			videoFrame = converter.toImage(resampled);
-			break;
 		}
 	}
-}
 
-private void readAudio(IPacket packet) throws RuntimeException {
-	
-	audioSamples = IAudioSamples.make(SIZE_AUDIO_BUFFER, numChannelsAudio);
-	
-	int offset = 0;
-	while (offset < packet.getSize()) {
-		
-		int numBytesDecoded = audioCoder.decodeAudio(audioSamples, packet, offset);
-		if (numBytesDecoded < 0) {
-			throw new RuntimeException("Unable to decode audio samples");
-		}
-		
-		offset += numBytesDecoded;
-		
-		if (audioSamples.isComplete()) {
-			break;
+	private void readAudio(IPacket packet) throws RuntimeException {
+
+		audioSamples = IAudioSamples.make(SIZE_AUDIO_BUFFER, numChannelsAudio);
+
+		int offset = 0;
+		while (offset < packet.getSize()) {
+
+			int numBytesDecoded = audioCoder.decodeAudio(audioSamples, packet, offset);
+			if (numBytesDecoded < 0) {throw new RuntimeException("Problem decoding audio samples");}
+			offset += numBytesDecoded;
+			if (audioSamples.isComplete()) {
+				break;
+			}
 		}
 	}
-}
 
-public boolean hasNextPacket() throws RuntimeException {
-	
-	IPacket packet = IPacket.make();
-	while (container.readNextPacket(packet) >= 0) {
-		
-		audioSamples = null;
-		videoFrame = null;
-		
-		int index = packet.getStreamIndex();
-		if (index == audioStreamId) {
-			readAudio(packet);
-			return true;
-		} else if (index == videoStreamId) {
-			readVideo(packet);
-			return true;
-		} else {
-			continue;
+	public boolean hasNextPacket() throws RuntimeException {
+
+		IPacket packet = IPacket.make();
+		while (container.readNextPacket(packet) >= 0) {
+
+			audioSamples = null;
+			videoFrame = null;
+
+			int index = packet.getStreamIndex();
+			if (index == audioStreamId) {
+				readAudio(packet);
+				return true;
+			} else if (index == videoStreamId) {
+				readVideo(packet);
+				return true;
+			} else {
+				continue;
+			}
 		}
+		return false; //return false if none of the remaining packets are neither audio or video
 	}
-	
-	return false;
-}
-	
 
-
-	
 	public void close() {
 		container.close();
 	}
