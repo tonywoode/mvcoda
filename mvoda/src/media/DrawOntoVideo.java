@@ -30,35 +30,21 @@ public class DrawOntoVideo {
 	private static final int VIDEO_STREAM_ID = 0;
 	private static final int AUDIO_STREAM_ID = 0;
 	private static final ICodec.ID VIDEO_CODEC = ICodec.ID.CODEC_ID_MPEG4;
-	private Map<RenderingHints.Key, Object> hints;
 	private MusicVideo video;
-	private int width;
-	private int height;
-	private double fps;
-
+	
 	public DrawOntoVideo(final String filename) {
-		makeHighQuality();
+		
 		render(filename);
 	}
 	
-	private void makeHighQuality() {
-		hints = new HashMap<RenderingHints.Key, Object>();
-		hints.put(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-		hints.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		hints.put(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-		hints.put(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
-		hints.put(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
-		hints.put(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-		hints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-		hints.put(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_NORMALIZE);
-		hints.put(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-	}
+	
 
 	private void render(String filename) {
+		
 		IMediaWriter writer = null;
 		try {
-			setVideo();
-			writer = getWriter("../../../MVODAOutputs/ModifyMedia.mov");
+			video = new MusicVideo(filename);
+			writer = getWriter("../../../MVODAOutputs/ModifyMedia.mp4");
 			long frame = 0;
 			long lastFrame = video.getNumVidFrames();
 			while (video.hasNextPacket()) {
@@ -70,9 +56,8 @@ public class DrawOntoVideo {
 				}
 				BufferedImage videoFrame = video.getVideoFrame();
 				if (videoFrame != null) {
-					Graphics2D graphics = (Graphics2D) videoFrame.getGraphics();
-					graphics.setRenderingHints(hints);
-					System.out.println("at video timestamp" + video.getTimeStamp());
+					
+					System.out.println("at video timestamp: " + video.getFormattedTimestamp());
 					/* for (Gauge gauge : gauges) {
 						gauge.updateValue(trackPoint, extensions);
 						gauge.draw(graphics);
@@ -97,18 +82,6 @@ public class DrawOntoVideo {
 		}
 	}
 
-	private void showError(Exception ex) {JOptionPane.showMessageDialog(new JFrame(), ex.getMessage(),ex.getClass().getName(),JOptionPane.ERROR_MESSAGE);} //I put a random jframe in there
-
-	private void setVideo() {
-		String filename = "../../../MVODAInputs/NeyoStayShort.avi";
-		
-		video = new MusicVideo(filename);
-		
-		width = video.getWidth();
-		height = video.getHeight();
-		fps = video.getFramesPerSecondAsDouble();
-	}
-
 
 	private IMediaWriter getWriter(String filename) {
 		IMediaWriter writer = ToolFactory.makeWriter(filename);
@@ -121,10 +94,9 @@ public class DrawOntoVideo {
 	}
 
 	private void addVideoStreamTo(IMediaWriter writer) {
-		IRational frameRate = IRational.make(fps);
-		int outputWidth = width;
-		int outputHeight = height;
-
+		IRational frameRate = IRational.make(video.getFramesPerSecondAsDouble());
+		int outputWidth = video.getWidth();
+		int outputHeight = video.getHeight();
 		writer.addVideoStream(VIDEO_STREAM_INDEX,VIDEO_STREAM_ID,VIDEO_CODEC,frameRate,outputWidth,outputHeight);
 	}
 

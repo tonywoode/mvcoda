@@ -25,12 +25,16 @@ public class EntryPoint {
 		MusicVideo test = new MusicVideo(fileUNC);
 
 		//get some properties
-		System.out.println("Here is the height of your video: " + test.getHeight());
-		System.out.println("Here is the duration of your video (ms): " + test.getDuration());
-		DrawOntoVideo draw = new DrawOntoVideo(fileUNC);
+		//System.out.println("Here is the height of your video: " + test.getHeight());
+		//System.out.println("Here is the duration of your video (ms): " + test.getDuration());
+		
 		
 		//get Xuggler's video info - idea could Junit test compare MY music vid class to THIS info?
-		//VideoInfo info = new VideoInfo(test.getFileUNC());
+		VideoInfo info = new VideoInfo(test.getFileUNC());
+		
+		
+		DrawOntoVideo draw = new DrawOntoVideo(fileUNC);
+		
 		
 		//now let's try and grab a frame using the SIMPLE API
 		//ModifyMusicVideo vid = new ModifyMusicVideo(fileUNC, outFileUNC );

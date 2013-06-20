@@ -8,6 +8,8 @@ import lombok.Getter;
 import com.xuggle.xuggler.Global;
 import com.xuggle.xuggler.IAudioSamples;
 import com.xuggle.xuggler.ICodec;
+import com.xuggle.xuggler.ICodec.ID;
+import com.xuggle.xuggler.ICodec.Type;
 import com.xuggle.xuggler.IContainer;
 import com.xuggle.xuggler.IPacket;
 import com.xuggle.xuggler.IPixelFormat;
@@ -55,6 +57,8 @@ public class MusicVideo {
 	@Getter private BufferedImage videoFrame;
 	@Getter private long numVidFrames;
 	@Getter private long timeStamp;
+	@Getter private String formattedTimestamp;
+	@Getter private ID vidCodecID;
 	
 
 	/**
@@ -105,6 +109,7 @@ public class MusicVideo {
 		framesPerSecondAsDouble = videoCoder.getFrameRate().getDouble();
 		//numFrames = videoCoder. //how DO YOU WORK OUT THE NUMBER OF FRAMES? CAN'T FIND DURATION?
 		duration = ( container.getDuration() == Global.NO_PTS ? 0 : container.getDuration()/1000 ); //milliseconds
+		vidCodecID = videoCoder.getCodecID();
 	}
 	
 	
@@ -146,9 +151,10 @@ private void readVideo(IPacket packet) throws RuntimeException {
 			throw new RuntimeException("Could not decode video");
 		}
 		offset += numBytesDecoded;
-		timeStamp = picture.getTimeStamp(); //I put this here to try to get a timestamp for drawOntoVideo
+		
 		if (picture.isComplete()) {
-			
+			timeStamp = picture.getTimeStamp(); //I put this here to try to get a timestamp for drawOntoVideo
+			formattedTimestamp = picture.getFormattedTimeStamp();
 			IVideoPicture resampled = picture;
 			if (picture.getPixelType() != IPixelFormat.Type.BGR24) {
 				resampled = IVideoPicture.make(IPixelFormat.Type.BGR24, outputWidth, outputHeight);
