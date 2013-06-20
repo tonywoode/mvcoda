@@ -37,8 +37,8 @@ public class EntryPoint {
 		System.out.println("Duration of Neyo = " );
 		System.out.println(test.getDuration());
 		System.out.println("Duration of my output: ");
-		MusicVideo test2 = new MusicVideo(outFileUNC);
-		System.out.println(test2.getDuration());
+		//MusicVideo test2 = new MusicVideo(outFileUNC);
+		//System.out.println(test2.getDuration());
 		DrawOntoVideo draw = new DrawOntoVideo(fileUNC, outFileUNC);
 		
 		

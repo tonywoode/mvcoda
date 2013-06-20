@@ -62,7 +62,6 @@ public class DrawOntoVideo {
 					
 					System.out.println("at video timestamp: " + video.getFormattedTimestamp());
 					//ShowImageInFrame im = new ShowImageInFrame(videoFrame); //yup we are getting images....
-					System.out.println("image frame right now: " + videoFrame.getType());
 					/* for (Gauge gauge : gauges) {
 						gauge.updateValue(trackPoint, extensions);
 						gauge.draw(graphics);
@@ -70,7 +69,7 @@ public class DrawOntoVideo {
 					long timeStamp = (long) (trackPoint.elapsedSeconds * 1000.0);*/
 		
 					writer.encodeVideo(0, videoFrame, video.getTimeStamp(), TimeUnit.MILLISECONDS);
-					if (++frame >= lastFrame) break;
+					if ((frame +1) >= lastFrame) break;
 				}
 			}
 
