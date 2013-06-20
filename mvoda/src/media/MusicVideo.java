@@ -99,6 +99,7 @@ public class MusicVideo {
 
 		width = videoCoder.getWidth();
 		height = videoCoder.getHeight();
+		makeResampler(width, height);
 		numChannelsAudio = audioCoder.getChannels();
 		framesPerSecond = videoCoder.getFrameRate();
 		framesPerSecondAsDouble = videoCoder.getFrameRate().getDouble();
@@ -145,7 +146,7 @@ private void readVideo(IPacket packet) throws RuntimeException {
 			throw new RuntimeException("Could not decode video");
 		}
 		offset += numBytesDecoded;
-		
+		timeStamp = picture.getTimeStamp(); //I put this here to try to get a timestamp for drawOntoVideo
 		if (picture.isComplete()) {
 			
 			IVideoPicture resampled = picture;

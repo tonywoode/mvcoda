@@ -36,15 +36,29 @@ public class DrawOntoVideo {
 	private int height;
 	private double fps;
 
-	public DrawOntoVideo(final String filename) {	
+	public DrawOntoVideo(final String filename) {
+		makeHighQuality();
 		render(filename);
+	}
+	
+	private void makeHighQuality() {
+		hints = new HashMap<RenderingHints.Key, Object>();
+		hints.put(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+		hints.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		hints.put(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+		hints.put(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
+		hints.put(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
+		hints.put(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+		hints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+		hints.put(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_NORMALIZE);
+		hints.put(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 	}
 
 	private void render(String filename) {
 		IMediaWriter writer = null;
 		try {
 			setVideo();
-			writer = getWriter(filename);
+			writer = getWriter("../../../MVODAOutputs/ModifyMedia.mov");
 			long frame = 0;
 			long lastFrame = video.getNumVidFrames();
 			while (video.hasNextPacket()) {
@@ -64,6 +78,7 @@ public class DrawOntoVideo {
 						gauge.draw(graphics);
 					}
 					long timeStamp = (long) (trackPoint.elapsedSeconds * 1000.0);*/
+		
 					writer.encodeVideo(0, videoFrame, video.getTimeStamp(), TimeUnit.MILLISECONDS);
 					if (++frame >= lastFrame) break;
 				}
@@ -85,7 +100,7 @@ public class DrawOntoVideo {
 	private void showError(Exception ex) {JOptionPane.showMessageDialog(new JFrame(), ex.getMessage(),ex.getClass().getName(),JOptionPane.ERROR_MESSAGE);} //I put a random jframe in there
 
 	private void setVideo() {
-		String filename = "C:/Users/Tony/CODE/MVODAInputs/Love/RihannaYouDaOne.avi";
+		String filename = "../../../MVODAInputs/NeyoStayShort.avi";
 		
 		video = new MusicVideo(filename);
 		

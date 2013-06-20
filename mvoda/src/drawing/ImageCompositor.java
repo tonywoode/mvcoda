@@ -18,6 +18,7 @@ public class ImageCompositor {
 	private BufferedImage image;
 	private BufferedImage overlay;
 	private String outputFile;
+	private BufferedImage composite;
 
 	/**
 	 * WE take the 2 image files
@@ -25,7 +26,7 @@ public class ImageCompositor {
 	 * @param OverlayFile
 	 * @throws IOException 
 	 */
-  public ImageCompositor(String backgroundFile, String overlayFile, String outputFile) throws IOException {
+  /*public ImageCompositor(String backgroundFile, String overlayFile, String outputFile) throws IOException {
 		   
 	  Image back = ImageIO.read(new File(backgroundFile));
       image = (BufferedImage) back;
@@ -34,18 +35,18 @@ public class ImageCompositor {
       overlay = (BufferedImage) over;
       
       this.outputFile = outputFile;
-  }
+  }*/
   
-  public ImageCompositor(BufferedImage image, BufferedImage overlay, String outputFile) throws IOException {
+  public ImageCompositor(BufferedImage image, BufferedImage overlay) throws IOException {
   
 	  this.image = image;
 	  this.overlay = overlay;
-	  this.outputFile = outputFile;
+	  
   }
   
   
   
-  public void overlay() throws IOException {
+  public BufferedImage overlay() throws IOException {
   
   		// create the new image, canvas size is the max. of both image sizes
 		int w = Math.max(image.getWidth(), overlay.getWidth());
@@ -58,7 +59,9 @@ public class ImageCompositor {
 		g.drawImage(overlay, 0, 0, null);
 
 		// Save as new image
-		ImageIO.write(combined, "PNG", new File(outputFile));
+		//ImageIO.write(combined, "PNG", new File(outputFile));
+		composite = combined;
+		return composite;
   
   }
   
