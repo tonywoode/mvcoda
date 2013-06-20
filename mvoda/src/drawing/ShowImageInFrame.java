@@ -1,21 +1,15 @@
 package drawing;
 
-import java.awt.AlphaComposite;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Composite;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.RenderingHints;
-import java.awt.Stroke;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  * Just a test gui that displays an image passed to it
@@ -23,10 +17,7 @@ import javax.swing.*;
  *
  */
 public class ShowImageInFrame extends JPanel {
-   private static final int PREF_W = 400;
-   private static final int PREF_H = PREF_W;
-   private static final Stroke BASIC_STROKE = new BasicStroke(6f);
-   BufferedImage image;
+   private BufferedImage image;
    
 /**
  * Either we allow a BufferedImage to be displayed
@@ -52,7 +43,7 @@ public class ShowImageInFrame extends JPanel {
    }
 
 /**
- * overrides size of frame with actul size of image
+ * overrides size of frame with actual size of image
  */
    @Override
    public Dimension getPreferredSize() {
@@ -65,9 +56,7 @@ public class ShowImageInFrame extends JPanel {
    @Override
    protected void paintComponent(Graphics g) {
       super.paintComponent(g);
-      if (image != null) {
-         g.drawImage(image, 0, 0, null);
-      }
+      if (image != null) {g.drawImage(image, 0, 0, null);}
    }
 
    /**

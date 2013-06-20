@@ -1,7 +1,11 @@
 package media;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.concurrent.TimeUnit;
+
+import javax.imageio.ImageIO;
 
 import com.xuggle.mediatool.IMediaWriter;
 import com.xuggle.mediatool.ToolFactory;
@@ -9,6 +13,8 @@ import com.xuggle.xuggler.IAudioSamples;
 import com.xuggle.xuggler.ICodec;
 import com.xuggle.xuggler.IRational;
 import com.xuggle.xuggler.IStreamCoder;
+
+import drawing.ImageCompositor;
 
 
 public class DrawOntoVideo {
@@ -45,7 +51,13 @@ public class DrawOntoVideo {
 				if (videoFrame != null) {			
 					System.out.println("at video timestamp: " + video.getFormattedTimestamp());
 					//ShowImageInFrame im = new ShowImageInFrame(videoFrame); //yup we are getting images....
-					writer.encodeVideo(0, videoFrame, video.getTimeStamp(), TimeUnit.MILLISECONDS);
+					String overlayFile = "../../../Repo/mvoda/mvoda/Theme/Pop/Logo/4MLogoFrames/4M68.png";
+					Image over = ImageIO.read(new File(overlayFile));
+					BufferedImage overlay = (BufferedImage) over;
+					ImageCompositor overlayframes = new ImageCompositor(videoFrame, overlay);
+					BufferedImage composite = overlayframes.overlay();
+					
+					writer.encodeVideo(0, composite, video.getTimeStamp(), TimeUnit.MILLISECONDS);
 					if ((frame +1) >= lastFrame) break;
 				}
 			}

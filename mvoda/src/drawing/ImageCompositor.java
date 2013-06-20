@@ -51,7 +51,7 @@ public class ImageCompositor {
   		// create the new image, canvas size is the max. of both image sizes
 		int w = Math.max(image.getWidth(), overlay.getWidth());
 		int h = Math.max(image.getHeight(), overlay.getHeight());
-		BufferedImage combined = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+		BufferedImage combined = new BufferedImage(w, h, BufferedImage.TYPE_3BYTE_BGR);
 
 		// paint both images, preserving the alpha channels
 		Graphics g = combined.getGraphics();
