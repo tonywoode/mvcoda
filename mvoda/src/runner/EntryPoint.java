@@ -31,9 +31,15 @@ public class EntryPoint {
 		
 		//get Xuggler's video info - idea could Junit test compare MY music vid class to THIS info?
 		VideoInfo info = new VideoInfo(test.getFileUNC());
+		//DecodePlayVid dec = new DecodePlayVid(test.getFileUNC());
 		
-		
-		DrawOntoVideo draw = new DrawOntoVideo(fileUNC);
+		System.out.println("IT'S THE DURATION THAT'S GOING WRONG");
+		System.out.println("Duration of Neyo = " );
+		System.out.println(test.getDuration());
+		System.out.println("Duration of my output: ");
+		MusicVideo test2 = new MusicVideo(outFileUNC);
+		System.out.println(test2.getDuration());
+		DrawOntoVideo draw = new DrawOntoVideo(fileUNC, outFileUNC);
 		
 		
 		//now let's try and grab a frame using the SIMPLE API

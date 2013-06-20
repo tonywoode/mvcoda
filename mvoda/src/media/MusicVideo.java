@@ -58,7 +58,7 @@ public class MusicVideo {
 	@Getter private long numVidFrames;
 	@Getter private long timeStamp;
 	@Getter private String formattedTimestamp;
-	@Getter private ID vidCodecID;
+	
 	
 
 	/**
@@ -109,7 +109,6 @@ public class MusicVideo {
 		framesPerSecondAsDouble = videoCoder.getFrameRate().getDouble();
 		//numFrames = videoCoder. //how DO YOU WORK OUT THE NUMBER OF FRAMES? CAN'T FIND DURATION?
 		duration = ( container.getDuration() == Global.NO_PTS ? 0 : container.getDuration()/1000 ); //milliseconds
-		vidCodecID = videoCoder.getCodecID();
 	}
 	
 	
@@ -153,12 +152,13 @@ private void readVideo(IPacket packet) throws RuntimeException {
 		offset += numBytesDecoded;
 		
 		if (picture.isComplete()) {
-			timeStamp = picture.getTimeStamp(); //I put this here to try to get a timestamp for drawOntoVideo
+			/*we DIVIDE BY 1000 TO GET TIMESTAMP IN MILLI FROM MICROSECONDS, theres still some divide by 2 problem I'm only decoding half?!?*/
+			timeStamp = picture.getTimeStamp() /1000; //I put this here to try to get a timestamp for drawOntoVideo
 			formattedTimestamp = picture.getFormattedTimeStamp();
 			IVideoPicture resampled = picture;
 			if (picture.getPixelType() != IPixelFormat.Type.BGR24) {
 				resampled = IVideoPicture.make(IPixelFormat.Type.BGR24, outputWidth, outputHeight);
-				timeStamp = resampled.getTimeStamp(); //I put this here to try to get a timestamp for drawOntoVideo
+				//timeStamp = resampled.getTimeStamp(); //I put this here to try to get a timestamp for drawOntoVideo
 				if (resampler.resample(resampled, picture) < 0) {
 					throw new RuntimeException("Could not resample video");
 				}

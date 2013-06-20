@@ -22,6 +22,8 @@ import com.xuggle.xuggler.ICodec;
 import com.xuggle.xuggler.IRational;
 import com.xuggle.xuggler.IStreamCoder;
 
+import drawing.ShowImageInFrame;
+
 
 public class DrawOntoVideo {
 
@@ -31,9 +33,10 @@ public class DrawOntoVideo {
 	private static final int AUDIO_STREAM_ID = 0;
 	private static final ICodec.ID VIDEO_CODEC = ICodec.ID.CODEC_ID_MPEG4;
 	private MusicVideo video;
+	private String outFilename;
 	
-	public DrawOntoVideo(final String filename) {
-		
+	public DrawOntoVideo(final String filename,String outFilename) {
+		this.outFilename = outFilename;
 		render(filename);
 	}
 	
@@ -44,7 +47,7 @@ public class DrawOntoVideo {
 		IMediaWriter writer = null;
 		try {
 			video = new MusicVideo(filename);
-			writer = getWriter("../../../MVODAOutputs/ModifyMedia.mp4");
+			writer = getWriter(outFilename);
 			long frame = 0;
 			long lastFrame = video.getNumVidFrames();
 			while (video.hasNextPacket()) {
@@ -58,6 +61,8 @@ public class DrawOntoVideo {
 				if (videoFrame != null) {
 					
 					System.out.println("at video timestamp: " + video.getFormattedTimestamp());
+					//ShowImageInFrame im = new ShowImageInFrame(videoFrame); //yup we are getting images....
+					System.out.println("image frame right now: " + videoFrame.getType());
 					/* for (Gauge gauge : gauges) {
 						gauge.updateValue(trackPoint, extensions);
 						gauge.draw(graphics);
