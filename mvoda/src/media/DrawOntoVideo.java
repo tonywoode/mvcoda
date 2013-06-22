@@ -16,7 +16,11 @@ import com.xuggle.xuggler.IStreamCoder;
 
 import drawing.ImageCompositor;
 
-
+/**
+ * Basic methods to deal with buffered images we get from music video packets so that we can manipulate them and recode a video. Its basically "do something then encode"
+ * @author Tony
+ *
+ */
 public class DrawOntoVideo {
 
 	private static final int VIDEO_STREAM_INDEX = 0;
@@ -27,12 +31,22 @@ public class DrawOntoVideo {
 	private MusicVideo video;
 	private String outFilename;
 
+	/**
+	 * By passing two UNCpaths to the constructor we specify and input and an output filename
+	 * @param filename
+	 * @param outFilename
+	 */
 	public DrawOntoVideo(final String filename,String outFilename) {
 		this.outFilename = outFilename;
 		render(filename);
 	}
 
-	private void render(String filename) {
+	/**
+	 * Creates a new music video with input filename and a new writer that will write to output filename, iterates through the packets of the music video
+	 * encoding both, but allowing something to happen to the buffered images before the encode
+	 * @param filename
+	 */
+	private void render(String filename) { //TODO: hang on the filename is instantiated with new, why do we need this in the sig? Or should these be static methods - should the class be a static class?
 
 		IMediaWriter writer = null;
 		try {
@@ -62,19 +76,24 @@ public class DrawOntoVideo {
 				}
 			}
 
-		} catch (Exception ex) {
+		} catch (Exception ex) { //TODO: what ANY exception? Why aren't we saying we throw any then?
 			ex.printStackTrace();
 		} finally {
 			if (writer != null) {
 				try {
 					writer.close();
-				} catch (RuntimeException ex) {
+				} catch (RuntimeException ex) { //TODO: only a runtime?!?!
 				}
 			}
 			if (video != null) video.close();
 		}
 	}
 
+	/**
+	 * This is called by render(). It makes a new writer from the tool factory, adds a video and audio stream to it, and returns it
+	 * @param filename
+	 * @return
+	 */
 	private IMediaWriter getWriter(String filename) {
 		IMediaWriter writer = ToolFactory.makeWriter(filename);
 		addVideoStreamTo(writer);
@@ -83,6 +102,11 @@ public class DrawOntoVideo {
 		return writer;
 	}
 
+	/**
+	 * This is called by getWriter(). It adds the video stream to the MediWriter you pass in i.e.: so its ready for writing out 
+	 * At the time rate and using the codec the class specifies
+	 * @param writer
+	 */
 	private void addVideoStreamTo(IMediaWriter writer) {
 		IRational frameRate = IRational.make(video.getFramesPerSecondAsDouble());
 		int outputWidth = video.getWidth();
@@ -90,7 +114,13 @@ public class DrawOntoVideo {
 		writer.addVideoStream(VIDEO_STREAM_INDEX,VIDEO_STREAM_ID,VIDEO_CODEC,frameRate,outputWidth,outputHeight);
 	}
 
-	private void addAudioStreamTo(IMediaWriter writer, IStreamCoder audioCodec) {
+	/**
+	 * This is called by getWriter(). It adds the audio stream to the MediWriter you pass in i.e.: so its ready for writing out 
+	 * using the codec that get's passed to it. At the time rate and using the codec the class specifies
+	 * @param writer
+	 * @param audioCodec
+	 */
+	private void addAudioStreamTo(IMediaWriter writer, IStreamCoder audioCodec) {//TODO: what's the point of passing the codec in but having the other things fields?
 		int numAudioChannels = audioCodec.getChannels();
 		int audioSampleRate = audioCodec.getSampleRate();
 		ICodec.ID codecId = audioCodec.getCodecID();

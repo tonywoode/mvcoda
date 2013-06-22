@@ -18,14 +18,14 @@ import com.xuggle.xuggler.IVideoResampler;
 import com.xuggle.xuggler.video.BgrConverter;
 
 /**
- * Imp for music video class with Xuggler
+ * Implementation class for music video interface using Xuggler as the media interface to FFMpeg
  * @author tony
  *
  */
 
 public class MusicVideo {
 
-	public static final int SIZE_AUDIO_BUFFER = 1024;
+	public static final int SIZE_AUDIO_BUFFER = 1024; //TODO: why is this hard coded? Could I just remove it?
 
 	private IContainer container;
 	@Getter private IStreamCoder audioCoder;
@@ -49,15 +49,18 @@ public class MusicVideo {
 	@Getter private int numFrames;
 	@Getter private int audioStreamId = -1; //set to negative because 0 is a valid ID
 	@Getter private int videoStreamId = -1; //set to negative because 0 is a valid ID
-	@Getter private long duration;
+	@Getter private long containerDuration; //always in microseconds
+	@Getter private long vidStreamDuration; //in whatever time units the format uses, somewhat complicated
 	@Getter private BufferedImage videoFrame;
 	@Getter private long numVidFrames;
 	@Getter private long timeStamp;
 	@Getter private String formattedTimestamp;
 
 
+
 	/**
-	 * Constructor takes only a filename, returns an open container with its properties available
+	 * Constructor takes only a filename, if that filename is a video FFMpeg can read i.e.: has audio and/or video streams codecs that can decode
+	 * we will set the stream ID's and return an open container as the music video, with its properties available to inspect
 	 * @param fileUNC
 	 */
 	public MusicVideo(String fileUNC) {
@@ -74,7 +77,7 @@ public class MusicVideo {
 			IStreamCoder coder = stream.getStreamCoder();
 			int index = stream.getIndex();
 
-			//while neither stream is found, check for both in the streams
+			//while neither stream is found, check for both in the streams, when found get their peroperties
 			if ( audioStreamId < 0 && coder.getCodecType().equals(ICodec.Type.CODEC_TYPE_AUDIO) ) {
 				audioCoder = coder;
 				audioStreamId = index;
@@ -83,22 +86,23 @@ public class MusicVideo {
 				videoCoder = coder;
 				videoStreamId = index;
 				numVidFrames = stream.getNumFrames();
+				vidStreamDuration = stream.getDuration();
 			}
 		}
-
-		if ( videoStreamId < 0 && audioStreamId < 0 ) { //error if we haven't found any streams
-			throw new RuntimeException( fileUNC + " Doesn't contain audio or video streams" );
-		}
+		
+		//error if we haven't found any streams
+		if ( videoStreamId < 0 && audioStreamId < 0 ) { throw new RuntimeException( fileUNC + " Doesn't contain audio or video streams" );}
 		if ( audioCoder != null && ( audioCoder.open(null, null) < 0 ) ) { throw new RuntimeException(fileUNC + ": audio can't be opened");}
 		if ( videoCoder != null && ( videoCoder.open(null, null) < 0 ) ) { throw new RuntimeException(fileUNC + ": video can't be opened");}
 
+		//get some properties of the coders now that we have them
 		width = videoCoder.getWidth();
 		height = videoCoder.getHeight();
 		makeResampler(width, height);
 		numChannelsAudio = audioCoder.getChannels();
 		framesPerSecond = videoCoder.getFrameRate();
 		framesPerSecondAsDouble = videoCoder.getFrameRate().getDouble();
-		duration = ( container.getDuration() == Global.NO_PTS ? 0 : container.getDuration()/1000 ); //gives result in milliseconds
+		containerDuration = ( container.getDuration() == Global.NO_PTS ? 0 : container.getDuration()/1000 ); //gives result in milliseconds
 	}
 
 	/**
@@ -122,6 +126,12 @@ public class MusicVideo {
 		}
 	}
 
+	/**
+	 * When passed a video packet, will decode the packet until a single VideoPicture is decoded. 
+	 * If the VideoPicture isn't in BGR24 format, we will resample it to make it so. We convert the result to a BufferedImage which is stored in the class
+	 * @param packet
+	 * @throws RuntimeException
+	 */
 	private void readVideo(IPacket packet) throws RuntimeException {
 
 		IVideoPicture picture = IVideoPicture.make(format, width, height);
@@ -130,7 +140,7 @@ public class MusicVideo {
 		while (offset < packet.getSize()) {
 
 			int numBytesDecoded = videoCoder.decodeVideo(picture, packet, offset);
-			if (numBytesDecoded < 0) {throw new RuntimeException("Problem decoding audio");}
+			if (numBytesDecoded < 0) {throw new RuntimeException("Problem decoding video");}
 			offset += numBytesDecoded;
 
 			if (picture.isComplete()) {
@@ -141,7 +151,7 @@ public class MusicVideo {
 				if (picture.getPixelType() != IPixelFormat.Type.BGR24) {
 					resampled = IVideoPicture.make(IPixelFormat.Type.BGR24, outputWidth, outputHeight);
 					if (resampler.resample(resampled, picture) < 0) {
-						throw new RuntimeException("Problem decoding video");
+						throw new RuntimeException("Problem resampling video");
 					}
 				}
 				videoFrame = converter.toImage(resampled);
@@ -150,6 +160,11 @@ public class MusicVideo {
 		}
 	}
 
+	/**
+	 * When passed an audio packet, will decode to audio samples and store in audioSamples field in class
+	 * @param packet
+	 * @throws RuntimeException
+	 */
 	private void readAudio(IPacket packet) throws RuntimeException {
 
 		audioSamples = IAudioSamples.make(SIZE_AUDIO_BUFFER, numChannelsAudio);
@@ -166,6 +181,11 @@ public class MusicVideo {
 		}
 	}
 
+	/**
+	 * Checks whether a packet passed to it is audio or video. If either is passed calls readVideo or readAudio respectively and returns true
+	 * @return
+	 * @throws RuntimeException
+	 */
 	public boolean hasNextPacket() throws RuntimeException {
 
 		IPacket packet = IPacket.make();
@@ -188,6 +208,9 @@ public class MusicVideo {
 		return false; //return false if none of the remaining packets are neither audio or video
 	}
 
+	/**
+	 * Closes the container that represents the music video
+	 */
 	public void close() {
 		container.close();
 	}
