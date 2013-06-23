@@ -5,6 +5,11 @@ import java.awt.image.BufferedImage;
 import com.xuggle.xuggler.IAudioSamples;
 import com.xuggle.xuggler.IPacket;
 
+/**
+ * Interface for media decoder. The decoder should open a music video container to read packets and timstamps
+ * @author Tony
+ *
+ */
 public interface Decoder {
 
 	public static final int SIZE_AUDIO_BUFFER = 1024; //TODO: why is this hard coded? Could I just remove it?

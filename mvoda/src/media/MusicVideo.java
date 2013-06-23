@@ -1,6 +1,7 @@
 package media;
 
 import lombok.Getter;
+import media.xuggle.DecoderXuggler;
 
 import com.xuggle.xuggler.Global;
 import com.xuggle.xuggler.ICodec;
@@ -35,7 +36,8 @@ public class MusicVideo {
 	@Getter private long containerDuration; //always in microseconds
 	@Getter private long vidStreamDuration; //in whatever time units the format uses, somewhat complicated
 	@Getter private long numVidFrames;
-	
+	private int numStreams;
+
 	@Getter private Decoder decoder;
 
 	/**
@@ -52,7 +54,7 @@ public class MusicVideo {
 		}
 
 		//then iterate through the container trying to find the video and audio streams
-		int numStreams = container.getNumStreams();  
+		numStreams = container.getNumStreams();  
 		for(int i = 0; i < numStreams; i++) {  
 			IStream stream = container.getStream(i);
 			IStreamCoder coder = stream.getStreamCoder();
@@ -70,7 +72,7 @@ public class MusicVideo {
 				vidStreamDuration = stream.getDuration();
 			}
 		}
-		
+
 		//error if we haven't found any streams
 		if ( videoStreamId < 0 && audioStreamId < 0 ) { throw new RuntimeException( fileUNC + " Doesn't contain audio or video streams" );}
 		if ( audioCoder != null && ( audioCoder.open(null, null) < 0 ) ) { throw new RuntimeException(fileUNC + ": audio can't be opened");}
@@ -85,8 +87,8 @@ public class MusicVideo {
 		numChannelsAudio = audioCoder.getChannels();
 		framesPerSecond = videoCoder.getFrameRate();
 		framesPerSecondAsDouble = videoCoder.getFrameRate().getDouble();
-		containerDuration = ( container.getDuration() == Global.NO_PTS ? 0 : container.getDuration()/1000 ); //gives result in milliseconds
-	    
+		containerDuration = ( container.getDuration() == Global.NO_PTS ? 0 : container.getDuration() /1000 ); //gives result in milliseconds
+
 	}
 
 	/**
@@ -95,4 +97,45 @@ public class MusicVideo {
 	public void close() {
 		container.close();
 	}
+
+
+	@Override
+	public String toString() {
+		String str = "";
+		str += String.format("File path: %s", fileUNC);
+		str += String.format("\nNumber of streams: %d", numStreams);
+		str += String.format("\nDuration (ms): %d", containerDuration);
+		str += String.format("\nFile Size (bytes): %d", container.getFileSize() );
+		str += String.format("\nBit Rate: %d", container.getBitRate() );
+
+		// iterate through the streams to print their meta data
+		for (int i = 0; i < numStreams; i++) {
+			IStream stream = container.getStream(i); // find the stream object
+			IStreamCoder coder = stream.getStreamCoder(); 	// get the pre-configured decoder that can decode this stream;
+
+			str += ("\n*** Start of Stream Info ***\n");
+			str += String.format("stream %d: ", i);
+			str += String.format("\ntype: %s; ", coder.getCodecType());
+			str += String.format("\ncodec: %s; ", coder.getCodecID());
+			str += String.format("\nduration (number of frames): %s; ", stream.getDuration());
+			str += String.format("\nstart time: %s; ", container.getStartTime());
+			str += String.format("\ntimebase: %d/%d; ",	stream.getTimeBase().getNumerator(), stream.getTimeBase().getDenominator());
+			str += String.format("\ncoder tb: %d/%d; ",	coder.getTimeBase().getNumerator(), coder.getTimeBase().getDenominator());
+
+			if (coder.getCodecType() == ICodec.Type.CODEC_TYPE_AUDIO) {
+				str += String.format("\nsample rate: %d; ", coder.getSampleRate());
+				str += String.format("\nchannels: %d; ", coder.getChannels());
+				str += String.format("\nformat: %s", coder.getSampleFormat());
+			} 
+			else if (coder.getCodecType() == ICodec.Type.CODEC_TYPE_VIDEO) {
+				str += String.format("\nwidth: %d; ", coder.getWidth());
+				str += String.format("\nheight: %d; ", coder.getHeight());
+				str += String.format("\nformat: %s; ", coder.getPixelType());
+				str += String.format("\nframe-rate: %5.2f; ", coder.getFrameRate().getDouble());
+			}
+			str += String.format("\n*** End of Stream Info ***\n");
+		}
+		return str;
+	}
+
 }

@@ -1,4 +1,4 @@
-package media;
+package media.xuggle;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -6,6 +6,10 @@ import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
+
+import media.Decoder;
+import media.Encoder;
+import media.MusicVideo;
 
 import com.xuggle.mediatool.IMediaWriter;
 import com.xuggle.mediatool.ToolFactory;

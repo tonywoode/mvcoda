@@ -1,11 +1,13 @@
 /**
  * 
  */
-package media;
+package media.xuggle;
 
 import java.awt.image.BufferedImage;
 
 import lombok.Getter;
+import media.Decoder;
+import media.MusicVideo;
 
 import com.xuggle.xuggler.IAudioSamples;
 import com.xuggle.xuggler.IPacket;
