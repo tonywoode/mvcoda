@@ -45,7 +45,7 @@ public class MusicVideo {
 	 */
 	public MusicVideo(String fileUNC) {
 		this.fileUNC = fileUNC;
-		this.decoder = new Decoder(this); //how do we get rid of this? It can get called here so it doesn't NEED any properties at this point...
+		this.decoder = new DecoderXuggler(this); //how do we get rid of this? It can get called here so it doesn't NEED any properties at this point...
 		container = IContainer.make(); //create a new container object
 		if (container.open(fileUNC, IContainer.Type.READ, null) <0) { //populate with the UNC you passed in
 			throw new RuntimeException(fileUNC + ": failed to open");  

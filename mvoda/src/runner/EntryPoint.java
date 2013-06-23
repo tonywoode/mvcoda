@@ -2,6 +2,7 @@ package runner;
 
 import java.io.IOException;
 
+import media.Encoder;
 import media.EncoderXuggle;
 import media.MusicVideo;
 import media.VideoInfo;
@@ -24,7 +25,7 @@ public class EntryPoint {
 		VideoInfo info = new VideoInfo(test.getFileUNC());
 		
 		//draw onto video
-		EncoderXuggle draw = new EncoderXuggle(fileUNC, outFileUNC);
+		Encoder draw = new EncoderXuggle(fileUNC, outFileUNC);
 		
 		//now let's try and grab a frame using the SIMPLE API
 		//ModifyMusicVideo vid = new ModifyMusicVideo(fileUNC, outFileUNC );

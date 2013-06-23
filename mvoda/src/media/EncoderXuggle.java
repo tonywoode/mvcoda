@@ -21,7 +21,7 @@ import drawing.ImageCompositor;
  * @author Tony
  *
  */
-public class EncoderXuggle {
+public class EncoderXuggle implements Encoder {
 
 	private static final int VIDEO_STREAM_INDEX = 0;
 	private static final int AUDIO_STREAM_INDEX = 1;	//TODO: why are these things all hard coded?
@@ -43,12 +43,11 @@ public class EncoderXuggle {
 		render(filename);
 	}
 
-	/**
-	 * Creates a new music video with input filename and a new writer that will write to output filename, iterates through the packets of the music video
-	 * encoding both, but allowing something to happen to the buffered images before the encode
-	 * @param filename
+	/* (non-Javadoc)
+	 * @see media.Encoder#render(java.lang.String)
 	 */
-	private void render(String filename) { //TODO: hang on the filename is instantiated with new, why do we need this in the sig? Or should these be static methods - should the class be a static class?
+	@Override
+	public void render(String filename) { //TODO: hang on the filename is instantiated with new, why do we need this in the sig? Or should these be static methods - should the class be a static class?
 
 		IMediaWriter writer = null;
 		try {
@@ -92,12 +91,11 @@ public class EncoderXuggle {
 		}
 	}
 
-	/**
-	 * This is called by render(). It makes a new writer from the tool factory, adds a video and audio stream to it, and returns it
-	 * @param filename
-	 * @return
+	/* (non-Javadoc)
+	 * @see media.Encoder#getWriter(java.lang.String)
 	 */
-	private IMediaWriter getWriter(String filename) {
+	@Override
+	public IMediaWriter getWriter(String filename) {
 		IMediaWriter writer = ToolFactory.makeWriter(filename);
 		addVideoStreamTo(writer);
 		IStreamCoder audioCodec = video.getAudioCoder();
@@ -105,25 +103,22 @@ public class EncoderXuggle {
 		return writer;
 	}
 
-	/**
-	 * This is called by getWriter(). It adds the video stream to the MediWriter you pass in i.e.: so its ready for writing out 
-	 * At the time rate and using the codec the class specifies
-	 * @param writer
+	/* (non-Javadoc)
+	 * @see media.Encoder#addVideoStreamTo(com.xuggle.mediatool.IMediaWriter)
 	 */
-	private void addVideoStreamTo(IMediaWriter writer) {
+	@Override
+	public void addVideoStreamTo(IMediaWriter writer) {
 		IRational frameRate = IRational.make(video.getFramesPerSecondAsDouble());
 		int outputWidth = video.getWidth();
 		int outputHeight = video.getHeight();
 		writer.addVideoStream(VIDEO_STREAM_INDEX,VIDEO_STREAM_ID,VIDEO_CODEC,frameRate,outputWidth,outputHeight);
 	}
 
-	/**
-	 * This is called by getWriter(). It adds the audio stream to the MediWriter you pass in i.e.: so its ready for writing out 
-	 * using the codec that get's passed to it. At the time rate and using the codec the class specifies
-	 * @param writer
-	 * @param audioCodec
+	/* (non-Javadoc)
+	 * @see media.Encoder#addAudioStreamTo(com.xuggle.mediatool.IMediaWriter, com.xuggle.xuggler.IStreamCoder)
 	 */
-	private void addAudioStreamTo(IMediaWriter writer, IStreamCoder audioCodec) {//TODO: what's the point of passing the codec in but having the other things fields?
+	@Override
+	public void addAudioStreamTo(IMediaWriter writer, IStreamCoder audioCodec) {//TODO: what's the point of passing the codec in but having the other things fields?
 		int numAudioChannels = audioCodec.getChannels();
 		int audioSampleRate = audioCodec.getSampleRate();
 		ICodec.ID codecId = audioCodec.getCodecID();
