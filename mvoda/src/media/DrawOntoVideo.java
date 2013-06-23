@@ -30,6 +30,8 @@ public class DrawOntoVideo {
 	private static final ICodec.ID VIDEO_CODEC = ICodec.ID.CODEC_ID_MPEG4;
 	private MusicVideo video;
 	private String outFilename;
+	
+	private Decoder decoder;
 
 	/**
 	 * By passing two UNCpaths to the constructor we specify and input and an output filename
@@ -51,19 +53,20 @@ public class DrawOntoVideo {
 		IMediaWriter writer = null;
 		try {
 			video = new MusicVideo(filename);
+			decoder = video.getDecoder();
 			writer = getWriter(outFilename);
 			long frame = 0;
 			long lastFrame = video.getNumVidFrames();
-			while (video.hasNextPacket()) {
-				if (video.getVideoFrame() != null) {frame++;} // don't increase counter if not a video frame
+			while (decoder.hasNextPacket()) {
+				if (decoder.getVideoFrame() != null) {frame++;} // don't increase counter if not a video frame
 
-				IAudioSamples audioSamples = video.getAudioSamples();
+				IAudioSamples audioSamples = decoder.getAudioSamples();
 				if (audioSamples != null) {
 					writer.encodeAudio(AUDIO_STREAM_INDEX, audioSamples);
 				}
-				BufferedImage videoFrame = video.getVideoFrame();
+				BufferedImage videoFrame = decoder.getVideoFrame();
 				if (videoFrame != null) {			
-					System.out.println("at video timestamp: " + video.getFormattedTimestamp());
+					System.out.println("at video timestamp: " + decoder.getFormattedTimestamp());
 					//ShowImageInFrame im = new ShowImageInFrame(videoFrame); //yup we are getting images....
 					String overlayFile = "../../../Repo/mvoda/mvoda/Theme/Pop/Logo/4MLogoFrames/4M68.png";
 					Image over = ImageIO.read(new File(overlayFile));
@@ -71,7 +74,7 @@ public class DrawOntoVideo {
 					ImageCompositor overlayframes = new ImageCompositor(videoFrame, overlay);
 					BufferedImage composite = overlayframes.overlay();
 					
-					writer.encodeVideo(0, composite, video.getTimeStamp(), TimeUnit.MILLISECONDS);
+					writer.encodeVideo(0, composite, decoder.getTimeStamp(), TimeUnit.MILLISECONDS);
 					if ((frame +1) >= lastFrame) break;
 				}
 			}
