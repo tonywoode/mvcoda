@@ -55,7 +55,7 @@ public class EncoderXuggle implements Encoder {
 
 		IMediaWriter writer = null;
 		try {
-			video = new MusicVideo(filename);
+			video = new MusicVideoXuggler(filename);
 			decoder = video.getDecoder();
 			writer = getWriter(outFilename);
 			long frame = 0;
