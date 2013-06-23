@@ -21,7 +21,7 @@ import drawing.ImageCompositor;
  * @author Tony
  *
  */
-public class DrawOntoVideo {
+public class EncoderXuggle {
 
 	private static final int VIDEO_STREAM_INDEX = 0;
 	private static final int AUDIO_STREAM_INDEX = 1;	//TODO: why are these things all hard coded?
@@ -38,7 +38,7 @@ public class DrawOntoVideo {
 	 * @param filename
 	 * @param outFilename
 	 */
-	public DrawOntoVideo(final String filename,String outFilename) {
+	public EncoderXuggle(final String filename,String outFilename) {
 		this.outFilename = outFilename;
 		render(filename);
 	}

@@ -25,14 +25,15 @@ public class Decoder {
 	private int outputWidth;
 	private int outputHeight;
 	private IVideoResampler resampler;
-	@Getter private IAudioSamples audioSamples;
-	@Getter private BufferedImage videoFrame;
-	
 	private BgrConverter converter;
-	private MusicVideo video;
 	
+	
+	@Getter private IAudioSamples audioSamples;
+	@Getter private BufferedImage videoFrame;	
 	@Getter private long timeStamp;
 	@Getter private String formattedTimestamp;
+	
+	private MusicVideo video;
 
 	public Decoder(MusicVideo video) {
 		this.video = video;

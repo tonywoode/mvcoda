@@ -18,8 +18,6 @@ import com.xuggle.xuggler.IStreamCoder;
 
 public class MusicVideo {
 
-	public static final int SIZE_AUDIO_BUFFER = 1024; //TODO: why is this hard coded? Could I just remove it?
-
 	@Getter private IContainer container;
 	@Getter private IStreamCoder audioCoder;
 	@Getter private IStreamCoder videoCoder;
@@ -47,6 +45,7 @@ public class MusicVideo {
 	 */
 	public MusicVideo(String fileUNC) {
 		this.fileUNC = fileUNC;
+		this.decoder = new Decoder(this); //how do we get rid of this? It can get called here so it doesn't NEED any properties at this point...
 		container = IContainer.make(); //create a new container object
 		if (container.open(fileUNC, IContainer.Type.READ, null) <0) { //populate with the UNC you passed in
 			throw new RuntimeException(fileUNC + ": failed to open");  
@@ -82,7 +81,6 @@ public class MusicVideo {
 		height = videoCoder.getHeight();
 		pixFormat = videoCoder.getPixelType();
 		//now we have width and height, lets convert to BGR24
-		this.decoder = new Decoder(this);
 		decoder.makeResampler(width, height);
 		numChannelsAudio = audioCoder.getChannels();
 		framesPerSecond = videoCoder.getFrameRate();
