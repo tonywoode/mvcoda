@@ -18,7 +18,7 @@ import com.xuggle.xuggler.IStreamCoder;
  *
  */
 
-public class MusicVideoXuggler implements MusicVideo {
+public class MusicVideoXuggle implements MusicVideo {
 
 	@Getter private IContainer container;
 	@Getter private IStreamCoder audioCoder;
@@ -46,9 +46,9 @@ public class MusicVideoXuggler implements MusicVideo {
 	 * we will set the stream ID's and return an open container as the music video, with its properties available to inspect
 	 * @param fileUNC
 	 */
-	public MusicVideoXuggler(String fileUNC) {
+	public MusicVideoXuggle(String fileUNC) {
 		this.fileUNC = fileUNC;
-		this.decoder = new DecoderXuggler(this); //how do we get rid of this? It can get called here so it doesn't NEED any properties at this point...
+		this.decoder = new DecoderXuggle(this); //how do we get rid of this? It can get called here so it doesn't NEED any properties at this point...
 		container = IContainer.make(); //create a new container object
 		if (container.open(fileUNC, IContainer.Type.READ, null) <0) { //populate with the UNC you passed in
 			throw new RuntimeException(fileUNC + ": failed to open");  
@@ -108,18 +108,16 @@ public class MusicVideoXuggler implements MusicVideo {
 	public String toString() {
 		String str = "";
 		str += String.format("File path: %s", fileUNC);
-		str += String.format("\nNumber of streams: %d", numStreams);
-		str += String.format("\nDuration (ms): %d", containerDuration);
 		str += String.format("\nFile Size (bytes): %d", container.getFileSize() );
 		str += String.format("\nBit Rate: %d", container.getBitRate() );
-
+		str += String.format("\nNumber of streams: %d", numStreams);
+		str += String.format("\nDuration (ms): %d", containerDuration);
 		// iterate through the streams to print their meta data
 		for (int i = 0; i < numStreams; i++) {
 			IStream stream = container.getStream(i); // find the stream object
 			IStreamCoder coder = stream.getStreamCoder(); 	// get the pre-configured decoder that can decode this stream;
 
-			str += ("\n*** Start of Stream Info ***\n");
-			str += String.format("stream %d: ", i);
+			str += String.format ("\n......Stream %d Info.....", i);
 			str += String.format("\ntype: %s; ", coder.getCodecType());
 			str += String.format("\ncodec: %s; ", coder.getCodecID());
 			str += String.format("\nduration (number of frames): %s; ", stream.getDuration());
@@ -138,7 +136,7 @@ public class MusicVideoXuggler implements MusicVideo {
 				str += String.format("\nformat: %s; ", coder.getPixelType());
 				str += String.format("\nframe-rate: %5.2f; ", coder.getFrameRate().getDouble());
 			}
-			str += String.format("\n*** End of Stream Info ***\n");
+			str += String.format ("\n...End of Stream %d Info..\n", i);
 		}
 		return str;
 	}

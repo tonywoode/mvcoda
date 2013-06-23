@@ -17,7 +17,7 @@
  * along with Xuggle-Xuggler-Main.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
 
-package media;
+package media.xuggle;
 
 import java.awt.image.BufferedImage;
 

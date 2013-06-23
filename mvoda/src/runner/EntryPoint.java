@@ -4,8 +4,9 @@ import java.io.IOException;
 
 import media.Encoder;
 import media.MusicVideo;
+import media.xuggle.DecodePlayVid;
 import media.xuggle.EncoderXuggle;
-import media.xuggle.MusicVideoXuggler;
+import media.xuggle.MusicVideoXuggle;
 
 public class EntryPoint {
 
@@ -19,7 +20,7 @@ public class EntryPoint {
 		String fileUNC = "../../../MVODAInputs/NeyoStayShort.avi";
 		//set an output file
 		String outFileUNC = "../../../MVODAOutputs/doesthiswork.avi";
-		MusicVideo test = new MusicVideoXuggler(fileUNC);
+		MusicVideo test = new MusicVideoXuggle(fileUNC);
 
 		//get Xuggler's video info - idea could Junit test compare MY music vid class to THIS info?
 		System.out.println(test.toString());
@@ -30,7 +31,7 @@ public class EntryPoint {
 		//ModifyMusicVideo vid = new ModifyMusicVideo(fileUNC, outFileUNC );
 		
 		//play it in xugglers media player
-		//DecodePlayVid player = new DecodePlayVid(fileUNC);
+		DecodePlayVid player = new DecodePlayVid(outFileUNC);
 
 	}
 }

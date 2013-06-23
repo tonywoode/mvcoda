@@ -20,7 +20,7 @@ import com.xuggle.xuggler.video.BgrConverter;
  * @author Tony
  *
  */
-public class DecoderXuggler implements Decoder {
+public class DecoderXuggle implements Decoder {
 	
 	private int outputWidth;
 	private int outputHeight;
@@ -35,7 +35,7 @@ public class DecoderXuggler implements Decoder {
 	
 	private MusicVideo video;
 
-	public DecoderXuggler(MusicVideo video) {
+	public DecoderXuggle(MusicVideo video) {
 		this.video = video;
 	}
 	/* (non-Javadoc)
