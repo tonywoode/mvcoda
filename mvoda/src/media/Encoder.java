@@ -5,7 +5,7 @@ import com.xuggle.xuggler.IStreamCoder;
 
 public interface Encoder {
 	
-	public abstract void render(String filename);
+	public abstract void render();
 	
 	public abstract IMediaWriter getWriter(String filename);
 	

@@ -33,8 +33,11 @@ public class EncoderXuggle implements Encoder {
 	private static final int AUDIO_STREAM_ID = 0;
 	private static final ICodec.ID VIDEO_CODEC = ICodec.ID.CODEC_ID_MPEG4;
 	private MusicVideo video;
+	private String inFilename;
 	private String outFilename;
-	
+	private BufferedImage composite;
+	private String overlayFile = "../../../Repo/mvoda/mvoda/Theme/Pop/Logo/4MLogoFrames/4M68.png";
+
 	private Decoder decoder;
 
 	/**
@@ -42,9 +45,11 @@ public class EncoderXuggle implements Encoder {
 	 * @param filename
 	 * @param outFilename
 	 */
-	public EncoderXuggle(final String filename,String outFilename) {
+	public EncoderXuggle(MusicVideo video,String outFilename) {
+		this.video = video;
+		this.inFilename = video.getFileUNC();
 		this.outFilename = outFilename;
-		render(filename);
+		render();
 	}
 
 	/**
@@ -53,11 +58,10 @@ public class EncoderXuggle implements Encoder {
 	 * @param filename
 	 */
 	@Override
-	public void render(String filename) { //TODO: hang on the filename is instantiated with new, why do we need this in the sig? Or should these be static methods - should the class be a static class?
+	public void render() { //TODO: hang on the filename is instantiated with new, why do we need this in the sig? Or should these be static methods - should the class be a static class?
 
 		IMediaWriter writer = null;
 		try {
-			video = new MusicVideoXuggle(filename);
 			decoder = video.getDecoder();
 			writer = getWriter(outFilename);
 			long frame = 0;
@@ -70,19 +74,14 @@ public class EncoderXuggle implements Encoder {
 					writer.encodeAudio(AUDIO_STREAM_INDEX, audioSamples);
 				}
 				BufferedImage videoFrame = decoder.getVideoFrame();
-				if (videoFrame != null) {			
-					System.out.println("at video timestamp: " + decoder.getFormattedTimestamp());
-					//ShowImageInFrame im = new ShowImageInFrame(videoFrame); //yup we are getting images....
-					String overlayFile = "../../../Repo/mvoda/mvoda/Theme/Pop/Logo/4MLogoFrames/4M68.png";
-					Image over = ImageIO.read(new File(overlayFile));
-					BufferedImage overlay = (BufferedImage) over;
-					ImageCompositor overlayframes = new ImageCompositor(videoFrame, overlay);
-					BufferedImage composite = overlayframes.overlay();
-					
+				BufferedImage overlay = ImageIO.read(new File(overlayFile));
+				if (videoFrame != null) {
+					composite = overlayImage(videoFrame, overlay);	
 					writer.encodeVideo(0, composite, decoder.getTimeStamp(), TimeUnit.MILLISECONDS);
-					if ((frame +1) >= lastFrame) break;
 				}
+				if ((frame +1) >= lastFrame) { break; }
 			}
+
 
 		} catch (Exception ex) { //TODO: what ANY exception? Why aren't we saying we throw any then?
 			ex.printStackTrace();
@@ -91,10 +90,25 @@ public class EncoderXuggle implements Encoder {
 				try {
 					writer.close();
 				} catch (RuntimeException ex) { //TODO: only a runtime?!?!
+					ex.printStackTrace();
 				}
 			}
 			if (video != null) video.close();
+
 		}
+	}
+
+	/**
+	 * This is called by render(). When passed two buffered images, will arrange to overlay the latter over the former using the image manipulation classes
+	 * @return the composite image
+	 * @throws Exception
+	 */
+	public BufferedImage overlayImage(BufferedImage videoFrame, BufferedImage overlay) throws Exception {
+		System.out.println("at video timestamp: " + decoder.getFormattedTimestamp());
+		//ShowImageInFrame im = new ShowImageInFrame(videoFrame); //un-comment to see if we are getting images - though be aware will frame EVERY image
+		ImageCompositor overlayframes = new ImageCompositor(videoFrame, overlay);
+		composite = overlayframes.overlay();
+		return composite;
 	}
 
 	/**

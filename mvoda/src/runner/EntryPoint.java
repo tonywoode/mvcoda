@@ -25,7 +25,7 @@ public class EntryPoint {
 		//get Xuggler's video info - idea could Junit test compare MY music vid class to THIS info?
 		System.out.println(test.toString());
 		//draw onto video
-		Encoder draw = new EncoderXuggle(fileUNC, outFileUNC);
+		Encoder draw = new EncoderXuggle(test, outFileUNC);
 		test.close();
 		
 		//now let's try and grab a frame using the SIMPLE API

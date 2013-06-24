@@ -24,7 +24,7 @@ import com.xuggle.xuggler.video.BgrConverter;
 public class DecoderXuggle implements Decoder {
 
 	public static final int CONVERT_MICRO_TO_MILLISEC = 1000;
-	public static final Type XUGGLER_PIX_TYPE = IPixelFormat.Type.BGR24; //Xuggler can only work with BGR24 pixel type as a fundamental limitation
+	public static final Type XUGGLER_PIX_TYPE = IPixelFormat.Type.BGR24; //Xuggler can only work with BGR24 pixel type as a fundamental limitation //TODO: throw this dependency up but bypass interface?
 	public static final int SIZE_AUDIO_BUFFER = 1024; //TODO: why is this hard coded? Could I just remove it?
 
 	private int outputWidth;
