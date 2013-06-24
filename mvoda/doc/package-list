@@ -1,0 +1,11 @@
+drawing
+media
+media.xuggle
+moduleExamples.drawing
+moduleExamples.gstreamer
+moduleExamples.imageMajick
+moduleExamples.openCV
+moduleExamples.xuggler
+moduleExamples.xuggler.demos
+moduleExamples.xuggler.mediatoolDemos
+runner

@@ -17,8 +17,8 @@ public class ImageCompositor {
 
 	/**
 	 * WE take the 2 image files
-	 * @param BackgroundFile intended to be an image from a video stream
-	 * @param OverlayFile intended to be an overlay image, like a logo
+	 * @param image intended to be an image from a video stream
+	 * @param overlayImage intended to be an overlay image, like a logo
 	 * @throws IOException 
 	 */
   /*public ImageCompositor(String backgroundFile, String overlayFile, String outputFile) throws IOException {

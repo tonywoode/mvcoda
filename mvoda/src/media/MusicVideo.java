@@ -39,9 +39,6 @@ public interface MusicVideo {
 
 	public abstract Decoder getDecoder();
 
-	/**
-	 * Closes the container that represents the music video
-	 */
 	public abstract void close();
 
 	public abstract String toString();

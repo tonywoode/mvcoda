@@ -40,7 +40,6 @@ import com.xuggle.xuggler.demos.VideoImage;
  * at the frame-rate specified by the container, on a 
  * window.
  * @author aclarke
- *
  */
 public class DecodePlayVid
 {
@@ -50,7 +49,7 @@ public class DecodePlayVid
    * opens up a Swing window and displays
    * video frames with <i>roughly</i> the right timing.
    *  
-   * @param args Must contain one string which represents a filename
+   * @param fileUNC Must contain one string which represents a filename
    */
   @SuppressWarnings("deprecation")
   public DecodePlayVid(String fileUNC) {

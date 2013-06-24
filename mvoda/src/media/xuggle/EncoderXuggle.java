@@ -47,8 +47,10 @@ public class EncoderXuggle implements Encoder {
 		render(filename);
 	}
 
-	/* (non-Javadoc)
-	 * @see media.Encoder#render(java.lang.String)
+	/**
+	 * Creates a new music video with input filename and a new writer that will write to output filename, iterates through the packets of the music video
+	 * encoding both, but allowing something to happen to the buffered images before the encode
+	 * @param filename
 	 */
 	@Override
 	public void render(String filename) { //TODO: hang on the filename is instantiated with new, why do we need this in the sig? Or should these be static methods - should the class be a static class?
@@ -95,8 +97,9 @@ public class EncoderXuggle implements Encoder {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see media.Encoder#getWriter(java.lang.String)
+	/**
+	 * This is called by render(). It makes a new writer from the tool factory, adds a video and audio stream to it, and returns it
+	 * @param filename
 	 */
 	@Override
 	public IMediaWriter getWriter(String filename) {
@@ -107,8 +110,10 @@ public class EncoderXuggle implements Encoder {
 		return writer;
 	}
 
-	/* (non-Javadoc)
-	 * @see media.Encoder#addVideoStreamTo(com.xuggle.mediatool.IMediaWriter)
+	/**
+	 * This is called by getWriter(). It adds the video stream to the MediWriter you pass in i.e.: so its ready for writing out 
+	 * At the time rate and using the codec the class specifies
+	 * @param writer
 	 */
 	@Override
 	public void addVideoStreamTo(IMediaWriter writer) {
@@ -118,8 +123,11 @@ public class EncoderXuggle implements Encoder {
 		writer.addVideoStream(VIDEO_STREAM_INDEX,VIDEO_STREAM_ID,VIDEO_CODEC,frameRate,outputWidth,outputHeight);
 	}
 
-	/* (non-Javadoc)
-	 * @see media.Encoder#addAudioStreamTo(com.xuggle.mediatool.IMediaWriter, com.xuggle.xuggler.IStreamCoder)
+	/**
+	 * This is called by getWriter(). It adds the audio stream to the MediWriter you pass in i.e.: so its ready for writing out 
+	 * using the codec that get's passed to it. At the time rate and using the codec the class specifies
+	 * @param writer
+	 * @param audioCodec
 	 */
 	@Override
 	public void addAudioStreamTo(IMediaWriter writer, IStreamCoder audioCodec) {//TODO: what's the point of passing the codec in but having the other things fields?

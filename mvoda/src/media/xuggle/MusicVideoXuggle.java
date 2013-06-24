@@ -92,17 +92,31 @@ public class MusicVideoXuggle implements MusicVideo {
 
 	}
 
-	/* (non-Javadoc)
-	 * @see media.MusicVideo#close()
+	/**
+	 * Closes the container that represents the music video
 	 */
 	@Override
 	public void close() {
-		container.close();
+		if (videoCoder != null)
+		{
+			videoCoder.close();
+			videoCoder = null;
+		}
+		if (audioCoder != null)
+		{
+			audioCoder.close();
+			audioCoder = null;
+		}
+		if (container !=null)
+		{
+			container.close();
+			container = null;
+		}
 	}
 
 
-	/* (non-Javadoc)
-	 * @see media.MusicVideo#toString()
+	/**
+	 * Prints out formatted information about the media file
 	 */
 	@Override
 	public String toString() {

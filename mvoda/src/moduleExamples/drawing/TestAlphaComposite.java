@@ -1,4 +1,4 @@
-package drawing;
+package moduleExamples.drawing;
 
 import java.awt.AlphaComposite;
 import java.awt.BasicStroke;

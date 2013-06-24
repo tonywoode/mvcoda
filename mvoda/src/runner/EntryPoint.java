@@ -11,7 +11,7 @@ import media.xuggle.MusicVideoXuggle;
 public class EntryPoint {
 
 	/**
-	 * Main launcher for application, will do something nice
+	 * Main launcher for application, launches GUI
 	 * @param args
 	 * @throws IOException 
 	 */
@@ -26,6 +26,7 @@ public class EntryPoint {
 		System.out.println(test.toString());
 		//draw onto video
 		Encoder draw = new EncoderXuggle(fileUNC, outFileUNC);
+		test.close();
 		
 		//now let's try and grab a frame using the SIMPLE API
 		//ModifyMusicVideo vid = new ModifyMusicVideo(fileUNC, outFileUNC );
