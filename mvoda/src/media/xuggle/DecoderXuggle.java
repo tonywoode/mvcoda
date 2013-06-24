@@ -22,6 +22,8 @@ import com.xuggle.xuggler.video.BgrConverter;
  */
 public class DecoderXuggle implements Decoder {
 	
+	public static final int CONVERT_MICRO_TO_MILLISEC = 1000;
+	
 	private int outputWidth;
 	private int outputHeight;
 	private IVideoResampler resampler;
@@ -48,9 +50,7 @@ public class DecoderXuggle implements Decoder {
 		this.outputHeight = outputHeight;
 
 		if (video.getPixFormat() != IPixelFormat.Type.BGR24) {
-
 			resampler = IVideoResampler.make(outputWidth, outputHeight, IPixelFormat.Type.BGR24, video.getWidth(), video.getHeight(), video.getPixFormat());
-
 			if (resampler == null) {throw new RuntimeException("Problem generating resampler");}
 			converter = new BgrConverter( IPixelFormat.Type.BGR24, outputWidth, outputHeight, video.getWidth(), video.getHeight() );
 		}
@@ -67,20 +67,19 @@ public class DecoderXuggle implements Decoder {
 		int offset = 0;
 		while (offset < packet.getSize()) {
 
-			int numBytesDecoded = video.getVideoCoder().decodeVideo(picture, packet, offset);
-			if (numBytesDecoded < 0) {throw new RuntimeException("Problem decoding video");}
-			offset += numBytesDecoded;
+			int bytesDecoded = video.getVideoCoder().decodeVideo(picture, packet, offset);
+			if (bytesDecoded < 0) {throw new RuntimeException("Problem decoding video");}
+			offset += bytesDecoded;
 
 			if (picture.isComplete()) {
 				/*we DIVIDE BY 1000 TO GET TIMESTAMP IN MILLI FROM MICROSECONDS*/
-				timeStamp = picture.getTimeStamp() / 1000; //I put this here to try to get a timestamp for drawOntoVideo
-				formattedTimestamp = picture.getFormattedTimeStamp();
+				timeStamp = picture.getTimeStamp() / CONVERT_MICRO_TO_MILLISEC; //We get a timestamp for the picture for the re-encode
+				formattedTimestamp = picture.getFormattedTimeStamp(); //we also get a human readable timestamp for troubleshooting TODO: why not divide this by 1000?
 				IVideoPicture resampled = picture;
 				if (picture.getPixelType() != IPixelFormat.Type.BGR24) {
-					resampled = IVideoPicture.make(IPixelFormat.Type.BGR24, outputWidth, outputHeight);
-					if (resampler.resample(resampled, picture) < 0) {
-						throw new RuntimeException("Problem resampling video");
-					}
+					//default output pix format for resampler WILL be IPixelFormat.Type.BGR24, we could have explicitly set this as resampler implements IConfigurable
+					resampled = IVideoPicture.make(resampler.getOutputPixelFormat(), outputWidth, outputHeight);
+					if (resampler.resample(resampled, picture) < 0) { throw new RuntimeException("Problem resampling video"); }
 				}
 				videoFrame = converter.toImage(resampled);
 				break;
