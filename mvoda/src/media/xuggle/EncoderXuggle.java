@@ -33,7 +33,6 @@ public class EncoderXuggle implements Encoder {
 	private static final int AUDIO_STREAM_ID = 0;
 	private static final ICodec.ID VIDEO_CODEC = ICodec.ID.CODEC_ID_MPEG4;
 	private MusicVideo video;
-	private String inFilename;
 	private String outFilename;
 	private BufferedImage composite;
 	private String overlayFile = "../../../Repo/mvoda/mvoda/Theme/Pop/Logo/4MLogoFrames/4M68.png";
@@ -47,7 +46,6 @@ public class EncoderXuggle implements Encoder {
 	 */
 	public EncoderXuggle(MusicVideo video,String outFilename) {
 		this.video = video;
-		this.inFilename = video.getFileUNC();
 		this.outFilename = outFilename;
 		render();
 	}
@@ -58,7 +56,7 @@ public class EncoderXuggle implements Encoder {
 	 * @param filename
 	 */
 	@Override
-	public void render() { //TODO: hang on the filename is instantiated with new, why do we need this in the sig? Or should these be static methods - should the class be a static class?
+	public void render() {
 
 		IMediaWriter writer = null;
 		try {
@@ -73,7 +71,7 @@ public class EncoderXuggle implements Encoder {
 				if (audioSamples != null) {
 					writer.encodeAudio(AUDIO_STREAM_INDEX, audioSamples);
 				}
-				BufferedImage videoFrame = decoder.getVideoFrame();
+				BufferedImage videoFrame = decoder.getVideoFrame(); //TODO: here they are they need to be somewhere else!!!!
 				BufferedImage overlay = ImageIO.read(new File(overlayFile));
 				if (videoFrame != null) {
 					composite = overlayImage(videoFrame, overlay);	

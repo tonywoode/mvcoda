@@ -53,11 +53,9 @@ public class DecoderXuggle implements Decoder {
 	public boolean hasNextPacket() throws RuntimeException {
 
 		IPacket packet = IPacket.make();
+		audioSamples = null; //TODO: why do these need to be here? take them out you only get 7 seconds decode, they don't seem to need to be in the loop
+		videoFrame = null;
 		while (video.getContainer().readNextPacket(packet) >= 0) {
-
-			audioSamples = null;
-			videoFrame = null;
-
 			int index = packet.getStreamIndex();
 			if ( index == video.getAudioStreamId() ) {
 				readAudio(packet);
