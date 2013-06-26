@@ -1,6 +1,5 @@
 package media.xuggle;
 
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -27,11 +26,6 @@ import drawing.ImageCompositor;
  */
 public class EncoderXuggle implements Encoder {
 
-	private static final int VIDEO_STREAM_INDEX = 0;
-	private static final int AUDIO_STREAM_INDEX = 1;	//TODO: why are these things all hard coded?
-	private static final int VIDEO_STREAM_ID = 0;
-	private static final int AUDIO_STREAM_ID = 0;
-	private static final ICodec.ID VIDEO_CODEC = ICodec.ID.CODEC_ID_MPEG4;
 	private MusicVideo video;
 	private String outFilename;
 	private BufferedImage composite;
@@ -69,7 +63,7 @@ public class EncoderXuggle implements Encoder {
 
 				IAudioSamples audioSamples = decoder.getAudioSamples();
 				if (audioSamples != null) {
-					writer.encodeAudio(AUDIO_STREAM_INDEX, audioSamples);
+					writer.encodeAudio(video.getAudioStreamIndex(), audioSamples);
 				}
 				BufferedImage videoFrame = decoder.getVideoFrame(); //TODO: here they are they need to be somewhere else!!!!
 				BufferedImage overlay = ImageIO.read(new File(overlayFile));
@@ -132,7 +126,7 @@ public class EncoderXuggle implements Encoder {
 		IRational frameRate = IRational.make(video.getFramesPerSecondAsDouble());
 		int outputWidth = video.getWidth();
 		int outputHeight = video.getHeight();
-		writer.addVideoStream(VIDEO_STREAM_INDEX,VIDEO_STREAM_ID,VIDEO_CODEC,frameRate,outputWidth,outputHeight);
+		writer.addVideoStream(video.getVideoStreamIndex(),video.getVideoStreamID(),video.getVideoCodecID(),frameRate,outputWidth,outputHeight);
 	}
 
 	/**
@@ -146,7 +140,7 @@ public class EncoderXuggle implements Encoder {
 		int numAudioChannels = audioCodec.getChannels();
 		int audioSampleRate = audioCodec.getSampleRate();
 		ICodec.ID codecId = audioCodec.getCodecID();
-		writer.addAudioStream(AUDIO_STREAM_INDEX,AUDIO_STREAM_ID,codecId,numAudioChannels,audioSampleRate);
+		writer.addAudioStream(video.getAudioStreamIndex(),video.getAudioStreamID(),codecId,numAudioChannels,audioSampleRate);
 	}
 }
 

@@ -26,14 +26,17 @@ public class MusicVideoXuggle implements MusicVideo {
 	@Getter private IPixelFormat.Type pixFormat;
 	@Getter private IRational framesPerSecond;
 	@Getter private double framesPerSecondAsDouble;
+	@Getter private ICodec.ID videoCodecID;
 
 
 	@Getter private String fileUNC;	
 	@Getter private int width;
 	@Getter private int height;
 	@Getter private int numChannelsAudio;	
-	@Getter private int audioStreamId = -1; //set to negative because 0 is a valid ID
-	@Getter private int videoStreamId = -1; //set to negative because 0 is a valid ID
+	@Getter private int audioStreamIndex = -1; //set to negative because 0 is a valid ID
+	@Getter private int videoStreamIndex = -1; //set to negative because 0 is a valid ID
+	@Getter private int audioStreamID = -1;
+	@Getter private int videoStreamID = -1;
 	@Getter private long containerDuration; //always in microseconds
 	@Getter private long vidStreamDuration; //in whatever time units the format uses, somewhat complicated
 	@Getter private long numVidFrames;
@@ -60,22 +63,26 @@ public class MusicVideoXuggle implements MusicVideo {
 			IStream stream = container.getStream(i);
 			IStreamCoder coder = stream.getStreamCoder();
 			int index = stream.getIndex();
+			int id = stream.getId();
 
 			//while neither stream is found, check for both in the streams, when found get their properties
-			if ( audioStreamId < 0 && coder.getCodecType().equals(ICodec.Type.CODEC_TYPE_AUDIO) ) {
+			if ( audioStreamIndex < 0 && coder.getCodecType().equals(ICodec.Type.CODEC_TYPE_AUDIO) ) {
 				audioCoder = coder;
-				audioStreamId = index;
+				audioStreamIndex = index;
+				audioStreamID = id;
 			}
-			if ( videoStreamId < 0 && coder.getCodecType().equals(ICodec.Type.CODEC_TYPE_VIDEO) ) {
+			if ( videoStreamIndex < 0 && coder.getCodecType().equals(ICodec.Type.CODEC_TYPE_VIDEO) ) {
 				videoCoder = coder;
-				videoStreamId = index;
+				videoStreamIndex = index;
+				videoStreamID = id;
 				numVidFrames = stream.getNumFrames();
 				vidStreamDuration = stream.getDuration();
+				videoCodecID = coder.getCodecID();
 			}
 		}
 
 		//error if we haven't found any streams
-		if ( videoStreamId < 0 && audioStreamId < 0 ) { throw new RuntimeException( fileUNC + " Doesn't contain audio or video streams" );}
+		if ( videoStreamIndex < 0 && audioStreamIndex < 0 ) { throw new RuntimeException( fileUNC + " Doesn't contain audio or video streams" );}
 		if ( audioCoder != null && ( audioCoder.open(null, null) < 0 ) ) { throw new RuntimeException(fileUNC + ": audio can't be opened");}
 		if ( videoCoder != null && ( videoCoder.open(null, null) < 0 ) ) { throw new RuntimeException(fileUNC + ": video can't be opened");}
 

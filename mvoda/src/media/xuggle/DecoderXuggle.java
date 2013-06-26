@@ -57,10 +57,10 @@ public class DecoderXuggle implements Decoder {
 		videoFrame = null;
 		while (video.getContainer().readNextPacket(packet) >= 0) {
 			int index = packet.getStreamIndex();
-			if ( index == video.getAudioStreamId() ) {
+			if ( index == video.getAudioStreamIndex() ) {
 				readAudio(packet);
 				return true;
-			} else if ( index == video.getVideoStreamId() ) {
+			} else if ( index == video.getVideoStreamIndex() ) {
 				readVideo(packet);
 				return true;
 			} else {

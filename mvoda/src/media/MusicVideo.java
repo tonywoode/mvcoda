@@ -1,5 +1,6 @@
 package media;
 
+import com.xuggle.xuggler.ICodec;
 import com.xuggle.xuggler.IContainer;
 import com.xuggle.xuggler.IPixelFormat;
 import com.xuggle.xuggler.IRational;
@@ -18,6 +19,8 @@ public interface MusicVideo {
 	public abstract IRational getFramesPerSecond();
 
 	public abstract double getFramesPerSecondAsDouble();
+	
+	public abstract ICodec.ID getVideoCodecID();
 
 	public abstract String getFileUNC();
 
@@ -27,10 +30,14 @@ public interface MusicVideo {
 
 	public abstract int getNumChannelsAudio();
 
-	public abstract int getAudioStreamId();
+	public abstract int getAudioStreamIndex();
 
-	public abstract int getVideoStreamId();
+	public abstract int getVideoStreamIndex();
 
+	public abstract int getAudioStreamID();
+	
+	public abstract int getVideoStreamID();
+	
 	public abstract long getContainerDuration();
 
 	public abstract long getVidStreamDuration();
