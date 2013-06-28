@@ -4,8 +4,10 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+import theme.Theme;
+
 /**
- * We are going to take in 2 image filenames, load them, overlay, and save the result for now as a file
+ * deals with overlaying graphics over Buffered Images passed to it by the media package of MVODA
  * @author twoode
  *
  */
@@ -14,6 +16,7 @@ public class ImageCompositor {
 	private BufferedImage image;
 	private BufferedImage overlayImage;
 	private BufferedImage composite;
+	private Theme theme;
 
 	/**
 	 * WE take the 2 image files
@@ -32,6 +35,12 @@ public class ImageCompositor {
       this.outputFile = outputFile;
   }*/
   
+/**
+ *  We are going to take in 2 image filenames, load them, overlay, and save the result for now as a file
+ * @param image
+ * @param overlayImage
+ * @throws IOException
+ */
   public ImageCompositor(BufferedImage image, BufferedImage overlayImage) throws IOException {
   
 	  this.image = image;
@@ -39,7 +48,21 @@ public class ImageCompositor {
 	  
   }
   
-  public BufferedImage overlay() throws IOException {
+  /**
+   * Takes a theme name and arranges to overlay the sequence of images set as logo TODO: we can have a choice of logos probably now
+   * @param theme
+   * @param overlayImage
+   */
+  public ImageCompositor(Theme theme, BufferedImage overlayImage) {
+	  this.theme = theme;
+	  this.overlayImage = overlayImage;
+  }
+  
+  
+  
+  
+  
+  public BufferedImage overlayImage() throws IOException {
   
   		// create the new image, canvas size is the max. of both image sizes
 		int w = Math.max(image.getWidth(), overlayImage.getWidth());
@@ -56,5 +79,8 @@ public class ImageCompositor {
 		composite = combined;
 		return composite;
   }
+  
+  
+
   
 }

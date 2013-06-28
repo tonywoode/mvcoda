@@ -33,7 +33,7 @@ public class runner {
 
 		ImageCompositor overlayframes2 = new ImageCompositor(back, overlay);
 
-		BufferedImage composite = overlayframes2.overlay();
+		BufferedImage composite = overlayframes2.overlayImage();
 
 		//hmm nothing wrong with the image viewer I just made, so why doesn't the media runner show me a video frame eh? See:
 		ShowImageInFrame gui = new ShowImageInFrame(composite);
