@@ -45,25 +45,37 @@ public class runner {
 		
 				String path = i;
 				String base = dir;
+				//first we need to get the relative path - we do this by effectively masking
 				String relative = new File(base).toURI().relativize(new File(path).toURI()).getPath();
 				System.out.println(relative);
+				//we can't substring backwards in java and we can only rely on getting numbers from the filetype backwards (in case filename has a number in).
+				//so we revers
 				String reverse = new StringBuilder(relative).reverse().toString();
 				System.out.println(reverse);
+				//then we go back through our reversed string till we find a digit
 				int j = 0;
 				while (!Character.isDigit(reverse.charAt(j))) {
 					j++;
 				}
 				System.out.println(j);
+				//then we remove the characters up to the first digit
 				String filenameRemoved = reverse.substring(j);
 				System.out.println(filenameRemoved);
+				//then we continue through the numbers left until we find the first character
 				int k = 0;
 				while (Character.isDigit(filenameRemoved.charAt(k))) {
 					k++;
 				}
+				//then we remove anything past the last number
 				String numberExtracted = filenameRemoved.substring(0,k);
 				System.out.println(numberExtracted);
+				//then we've got the digits out. We need to reverse the number back again
 				String reverseBack = new StringBuilder(numberExtracted).reverse().toString();
 				System.out.println(reverseBack);
+				
+				
+				//now i think you can use Append() method in String to produce the file as you know all the other paths, but actually
+				//you probably want to get the filetype from the above in case its some other kind of alpha
 				
 		/*
 				 File file = new File(dir);  
