@@ -115,18 +115,18 @@ public class EncoderXuggle implements Encoder {
 		return composite;
 	}*/
 
-	/**
+/*	*//**
 	 * This is called by render(). When passed two buffered images, will arrange to overlay the latter over the former using the image manipulation classes
 	 * @return the composite image
 	 * @throws Exception
-	 */
+	 *//*
 	public BufferedImage overlayImage(BufferedImage videoFrame, BufferedImage overlay) throws Exception {
 		System.out.println("at video timestamp: " + decoder.getFormattedTimestamp());
 		//ShowImageInFrame im = new ShowImageInFrame(videoFrame); //un-comment to see if we are getting images - though be aware will frame EVERY image
 		ImageCompositor overlayframes = new ImageCompositor(videoFrame, overlay);
 		composite = overlayframes.overlayImage();
 		return composite;
-	}
+	}*/
 
 	/**
 	 * This is called by render(). It makes a new writer from the tool factory, adds a video and audio stream to it, and returns it

@@ -10,8 +10,6 @@ import java.util.logging.Logger;
 
 import lombok.Setter;
 
-import theme.Theme;
-
 /**
  * deals with overlaying graphics over Buffered Images passed to it by the media package of MVODA
  * @author twoode
@@ -22,8 +20,8 @@ public class ImageCompositor {
 	@Setter private BufferedImage image;
 	@Setter private BufferedImage overlayImage;
 	private BufferedImage composite;
-	private Theme theme;
-	private String dir;
+	//private Theme theme;
+	//private String dir;
 
 	private String filetype = "";
 	private String filePrefix = "";
@@ -67,9 +65,9 @@ public class ImageCompositor {
 	 * @param overlayImage
 	 */
 	public ImageCompositor(String dir) {
-		this.dir = dir;
+		//this.dir = dir;
 		//this.image = image;
-		logoFiles = getOverlayFileNames(dir);
+		logoFiles = getOverlayFileNames(dir); //do this now once only to get the arraylist of that directory's filenames
 	}
 
 	public String nextFileUNC() {
