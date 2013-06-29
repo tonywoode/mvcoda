@@ -2,6 +2,8 @@ package media.xuggle;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
@@ -65,10 +67,19 @@ public class EncoderXuggle implements Encoder {
 				if (audioSamples != null) {
 					writer.encodeAudio(video.getAudioStreamIndex(), audioSamples);
 				}
-				BufferedImage videoFrame = decoder.getVideoFrame(); //TODO: here they are they need to be somewhere else!!!!
-				BufferedImage overlay = ImageIO.read(new File(overlayFile));
+				BufferedImage videoFrame = decoder.getVideoFrame(); //TODO: here they are they need to be somewhere else!!!!				
+				
+				
+				System.out.println("at video timestamp: " + decoder.getFormattedTimestamp());
+				//BufferedImage overlay = ImageIO.read(new File(overlayFile));
 				if (videoFrame != null) {
-					composite = overlayImage(videoFrame, overlay);	
+					ImageCompositor overlayframes = new ImageCompositor(videoFrame, "Theme/Pop/Logo/4MLogoFrames");
+					String overlayFile = overlayframes.nextFileUNC("Theme/Pop/Logo/4MLogoFrames");	
+					
+					BufferedImage overlay = ImageIO.read(new File(overlayFile));
+					overlayframes.setOverlayImage(overlay);
+					composite = overlayframes.overlayImage();
+					//composite = overlayImage(videoFrame, overlay);	
 					writer.encodeVideo(0, composite, decoder.getTimeStamp(), TimeUnit.MILLISECONDS);
 				}
 				if ((frame +1) >= lastFrame) { break; }
@@ -89,6 +100,18 @@ public class EncoderXuggle implements Encoder {
 
 		}
 	}
+	
+	/*public BufferedImage nextImageStream(BufferedImage videoFrame, String dir) throws IOException {
+		System.out.println("at video timestamp: " + decoder.getFormattedTimestamp());
+		//ShowImageInFrame im = new ShowImageInFrame(videoFrame); //un-comment to see if we are getting images - though be aware will frame EVERY image
+		ImageCompositor overlayframes = new ImageCompositor(videoFrame, dir);
+		ArrayList<String> LogoFrameUNC = new ArrayList<>(overlayframes.getOverlayFileNames(dir));
+		for (String element : LogoFrameUNC) {
+			BufferedImage overlay = ImageIO.read(new File(element));
+		}
+		composite = overlayframes.overlayImage();
+		return composite;
+	}*/
 
 	/**
 	 * This is called by render(). When passed two buffered images, will arrange to overlay the latter over the former using the image manipulation classes

@@ -1,6 +1,8 @@
 package runner;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import media.Encoder;
 import media.MusicVideo;
@@ -16,6 +18,7 @@ public class EntryPoint {
 	 * @throws IOException 
 	 */
 	public static void main(String[] args) throws IOException {
+		Logger.getGlobal().setLevel(Level.OFF);//(Level.INFO);
 		//load a music vid
 		String fileUNC = "../../../MVODAInputs/NeyoStayShort.avi";
 		//set an output file

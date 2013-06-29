@@ -28,7 +28,7 @@ public class runner {
 	 */
 	public static void main(String[] args) throws IOException {
 		
-		String dir = "Theme/Pop/Logo/4MLogoFrames";
+		/*String dir = "Theme/Pop/Logo/4MLogoFrames";
 		File file = new File(dir);  
 		File[] files = file.listFiles();
 		ArrayList<String> fileNumbers = new ArrayList<>();
@@ -88,15 +88,16 @@ public class runner {
 			}
 		
 			//and there we go 
-			System.out.println(fileNumbers);
+			System.out.println(fileNumbers);*/
 				
 	
 
 		
 		//testOverlayImage();
+	
 	}
 
-
+	
 	static void testOverlayImage() throws IOException {
 		//great, now let's PASS you in the frames
 		Image bk = ImageIO.read(new File(backFile));
