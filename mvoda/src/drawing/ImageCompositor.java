@@ -19,7 +19,7 @@ import theme.Theme;
  */
 public class ImageCompositor {
 
-	private BufferedImage image;
+	@Setter private BufferedImage image;
 	@Setter private BufferedImage overlayImage;
 	private BufferedImage composite;
 	private Theme theme;
@@ -27,7 +27,7 @@ public class ImageCompositor {
 
 	private String filetype = "";
 	private String filePrefix = "";
-	static private int fileIndex;
+	private int fileIndex;
 	private ArrayList<String> logoFiles;
 
 
@@ -66,13 +66,14 @@ public class ImageCompositor {
 	 * @param theme
 	 * @param overlayImage
 	 */
-	public ImageCompositor(BufferedImage image, String dir) {
+	public ImageCompositor(String dir) {
 		this.dir = dir;
-		this.image = image;
+		//this.image = image;
+		logoFiles = getOverlayFileNames(dir);
 	}
 
-	public String nextFileUNC(String dir) {
-		logoFiles = getOverlayFileNames(dir);
+	public String nextFileUNC() {
+		
 		if (fileIndex < ( logoFiles.size() / 2) ) { //if we're not half way through return the next image
 		String thisImageUNC = logoFiles.get(fileIndex);
 		fileIndex++;

@@ -60,6 +60,7 @@ public class EncoderXuggle implements Encoder {
 			writer = getWriter(outFilename);
 			long frame = 0;
 			long lastFrame = video.getNumVidFrames();
+			ImageCompositor overlayframes = new ImageCompositor("Theme/Pop/Logo/4MLogoFrames");
 			while (decoder.hasNextPacket()) {
 				if (decoder.getVideoFrame() != null) {frame++;} // don't increase counter if not a video frame
 
@@ -70,11 +71,12 @@ public class EncoderXuggle implements Encoder {
 				BufferedImage videoFrame = decoder.getVideoFrame(); //TODO: here they are they need to be somewhere else!!!!				
 				
 				
-				System.out.println("at video timestamp: " + decoder.getFormattedTimestamp());
 				//BufferedImage overlay = ImageIO.read(new File(overlayFile));
 				if (videoFrame != null) {
-					ImageCompositor overlayframes = new ImageCompositor(videoFrame, "Theme/Pop/Logo/4MLogoFrames");
-					String overlayFile = overlayframes.nextFileUNC("Theme/Pop/Logo/4MLogoFrames");	
+					System.out.println("at video timestamp: " + decoder.getFormattedTimestamp());
+					
+					overlayframes.setImage(videoFrame);
+					String overlayFile = overlayframes.nextFileUNC();	
 					
 					BufferedImage overlay = ImageIO.read(new File(overlayFile));
 					overlayframes.setOverlayImage(overlay);
