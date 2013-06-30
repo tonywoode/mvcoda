@@ -60,6 +60,9 @@ public class EncoderXuggle implements Encoder {
 			long frame = 0;
 			long lastFrame = video.getNumVidFrames();
 			ImageCompositor overlayframes = new ImageCompositor(theme.getStrap());
+			ImageCompositor overlayframes2 = new ImageCompositor(theme.getLogo()); //TODO: yes a big todo here - how to compose two things simulataneously...
+			//maybe right, maybe its where you say "overlayFrames.setImage" you feed the input to that the output of overlayframes.overlayImage() later
+			//rather than that being the BufferedImage composite....
 			while (decoder.hasNextPacket()) {
 				if (decoder.getVideoFrame() != null) {frame++;} // don't increase counter if not a video frame
 
