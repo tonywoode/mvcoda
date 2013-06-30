@@ -9,6 +9,8 @@ import java.util.Collections;
 import java.util.logging.Logger;
 
 import lombok.Setter;
+import media.Decoder;
+import media.MusicVideo;
 
 /**
  * deals with overlaying graphics over Buffered Images passed to it by the media package of MVODA
@@ -70,12 +72,19 @@ public class ImageCompositor {
 		logoFiles = getOverlayFileNames(dir); //do this now once only to get the arraylist of that directory's filenames
 	}
 
-	public String nextFileUNC() {
-		
-		if (fileIndex < ( logoFiles.size() / 2) ) { //if we're not half way through return the next image
+	public String nextFileUNC(Decoder decoder, MusicVideo video) {
 		String thisImageUNC = logoFiles.get(fileIndex);
+		if (fileIndex < ( logoFiles.size() / 2) ) { //if we're not half way through return the next image
+		//if ( decoder.getTimeStamp() <= ((video.getVidStreamDuration() / 25 * 1000) - 17000) ) {
 		fileIndex++;
 		return thisImageUNC;
+		}
+		else if ( decoder.getTimeStamp() >= ((video.getVidStreamDuration() / 25 * 1000) - 3000) ) { //that will give you 17000, my vid is 20 secs long
+			if (fileIndex < logoFiles.size() -1 ) {
+				System.out.println(fileIndex + "     " + logoFiles.size() + "     " );
+				fileIndex++;
+			}
+			return thisImageUNC;
 		}
 		else return logoFiles.get(fileIndex); //else return the image that's half way through
 		

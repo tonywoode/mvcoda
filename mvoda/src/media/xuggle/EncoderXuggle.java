@@ -8,6 +8,9 @@ import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 
+import theme.Pop;
+import theme.Theme;
+
 import media.Decoder;
 import media.Encoder;
 import media.MusicVideo;
@@ -60,7 +63,8 @@ public class EncoderXuggle implements Encoder {
 			writer = getWriter(outFilename);
 			long frame = 0;
 			long lastFrame = video.getNumVidFrames();
-			ImageCompositor overlayframes = new ImageCompositor("Theme/Pop/Logo/4MLogoFrames");
+			Theme pop = new Pop(); //TODO: dependency
+			ImageCompositor overlayframes = new ImageCompositor(pop.getDirectory() + pop.getLogo());
 			while (decoder.hasNextPacket()) {
 				if (decoder.getVideoFrame() != null) {frame++;} // don't increase counter if not a video frame
 
@@ -76,7 +80,7 @@ public class EncoderXuggle implements Encoder {
 					System.out.println("at video timestamp: " + decoder.getFormattedTimestamp());
 					
 					overlayframes.setImage(videoFrame);
-					String overlayFile = overlayframes.nextFileUNC();	
+					String overlayFile = overlayframes.nextFileUNC(decoder, video);	
 					
 					BufferedImage overlay = ImageIO.read(new File(overlayFile));
 					overlayframes.setOverlayImage(overlay);
