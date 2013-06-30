@@ -8,8 +8,6 @@ public class Pop extends Theme {
 
 @Getter private String directory  = super.getDirectory() + "Pop/";
 
-@Getter private GFXElement logo = new FourMusic1();
-
-//@Getter private String logo = "/Logo/4MLogoFrames";
+@Getter private GFXElement logo = new FourMusic1(this);
 
 }

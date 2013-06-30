@@ -59,7 +59,7 @@ public class EncoderXuggle implements Encoder {
 			writer = getWriter(outFilename);
 			long frame = 0;
 			long lastFrame = video.getNumVidFrames();
-			ImageCompositor overlayframes = new ImageCompositor(theme.getDirectory() + theme.getLogo().getDirectory());
+			ImageCompositor overlayframes = new ImageCompositor(theme.getLogo());
 			while (decoder.hasNextPacket()) {
 				if (decoder.getVideoFrame() != null) {frame++;} // don't increase counter if not a video frame
 

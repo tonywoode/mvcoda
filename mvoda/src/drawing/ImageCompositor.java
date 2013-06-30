@@ -1,7 +1,6 @@
 package drawing;
 
 import gfxelement.GFXElement;
-import gfxelement.logo.FourMusic1;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -22,16 +21,16 @@ public class ImageCompositor {
 	@Setter private BufferedImage image;
 	@Setter private BufferedImage overlayImage;
 	private BufferedImage composite;
-	//private Theme theme;
-	//private String dir;
+
 
 	private int fileIndex;
-	private ArrayList<String> logoFiles;
+	private ArrayList<String> gfxFiles;
 
 
 
 	/**
-	 *  We are going to take in 2 image filenames, load them, overlay, and save the result for now as a file
+	 *  Takes 2 image filenames, loads them, overlays, and will return the result from overlayImage. 
+	 *  This is for use only with static images/logos etc, so I probably won't use it now
 	 * @param image
 	 * @param overlayImage
 	 * @throws IOException
@@ -48,27 +47,26 @@ public class ImageCompositor {
 	 * @param theme
 	 * @param overlayImage
 	 */
-	public ImageCompositor(String dir) {
-
-		GFXElement fourMusic1 = new FourMusic1(); //TODO: dependency
-		logoFiles = fourMusic1.getOverlayFileNames(dir);
+	public ImageCompositor(GFXElement graphicsToRender) {
+		String dir = graphicsToRender.getDirectory();
+		gfxFiles = graphicsToRender.getOverlayFileNames(dir);
 	}
 
 	public String nextFileUNC(Decoder decoder, MusicVideo video) {
-		String thisImageUNC = logoFiles.get(fileIndex);
-		if (fileIndex < ( logoFiles.size() / 2) ) { //if we're not half way through return the next image
+		String thisImageUNC = gfxFiles.get(fileIndex);
+		if (fileIndex < ( gfxFiles.size() / 2) ) { //if we're not half way through return the next image
 		//if ( decoder.getTimeStamp() <= ((video.getVidStreamDuration() / 25 * 1000) - 17000) ) {
 		fileIndex++;
 		return thisImageUNC;
 		}
 		else if ( decoder.getTimeStamp() >= ((video.getVidStreamDuration() / 25 * 1000) - 3000) ) { //that will give you 17000, my vid is 20 secs long
-			if (fileIndex < logoFiles.size() -1 ) {
-				System.out.println(fileIndex + "     " + logoFiles.size() + "     " );
+			if (fileIndex < gfxFiles.size() -1 ) {
+				System.out.println(fileIndex + "     " + gfxFiles.size() + "     " );
 				fileIndex++;
 			}
 			return thisImageUNC;
 		}
-		else return logoFiles.get(fileIndex); //else return the image that's half way through
+		else return gfxFiles.get(fileIndex); //else return the image that's half way through
 		
 	}
 
