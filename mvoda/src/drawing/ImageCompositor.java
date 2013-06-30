@@ -18,7 +18,7 @@ import media.MusicVideo;
  */
 public class ImageCompositor {
 
-	@Setter private BufferedImage image;
+	@Setter private BufferedImage image; //TODO: should these really be setters and not passed parameters?
 	@Setter private BufferedImage overlayImage;
 	private BufferedImage composite;
 
