@@ -12,6 +12,6 @@ public abstract class Logo extends GFXElement {
 
 	public Logo(Theme theme) {
 		this.theme = theme;
-		directory = theme.getDirectory() + "Logo";
+		directory = theme.getDirectory() + "Logo/";
 	}
 }

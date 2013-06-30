@@ -9,5 +9,7 @@ public abstract class Theme {
 
 public abstract GFXElement getLogo();
 
+public abstract GFXElement getStrap();
+
 
 }

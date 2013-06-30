@@ -74,8 +74,11 @@ public class ImageCompositor {
 	public BufferedImage overlayImage() throws IOException {
 
 		// create the new image, canvas size is the max. of both image sizes
-		int w = Math.max(image.getWidth(), overlayImage.getWidth());
-		int h = Math.max(image.getHeight(), overlayImage.getHeight());
+		int w = image.getWidth();
+		int h = image.getHeight();
+		//hmm we don't need to do this below - we need the combined image to be the BACKGROUND IMAGE ONLY
+		/*int w = Math.max(image.getWidth(), overlayImage.getWidth());
+		int h = Math.max(image.getHeight(), overlayImage.getHeight());*/
 		BufferedImage combined = new BufferedImage(w, h, BufferedImage.TYPE_3BYTE_BGR);
 
 		// paint both images, preserving the alpha channels
