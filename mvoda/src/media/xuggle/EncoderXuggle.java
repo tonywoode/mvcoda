@@ -2,18 +2,14 @@ package media.xuggle;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 
-import theme.Pop;
-import theme.Theme;
-
 import media.Decoder;
 import media.Encoder;
 import media.MusicVideo;
+import theme.Theme;
 
 import com.xuggle.mediatool.IMediaWriter;
 import com.xuggle.mediatool.ToolFactory;
@@ -34,18 +30,18 @@ public class EncoderXuggle implements Encoder {
 	private MusicVideo video;
 	private String outFilename;
 	private BufferedImage composite;
-	private String overlayFile = "../../../Repo/mvoda/mvoda/Theme/Pop/Logo/4MLogoFrames/4M68.png";
-
 	private Decoder decoder;
+	private Theme theme;
 
 	/**
 	 * By passing two UNCpaths to the constructor we specify and input and an output filename
 	 * @param filename
 	 * @param outFilename
 	 */
-	public EncoderXuggle(MusicVideo video,String outFilename) {
+	public EncoderXuggle(MusicVideo video, Theme theme,String outFilename) {
 		this.video = video;
 		this.outFilename = outFilename;
+		this.theme = theme;
 		render();
 	}
 
@@ -63,8 +59,7 @@ public class EncoderXuggle implements Encoder {
 			writer = getWriter(outFilename);
 			long frame = 0;
 			long lastFrame = video.getNumVidFrames();
-			Theme pop = new Pop(); //TODO: dependency
-			ImageCompositor overlayframes = new ImageCompositor(pop.getDirectory() + pop.getLogo());
+			ImageCompositor overlayframes = new ImageCompositor(theme.getDirectory() + theme.getLogo().getDirectory());
 			while (decoder.hasNextPacket()) {
 				if (decoder.getVideoFrame() != null) {frame++;} // don't increase counter if not a video frame
 
@@ -73,8 +68,7 @@ public class EncoderXuggle implements Encoder {
 					writer.encodeAudio(video.getAudioStreamIndex(), audioSamples);
 				}
 				BufferedImage videoFrame = decoder.getVideoFrame(); //TODO: here they are they need to be somewhere else!!!!				
-				
-				
+							
 				//BufferedImage overlay = ImageIO.read(new File(overlayFile));
 				if (videoFrame != null) {
 					System.out.println("at video timestamp: " + decoder.getFormattedTimestamp());
@@ -107,30 +101,6 @@ public class EncoderXuggle implements Encoder {
 		}
 	}
 	
-	/*public BufferedImage nextImageStream(BufferedImage videoFrame, String dir) throws IOException {
-		System.out.println("at video timestamp: " + decoder.getFormattedTimestamp());
-		//ShowImageInFrame im = new ShowImageInFrame(videoFrame); //un-comment to see if we are getting images - though be aware will frame EVERY image
-		ImageCompositor overlayframes = new ImageCompositor(videoFrame, dir);
-		ArrayList<String> LogoFrameUNC = new ArrayList<>(overlayframes.getOverlayFileNames(dir));
-		for (String element : LogoFrameUNC) {
-			BufferedImage overlay = ImageIO.read(new File(element));
-		}
-		composite = overlayframes.overlayImage();
-		return composite;
-	}*/
-
-/*	*//**
-	 * This is called by render(). When passed two buffered images, will arrange to overlay the latter over the former using the image manipulation classes
-	 * @return the composite image
-	 * @throws Exception
-	 *//*
-	public BufferedImage overlayImage(BufferedImage videoFrame, BufferedImage overlay) throws Exception {
-		System.out.println("at video timestamp: " + decoder.getFormattedTimestamp());
-		//ShowImageInFrame im = new ShowImageInFrame(videoFrame); //un-comment to see if we are getting images - though be aware will frame EVERY image
-		ImageCompositor overlayframes = new ImageCompositor(videoFrame, overlay);
-		composite = overlayframes.overlayImage();
-		return composite;
-	}*/
 
 	/**
 	 * This is called by render(). It makes a new writer from the tool factory, adds a video and audio stream to it, and returns it

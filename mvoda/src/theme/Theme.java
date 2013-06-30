@@ -1,10 +1,13 @@
 package theme;
 
-public interface Theme {
-	
-public abstract String getDirectory();
+import gfxelement.GFXElement;
+import lombok.Getter;
 
-public abstract String getLogo();
+public abstract class Theme {
+	
+@Getter private String directory  = "Theme/";
+
+public abstract GFXElement getLogo();
 
 
 }
