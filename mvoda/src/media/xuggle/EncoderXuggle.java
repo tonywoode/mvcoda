@@ -73,8 +73,9 @@ public class EncoderXuggle implements Encoder {
 				
 				BufferedImage videoFrame = decoder.getVideoFrame(); //TODO: here they are they need to be somewhere else!!!!								
 				if (videoFrame != null) {
-					System.out.println("at video timestamp: " + decoder.getFormattedTimestamp());				
-					String overlayFile = compositor.nextFileUNC(decoder, video);				
+					System.out.println("at video timestamp: " + decoder.getFormattedTimestamp());
+					String overlayFile = compositor.nextFileUNC(decoder.getTimeStamp(),video.getVidStreamDuration());
+					//String overlayFile = compositor.nextFileUNC(decoder, video);				
 					BufferedImage overlay = ImageIO.read(new File(overlayFile));
 					composite = compositor.overlayImage(videoFrame, overlay);
 					writer.encodeVideo(0, composite, decoder.getTimeStamp(), TimeUnit.MILLISECONDS);

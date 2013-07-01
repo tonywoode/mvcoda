@@ -1,6 +1,10 @@
 package runner;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,6 +25,9 @@ public class EntryPoint {
 	 * @throws IOException 
 	 */
 	public static void main(String[] args) throws IOException {
+		long start = System.currentTimeMillis();
+		//System.out.println("Starting at: " + start);
+		//System.out.println(System.currentTimeMillis());
 		Logger.getGlobal().setLevel(Level.OFF);//(Level.INFO);
 		//load a music vid
 		String fileUNC = "../../../MVODAInputs/NeyoStayShort.avi";
@@ -37,9 +44,20 @@ public class EntryPoint {
 		
 		//now let's try and grab a frame using the SIMPLE API
 		//ModifyMusicVideo vid = new ModifyMusicVideo(fileUNC, outFileUNC );
+		long elapsed = System.currentTimeMillis() - start;
+		//System.out.println("Ending at:" + end);
+		//System.out.println("SO IT TOOK " + (end - start ) + " seconds");
+		
+		
+		DateFormat df = new SimpleDateFormat("mm 'mins,' ss 'seconds', SS 'millis'");
+		df.setTimeZone(TimeZone.getTimeZone("GMT+0"));
+		System.out.println("TIME TAKEN: " + df.format(new Date(elapsed)));
 		
 		//play it in xugglers media player
 		DecodePlayVid player = new DecodePlayVid(outFileUNC);
+		
+		
+		
 
 	}
 }

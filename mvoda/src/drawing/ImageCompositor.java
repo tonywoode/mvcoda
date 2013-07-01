@@ -7,10 +7,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import lombok.Setter;
-import media.Decoder;
-import media.MusicVideo;
-
 /**
  * deals with overlaying graphics over Buffered Images passed to it by the media package of MVODA
  * @author twoode
@@ -52,14 +48,14 @@ public class ImageCompositor {
 		gfxFiles = graphicsToRender.getOverlayFileNames(dir);
 	}
 
-	public String nextFileUNC(Decoder decoder, MusicVideo video) {
+	public String nextFileUNC(long vidTimeStamp, long vidDuration) {
 		String thisImageUNC = gfxFiles.get(fileIndex);
 		if (fileIndex < ( gfxFiles.size() / 2) ) { //if we're not half way through return the next image
 		//if ( decoder.getTimeStamp() <= ((video.getVidStreamDuration() / 25 * 1000) - 17000) ) {
 		fileIndex++;
 		return thisImageUNC;
 		}
-		else if ( decoder.getTimeStamp() >= ((video.getVidStreamDuration() / 25 * 1000) - 3000) ) { //that will give you 17000, my vid is 20 secs long
+		else if ( vidTimeStamp >= ((vidDuration / 25 * 1000) - 3000) ) { //that will give you 17000, my vid is 20 secs long
 			if (fileIndex < gfxFiles.size() -1 ) {
 				System.out.println(fileIndex + "     " + gfxFiles.size() + "     " );
 				fileIndex++;
