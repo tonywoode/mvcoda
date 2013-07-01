@@ -1,4 +1,8 @@
 drawing
+gfxelement
+gfxelement.chart
+gfxelement.logo
+gfxelement.strap
 media
 media.xuggle
 moduleExamples.drawing
@@ -9,3 +13,4 @@ moduleExamples.xuggler
 moduleExamples.xuggler.demos
 moduleExamples.xuggler.mediatoolDemos
 runner
+theme

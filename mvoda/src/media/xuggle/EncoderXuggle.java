@@ -1,10 +1,7 @@
 package media.xuggle;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.concurrent.TimeUnit;
-
-import javax.imageio.ImageIO;
 
 import media.Decoder;
 import media.Encoder;
