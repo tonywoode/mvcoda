@@ -8,14 +8,13 @@ import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import theme.Pop;
-import theme.Theme;
-
 import media.Encoder;
 import media.MusicVideo;
 import media.xuggle.DecodePlayVid;
 import media.xuggle.EncoderXuggle;
 import media.xuggle.MusicVideoXuggle;
+import theme.Pop;
+import theme.Theme;
 
 public class EntryPoint {
 

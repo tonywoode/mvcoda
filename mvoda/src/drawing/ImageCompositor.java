@@ -19,27 +19,11 @@ public class ImageCompositor {
 
 	//@Setter private BufferedImage image; //TODO: should these really be setters and not passed parameters?
 	//@Setter private BufferedImage overlayImage;
-	private BufferedImage composite;
-	private BufferedImage videoFrame;
-
-
+	//private BufferedImage composite;
 	private int fileIndex;
 	private ArrayList<String> gfxFiles;
 
-	/**
-	 *  Takes 2 image filenames, loads them, overlays, and will return the result from overlayImage. 
-	 *  This is for use only with static images/logos etc, so I probably won't use it now
-	 * @param image
-	 * @param overlayImage
-	 * @throws IOException
-	 *//*
-	public ImageCompositor(BufferedImage image, BufferedImage overlayImage) throws IOException {
-
-		this.image = image;
-		this.overlayImage = overlayImage;
-
-	}*/
-
+	
 	/**
 	 * Takes a theme name and arranges to overlay the sequence of images set as logo TODO: we can have a choice of logos probably now
 	 * @param theme
@@ -64,7 +48,7 @@ public class ImageCompositor {
 	public BufferedImage overlayNextImage(long vidTimeStamp, long vidDuration, BufferedImage videoFrame) throws IOException {
 		String overlayFile = nextFileUNC(vidTimeStamp,vidDuration);		
 		BufferedImage overlay = ImageIO.read(new File(overlayFile));
-		composite = overlayImage(videoFrame, overlay);
+		BufferedImage composite = overlayImage(videoFrame, overlay);
 		return composite;
 	}
 	
@@ -85,7 +69,7 @@ public class ImageCompositor {
 		}
 		else if ( vidTimeStamp >= ((vidDuration / 25 * 1000) - 3000) ) { //that will give you 17000, my vid is 20 secs long
 			if (fileIndex < gfxFiles.size() -1 ) {
-				System.out.println("At gfx file no.: " + fileIndex + "     " + "Out of Total Files: " + gfxFiles.size() + "     " );
+				System.out.println(thisImageUNC + "At gfx file no.: " + fileIndex + "     " + "Out of Total Files: " + gfxFiles.size() );
 				fileIndex++;
 			}
 			return thisImageUNC;
@@ -109,8 +93,8 @@ public class ImageCompositor {
 		g.drawImage(overlayImage, 0, 0, null);
 
 		//ImageIO.write(combined, "PNG", new File(outputFile));
-		composite = combined;
-		return composite;
+		
+		return combined;
 	}
 
 

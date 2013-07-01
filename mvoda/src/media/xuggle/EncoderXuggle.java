@@ -61,6 +61,9 @@ public class EncoderXuggle implements Encoder {
 			long lastFrame = video.getNumVidFrames();
 			ImageCompositor strapCompositor = new ImageCompositor(theme.getStrap());
 			ImageCompositor logoCompositor = new ImageCompositor(theme.getLogo());
+			ImageCompositor chartCompositor1 = new ImageCompositor(theme.getChart1());
+			ImageCompositor chartCompositor2 = new ImageCompositor(theme.getChart2());
+			
 			while (decoder.hasNextPacket()) {
 				if (decoder.getVideoFrame() != null) {frame++;} // don't increase counter if not a video frame
 
@@ -75,13 +78,8 @@ public class EncoderXuggle implements Encoder {
 					
 					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),video.getVidStreamDuration(), videoFrame);
 					composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),video.getVidStreamDuration(), composite);
-					
-					/*String overlayFile = compositor.nextFileUNC(decoder.getTimeStamp(),video.getVidStreamDuration());		
-					BufferedImage overlay = ImageIO.read(new File(overlayFile));
-					composite = compositor.overlayImage(videoFrame, overlay);
-					String overlayFile2 = compositor2.nextFileUNC(decoder.getTimeStamp(),video.getVidStreamDuration());		
-					BufferedImage overlay2 = ImageIO.read(new File(overlayFile2));
-					BufferedImage composite2 = compositor2.overlayImage(composite, overlay2);*/
+					composite = chartCompositor1.overlayNextImage(decoder.getTimeStamp(),video.getVidStreamDuration(), composite);
+					composite = chartCompositor2.overlayNextImage(decoder.getTimeStamp(),video.getVidStreamDuration(), composite);
 					
 					
 					writer.encodeVideo(0, composite, decoder.getTimeStamp(), TimeUnit.MILLISECONDS);
