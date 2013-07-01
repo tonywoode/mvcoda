@@ -4,8 +4,11 @@ import gfxelement.GFXElement;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 /**
  * deals with overlaying graphics over Buffered Images passed to it by the media package of MVODA
@@ -17,12 +20,11 @@ public class ImageCompositor {
 	//@Setter private BufferedImage image; //TODO: should these really be setters and not passed parameters?
 	//@Setter private BufferedImage overlayImage;
 	private BufferedImage composite;
+	private BufferedImage videoFrame;
 
 
 	private int fileIndex;
 	private ArrayList<String> gfxFiles;
-
-
 
 	/**
 	 *  Takes 2 image filenames, loads them, overlays, and will return the result from overlayImage. 
@@ -48,22 +50,48 @@ public class ImageCompositor {
 		gfxFiles = graphicsToRender.getOverlayFileNames(dir);
 	}
 
+
+	
+	/**
+	 * When passed the current video's timestamp, it's total duration, and the current videoframe, will return the composited image
+	 * depending on what type of compositor you've created ie: what GFX Element this object is overlaying
+	 * @param vidTimeStamp target video's timestamp
+	 * @param vidDuration targer video's total duration
+	 * @param videoFrame the image to overlay
+	 * @return the composited image
+	 * @throws IOException
+	 */
+	public BufferedImage overlayNextImage(long vidTimeStamp, long vidDuration, BufferedImage videoFrame) throws IOException {
+		String overlayFile = nextFileUNC(vidTimeStamp,vidDuration);		
+		BufferedImage overlay = ImageIO.read(new File(overlayFile));
+		composite = overlayImage(videoFrame, overlay);
+		return composite;
+	}
+	
+	
+	
+	/**
+	 * Computes what GFX to overlay over the current videoframe by passing in the current and total video timestamps
+	 * @param vidTimeStamp current position in video
+	 * @param vidDuration total duration of video
+	 * @return the full UNC path of the next image to overlay
+	 */
 	public String nextFileUNC(long vidTimeStamp, long vidDuration) {
 		String thisImageUNC = gfxFiles.get(fileIndex);
 		if (fileIndex < ( gfxFiles.size() / 2) ) { //if we're not half way through return the next image
-		//if ( decoder.getTimeStamp() <= ((video.getVidStreamDuration() / 25 * 1000) - 17000) ) {
-		fileIndex++;
-		return thisImageUNC;
+			//if ( decoder.getTimeStamp() <= ((video.getVidStreamDuration() / 25 * 1000) - 17000) ) {
+			fileIndex++;
+			return thisImageUNC;
 		}
 		else if ( vidTimeStamp >= ((vidDuration / 25 * 1000) - 3000) ) { //that will give you 17000, my vid is 20 secs long
 			if (fileIndex < gfxFiles.size() -1 ) {
-				System.out.println(fileIndex + "     " + gfxFiles.size() + "     " );
+				System.out.println("At gfx file no.: " + fileIndex + "     " + "Out of Total Files: " + gfxFiles.size() + "     " );
 				fileIndex++;
 			}
 			return thisImageUNC;
 		}
 		else return gfxFiles.get(fileIndex); //else return the image that's half way through
-		
+
 	}
 
 
@@ -72,9 +100,7 @@ public class ImageCompositor {
 		// create the new image, canvas size is the max. of both image sizes
 		int w = image.getWidth();
 		int h = image.getHeight();
-		//hmm we don't need to do this below - we need the combined image to be the BACKGROUND IMAGE ONLY
-		/*int w = Math.max(image.getWidth(), overlayImage.getWidth());
-		int h = Math.max(image.getHeight(), overlayImage.getHeight());*/
+
 		BufferedImage combined = new BufferedImage(w, h, BufferedImage.TYPE_3BYTE_BGR);
 
 		// paint both images, preserving the alpha channels
@@ -82,7 +108,6 @@ public class ImageCompositor {
 		g.drawImage(image, 0, 0, null);
 		g.drawImage(overlayImage, 0, 0, null);
 
-		// Save as new image
 		//ImageIO.write(combined, "PNG", new File(outputFile));
 		composite = combined;
 		return composite;
