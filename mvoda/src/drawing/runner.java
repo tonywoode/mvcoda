@@ -98,7 +98,7 @@ public class runner {
 	}
 
 	
-	static void testOverlayImage() throws IOException {
+/*	static void testOverlayImage() throws IOException {
 		//great, now let's PASS you in the frames
 		Image bk = ImageIO.read(new File(backFile));
 		BufferedImage back = (BufferedImage) bk;
@@ -106,14 +106,15 @@ public class runner {
 		Image over = ImageIO.read(new File(overlayFile));
 		BufferedImage overlay = (BufferedImage) over;
 
-		ImageCompositor overlayframes2 = new ImageCompositor(back, overlay);
+		
+		ImageCompositor overlayframes2 = new ImageCompositor()//(back, overlay);
 
-		BufferedImage composite = overlayframes2.overlayImage();
+		BufferedImage composite = overlayframes2.overlayImage(back, overlay);
 
 		//hmm nothing wrong with the image viewer I just made, so why doesn't the media runner show me a video frame eh? See:
 		ShowImageInFrame gui = new ShowImageInFrame(composite);
 		//gui.createAndShowGui();
-	}
+	}*/
 
 	
 

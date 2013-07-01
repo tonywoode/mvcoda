@@ -59,9 +59,9 @@ public class EncoderXuggle implements Encoder {
 			writer = getWriter(outFilename);
 			long frame = 0;
 			long lastFrame = video.getNumVidFrames();
-			ImageCompositor overlayframes = new ImageCompositor(theme.getStrap());
-			ImageCompositor overlayframes2 = new ImageCompositor(theme.getLogo()); //TODO: yes a big todo here - how to compose two things simulataneously...
-			//maybe right, maybe its where you say "overlayFrames.setImage" you feed the input to that the output of overlayframes.overlayImage() later
+			ImageCompositor compositor = new ImageCompositor(theme.getStrap());
+			ImageCompositor compositor2 = new ImageCompositor(theme.getLogo()); //TODO: yes a big todo here - how to compose two things simulataneously...
+			//maybe right, maybe its where you say "compositor.setImage" you feed the input to that the output of compositor.overlayImage() later
 			//rather than that being the BufferedImage composite....
 			while (decoder.hasNextPacket()) {
 				if (decoder.getVideoFrame() != null) {frame++;} // don't increase counter if not a video frame
@@ -70,19 +70,13 @@ public class EncoderXuggle implements Encoder {
 				if (audioSamples != null) {
 					writer.encodeAudio(video.getAudioStreamIndex(), audioSamples);
 				}
-				BufferedImage videoFrame = decoder.getVideoFrame(); //TODO: here they are they need to be somewhere else!!!!				
-							
-				//BufferedImage overlay = ImageIO.read(new File(overlayFile));
+				
+				BufferedImage videoFrame = decoder.getVideoFrame(); //TODO: here they are they need to be somewhere else!!!!								
 				if (videoFrame != null) {
-					System.out.println("at video timestamp: " + decoder.getFormattedTimestamp());
-					
-					overlayframes.setImage(videoFrame);
-					String overlayFile = overlayframes.nextFileUNC(decoder, video);	
-					
+					System.out.println("at video timestamp: " + decoder.getFormattedTimestamp());				
+					String overlayFile = compositor.nextFileUNC(decoder, video);				
 					BufferedImage overlay = ImageIO.read(new File(overlayFile));
-					overlayframes.setOverlayImage(overlay);
-					composite = overlayframes.overlayImage();
-					//composite = overlayImage(videoFrame, overlay);	
+					composite = compositor.overlayImage(videoFrame, overlay);
 					writer.encodeVideo(0, composite, decoder.getTimeStamp(), TimeUnit.MILLISECONDS);
 				}
 				if ((frame +1) >= lastFrame) { break; }

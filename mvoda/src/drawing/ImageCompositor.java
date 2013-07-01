@@ -18,8 +18,8 @@ import media.MusicVideo;
  */
 public class ImageCompositor {
 
-	@Setter private BufferedImage image; //TODO: should these really be setters and not passed parameters?
-	@Setter private BufferedImage overlayImage;
+	//@Setter private BufferedImage image; //TODO: should these really be setters and not passed parameters?
+	//@Setter private BufferedImage overlayImage;
 	private BufferedImage composite;
 
 
@@ -34,13 +34,13 @@ public class ImageCompositor {
 	 * @param image
 	 * @param overlayImage
 	 * @throws IOException
-	 */
+	 *//*
 	public ImageCompositor(BufferedImage image, BufferedImage overlayImage) throws IOException {
 
 		this.image = image;
 		this.overlayImage = overlayImage;
 
-	}
+	}*/
 
 	/**
 	 * Takes a theme name and arranges to overlay the sequence of images set as logo TODO: we can have a choice of logos probably now
@@ -71,7 +71,7 @@ public class ImageCompositor {
 	}
 
 
-	public BufferedImage overlayImage() throws IOException {
+	public BufferedImage overlayImage(BufferedImage image, BufferedImage overlayImage) throws IOException {
 
 		// create the new image, canvas size is the max. of both image sizes
 		int w = image.getWidth();
