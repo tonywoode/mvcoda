@@ -20,4 +20,8 @@ public class Pop extends Theme {
 
 @Getter private GFXElement chart2 = new ChartText(this);
 
+public GFXElement getTransition() {return null;}
+
+
+
 }
