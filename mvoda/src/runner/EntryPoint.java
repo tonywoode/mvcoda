@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import media.Encoder;
 import media.MusicVideo;
+import media.xuggle.DecodeAndPlayAudioAndVideo;
 import media.xuggle.DecodePlayVid;
 import media.xuggle.EncoderXuggle;
 import media.xuggle.MusicVideoXuggle;
@@ -53,7 +54,7 @@ public class EntryPoint {
 		System.out.println("TIME TAKEN: " + df.format(new Date(elapsed)));
 		
 		//play it in xugglers media player
-		DecodePlayVid player = new DecodePlayVid(outFileUNC);
+		DecodeAndPlayAudioAndVideo player = new DecodeAndPlayAudioAndVideo(outFileUNC);
 		
 		
 		
