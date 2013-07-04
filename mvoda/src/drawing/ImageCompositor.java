@@ -62,8 +62,8 @@ public class ImageCompositor {
 	 */
 	public String nextFileUNC(long vidTimeStamp, long vidDuration) {
 		String thisImageUNC = gfxFiles.get(fileIndex);
-		if (fileIndex < ( gfxFiles.size() / 2) ) { //if we're not half way through return the next image
-			//if ( decoder.getTimeStamp() <= ((video.getVidStreamDuration() / 25 * 1000) - 17000) ) {
+		//if (fileIndex < ( gfxFiles.size() / 2) ) { //if we're not half way through return the next image
+			if ( vidTimeStamp <= 2000) {//((video.getVidStreamDuration() / 25 * 1000) - 17000) ) {
 			fileIndex++;
 			return thisImageUNC;
 		}

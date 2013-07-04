@@ -16,7 +16,7 @@ import com.xuggle.xuggler.IRational;
 import com.xuggle.xuggler.IStreamCoder;
 
 import drawing.ImageCompositor;
-
+import drawing.TextCompositor;
 /**
  * Basic methods to deal with buffered images we get from music video packets so that we can manipulate them and recode a video. Its basically "do something then encode"
  * @author Tony
@@ -60,6 +60,7 @@ public class EncoderXuggle implements Encoder {
 			ImageCompositor logoCompositor = new ImageCompositor(theme.getLogo());
 			ImageCompositor chartCompositor1 = new ImageCompositor(theme.getChart1());
 			ImageCompositor chartCompositor2 = new ImageCompositor(theme.getChart2());
+			TextCompositor textCompositor = new TextCompositor();
 			
 			while (decoder.hasNextPacket()) {
 				if (decoder.getVideoFrame() != null) {frame++;} // don't increase counter if not a video frame
@@ -77,7 +78,7 @@ public class EncoderXuggle implements Encoder {
 					composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),video.getVidStreamDuration(), composite);
 					composite = chartCompositor1.overlayNextImage(decoder.getTimeStamp(),video.getVidStreamDuration(), composite);
 					composite = chartCompositor2.overlayNextImage(decoder.getTimeStamp(),video.getVidStreamDuration(), composite);
-					
+					composite = textCompositor.overlayNextFontFrame(decoder.getTimeStamp(),video.getVidStreamDuration(), composite);
 					
 					writer.encodeVideo(0, composite, decoder.getTimeStamp(), TimeUnit.MILLISECONDS);
 				}

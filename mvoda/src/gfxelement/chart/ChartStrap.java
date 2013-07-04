@@ -11,5 +11,6 @@ public class ChartStrap extends Chart {
 	}
 
 	@Getter private String directory =  super.getDirectory() +  "ChartStrap";
+	
 
 }

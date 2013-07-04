@@ -1,5 +1,7 @@
 package drawing;
 
+import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -8,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
+
 
 import javax.imageio.ImageIO;
 
@@ -27,6 +30,36 @@ public class runner {
 	 * @throws IOException 
 	 */
 	public static void main(String[] args) throws IOException {
+		
+		
+		/**
+		 * Testing fonts
+		 */
+		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		String[] fontList = ge.getAvailableFontFamilyNames();
+		//System.out.println(fontList[0]);
+		Font font = new Font(fontList[0],1,25);
+		
+		TextCompositor tc = new TextCompositor();
+		Image bk = ImageIO.read(new File(backFile));
+		BufferedImage back = (BufferedImage) bk; 
+		//tc.renderText(back, "Testing first write to an image", font, 450,450);
+		
+		ShowImageInFrame gui = new ShowImageInFrame(back);
+		gui.createAndShowGui();
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		/*String dir = "Theme/Pop/Logo/4MLogoFrames";
 		File file = new File(dir);  

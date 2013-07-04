@@ -34,6 +34,7 @@ public class EntryPoint {
 		//set an output file
 		String outFileUNC = "../../../MVODAOutputs/doesthiswork.avi";
 		MusicVideo test = new MusicVideoXuggle(fileUNC);
+		
 		Theme pop = new Pop();
 
 		//get Xuggler's video info - idea could Junit test compare MY music vid class to THIS info?
