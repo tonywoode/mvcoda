@@ -1,8 +1,6 @@
 package theme;
 
 import gfxelement.GFXElement;
-import gfxelement.chart.ChartStrap;
-import gfxelement.chart.ChartText;
 import gfxelement.logo.FourMusic1;
 import gfxelement.logo.QLogo;
 import gfxelement.strap.Periscope;
@@ -21,9 +19,7 @@ public class Classic extends Theme {
 
 @Getter private GFXElement transition = new QTransition(this);
 
-public GFXElement getChart1() {return null;}
-
-public GFXElement getChart2() {return null;}
+public GFXElement getChart() {return null;}
 
 
 }

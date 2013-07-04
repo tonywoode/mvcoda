@@ -58,8 +58,8 @@ public class EncoderXuggle implements Encoder {
 			long lastFrame = video.getNumVidFrames();
 			ImageCompositor strapCompositor = new ImageCompositor(theme.getStrap());
 			ImageCompositor logoCompositor = new ImageCompositor(theme.getLogo());
-			ImageCompositor chartCompositor1 = new ImageCompositor(theme.getChart1());
-			ImageCompositor chartCompositor2 = new ImageCompositor(theme.getChart2());
+			ImageCompositor chartCompositor1 = new ImageCompositor(theme.getChart());
+			//ImageCompositor chartCompositor2 = new ImageCompositor(theme.getChart2());
 			TextCompositor textCompositor = new TextCompositor();
 			
 			while (decoder.hasNextPacket()) {
@@ -77,7 +77,7 @@ public class EncoderXuggle implements Encoder {
 					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),video.getVidStreamDuration(), videoFrame);
 					composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),video.getVidStreamDuration(), composite);
 					composite = chartCompositor1.overlayNextImage(decoder.getTimeStamp(),video.getVidStreamDuration(), composite);
-					composite = chartCompositor2.overlayNextImage(decoder.getTimeStamp(),video.getVidStreamDuration(), composite);
+					//composite = chartCompositor2.overlayNextImage(decoder.getTimeStamp(),video.getVidStreamDuration(), composite);
 					composite = textCompositor.overlayNextFontFrame(decoder.getTimeStamp(),video.getVidStreamDuration(), composite);
 					
 					writer.encodeVideo(0, composite, decoder.getTimeStamp(), TimeUnit.MILLISECONDS);

@@ -1,8 +1,7 @@
 package theme;
 
 import gfxelement.GFXElement;
-import gfxelement.chart.ChartStrap;
-import gfxelement.chart.ChartText;
+import gfxelement.chart.FMTop20Chart;
 import gfxelement.logo.FourMusic1;
 import gfxelement.strap.Periscope;
 import lombok.Getter;
@@ -16,9 +15,8 @@ public class Pop extends Theme {
 
 @Getter private GFXElement strap = new Periscope(this);
 
-@Getter private GFXElement chart1 = new ChartStrap(this);
+@Getter private GFXElement chart = new FMTop20Chart(this);
 
-@Getter private GFXElement chart2 = new ChartText(this);
 
 public GFXElement getTransition() {return null;}
 

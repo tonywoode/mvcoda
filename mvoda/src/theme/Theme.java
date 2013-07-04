@@ -11,9 +11,7 @@ public abstract GFXElement getLogo();
 
 public abstract GFXElement getStrap();
 
-public abstract GFXElement getChart1();
-
-public abstract GFXElement getChart2();
+public abstract GFXElement getChart();
 
 public abstract GFXElement getTransition();
 }
