@@ -38,12 +38,12 @@ public class runner {
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		String[] fontList = ge.getAvailableFontFamilyNames();
 		//System.out.println(fontList[0]);
-		Font font = new Font(fontList[0],1,25);
+		Font font = new Font(fontList[0],1,27);
 		
 		TextCompositor tc = new TextCompositor();
 		Image bk = ImageIO.read(new File(backFile));
 		BufferedImage back = (BufferedImage) bk; 
-		//tc.renderText(back, "Testing first write to an image", font, 450,450);
+		tc.renderText(back, "Testing first write to an image", font, 450,480);
 		
 		ShowImageInFrame gui = new ShowImageInFrame(back);
 		gui.createAndShowGui();

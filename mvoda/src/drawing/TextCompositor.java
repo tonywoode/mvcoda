@@ -8,13 +8,15 @@ import java.io.IOException;
 
 public class TextCompositor {
 
-	private Font font;
+	private Font trackArtistFont;
+	private Font numberFont;
 
 	public TextCompositor(){
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		String[] fontList = ge.getAvailableFontFamilyNames();
 		//System.out.println(fontList[0]);
-		font = new Font(fontList[0],1,25);
+		trackArtistFont = new Font(fontList[0],1,32);
+		numberFont = new Font(fontList[0],1,55);
 	}
 	
 	
@@ -26,7 +28,7 @@ public class TextCompositor {
 	}
 
 
-	private void renderText(BufferedImage image, String text, Font font, int x, int y){
+	protected void renderText(BufferedImage image, String text, Font font, int x, int y){
 		Graphics2D g = image.createGraphics();
 		g.setFont(font);
 		g.drawString(text, x, y);
@@ -36,8 +38,10 @@ public class TextCompositor {
 
 
 	public BufferedImage nextText(BufferedImage videoFrame, long vidTimeStamp, long vidDuration) {
-		if ( vidTimeStamp >= 2000 && vidTimeStamp <= (vidDuration / 25 * 1000) - 3000) {//((video.getVidStreamDuration() / 25 * 1000) - 17000) ) {
-			renderText(videoFrame, "Testing first write to an image", font, 450,450);
+		if ( vidTimeStamp >= 2000 && vidTimeStamp <= (vidDuration / 25 * 1000) - 2300) {//((video.getVidStreamDuration() / 25 * 1000) - 17000) ) {
+			renderText(videoFrame, "5", numberFont, 285,490);
+			renderText(videoFrame, "This is the track", trackArtistFont, 390,460);
+			renderText(videoFrame, "This is the artist", trackArtistFont, 380,500);
 		}
 		BufferedImage composite = videoFrame;
 		return composite;
