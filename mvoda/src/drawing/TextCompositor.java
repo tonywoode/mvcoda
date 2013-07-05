@@ -14,9 +14,11 @@ public class TextCompositor {
 	public TextCompositor(){
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		String[] fontList = ge.getAvailableFontFamilyNames();
-		//System.out.println(fontList[0]);
-		trackArtistFont = new Font(fontList[0],1,32);
-		numberFont = new Font(fontList[0],1,55);
+		for (int i = 0; i < fontList.length; i++) {
+		System.out.println("Available font list on this machine: At index no.: " + i + " is: " + fontList[i]);
+		}
+		trackArtistFont = new Font(fontList[11],1,32);
+		numberFont = new Font(fontList[11],1,55);
 	}
 	
 	
