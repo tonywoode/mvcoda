@@ -22,6 +22,7 @@ public class ImageCompositor {
 	//private BufferedImage composite;
 	private int fileIndex;
 	private ArrayList<String> gfxFiles;
+	private GFXElement gfxElement;
 
 	
 	/**
@@ -29,9 +30,10 @@ public class ImageCompositor {
 	 * @param theme
 	 * @param overlayImage
 	 */
-	public ImageCompositor(GFXElement graphicsToRender) {
-		String dir = graphicsToRender.getDirectory();
-		gfxFiles = graphicsToRender.getOverlayFileNames(dir);
+	public ImageCompositor(GFXElement gfxElement) {
+		this.gfxElement = gfxElement;
+		String dir = gfxElement.getDirectory();
+		gfxFiles = gfxElement.getOverlayFileNames(dir);
 	}
 
 
@@ -63,11 +65,11 @@ public class ImageCompositor {
 	public String nextFileUNC(long vidTimeStamp, long vidDuration) {
 		String thisImageUNC = gfxFiles.get(fileIndex);
 		//if (fileIndex < ( gfxFiles.size() / 2) ) { //if we're not half way through return the next image
-			if ( vidTimeStamp <= 2000) {//((video.getVidStreamDuration() / 25 * 1000) - 17000) ) {
+			if ( vidTimeStamp <= gfxElement.getInTime()) {//((video.getVidStreamDuration() / 25 * 1000) - 17000) ) {
 			fileIndex++;
 			return thisImageUNC;
 		}
-		else if ( vidTimeStamp >= ((vidDuration - 3000))) {/// 25 * 1000) - 3000) ) { //that will give you 17000, my vid is 20 secs long
+		else if ( vidTimeStamp >= vidDuration - gfxElement.getOutTime()) {/// 25 * 1000) - 3000) ) { //that will give you 17000, my vid is 20 secs long
 			if (fileIndex < gfxFiles.size() -1 ) {
 				System.out.println(thisImageUNC + "At gfx file no.: " + fileIndex + "     " + "Out of Total Files: " + gfxFiles.size() );
 				fileIndex++;
@@ -97,6 +99,8 @@ public class ImageCompositor {
 		return combined;
 	}
 
+	
+	
 
 
 

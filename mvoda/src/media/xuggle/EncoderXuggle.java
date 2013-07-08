@@ -72,6 +72,7 @@ public class EncoderXuggle implements Encoder {
 				
 				BufferedImage videoFrame = decoder.getVideoFrame(); //TODO: here they are they need to be somewhere else!!!!								
 				if (videoFrame != null) {
+					//System.out.println("Duration of logo: " + theme.getLogo().getDuration(video.getFrameRateDivisor()));
 					System.out.println("at video timestamp: " + decoder.getFormattedTimestamp());
 					
 					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),video.getVidStreamDuration(), videoFrame);

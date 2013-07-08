@@ -11,12 +11,13 @@ public abstract class GFXElement {
 	
 	private String filetype = "";
 	private String filePrefix = "";
+	private ArrayList<String> fileNumbers;
 	
 	
 	public ArrayList<String> getOverlayFileNames(String dir) {
 		File file = new File(dir);  
 		File[] files = file.listFiles();
-		ArrayList<String> fileNumbers = new ArrayList<>();
+		fileNumbers = new ArrayList<>();
 
 		for (int g = 0; g < files.length; g++) {
 
@@ -73,5 +74,13 @@ public abstract class GFXElement {
 	}
 	
 	public abstract String getDirectory();
+	
+	public abstract long getInTime();
+	
+	public abstract long getOutTime();
+	
+	public long getDuration(long frameRateDivisor) {
+		return fileNumbers.size() / frameRateDivisor * 1000;
+		}
 
 }

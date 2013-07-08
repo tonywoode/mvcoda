@@ -39,6 +39,8 @@ public interface MusicVideo {
 	public abstract int getVideoStreamID();
 	
 	public abstract long getContainerDuration();
+	
+	public abstract long getFrameRateDivisor();
 
 	public abstract long getVidStreamDuration();
 
