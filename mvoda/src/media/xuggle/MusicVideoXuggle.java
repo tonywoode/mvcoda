@@ -77,6 +77,9 @@ public class MusicVideoXuggle implements MusicVideo {
 				videoStreamID = id;
 				numVidFrames = stream.getNumFrames();
 				vidStreamDuration = stream.getDuration();
+				System.out.println("numerator is " + stream.getTimeBase().getNumerator());
+				System.out.println("denomiator is " + stream.getTimeBase().getDenominator());
+				System.out.println( "real time is therefore: " + vidStreamDuration / stream.getTimeBase().getNumerator() * stream.getTimeBase().getDenominator() );
 				videoCodecID = coder.getCodecID();
 			}
 		}
