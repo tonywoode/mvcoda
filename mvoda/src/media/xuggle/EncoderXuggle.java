@@ -76,9 +76,9 @@ public class EncoderXuggle implements Encoder {
 					System.out.println("at video timestamp: " + decoder.getFormattedTimestamp());
 					
 					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),video.getVidStreamDuration(), videoFrame);
-					theme.getLogo().setInTime(video.getVidStreamDuration() + 2000);
-					theme.getLogo().setOutTime(video.getVidStreamDuration() - 3000);
-					composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),video.getVidStreamDuration(), composite);
+					//theme.getLogo().setInDuration(video.getVidStreamDuration() + 2000);
+					//theme.getLogo().setOutDuration(video.getVidStreamDuration() - 3000);
+					composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),video.getVidStreamDuration() - 9000, composite);
 					composite = chartCompositor1.overlayNextImage(decoder.getTimeStamp(),video.getVidStreamDuration(), composite);
 					//composite = chartCompositor2.overlayNextImage(decoder.getTimeStamp(),video.getVidStreamDuration(), composite);
 					composite = textCompositor.overlayNextFontFrame(decoder.getTimeStamp(),video.getVidStreamDuration(), composite);
