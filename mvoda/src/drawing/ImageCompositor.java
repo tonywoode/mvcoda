@@ -67,7 +67,7 @@ public class ImageCompositor {
 			fileIndex++;
 			return thisImageUNC;
 		}
-		else if ( vidTimeStamp >= ((vidDuration / 25 * 1000) - 3000) ) { //that will give you 17000, my vid is 20 secs long
+		else if ( vidTimeStamp >= ((vidDuration - 3000))) {/// 25 * 1000) - 3000) ) { //that will give you 17000, my vid is 20 secs long
 			if (fileIndex < gfxFiles.size() -1 ) {
 				System.out.println(thisImageUNC + "At gfx file no.: " + fileIndex + "     " + "Out of Total Files: " + gfxFiles.size() );
 				fileIndex++;

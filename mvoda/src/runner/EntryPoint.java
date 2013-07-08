@@ -32,16 +32,16 @@ public class EntryPoint {
 		//set an output file
 		String outFileUNC = "../../../MVODAOutputs/doesthiswork.avi";
 		MusicVideo test = new MusicVideoXuggle(fileUNC);
-		System.out.println("Container duration is " + test.getContainerDuration());
-		System.out.println("Vid stream duration is " + (test.getVidStreamDuration() / 25) * 1000);
-		System.out.println("Current timestamp is " + test.getDecoder().getTimeStamp());
+		//System.out.println("Container duration is " + test.getContainerDuration());
+		//System.out.println("Vid stream duration is " + test.getVidStreamDuration());
+		//System.out.println("Current timestamp is " + test.getDecoder().getTimeStamp());
 		
 		Theme pop = new Pop();
 
 		//get Xuggler's video info - idea could Junit test compare MY music vid class to THIS info?
 		System.out.println(test.toString());
 		//draw onto video
-		//Encoder draw = new EncoderXuggle(test, pop, outFileUNC);
+		Encoder draw = new EncoderXuggle(test, pop, outFileUNC);
 		test.close();
 		
 		//report time taken

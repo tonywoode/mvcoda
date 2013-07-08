@@ -40,7 +40,7 @@ public class TextCompositor {
 
 
 	public BufferedImage nextText(BufferedImage videoFrame, long vidTimeStamp, long vidDuration) {
-		if ( vidTimeStamp >= 2000 && vidTimeStamp <= (vidDuration / 25 * 1000) - 2300) {//((video.getVidStreamDuration() / 25 * 1000) - 17000) ) {
+		if ( vidTimeStamp >= 2000 && vidTimeStamp <= (vidDuration) - 2300) {//((video.getVidStreamDuration() / 25 * 1000) - 17000) ) {
 			renderText(videoFrame, "5", numberFont, 285,490);
 			renderText(videoFrame, "This is the track", trackArtistFont, 390,460);
 			renderText(videoFrame, "This is the artist", trackArtistFont, 380,500);
