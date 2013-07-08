@@ -1,12 +1,14 @@
 package gfxelement.logo;
 
+
 import lombok.Getter;
+import lombok.Setter;
 import theme.Theme;
 
 public class FourMusic1 extends Logo {
 
-	@Getter public long inTime = 2000; ///The in time for this element is two seconds
-	@Getter public long outTime = 3000;
+	@Getter @Setter public long inTime = 2000; ///The in time for this element is two seconds
+	@Getter @Setter public long outTime = 3000;
 	
 	public FourMusic1(Theme theme) {
 		super(theme);

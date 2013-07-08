@@ -71,7 +71,7 @@ public class ImageCompositor {
 		}
 		else if ( vidTimeStamp >= vidDuration - gfxElement.getOutTime()) {/// 25 * 1000) - 3000) ) { //that will give you 17000, my vid is 20 secs long
 			if (fileIndex < gfxFiles.size() -1 ) {
-				System.out.println(thisImageUNC + "At gfx file no.: " + fileIndex + "     " + "Out of Total Files: " + gfxFiles.size() );
+				System.out.println(thisImageUNC + " At gfx file no.: " + fileIndex + "     " + "Out of Total Files: " + gfxFiles.size() );
 				fileIndex++;
 			}
 			return thisImageUNC;
