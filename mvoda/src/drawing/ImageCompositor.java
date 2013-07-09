@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+import lombok.Getter;
+
 /**
  * deals with overlaying graphics over Buffered Images passed to it by the media package of MVODA
  * @author twoode
@@ -23,6 +25,7 @@ public class ImageCompositor {
 	private int fileIndex;
 	private ArrayList<String> gfxFiles;
 	private GFXElement gfxElement;
+	@Getter boolean imOut = false;
 
 
 	/**
@@ -88,24 +91,29 @@ public class ImageCompositor {
 */
 
 
-	public String nextFileUNC(long vidTimeStamp, long inTime, long desiredDuration){
+	public String nextFileUNC(long vidTimeStamp, long inTime, long desiredDuration){ //just set duration to zero to play for natural length
 		String thisImageUNC = gfxFiles.get(fileIndex);
+		imOut = true;
 		if (fileIndex < gfxFiles.size() -1 ) { //if we aren't at the last element frame
 			if (vidTimeStamp >= inTime) { //and if we are at the specified in time
 				if (fileIndex < ( gfxFiles.size() / 2) ) { //and if we aren't at the half-way point of the element
 					fileIndex++; //animate
+					imOut = false;
 				} //also if we are at the end of the specified duration
-				if (vidTimeStamp >= inTime + desiredDuration - gfxElement.getOutDuration() ) {
+				if (vidTimeStamp >= inTime + desiredDuration ) {
 	/*TODO: to animate the logo out we'd need this: if (vidTimeStamp >= inTime + desiredDuration - gfxElement.getOutDuration() ) {
 	 * but I can't put that in because then there'd be no possibility of ever holding the logo through videos...
 	 * there needs to be some check if an element NEEDS to fade out before a video ends that it can
 	 * and then we can use that method to ACTUALLY fade the logo out at the end video as well as ticking off the user				
 	 */
 					fileIndex++; //animate
+					imOut = true;
 				}
 			}
 		}
+		if (vidTimeStamp > inTime && vidTimeStamp < inTime + desiredDuration) { imOut = false; }
 		return thisImageUNC; //else we are before, after, or at the animation hold point, so don't animate...
+		
 	}
 
 

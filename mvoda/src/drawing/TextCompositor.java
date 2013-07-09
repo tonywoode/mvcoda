@@ -23,9 +23,9 @@ public class TextCompositor {
 	
 	
 	
-	public BufferedImage overlayNextFontFrame(long vidTimeStamp, long vidDuration, BufferedImage videoFrame) throws IOException {
-		nextText(videoFrame, vidTimeStamp, vidDuration);
-		BufferedImage composite = nextText(videoFrame, vidTimeStamp, vidDuration );
+	public BufferedImage overlayNextFontFrame(boolean imOut, BufferedImage videoFrame)  throws IOException {
+		nextText(imOut, videoFrame);
+		BufferedImage composite = nextText(imOut, videoFrame );
 		return composite;
 	}
 
@@ -39,8 +39,8 @@ public class TextCompositor {
 	}
 
 
-	public BufferedImage nextText(BufferedImage videoFrame, long vidTimeStamp, long vidDuration) {
-		if ( vidTimeStamp >= 2000 && vidTimeStamp <= (vidDuration) - 2300) {//((video.getVidStreamDuration() / 25 * 1000) - 17000) ) {
+	public BufferedImage nextText(boolean imOut, BufferedImage videoFrame) {
+		if ( imOut == false) {//((video.getVidStreamDuration() / 25 * 1000) - 17000) ) {
 			renderText(videoFrame, "5", numberFont, 285,490);
 			renderText(videoFrame, "This is the track", trackArtistFont, 390,460);
 			renderText(videoFrame, "This is the artist", trackArtistFont, 380,500);
