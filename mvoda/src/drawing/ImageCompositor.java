@@ -77,7 +77,6 @@ public class ImageCompositor {
 			return thisImageUNC;
 		}
 		else return gfxFiles.get(fileIndex); //else return the image that's half way through
-
 	}
 
 
