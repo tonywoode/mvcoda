@@ -24,7 +24,7 @@ public class ImageCompositor {
 	private ArrayList<String> gfxFiles;
 	private GFXElement gfxElement;
 
-	
+
 	/**
 	 * Takes a theme name and arranges to overlay the sequence of images set as logo TODO: we can have a choice of logos probably now
 	 * @param theme
@@ -37,7 +37,7 @@ public class ImageCompositor {
 	}
 
 
-	
+
 	/**
 	 * When passed the current video's timestamp, it's total duration, and the current videoframe, will return the composited image
 	 * depending on what type of compositor you've created ie: what GFX Element this object is overlaying
@@ -47,32 +47,35 @@ public class ImageCompositor {
 	 * @return the composited image
 	 * @throws IOException
 	 */
-	public BufferedImage overlayNextImage(long vidTimeStamp, long vidDuration, BufferedImage videoFrame) throws IOException {
-		String overlayFile = nextFileUNC(vidTimeStamp,vidDuration);		
+	public BufferedImage overlayNextImage(long vidTimeStamp, long inTime, long desiredDuration, BufferedImage videoFrame) throws IOException {
+		//String overlayFile = nextFileUNC(vidTimeStamp,vidDuration);		
+		String overlayFile = nextFileUNC(vidTimeStamp,inTime,desiredDuration);
 		BufferedImage overlay = ImageIO.read(new File(overlayFile));
 		BufferedImage composite = overlayImage(videoFrame, overlay);
 		return composite;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Computes what GFX to overlay over the current videoframe by passing in the current and total video timestamps
 	 * @param vidTimeStamp current position in video
 	 * @param vidDuration total duration of video
 	 * @return the full UNC path of the next image to overlay
 	 */
-	public String nextFileUNC(long vidTimeStamp, long vidDuration) {
+/*	public String OLDnextFileUNC(long vidTimeStamp, long vidDuration) {
 		String thisImageUNC = gfxFiles.get(fileIndex);
-		long outTime = vidDuration - 4000;
-		long inTime = vidTimeStamp + 8000;
-		//if (fileIndex < ( gfxFiles.size() / 2) ) { //if we're not half way through return the next image
-			if ( inTime <= gfxElement.getInDuration()) {//((video.getVidStreamDuration() / 25 * 1000) - 17000) ) {
+
+		long inTime = vidTimeStamp + 4000;
+		long outTime = vidDuration - 6000;
+		long holdTime = 12000;
+
+
+		if ( inTime <= gfxElement.getInDuration()) {
 			fileIndex++;
 			return thisImageUNC;
 		}
-			//THIS ALTERS THE OUT TIME
-		else if ( inTime >= outTime - gfxElement.getOutDuration()) {/// 25 * 1000) - 3000) ) { //that will give you 17000, my vid is 20 secs long
+		else if ( outTime >= vidTimeStamp - gfxElement.getOutDuration()) {
 			if (fileIndex < gfxFiles.size() -1 ) {
 				System.out.println(thisImageUNC + " At gfx file no.: " + fileIndex + "     " + "Out of Total Files: " + gfxFiles.size() );
 				fileIndex++;
@@ -80,6 +83,24 @@ public class ImageCompositor {
 			return thisImageUNC;
 		}
 		else return gfxFiles.get(fileIndex); //else return the image that's half way through
+	}
+
+*/
+
+
+	public String nextFileUNC(long vidTimeStamp, long inTime, long desiredDuration){
+		String thisImageUNC = gfxFiles.get(fileIndex);
+		if (fileIndex < gfxFiles.size() -1 ) {
+			if (vidTimeStamp >= inTime) {
+				if (fileIndex < ( gfxFiles.size() / 2) ) {
+					fileIndex++;
+				}
+				if (vidTimeStamp >= inTime + desiredDuration - gfxElement.getOutDuration() ) {
+					fileIndex++;
+				}
+			}
+		}
+		return thisImageUNC;
 	}
 
 
@@ -97,13 +118,8 @@ public class ImageCompositor {
 		g.drawImage(overlayImage, 0, 0, null);
 
 		//ImageIO.write(combined, "PNG", new File(outputFile));
-		
+
 		return combined;
 	}
-
 	
-	
-
-
-
 }
