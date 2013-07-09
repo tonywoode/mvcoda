@@ -75,13 +75,14 @@ public class EncoderXuggle implements Encoder {
 				if (videoFrame != null) {
 					//System.out.println("Duration of logo: " + theme.getLogo().getDuration(video.getFrameRateDivisor()));
 					System.out.println("at video timestamp: " + decoder.getFormattedTimestamp());
+					System.out.println("at timestamp: " + decoder.getTimeStamp());
 					
-					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),video.getVidStreamDuration(), videoFrame);
+					//composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),video.getVidStreamDuration(), videoFrame);
 					//theme.getLogo().setInDuration(video.getVidStreamDuration() + 2000);
 					//theme.getLogo().setOutDuration(video.getVidStreamDuration() - 3000);
 					//composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),video.getVidStreamDuration() - 11000, composite);
 					//first offset is how many seconds from end it comes in, second...
-					composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp() + 6000,video.getVidStreamDuration(), composite);
+					composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp(),video.getVidStreamDuration(), videoFrame);//composite);
 					//composite = chartCompositor1.overlayNextImage(decoder.getTimeStamp(),video.getVidStreamDuration(), composite);
 					//composite = chartCompositor2.overlayNextImage(decoder.getTimeStamp(),video.getVidStreamDuration(), composite);
 					//composite = textCompositor.overlayNextFontFrame(decoder.getTimeStamp(),video.getVidStreamDuration(), composite);
