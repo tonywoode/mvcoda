@@ -14,8 +14,10 @@ import media.xuggle.DecodeAndPlayAudioAndVideo;
 import media.xuggle.DecodePlayVid;
 import media.xuggle.EncoderXuggle;
 import media.xuggle.MusicVideoXuggle;
+import theme.Classic;
 import theme.Pop;
 import theme.Theme;
+import theme.Urban;
 
 public class EntryPoint {
 

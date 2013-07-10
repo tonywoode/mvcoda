@@ -111,7 +111,7 @@ public class ImageCompositor {
 				}
 			}
 		}
-		if (vidTimeStamp > inTime && vidTimeStamp < inTime + desiredDuration) { imOut = false; }
+		if (vidTimeStamp > inTime && vidTimeStamp < inTime + desiredDuration + gfxElement.getOutDuration() - 1000) { imOut = false; }
 		return thisImageUNC; //else we are before, after, or at the animation hold point, so don't animate...
 		
 	}
