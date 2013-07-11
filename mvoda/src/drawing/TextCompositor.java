@@ -26,8 +26,8 @@ public class TextCompositor {
 		for (int i = 0; i < fontList.length; i++) {
 		System.out.println("Available font list on this machine: At index no.: " + i + " is: " + fontList[i]);
 		}
-		trackArtistFont = new Font(fontList[11],1,32);
-		numberFont = new Font(fontList[11],1,55);
+		trackArtistFont = new Font(fontList[10],1,32);
+		numberFont = new Font(fontList[10],1,55);
 	}
 	
 	

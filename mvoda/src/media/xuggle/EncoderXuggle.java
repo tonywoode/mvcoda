@@ -69,7 +69,7 @@ public class EncoderXuggle implements Encoder {
 			textCompositor.setText2("This is the artist");
 			textCompositor.setText2Pos(380, 500);
 			TextCompositor chartTextCompositor = new TextCompositor();
-			chartTextCompositor.setTrackArtistFont(new Font("Arial Rounded MT Bold",1,18));
+			chartTextCompositor.setTrackArtistFont(new Font("Arial Narrow",1,18));
 			chartTextCompositor.setText1("THIS WEEK'S FRESH MUSIC");
 			chartTextCompositor.setText1Pos(120, 75);
 			
