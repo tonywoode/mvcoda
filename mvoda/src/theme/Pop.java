@@ -3,7 +3,7 @@ package theme;
 import gfxelement.GFXElement;
 import gfxelement.chart.FMTop20Chart;
 import gfxelement.logo.FourMusic1;
-import gfxelement.numbers.TWFM1;
+import gfxelement.numbers.TWFM;
 import gfxelement.strap.Periscope;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +21,7 @@ public class Pop extends Theme {
 
 @Getter private GFXElement chart = new FMTop20Chart(this);
 
-@Getter private GFXElement numbers = new TWFM1(this, num);
+@Getter private GFXElement numbers = new TWFM(this, num);
 
 
 public GFXElement getTransition() {return null;}

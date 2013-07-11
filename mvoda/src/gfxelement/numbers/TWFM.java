@@ -4,12 +4,12 @@ import lombok.Getter;
 import lombok.Setter;
 import theme.Theme;
 
-public class TWFM1 extends Numbers {
+public class TWFM extends Numbers {
 
 	@Getter @Setter public long inDuration = 1000; ///The in time for this element is two seconds
 	@Getter @Setter public long outDuration = 1000;
 	
-	public TWFM1(Theme theme, int num) {
+	public TWFM(Theme theme, int num) {
 		super(theme, num);
 	}
 	
