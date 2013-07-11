@@ -112,6 +112,7 @@ public class ImageCompositor {
 	public String nextFileUNC(long vidTimeStamp, long inTime, long desiredDuration){ //just set duration to zero to play for natural length
 		String thisImageUNC = gfxFiles.get(fileIndex);
 		imOut = true;
+		if (gfxFiles.size() == 1) { return thisImageUNC; } //if theres just a static image rather than a sequence, return it
 		if (fileIndex < gfxFiles.size() -1 ) { //if we aren't at the last element frame
 			if (vidTimeStamp >= inTime) { //and if we are at the specified in time
 				if (fileIndex < ( gfxFiles.size() / 2) ) { //and if we aren't at the half-way point of the element

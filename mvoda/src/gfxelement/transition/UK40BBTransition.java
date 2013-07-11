@@ -6,7 +6,7 @@ import theme.Theme;
 
 public class UK40BBTransition extends Transition {
 
-	@Getter @Setter public long inDuration = 2000; ///The in time for this element is two seconds
+	@Getter @Setter public long inDuration = 2000; ///The in time for this element is two seconds TODO//if you don't know the framerate, how do you know the duration?
 	@Getter @Setter public long outDuration = 2000;
 
 	public UK40BBTransition(Theme theme) {
