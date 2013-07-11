@@ -6,10 +6,19 @@ import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+import lombok.Setter;
+
 public class TextCompositor {
 
-	private Font trackArtistFont;
+	@Setter private Font trackArtistFont;
 	private Font numberFont;
+	@Setter private String text1;
+	@Setter private String text2;
+	private int text1XPos;
+	private int text1YPos;
+	private int text2XPos;
+	private int text2YPos;
+	@Setter private String number;
 
 	public TextCompositor(){
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -41,11 +50,30 @@ public class TextCompositor {
 
 	public BufferedImage nextText(boolean imOut, BufferedImage videoFrame) {
 		if ( imOut == false) {
-			renderText(videoFrame, "5", numberFont, 285,490);
-			renderText(videoFrame, "This is the track", trackArtistFont, 390,460);
-			renderText(videoFrame, "This is the artist", trackArtistFont, 380,500);
+			if (number != null) {
+			renderText(videoFrame, number, numberFont, 285,490);
+			}
+			if (text1 != null) {
+			renderText(videoFrame, text1, trackArtistFont, text1XPos, text1YPos);
+			}
+			if (text2 != null) {
+			renderText(videoFrame, text2, trackArtistFont, text2XPos, text2YPos);
+			}
 		}
 		BufferedImage composite = videoFrame;
 		return composite;
 	}
+	
+	
+	public void setText1Pos(int x, int y) {
+		text1XPos = x;
+		text1YPos = y;
+	}
+	
+	public void setText2Pos(int x, int y) {
+		text2XPos = x;
+		text2YPos = y;
+	}
+	
+	
 }

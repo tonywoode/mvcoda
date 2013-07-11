@@ -116,7 +116,7 @@ public class ImageCompositor {
 			if (vidTimeStamp >= inTime) { //and if we are at the specified in time
 				if (fileIndex < ( gfxFiles.size() / 2) ) { //and if we aren't at the half-way point of the element
 					fileIndex++; //animate
-					imOut = false;
+					// imOut = false; //TODO: Why DON'T I need this here?!?!
 				} //also if we are at the end of the specified duration
 				if (vidTimeStamp >= inTime + desiredDuration ) {
 					/*TODO: to animate the logo out we'd need this: if (vidTimeStamp >= inTime + desiredDuration - gfxElement.getOutDuration() ) {
@@ -129,7 +129,7 @@ public class ImageCompositor {
 				}
 			}
 		}
-		if (vidTimeStamp > inTime && vidTimeStamp < inTime + desiredDuration + gfxElement.getOutDuration() - 1000) { imOut = false; }
+		if (vidTimeStamp > inTime + gfxElement.getInDuration() - 1500 && vidTimeStamp < inTime + desiredDuration + gfxElement.getOutDuration() - 1000) { imOut = false; }
 		return thisImageUNC; //else we are before, after, or at the animation hold point, so don't animate...
 
 	}
