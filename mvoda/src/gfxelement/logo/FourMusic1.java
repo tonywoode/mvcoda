@@ -14,7 +14,7 @@ public class FourMusic1 extends Logo {
 		super(theme);
 	}
 
-	@Getter private String directory =  super.getDirectory() +  "4MLogoFrames";
+	@Getter private String directory =  super.getDirectory() +  "4M1BugFrames";
 //TODO: well this is the end of a long-drawn out way to get an element, ie: returning first the theme dir, BUT that's how you've done dirs on the disk!
 	
 	

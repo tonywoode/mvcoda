@@ -32,15 +32,15 @@ public abstract class GFXElement {
 			String reverse = new StringBuilder(relative).reverse().toString(); //so we reverse
 			Logger.getGlobal().info("reversed relative filename is: " + reverse);
 			int j = 0;
-			while (!Character.isDigit(reverse.charAt(j))) { j++; }	//then we go back through our reversed string till we find a digit
-			Logger.getGlobal().info("The first digit is at position: " + j); //TODO: hope you never get a filetype with a digit in - need to look for a period really
-			String filetypeReversed = reverse.substring(0, j);
+			while (!(reverse.charAt(j) == '.')) { j++; }	//then we go back through our reversed string till we find a period. That's not going to work on unix then TODO: maybe "if system=windows"
+			Logger.getGlobal().info("The first digit is at position: " + j); 
+			String filetypeReversed = reverse.substring(0, j + 1);
 			//we digress here to save out the filetype
 			Logger.getGlobal().info("Here's the reversed filetype: " + filetypeReversed);
 			filetype = new StringBuilder(filetypeReversed).reverse().toString(); //we reverse the filetype
 			Logger.getGlobal().info("Filetype is: " + filetype);
 			//carry on with getting the number
-			String filetypeRemoved = reverse.substring(j);	//then we remove the characters up to the first digit
+			String filetypeRemoved = reverse.substring(j + 1);	//then we remove the characters up to the first digit
 			Logger.getGlobal().info("Chars removed up to first digit is : " + filetypeRemoved);	
 			int k = 0;
 			while (Character.isDigit(filetypeRemoved.charAt(k))) { k++; }	//then we continue through the numbers left until we find the first character

@@ -14,7 +14,7 @@ public class KissBug1 extends Logo {
 		super(theme);
 	}
 
-	@Getter private String directory =  super.getDirectory() +  "KissBug1";
+	@Getter private String directory =  super.getDirectory() +  "Kiss1Bug";
 //TODO: well this is the end of a long-drawn out way to get an element, ie: returning first the theme dir, BUT that's how you've done dirs on the disk!
 
 

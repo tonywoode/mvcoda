@@ -1,6 +1,7 @@
 package theme;
 
 import gfxelement.GFXElement;
+import gfxelement.chart.UK40BBChart;
 import gfxelement.logo.FourMusic1;
 import gfxelement.logo.KissBug1;
 import gfxelement.strap.Periscope;
@@ -20,7 +21,7 @@ public class Urban extends Theme {
 
 @Getter private GFXElement transition = new UK40BBTransition(this);
 
-public GFXElement getChart() {return null;}
+@Getter private GFXElement chart = new UK40BBChart(this);
 
 @Override
 public GFXElement getNumbers() {return null;}
