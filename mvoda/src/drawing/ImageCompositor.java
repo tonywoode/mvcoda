@@ -1,6 +1,7 @@
 package drawing;
 
 import gfxelement.GFXElement;
+import gfxelement.numbers.Numbers;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -39,6 +40,15 @@ public class ImageCompositor {
 		gfxFiles = gfxElement.getOverlayFileNames(dir);
 	}
 
+	/*public ImageCompositor(GFXElement gfxElement, int num) {
+		this.gfxElement = gfxElement;
+		Numbers number = (Numbers) gfxElement;
+		number.setNum(num);
+		number.setDirectory(num)
+		String dir = number.getDirectory();
+		gfxFiles = number.getOverlayFileNames(dir);
+	}*/
+
 
 
 	/**
@@ -51,10 +61,18 @@ public class ImageCompositor {
 	 * @throws IOException
 	 */
 	public BufferedImage overlayNextImage(long vidTimeStamp, long inTime, long desiredDuration, BufferedImage videoFrame) throws IOException {
+		BufferedImage composite = overlayNextImageAtCoord(vidTimeStamp, inTime, desiredDuration, videoFrame, 0, 0);
+		return composite;
+	}
+
+
+
+
+	public BufferedImage overlayNextImageAtCoord(long vidTimeStamp, long inTime, long desiredDuration, BufferedImage videoFrame, int x, int y) throws IOException {
 		//String overlayFile = nextFileUNC(vidTimeStamp,vidDuration);		
 		String overlayFile = nextFileUNC(vidTimeStamp,inTime,desiredDuration);
 		BufferedImage overlay = ImageIO.read(new File(overlayFile));
-		BufferedImage composite = overlayImage(videoFrame, overlay);
+		BufferedImage composite = overlayImage(videoFrame, overlay, x, y);
 		return composite;
 	}
 
@@ -66,7 +84,7 @@ public class ImageCompositor {
 	 * @param vidDuration total duration of video
 	 * @return the full UNC path of the next image to overlay
 	 */
-/*	public String OLDnextFileUNC(long vidTimeStamp, long vidDuration) {
+	/*	public String OLDnextFileUNC(long vidTimeStamp, long vidDuration) {
 		String thisImageUNC = gfxFiles.get(fileIndex);
 
 		long inTime = vidTimeStamp + 4000;
@@ -88,7 +106,7 @@ public class ImageCompositor {
 		else return gfxFiles.get(fileIndex); //else return the image that's half way through
 	}
 
-*/
+	 */
 
 
 	public String nextFileUNC(long vidTimeStamp, long inTime, long desiredDuration){ //just set duration to zero to play for natural length
@@ -101,11 +119,11 @@ public class ImageCompositor {
 					imOut = false;
 				} //also if we are at the end of the specified duration
 				if (vidTimeStamp >= inTime + desiredDuration ) {
-	/*TODO: to animate the logo out we'd need this: if (vidTimeStamp >= inTime + desiredDuration - gfxElement.getOutDuration() ) {
-	 * but I can't put that in because then there'd be no possibility of ever holding the logo through videos...
-	 * there needs to be some check if an element NEEDS to fade out before a video ends that it can
-	 * and then we can use that method to ACTUALLY fade the logo out at the end video as well as ticking off the user				
-	 */
+					/*TODO: to animate the logo out we'd need this: if (vidTimeStamp >= inTime + desiredDuration - gfxElement.getOutDuration() ) {
+					 * but I can't put that in because then there'd be no possibility of ever holding the logo through videos...
+					 * there needs to be some check if an element NEEDS to fade out before a video ends that it can
+					 * and then we can use that method to ACTUALLY fade the logo out at the end video as well as ticking off the user				
+					 */
 					fileIndex++; //animate
 					imOut = true;
 				}
@@ -113,11 +131,11 @@ public class ImageCompositor {
 		}
 		if (vidTimeStamp > inTime && vidTimeStamp < inTime + desiredDuration + gfxElement.getOutDuration() - 1000) { imOut = false; }
 		return thisImageUNC; //else we are before, after, or at the animation hold point, so don't animate...
-		
+
 	}
 
 
-	public BufferedImage overlayImage(BufferedImage image, BufferedImage overlayImage) throws IOException {
+	public BufferedImage overlayImage(BufferedImage image, BufferedImage overlayImage, int x, int y) throws IOException {
 
 		// create the new image, canvas size is the max. of both image sizes
 		int w = image.getWidth();
@@ -128,11 +146,11 @@ public class ImageCompositor {
 		// paint both images, preserving the alpha channels
 		Graphics g = combined.getGraphics();
 		g.drawImage(image, 0, 0, null);
-		g.drawImage(overlayImage, 0, 0, null);
+		g.drawImage(overlayImage, x, y, null);
 
 		//ImageIO.write(combined, "PNG", new File(outputFile));
 
 		return combined;
 	}
-	
+
 }

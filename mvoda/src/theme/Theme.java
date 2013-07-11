@@ -14,4 +14,7 @@ public abstract GFXElement getStrap();
 public abstract GFXElement getChart();
 
 public abstract GFXElement getTransition();
+
+public abstract GFXElement getNumbers();
+
 }

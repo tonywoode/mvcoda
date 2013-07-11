@@ -7,6 +7,7 @@ import gfxelement.strap.Periscope;
 import gfxelement.strap.UK40BB;
 import gfxelement.transition.UK40BBTransition;
 import lombok.Getter;
+import lombok.Setter;
 
 public class Urban extends Theme {
 
@@ -20,6 +21,9 @@ public class Urban extends Theme {
 @Getter private GFXElement transition = new UK40BBTransition(this);
 
 public GFXElement getChart() {return null;}
+
+@Override
+public GFXElement getNumbers() {return null;}
 
 
 

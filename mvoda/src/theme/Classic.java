@@ -7,6 +7,7 @@ import gfxelement.strap.Periscope;
 import gfxelement.strap.QStrap;
 import gfxelement.transition.QTransition;
 import lombok.Getter;
+import lombok.Setter;
 
 public class Classic extends Theme {
 
@@ -20,6 +21,11 @@ public class Classic extends Theme {
 @Getter private GFXElement transition = new QTransition(this);
 
 public GFXElement getChart() {return null;}
+
+@Override
+public GFXElement getNumbers() {return null;}
+
+
 
 
 }

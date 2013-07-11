@@ -60,6 +60,7 @@ public class EncoderXuggle implements Encoder {
 			ImageCompositor strapCompositor2 = new ImageCompositor(theme.getStrap());
 			ImageCompositor logoCompositor = new ImageCompositor(theme.getLogo());
 			ImageCompositor chartCompositor = new ImageCompositor(theme.getChart());
+			ImageCompositor numbersCompositor = new ImageCompositor(theme.getNumbers());
 			TextCompositor textCompositor = new TextCompositor();
 			
 			while (decoder.hasNextPacket()) {
@@ -73,17 +74,17 @@ public class EncoderXuggle implements Encoder {
 				BufferedImage videoFrame = decoder.getVideoFrame(); //TODO: here they are they need to be somewhere else!!!!								
 				if (videoFrame != null) {
 					//System.out.println("Duration of logo: " + theme.getLogo().getDuration(video.getFrameRateDivisor()));
-					System.out.println("at video timestamp: " + decoder.getFormattedTimestamp());
-					System.out.println("at timestamp: " + decoder.getTimeStamp());
+					System.out.println("at video timestamp: " + decoder.getTimeStamp() + " Which in human time is: "+ decoder.getFormattedTimestamp());
 					
 					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),0,video.getVidStreamDuration(), videoFrame);
 					
 					//theme.getLogo().setInDuration(video.getVidStreamDuration() + 2000);
 					//theme.getLogo().setOutDuration(video.getVidStreamDuration() - 3000);
-					composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),4000, 7000, composite);
+					//composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),4000, 7000, composite);
 					composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp(),15000, 2000, composite);//composite);
 					composite = chartCompositor.overlayNextImage(decoder.getTimeStamp(),2000, 0, composite);
-					composite = textCompositor.overlayNextFontFrame(strapCompositor.isImOut(), composite);
+					composite = numbersCompositor.overlayNextImageAtCoord(decoder.getTimeStamp(),3000, 9000, composite, -680, 0);
+					//composite = textCompositor.overlayNextFontFrame(strapCompositor.isImOut(), composite);
 					composite = textCompositor.overlayNextFontFrame(strapCompositor2.isImOut(), composite);
 					
 					writer.encodeVideo(0, composite, decoder.getTimeStamp(), TimeUnit.MILLISECONDS);

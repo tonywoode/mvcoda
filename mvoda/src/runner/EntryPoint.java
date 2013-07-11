@@ -1,5 +1,7 @@
 package runner;
 
+import gfxelement.numbers.Numbers;
+
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -37,8 +39,9 @@ public class EntryPoint {
 		//System.out.println("Container duration is " + test.getContainerDuration());
 		//System.out.println("Vid stream duration is " + test.getVidStreamDuration());
 		//System.out.println("Current timestamp is " + test.getDecoder().getTimeStamp());
-		
+		Pop.setNum(14); //TODO: very silly AND has to be done before instantiation...
 		Theme pop = new Pop();
+		
 
 		//get Xuggler's video info - idea could Junit test compare MY music vid class to THIS info?
 		System.out.println(test.toString());
