@@ -49,8 +49,6 @@ public class EncoderXuggle implements Encoder {
 	 * @param filename
 	 */
 	
-	
-	
 	@Override
 	public void render() {
 
@@ -100,7 +98,7 @@ public class EncoderXuggle implements Encoder {
 					composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp(),15000, 2000, composite);//composite);
 					composite = chartCompositor.overlayNextImage(decoder.getTimeStamp(),0, 0, composite);
 					composite = transitionCompositor.overlayNextImage(decoder.getTimeStamp(),2000, 0, composite);
-					composite = numbersCompositor.overlayNextImageAtCoord(decoder.getTimeStamp(),9000, 5000, composite, -680, 0);
+					composite = numbersCompositor.overlayNextImageAtCoord(decoder.getTimeStamp(),9000, 5000, composite, 0, 0);
 					//composite = textCompositor.overlayNextFontFrame(strapCompositor.isImOut(), composite);
 					//composite = textCompositor.overlayNextFontFrame(strapCompositor2.isImOut(), composite);
 					//composite = chartTextCompositor.overlayNextFontFrame(logoCompositor.isImOut(), composite);
@@ -125,6 +123,83 @@ public class EncoderXuggle implements Encoder {
 
 		}
 	}
+	
+	
+	//my go at big beat chart but assets not up to it
+	/*@Override
+	public void render() {
+
+		IMediaWriter writer = null;
+		try {
+			decoder = video.getDecoder();
+			writer = getWriter(outFilename);
+			long frame = 0;
+			long lastFrame = video.getNumVidFrames();
+			ImageCompositor logoCompositor = new ImageCompositor(theme.getLogo());
+			ImageCompositor strapCompositor = new ImageCompositor(theme.getStrap());
+			ImageCompositor strapCompositor2 = new ImageCompositor(theme.getStrap());
+			ImageCompositor chartCompositor = new ImageCompositor(theme.getChart());
+			ImageCompositor transitionCompositor = new ImageCompositor(theme.getTransition());
+			ImageCompositor numbersCompositor = new ImageCompositor(theme.getNumbers());
+			//TextCompositor textCompositor = new TextCompositor();
+			//textCompositor.setNumber("5");
+			//textCompositor.setText1("This is the track");
+			//textCompositor.setText1Pos(390, 460);
+			//textCompositor.setText2("This is the artist");
+			//textCompositor.setText2Pos(380, 500);
+			//TextCompositor chartTextCompositor = new TextCompositor();
+			//chartTextCompositor.setTrackArtistFont(new Font("Arial Narrow",1,18));
+			//chartTextCompositor.setText1("THIS WEEK'S FRESH MUSIC");
+			//chartTextCompositor.setText1Pos(120, 75);
+			
+			
+			
+			while (decoder.hasNextPacket()) {
+				if (decoder.getVideoFrame() != null) {frame++;} // don't increase counter if not a video frame
+
+				IAudioSamples audioSamples = decoder.getAudioSamples();
+				if (audioSamples != null) {
+					writer.encodeAudio(video.getAudioStreamIndex(), audioSamples);
+				}
+				
+				BufferedImage videoFrame = decoder.getVideoFrame(); //TODO: here they are they need to be somewhere else!!!!								
+				if (videoFrame != null) {
+					//System.out.println("Duration of logo: " + theme.getLogo().getDuration(video.getFrameRateDivisor()));
+					System.out.println("at video timestamp: " + decoder.getTimeStamp() + " - formattted: "+ decoder.getFormattedTimestamp());
+					
+					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),0,video.getVidStreamDuration(), videoFrame);
+					
+					//theme.getLogo().setInDuration(video.getVidStreamDuration() + 2000);
+					//theme.getLogo().setOutDuration(video.getVidStreamDuration() - 3000);
+					composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),3000, 5000, composite);
+					composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp(),15000, 2000, composite);//composite);
+					composite = chartCompositor.overlayNextImage(decoder.getTimeStamp(),0, 0, composite);
+					composite = transitionCompositor.overlayNextImage(decoder.getTimeStamp(),2000, 0, composite);
+					composite = numbersCompositor.overlayNextImageAtCoord(decoder.getTimeStamp(),9000, 5000, composite, 0, 0);
+					//composite = textCompositor.overlayNextFontFrame(strapCompositor.isImOut(), composite);
+					//composite = textCompositor.overlayNextFontFrame(strapCompositor2.isImOut(), composite);
+					//composite = chartTextCompositor.overlayNextFontFrame(logoCompositor.isImOut(), composite);
+					
+					writer.encodeVideo(0, composite, decoder.getTimeStamp(), TimeUnit.MILLISECONDS);
+				}
+				if ((frame +1) >= lastFrame) { break; }
+			}
+
+
+		} catch (Exception ex) { //TODO: what ANY exception? Why aren't we saying we throw any then?
+			ex.printStackTrace();
+		} finally {
+			if (writer != null) {
+				try {
+					writer.close();
+				} catch (RuntimeException ex) { //TODO: only a runtime?!?!
+					ex.printStackTrace();
+				}
+			}
+			if (video != null) video.close();
+
+		}
+	}*/
 	
 	//this render saved as it has perfect settings for pop chart
 	/*@Override
