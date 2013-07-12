@@ -49,7 +49,7 @@ public class EncoderXuggle implements Encoder {
 	 * @param filename
 	 */
 	
-	@Override
+	/*@Override
 	public void render() {
 
 		IMediaWriter writer = null;
@@ -122,7 +122,7 @@ public class EncoderXuggle implements Encoder {
 			if (video != null) video.close();
 
 		}
-	}
+	}*/
 	
 	
 	//my go at big beat chart but assets not up to it
@@ -202,7 +202,7 @@ public class EncoderXuggle implements Encoder {
 	}*/
 	
 	//this render saved as it has perfect settings for pop chart
-	/*@Override
+	@Override
 	public void render() {
 
 		IMediaWriter writer = null;
@@ -273,7 +273,7 @@ public class EncoderXuggle implements Encoder {
 			if (video != null) video.close();
 
 		}
-	}*/
+	}
 	
 
 	/**
