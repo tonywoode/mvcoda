@@ -6,9 +6,13 @@ import lombok.Setter;
 import theme.Theme;
 
 public class FourMusic1 extends Logo {
+	
+	@Getter public int lastInFrame = 50;
+	@Getter public int FirstOutFrame = 80;
+	@Getter public int numberOfFrames = 126;
 
-	@Getter @Setter public long inDuration = 2000; ///The in time for this element is two seconds
-	@Getter @Setter public long outDuration = 3000;
+	//@Getter @Setter public long inDuration = 2000; ///The in time for this element is two seconds
+	//@Getter @Setter public long outDuration = 3000;
 	
 	public FourMusic1(Theme theme) {
 		super(theme);

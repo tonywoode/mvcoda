@@ -122,7 +122,7 @@ public class ImageCompositor {
 		else if (gfxElement.getOutDuration() <= 0) { nextFileUNCForReverseOut(vidTimeStamp, inTime, outTime);} //if its a reverse out, go to that method
 		else if (fileIndex < gfxFiles.size() -1 ) { //if we aren't at the last element frame
 				if (vidTimeStamp >= inTime) { //and if we are at the specified in time
-					if (fileIndex < ( gfxFiles.size() / 2) ) { //and if we aren't at the half-way point of the element, or element has no fade out
+					if (fileIndex < gfxElement.getLastInFrame() ) { //and if we aren't at the half-way point of the element
 						fileIndex++; //animate
 						// imOut = false; //TODO: Why DON'T I need this here?!?!
 					} //also if we are at the end of the specified duration
@@ -151,7 +151,7 @@ public class ImageCompositor {
 		int outSpeedUp = 2; //factor by which we speed up the out. This is a common trick for reverse-out animations
 		if (fileIndex < gfxFiles.size() -1 && vidTimeStamp < outTime && vidTimeStamp >= inTime) { //if we arent at the last element frame or the outTime, but we are past the intime,
 			 fileIndex++;} //animate
-		else if (fileIndex > 0 + outSpeedUp && vidTimeStamp >= outTime) { //otherwise so long as we are above the sequence end point, and past the out time
+		else if (fileIndex > 0 + outSpeedUp && vidTimeStamp >= outTime) { //otherwise so long as we are above the sequence start frame, and past the out time
 			fileIndex = fileIndex - outSpeedUp; //iterate backwards through the animation at the specified time factor
 			if (fileIndex > 0 && fileIndex < outSpeedUp) {fileIndex = 0; } //but we need the animation to end on blank frame zero irrespective of outSpeedUp factor
 		}

@@ -6,8 +6,12 @@ import theme.Theme;
 
 public class KissBug1 extends Logo {
 	
-	@Getter @Setter public long inDuration = 2000; ///The in time for this element is two seconds
-	@Getter @Setter public long outDuration = 2000;
+	@Getter public int lastInFrame = 29;
+	@Getter public int FirstOutFrame = 44;
+	@Getter public int numberOfFrames = 75;
+	
+	//@Getter @Setter public long inDuration = 2000; ///The in time for this element is two seconds
+	//@Getter @Setter public long outDuration = 2000;
 
 	
 	public KissBug1(Theme theme) {

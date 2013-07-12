@@ -76,11 +76,20 @@ public abstract class GFXElement {
 	public abstract String getDirectory();
 	
 
-	public abstract long getInDuration();
-	public abstract void setInDuration(long inTime);
+	public long getInDuration() {
+		return getLastInFrame() / 25 * 1000;
+	}
 	
-	public abstract long getOutDuration();
-	public abstract void setOutDuration(long outTime);
+	public long getOutDuration() {
+		return (getNumberOfFrames() - getFirstOutFrame()) /25 * 1000;
+	}
+
+
+	
+	public abstract int getLastInFrame();
+	public abstract int getFirstOutFrame();
+	public abstract int getNumberOfFrames();
+	
 	
 	public long getDuration(long frameRateDivisor) {
 		return fileNumbers.size() / frameRateDivisor * 1000;
