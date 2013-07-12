@@ -117,6 +117,7 @@ public class ImageCompositor {
 
 	public void nextFileUNC(long vidTimeStamp, long inTime, long desiredDuration){ //just set duration to zero to play for natural length
 		imOut = true;
+		System.out.println(gfxElement.getOutDuration());
 		long outTime = inTime + desiredDuration;
 		if (gfxFiles.size() == 1) { return; } //if theres just a static image rather than a sequence, return it, don't do the below
 		else if (gfxElement.getOutDuration() <= 0) { nextFileUNCForReverseOut(vidTimeStamp, inTime, outTime);} //if its a reverse out, go to that method

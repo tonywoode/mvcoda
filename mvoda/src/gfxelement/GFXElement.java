@@ -81,7 +81,7 @@ public abstract class GFXElement {
 	}
 	
 	public long getOutDuration() {
-		return (getNumberOfFrames() - getFirstOutFrame()) /25 * 1000;
+		return (getNumberOfFrames() - getFirstOutFrame()) /25 * 1000; //TODO: make sure framerate is never going to be zero
 	}
 
 
