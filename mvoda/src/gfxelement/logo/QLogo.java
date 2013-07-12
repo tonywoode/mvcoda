@@ -6,8 +6,8 @@ import theme.Theme;
 
 public class QLogo extends Logo {
 
-	@Getter @Setter public long inDuration = 2000; ///The in time for this element is two seconds
-	@Getter @Setter public long outDuration = 2000;
+	@Getter @Setter public long inDuration = 3440; ///The in time for this element TODO: in what framerate eh?
+	@Getter @Setter public long outDuration = 0; //Zero or below means you're supposed to reverse-animate it out
 	
 	public QLogo(Theme theme) {
 		super(theme);

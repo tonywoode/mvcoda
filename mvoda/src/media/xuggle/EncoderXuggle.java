@@ -59,21 +59,21 @@ public class EncoderXuggle implements Encoder {
 			long frame = 0;
 			long lastFrame = video.getNumVidFrames();
 			ImageCompositor logoCompositor = new ImageCompositor(theme.getLogo());
-			ImageCompositor strapCompositor = new ImageCompositor(theme.getStrap());
-			ImageCompositor strapCompositor2 = new ImageCompositor(theme.getStrap());
-			ImageCompositor chartCompositor = new ImageCompositor(theme.getChart());
-			ImageCompositor transitionCompositor = new ImageCompositor(theme.getTransition());
-			ImageCompositor numbersCompositor = new ImageCompositor(theme.getNumbers());
+			//ImageCompositor strapCompositor = new ImageCompositor(theme.getStrap());
+			//ImageCompositor strapCompositor2 = new ImageCompositor(theme.getStrap());
+			//ImageCompositor chartCompositor = new ImageCompositor(theme.getChart());
+			//ImageCompositor transitionCompositor = new ImageCompositor(theme.getTransition());
+			//ImageCompositor numbersCompositor = new ImageCompositor(theme.getNumbers());
 			//TextCompositor textCompositor = new TextCompositor();
 			//textCompositor.setNumber("5");
 			//textCompositor.setText1("This is the track");
 			//textCompositor.setText1Pos(390, 460);
 			//textCompositor.setText2("This is the artist");
 			//textCompositor.setText2Pos(380, 500);
-			//TextCompositor chartTextCompositor = new TextCompositor();
-			//chartTextCompositor.setTrackArtistFont(new Font("Arial Narrow",1,18));
-			//chartTextCompositor.setText1("THIS WEEK'S FRESH MUSIC");
-			//chartTextCompositor.setText1Pos(120, 75);
+			TextCompositor chartTextCompositor = new TextCompositor();
+			chartTextCompositor.setTrackArtistFont(new Font("Arial Narrow",1,18));
+			chartTextCompositor.setText1("THIS WEEK'S FRESH MUSIC");
+			chartTextCompositor.setText1Pos(120, 75);
 			
 			
 			
@@ -90,18 +90,18 @@ public class EncoderXuggle implements Encoder {
 					//System.out.println("Duration of logo: " + theme.getLogo().getDuration(video.getFrameRateDivisor()));
 					System.out.println("at video timestamp: " + decoder.getTimeStamp() + " - formattted: "+ decoder.getFormattedTimestamp());
 					
-					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),0,video.getVidStreamDuration(), videoFrame);
+					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),0,video.getVidStreamDuration() -4000, videoFrame);
 					
 					//theme.getLogo().setInDuration(video.getVidStreamDuration() + 2000);
 					//theme.getLogo().setOutDuration(video.getVidStreamDuration() - 3000);
-					composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),3000, 5000, composite);
-					composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp(),15000, 2000, composite);//composite);
-					composite = chartCompositor.overlayNextImage(decoder.getTimeStamp(),0, 0, composite);
-					composite = transitionCompositor.overlayNextImage(decoder.getTimeStamp(),2000, 0, composite);
-					composite = numbersCompositor.overlayNextImageAtCoord(decoder.getTimeStamp(),9000, 5000, composite, 0, 0);
+					//composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),3000, 5000, composite);
+					//composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp(),15000, 2000, composite);//composite);
+					//composite = chartCompositor.overlayNextImage(decoder.getTimeStamp(),0, 0, composite);
+					//composite = transitionCompositor.overlayNextImage(decoder.getTimeStamp(),2000, 0, composite);
+					//composite = numbersCompositor.overlayNextImageAtCoord(decoder.getTimeStamp(),9000, 5000, composite, 0, 0);
 					//composite = textCompositor.overlayNextFontFrame(strapCompositor.isImOut(), composite);
 					//composite = textCompositor.overlayNextFontFrame(strapCompositor2.isImOut(), composite);
-					//composite = chartTextCompositor.overlayNextFontFrame(logoCompositor.isImOut(), composite);
+					composite = chartTextCompositor.overlayNextFontFrame(logoCompositor.isImOut(), composite);
 					
 					writer.encodeVideo(0, composite, decoder.getTimeStamp(), TimeUnit.MILLISECONDS);
 				}
