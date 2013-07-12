@@ -63,14 +63,14 @@ public class ImageCompositor {
 	 * @throws IOException
 	 */
 	public BufferedImage overlayNextImage(long vidTimeStamp, long inTime, long desiredDuration, BufferedImage videoFrame) throws IOException {
-		BufferedImage composite = overlayNextImageAtCoord(vidTimeStamp, inTime, desiredDuration, videoFrame, 0, 0);
+		BufferedImage composite = overlayNextImage(vidTimeStamp, inTime, desiredDuration, videoFrame, 0, 0);
 		return composite;
 	}
 
 
 
 
-	public BufferedImage overlayNextImageAtCoord(long vidTimeStamp, long inTime, long desiredDuration, BufferedImage videoFrame, int x, int y) throws IOException {
+	public BufferedImage overlayNextImage(long vidTimeStamp, long inTime, long desiredDuration, BufferedImage videoFrame, int x, int y) throws IOException {
 		//String overlayFile = nextFileUNC(vidTimeStamp,vidDuration);
 		//int index = nextFileUNC(vidTimeStamp,inTime,desiredDuration);
 		nextFileUNC(vidTimeStamp, inTime, desiredDuration);

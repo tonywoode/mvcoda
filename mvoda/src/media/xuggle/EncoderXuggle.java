@@ -249,7 +249,7 @@ public class EncoderXuggle implements Encoder {
 					composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),3000, 5000, composite);
 					composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp(),15000, 2000, composite);//composite);
 					composite = chartCompositor.overlayNextImage(decoder.getTimeStamp(),2000, 0, composite);
-					composite = numbersCompositor.overlayNextImageAtCoord(decoder.getTimeStamp(),9000, 5000, composite, -680, 0);
+					composite = numbersCompositor.overlayNextImage(decoder.getTimeStamp(),9000, 5000, composite, -680, 0);
 					composite = textCompositor.overlayNextFontFrame(strapCompositor.isImOut(), composite);
 					composite = textCompositor.overlayNextFontFrame(strapCompositor2.isImOut(), composite);
 					composite = chartTextCompositor.overlayNextFontFrame(logoCompositor.isImOut(), composite);
