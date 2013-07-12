@@ -49,7 +49,9 @@ public class ImageCompositor {
 		gfxFiles = number.getOverlayFileNames(dir);
 	}*/
 
-
+	public void resetFileUNC() {
+		fileIndex = 0;
+	}
 
 	/**
 	 * When passed the current video's timestamp, it's total duration, and the current videoframe, will return the composited image
@@ -73,10 +75,10 @@ public class ImageCompositor {
 		//int index = nextFileUNC(vidTimeStamp,inTime,desiredDuration);
 		nextFileUNC(vidTimeStamp, inTime, desiredDuration);
 		String overlayFile = gfxFiles.get(fileIndex);
-		
+
 		//String overlayFile = nextFileUNC(vidTimeStamp,inTime,desiredDuration);
-		
-		
+
+
 		BufferedImage overlay = ImageIO.read(new File(overlayFile));
 		BufferedImage composite = overlayImage(videoFrame, overlay, x, y);
 		return composite;
@@ -117,51 +119,50 @@ public class ImageCompositor {
 
 	public void nextFileUNC(long vidTimeStamp, long inTime, long desiredDuration){ //just set duration to zero to play for natural length
 		imOut = true;
-		System.out.println(gfxElement.getOutDuration());
 		long outTime = inTime + desiredDuration;
 		if (gfxFiles.size() == 1) { return; } //if theres just a static image rather than a sequence, return it, don't do the below
 		else if (gfxElement.getOutDuration() <= 0) { nextFileUNCForReverseOut(vidTimeStamp, inTime, outTime);} //if its a reverse out, go to that method
 		else if (fileIndex < gfxFiles.size() -1 ) { //if we aren't at the last element frame
-				if (vidTimeStamp >= inTime) { //and if we are at the specified in time
-					if (fileIndex < gfxElement.getLastInFrame() ) { //and if we aren't at the half-way point of the element
-						fileIndex++; //animate
-						// imOut = false; //TODO: Why DON'T I need this here?!?!
-					} //also if we are at the end of the specified duration
-					else if (vidTimeStamp >= outTime) {
-						/*TODO: to animate the logo out we'd need this: if (vidTimeStamp >= inTime + desiredDuration - gfxElement.getOutDuration() ) {
-						 * but I can't put that in because then there'd be no possibility of ever holding the logo through videos...
-						 * there needs to be some check if an element NEEDS to fade out before a video ends that it can
-						 * and then we can use that method to ACTUALLY fade the logo out at the end video as well as ticking off the user				
-						 */
-						fileIndex++; //animate
-						imOut = true;
-					}
-
+			if (vidTimeStamp >= inTime) { //and if we are at the specified in time
+				if (fileIndex < gfxElement.getLastInFrame() ) { //and if we aren't at the half-way point of the element
+					fileIndex++; //animate
+					// imOut = false; //TODO: Why DON'T I need this here?!?!
+				} //also if we are at the end of the specified duration
+				else if (vidTimeStamp >= outTime) {
+					/*TODO: to animate the logo out we'd need this: if (vidTimeStamp >= inTime + desiredDuration - gfxElement.getOutDuration() ) {
+					 * but I can't put that in because then there'd be no possibility of ever holding the logo through videos...
+					 * there needs to be some check if an element NEEDS to fade out before a video ends that it can
+					 * and then we can use that method to ACTUALLY fade the logo out at the end video as well as ticking off the user				
+					 */
+					fileIndex++; //animate
+					imOut = true;
 				}
-			
+
+			}
+
 		}//TODO: here's the imout fire - can you make it look nicer
-		if (vidTimeStamp > inTime + gfxElement.getInDuration()
-				&& vidTimeStamp < outTime + gfxElement.getOutDuration() - 1500 ) { 
+		if (vidTimeStamp > inTime + gfxElement.getInDuration() + 500
+				&& vidTimeStamp < outTime + gfxElement.getOutDuration() + 1000 ) { 
 			imOut = false; }
 		//return; 				//else we are before, after, or at the animation hold point, so don't animate...
 	}
-	
-	
+
+
 
 	public void nextFileUNCForReverseOut(long vidTimeStamp, long inTime, long outTime) {
 		int outSpeedUp = 2; //factor by which we speed up the out. This is a common trick for reverse-out animations
 		if (fileIndex < gfxFiles.size() -1 && vidTimeStamp < outTime && vidTimeStamp >= inTime) { //if we arent at the last element frame or the outTime, but we are past the intime,
-			 fileIndex++;} //animate
+			fileIndex++;} //animate
 		else if (fileIndex > 0 + outSpeedUp && vidTimeStamp >= outTime) { //otherwise so long as we are above the sequence start frame, and past the out time
 			fileIndex = fileIndex - outSpeedUp; //iterate backwards through the animation at the specified time factor
 			if (fileIndex > 0 && fileIndex < outSpeedUp) {fileIndex = 0; } //but we need the animation to end on blank frame zero irrespective of outSpeedUp factor
 		}
-		if (vidTimeStamp > inTime + gfxElement.getInDuration() //TODO: repeating code!
-				&& vidTimeStamp < outTime + (gfxElement.getInDuration() / 2 ) - 1500) { //nb: can't use out duration, use in divided by speedup factor
+		if (vidTimeStamp > inTime + gfxElement.getInDuration() + 500//TODO: repeating code!
+				&& vidTimeStamp < outTime + (gfxElement.getInDuration() / 2 ) + 1000) { //nb: can't use out duration, use in divided by speedup factor
 			imOut = false; }
 		//return;
 	}
-	
+
 
 
 	public BufferedImage overlayImage(BufferedImage image, BufferedImage overlayImage, int x, int y) throws IOException {
