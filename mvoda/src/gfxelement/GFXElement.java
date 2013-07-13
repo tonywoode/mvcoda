@@ -95,4 +95,8 @@ public abstract class GFXElement {
 		return fileNumbers.size() / frameRateDivisor * 1000;
 		}
 
+	public abstract int getXOffsetSD();
+
+	public abstract int getYOffsetSD();
+
 }

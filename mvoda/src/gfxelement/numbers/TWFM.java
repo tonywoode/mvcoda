@@ -9,6 +9,9 @@ public class TWFM extends Numbers {
 	@Getter public int FirstOutFrame = 64;
 	@Getter public int numberOfFrames = 76;
 	
+	@Getter public int xOffsetSD = -680;
+	@Getter public int yOffsetSD = 0;
+	
 	public TWFM(Theme theme, int num) {
 		super(theme, num);
 	}

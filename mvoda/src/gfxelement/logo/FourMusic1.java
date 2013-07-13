@@ -10,6 +10,9 @@ public class FourMusic1 extends Logo {
 	@Getter public int FirstOutFrame = 80;
 	@Getter public int numberOfFrames = 126;
 	
+	@Getter public int xOffsetSD = 0;
+	@Getter public int yOffsetSD = 0;
+	
 	public FourMusic1(Theme theme) {
 		super(theme);
 	}

@@ -9,6 +9,9 @@ public class UKBB40NumHolder extends Numbers {
 	@Getter public int FirstOutFrame = 0;
 	@Getter public int numberOfFrames = 176;
 	
+	@Getter public int xOffsetSD = 0;
+	@Getter public int yOffsetSD = 0;
+	
 	public UKBB40NumHolder(Theme theme, int num) {
 		super(theme, num);
 	}

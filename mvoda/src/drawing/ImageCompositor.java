@@ -63,7 +63,7 @@ public class ImageCompositor {
 	 * @throws IOException
 	 */
 	public BufferedImage overlayNextImage(long vidTimeStamp, long inTime, long desiredDuration, BufferedImage videoFrame) throws IOException {
-		BufferedImage composite = overlayNextImage(vidTimeStamp, inTime, desiredDuration, videoFrame, 0, 0);
+		BufferedImage composite = overlayNextImage(vidTimeStamp, inTime, desiredDuration, videoFrame, gfxElement.getXOffsetSD(), gfxElement.getYOffsetSD());
 		return composite;
 	}
 

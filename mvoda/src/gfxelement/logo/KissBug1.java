@@ -8,6 +8,9 @@ public class KissBug1 extends Logo {
 	@Getter public int lastInFrame = 29;
 	@Getter public int FirstOutFrame = 44;
 	@Getter public int numberOfFrames = 75;
+	
+	@Getter public int xOffsetSD = 0;
+	@Getter public int yOffsetSD = 0;
 
 	public KissBug1(Theme theme) {
 		super(theme);
