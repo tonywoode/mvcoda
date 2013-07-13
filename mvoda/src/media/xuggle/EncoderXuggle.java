@@ -73,7 +73,7 @@ public class EncoderXuggle implements Encoder {
 			TextCompositor chartTextCompositor = new TextCompositor();
 			chartTextCompositor.setTrackArtistFont(new Font("Arial Narrow",1,18));
 			chartTextCompositor.setText1("Classics of the 80's");
-			chartTextCompositor.setText1Pos(490, 75);
+			chartTextCompositor.setText1Pos(460, 120);
 			
 			
 			
@@ -94,7 +94,7 @@ public class EncoderXuggle implements Encoder {
 					
 					composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),3000, 9000, composite);
 					//composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp(),15000, 2000, composite);//composite);
-					composite = chartCompositor.overlayNextImage(decoder.getTimeStamp(),0, 0, composite);
+					composite = chartCompositor.overlayNextImage(decoder.getTimeStamp(),0, 10000, composite);
 					composite = transitionCompositor.overlayNextImage(decoder.getTimeStamp(),0, 4000, composite);
 					//composite = numbersCompositor.overlayNextImageAtCoord(decoder.getTimeStamp(),9000, 5000, composite, 0, 0);
 					//composite = textCompositor.overlayNextFontFrame(strapCompositor.isImOut(), composite);

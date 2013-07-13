@@ -9,8 +9,8 @@ public class QTransition extends Transition {
 	@Getter public int FirstOutFrame = 32;
 	@Getter public int numberOfFrames = 32;
 	
-	@Getter public int xOffsetSD = 450;
-	@Getter public int yOffsetSD = -85;
+	@Getter public int xOffsetSD = 0;
+	@Getter public int yOffsetSD = 200;
 	
 	
 	public QTransition(Theme theme) {
