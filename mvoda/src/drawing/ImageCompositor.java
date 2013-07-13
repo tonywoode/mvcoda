@@ -67,7 +67,7 @@ public class ImageCompositor {
 		return composite;
 	}
 
-
+//TODO: you just made the splitting of these methods defunct as everything you CAN overlay DEFINTELY has x and y offsets in the class.....
 
 
 	public BufferedImage overlayNextImage(long vidTimeStamp, long inTime, long desiredDuration, BufferedImage videoFrame, int x, int y) throws IOException {
@@ -141,7 +141,7 @@ public class ImageCompositor {
 			}
 
 		}//TODO: here's the imout fire - can you make it look nicer
-		if (vidTimeStamp > inTime + gfxElement.getInDuration() + 500
+		if (vidTimeStamp > inTime + gfxElement.getInDuration()
 				&& vidTimeStamp < outTime + gfxElement.getOutDuration() + 1000 ) { 
 			imOut = false; }
 		//return; 				//else we are before, after, or at the animation hold point, so don't animate...

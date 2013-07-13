@@ -49,7 +49,7 @@ public class EncoderXuggle implements Encoder {
 	 * @param filename
 	 */
 	//this is for Q
-	/*@Override
+	@Override
 	public void render() {
 
 		IMediaWriter writer = null;
@@ -61,8 +61,8 @@ public class EncoderXuggle implements Encoder {
 			ImageCompositor logoCompositor = new ImageCompositor(theme.getLogo());
 			ImageCompositor strapCompositor = new ImageCompositor(theme.getStrap());
 			//ImageCompositor strapCompositor2 = new ImageCompositor(theme.getStrap());
-			//ImageCompositor chartCompositor = new ImageCompositor(theme.getChart());
-			//ImageCompositor transitionCompositor = new ImageCompositor(theme.getTransition());
+			ImageCompositor chartCompositor = new ImageCompositor(theme.getChart());
+			ImageCompositor transitionCompositor = new ImageCompositor(theme.getTransition());
 			//ImageCompositor numbersCompositor = new ImageCompositor(theme.getNumbers());
 			//TextCompositor textCompositor = new TextCompositor();
 			//textCompositor.setNumber("5");
@@ -92,12 +92,10 @@ public class EncoderXuggle implements Encoder {
 					
 					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),0,video.getVidStreamDuration() -4000, videoFrame);
 					
-					//theme.getLogo().setInDuration(video.getVidStreamDuration() + 2000);
-					//theme.getLogo().setOutDuration(video.getVidStreamDuration() - 3000);
-					composite = strapCompositor.overlayNextImageAtCoord(decoder.getTimeStamp(),3000, 9000, composite, 140,330);
+					composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),3000, 9000, composite);
 					//composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp(),15000, 2000, composite);//composite);
-					//composite = chartCompositor.overlayNextImage(decoder.getTimeStamp(),0, 0, composite);
-					//composite = transitionCompositor.overlayNextImage(decoder.getTimeStamp(),2000, 0, composite);
+					composite = chartCompositor.overlayNextImage(decoder.getTimeStamp(),0, 0, composite);
+					composite = transitionCompositor.overlayNextImage(decoder.getTimeStamp(),0, 4000, composite);
 					//composite = numbersCompositor.overlayNextImageAtCoord(decoder.getTimeStamp(),9000, 5000, composite, 0, 0);
 					//composite = textCompositor.overlayNextFontFrame(strapCompositor.isImOut(), composite);
 					//composite = textCompositor.overlayNextFontFrame(strapCompositor2.isImOut(), composite);
@@ -123,7 +121,7 @@ public class EncoderXuggle implements Encoder {
 
 		}
 	}
-	*/
+	
 	
 	//my go at big beat chart but assets not up to it
 	/*@Override
@@ -202,7 +200,7 @@ public class EncoderXuggle implements Encoder {
 	}*/
 	
 	//this render saved as it has perfect settings for pop chart
-	@Override
+	/*@Override
 	public void render() {
 
 		IMediaWriter writer = null;
@@ -244,8 +242,6 @@ public class EncoderXuggle implements Encoder {
 					
 					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),0,video.getVidStreamDuration(), videoFrame);
 					
-					//theme.getLogo().setInDuration(video.getVidStreamDuration() + 2000);
-					//theme.getLogo().setOutDuration(video.getVidStreamDuration() - 3000);
 					composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),3000, 5000, composite);
 					composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp(),14000, 2000, composite);//composite);
 					composite = chartCompositor.overlayNextImage(decoder.getTimeStamp(),2000, 0, composite);
@@ -273,7 +269,7 @@ public class EncoderXuggle implements Encoder {
 			if (video != null) video.close();
 
 		}
-	}
+	}*/
 	
 
 	/**

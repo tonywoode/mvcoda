@@ -1,13 +1,11 @@
 package theme;
 
 import gfxelement.GFXElement;
-import gfxelement.logo.FourMusic1;
+import gfxelement.chart.QChartHolder;
 import gfxelement.logo.QLogo;
-import gfxelement.strap.Periscope;
 import gfxelement.strap.QStrap;
 import gfxelement.transition.QTransition;
 import lombok.Getter;
-import lombok.Setter;
 
 public class Classic extends Theme {
 
@@ -18,9 +16,9 @@ public class Classic extends Theme {
 
 @Getter private GFXElement strap = new QStrap(this);
 
-@Getter private GFXElement transition = new QTransition(this);
+@Getter private GFXElement chart = new QChartHolder(this);
 
-public GFXElement getChart() {return null;}
+@Getter private GFXElement transition = new QTransition(this);
 
 @Override
 public GFXElement getNumbers() {return null;}
