@@ -124,7 +124,7 @@ public class EncoderXuggle implements Encoder {
 	*/
 	
 	//my go at big beat chart but assets not up to it
-	/*@Override
+	@Override
 	public void render() {
 
 		IMediaWriter writer = null;
@@ -165,12 +165,10 @@ public class EncoderXuggle implements Encoder {
 					//System.out.println("Duration of logo: " + theme.getLogo().getDuration(video.getFrameRateDivisor()));
 					System.out.println("at video timestamp: " + decoder.getTimeStamp() + " - formattted: "+ decoder.getFormattedTimestamp());
 					
-					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),0,video.getVidStreamDuration(), videoFrame);
+					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp() + 2000,0,video.getVidStreamDuration() - 4000, videoFrame);
 					
-					//theme.getLogo().setInDuration(video.getVidStreamDuration() + 2000);
-					//theme.getLogo().setOutDuration(video.getVidStreamDuration() - 3000);
-					composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),3000, 5000, composite);
-					composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp(),15000, 2000, composite);//composite);
+					//composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),3000, 5000, composite);
+					//composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp(),15000, 2000, composite);//composite);
 					composite = chartCompositor.overlayNextImage(decoder.getTimeStamp(),0, 0, composite);
 					composite = transitionCompositor.overlayNextImage(decoder.getTimeStamp(),2000, 0, composite);
 					//composite = numbersCompositor.overlayNextImageAtCoord(decoder.getTimeStamp(),9000, 5000, composite, 0, 0);
@@ -197,10 +195,10 @@ public class EncoderXuggle implements Encoder {
 			if (video != null) video.close();
 
 		}
-	}*/
+	}
 	
 	//this render saved as it has perfect settings for pop chart
-	@Override
+	/*@Override
 	public void render() {
 
 		IMediaWriter writer = null;
@@ -278,7 +276,7 @@ public class EncoderXuggle implements Encoder {
 			if (video != null) video.close();
 
 		}
-	}
+	}*/
 	
 
 	/**

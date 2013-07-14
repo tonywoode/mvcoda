@@ -40,13 +40,13 @@ public class EntryPoint {
 		//System.out.println("Vid stream duration is " + test.getVidStreamDuration());
 		//System.out.println("Current timestamp is " + test.getDecoder().getTimeStamp());
 		Pop.setNum(14); //TODO: very silly AND has to be done before instantiation...
-		Theme pop = new Pop();
+		Theme theme = new Urban();
 		
 
 		//get Xuggler's video info - idea could Junit test compare MY music vid class to THIS info?
 		System.out.println(test.toString());
 		//draw onto video
-		Encoder draw = new EncoderXuggle(test, pop, outFileUNC);
+		Encoder draw = new EncoderXuggle(test, theme, outFileUNC);
 		test.close();
 		
 		//report time taken

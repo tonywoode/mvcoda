@@ -9,7 +9,7 @@ public class UK40BBChart extends Chart {
 	@Getter public int FirstOutFrame = 1;
 	@Getter public int numberOfFrames = 1;
 	
-	@Getter public int xOffsetSD = 0;
+	@Getter public int xOffsetSD = 400;
 	@Getter public int yOffsetSD = 0;
 	
 	public UK40BBChart(Theme theme) {
