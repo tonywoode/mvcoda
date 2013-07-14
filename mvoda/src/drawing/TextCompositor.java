@@ -19,6 +19,8 @@ public class TextCompositor {
 	private int text2XPos;
 	private int text2YPos;
 	@Setter private String number;
+	private int numberXPos;
+	private int numberYPos;
 
 	public TextCompositor(){
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -51,7 +53,7 @@ public class TextCompositor {
 	public BufferedImage nextText(boolean imOut, BufferedImage videoFrame) {
 		if ( imOut == false) {
 			if (number != null) {
-			renderText(videoFrame, number, numberFont, 285,490);
+			renderText(videoFrame, number, numberFont, numberXPos, numberYPos);
 			}
 			if (text1 != null) {
 			renderText(videoFrame, text1, trackArtistFont, text1XPos, text1YPos);
@@ -73,6 +75,11 @@ public class TextCompositor {
 	public void setText2Pos(int x, int y) {
 		text2XPos = x;
 		text2YPos = y;
+	}
+	
+	public void setNumberPos(int x, int y) {
+		numberXPos = x;
+		numberYPos = y;
 	}
 	
 	

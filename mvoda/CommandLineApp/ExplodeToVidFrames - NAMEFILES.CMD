@@ -6,7 +6,7 @@ set AVILOC=%*
 set OUTPUTLOC="C:\Users\Tony\CODE\MVODAOutputs\\"
 
 
-%FFMPEG% -i %AVILOC% %OUTPUTLOC%QChart%%d.png -v verbose
+%FFMPEG% -i %AVILOC% %OUTPUTLOC%QChartInfoField%%d.png -v verbose
 
 pause
 

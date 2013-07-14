@@ -9,7 +9,7 @@ public class QLogo extends Logo {
 	@Getter public int FirstOutFrame = 86;
 	@Getter public int numberOfFrames = 86;
 	
-	@Getter public int xOffsetSD = 0;
+	@Getter public int xOffsetSD = 65;
 	@Getter public int yOffsetSD = 0;
 	
 	public QLogo(Theme theme) {

@@ -1,8 +1,9 @@
 package theme;
 
 import gfxelement.GFXElement;
-import gfxelement.chart.QChartHolder;
+import gfxelement.chart.QChartBlack;
 import gfxelement.logo.QLogo;
+import gfxelement.numbers.QRedBlock;
 import gfxelement.strap.QStrap;
 import gfxelement.transition.QTransition;
 import lombok.Getter;
@@ -16,12 +17,12 @@ public class Classic extends Theme {
 
 @Getter private GFXElement strap = new QStrap(this);
 
-@Getter private GFXElement chart = new QChartHolder(this);
+@Getter private GFXElement chart = new QChartBlack(this);
 
 @Getter private GFXElement transition = new QTransition(this);
 
-@Override
-public GFXElement getNumbers() {return null;}
+@Getter private GFXElement numbers = new QRedBlock(this, 0);
+
 
 
 

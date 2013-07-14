@@ -9,8 +9,8 @@ public class QStrap extends Strap {
 	@Getter public int FirstOutFrame = 68;
 	@Getter public int numberOfFrames = 131;
 	
-	@Getter public int xOffsetSD = 200;
-	@Getter public int yOffsetSD = 200;
+	@Getter public int xOffsetSD = -33;
+	@Getter public int yOffsetSD = 230;
 	
 	
 
