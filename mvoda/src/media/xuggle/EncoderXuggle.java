@@ -49,7 +49,7 @@ public class EncoderXuggle implements Encoder {
 	 * @param filename
 	 */
 	//this is for Q
-	@Override
+	/*@Override
 	public void render() {
 
 		IMediaWriter writer = null;
@@ -121,7 +121,7 @@ public class EncoderXuggle implements Encoder {
 
 		}
 	}
-	
+	*/
 	
 	//my go at big beat chart but assets not up to it
 	/*@Override
@@ -200,7 +200,7 @@ public class EncoderXuggle implements Encoder {
 	}*/
 	
 	//this render saved as it has perfect settings for pop chart
-	/*@Override
+	@Override
 	public void render() {
 
 		IMediaWriter writer = null;
@@ -214,17 +214,17 @@ public class EncoderXuggle implements Encoder {
 			ImageCompositor logoCompositor = new ImageCompositor(theme.getLogo());
 			ImageCompositor chartCompositor = new ImageCompositor(theme.getChart());
 			ImageCompositor numbersCompositor = new ImageCompositor(theme.getNumbers());
-			TextCompositor textCompositor = new TextCompositor();
-			textCompositor.setNumber("5");
-			textCompositor.setNumberPos(285,490);
-			textCompositor.setText1("This is the track");
-			textCompositor.setText1Pos(390, 460);
-			textCompositor.setText2("This is the artist");
-			textCompositor.setText2Pos(380, 500);
-			TextCompositor chartTextCompositor = new TextCompositor();
-			chartTextCompositor.setTrackArtistFont(new Font("Arial Narrow",1,18));
-			chartTextCompositor.setText1("THIS WEEK'S FRESH MUSIC");
-			chartTextCompositor.setText1Pos(120, 75);
+			
+			TextCompositor numberCompositor = new TextCompositor("5", 285,490);
+			numberCompositor.setTextFont(new Font("Arial Narrow",1,55));
+			
+			TextCompositor trackCompositor = new TextCompositor("This is the track", 390, 460);
+			
+			TextCompositor artistCompositor = new TextCompositor("This is the artist", 380, 500);
+		
+			TextCompositor chartTextCompositor = new TextCompositor("THIS WEEK'S FRESH MUSIC", 120, 75);
+			chartTextCompositor.setTextFont(new Font("Arial Narrow",1,18));
+		
 			
 			
 			
@@ -247,8 +247,16 @@ public class EncoderXuggle implements Encoder {
 					composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp(),14000, 2000, composite);//composite);
 					composite = chartCompositor.overlayNextImage(decoder.getTimeStamp(),2000, 0, composite);
 					composite = numbersCompositor.overlayNextImage(decoder.getTimeStamp(),10000, 2000, composite);
-					composite = textCompositor.overlayNextFontFrame(strapCompositor.isImOut(), composite);
-					composite = textCompositor.overlayNextFontFrame(strapCompositor2.isImOut(), composite);
+					
+					composite = numberCompositor.overlayNextFontFrame(strapCompositor.isImOut(), composite);
+					composite = trackCompositor.overlayNextFontFrame(strapCompositor.isImOut(), composite);
+					composite = artistCompositor.overlayNextFontFrame(strapCompositor.isImOut(), composite);
+					
+					
+					composite = numberCompositor.overlayNextFontFrame(strapCompositor2.isImOut(), composite);
+					composite = trackCompositor.overlayNextFontFrame(strapCompositor2.isImOut(), composite);
+					composite = artistCompositor.overlayNextFontFrame(strapCompositor2.isImOut(), composite);
+					
 					composite = chartTextCompositor.overlayNextFontFrame(logoCompositor.isImOut(), composite);
 					
 					writer.encodeVideo(0, composite, decoder.getTimeStamp(), TimeUnit.MILLISECONDS);
@@ -270,7 +278,7 @@ public class EncoderXuggle implements Encoder {
 			if (video != null) video.close();
 
 		}
-	}*/
+	}
 	
 
 	/**
