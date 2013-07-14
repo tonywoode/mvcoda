@@ -64,18 +64,15 @@ public class EncoderXuggle implements Encoder {
 			ImageCompositor chartCompositor = new ImageCompositor(theme.getChart());
 			ImageCompositor transitionCompositor = new ImageCompositor(theme.getTransition());
 			ImageCompositor numbersCompositor = new ImageCompositor(theme.getNumbers());
-			TextCompositor textCompositor = new TextCompositor();
-			textCompositor.setNumber("5");
-			textCompositor.setNumberPos(60,347);
-			textCompositor.setText1("This is the track");
-			textCompositor.setText1Pos(100, 380);
-			textCompositor.setText2("This is the artist");
-			textCompositor.setText2Pos(100, 420);
-			TextCompositor chartTextCompositor = new TextCompositor();
-			chartTextCompositor.setTrackArtistFont(new Font("Arial Narrow",1,18));
-			chartTextCompositor.setText1("Classics of the 80's");
-			chartTextCompositor.setText1Pos(500, 75);
 			
+			TextCompositor numberText = new TextCompositor("5", 72, 337);
+			
+			TextCompositor trackText = new TextCompositor("This is the track", 100, 380);
+			
+			TextCompositor artistText = new TextCompositor("This is the artist", 100, 420);
+
+			TextCompositor chartText = new TextCompositor("Classics of the 80's", 500, 75);
+			chartText.setTextFont(new Font("Arial Narrow",1,18));			
 			
 			
 			while (decoder.hasNextPacket()) {
@@ -98,9 +95,11 @@ public class EncoderXuggle implements Encoder {
 					composite = chartCompositor.overlayNextImage(decoder.getTimeStamp(),0, 10000, composite);
 					//composite = transitionCompositor.overlayNextImage(decoder.getTimeStamp(),0, 4000, composite);
 					composite = numbersCompositor.overlayNextImage(decoder.getTimeStamp(),0, 15000, composite);
-					composite = textCompositor.overlayNextFontFrame(strapCompositor.isImOut(), composite);
+					composite = numberText.overlayNextFontFrame(numbersCompositor.isImOut(), composite);
+					composite = trackText.overlayNextFontFrame(strapCompositor.isImOut(), composite);
+					composite = artistText.overlayNextFontFrame(strapCompositor.isImOut(), composite);
 					//composite = textCompositor.overlayNextFontFrame(strapCompositor2.isImOut(), composite);
-					composite = chartTextCompositor.overlayNextFontFrame(chartCompositor.isImOut(), composite);
+					composite = chartText.overlayNextFontFrame(chartCompositor.isImOut(), composite);
 					
 					writer.encodeVideo(0, composite, decoder.getTimeStamp(), TimeUnit.MILLISECONDS);
 				}

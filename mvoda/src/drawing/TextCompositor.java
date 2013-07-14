@@ -10,26 +10,23 @@ import lombok.Setter;
 
 public class TextCompositor {
 
-	@Setter private Font trackArtistFont;
-	private Font numberFont;
-	@Setter private String text1;
-	@Setter private String text2;
-	private int text1XPos;
-	private int text1YPos;
-	private int text2XPos;
-	private int text2YPos;
-	@Setter private String number;
-	private int numberXPos;
-	private int numberYPos;
+	@Setter private Font textFont;
+	@Setter private String text;
+	private int textXPos;
+	private int textYPos;
+	
 
-	public TextCompositor(){
+	public TextCompositor(String text, int textXPos, int textYPos){
+		this.text = text;
+		this.textXPos = textXPos;
+		this.textYPos = textYPos;
+		
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		String[] fontList = ge.getAvailableFontFamilyNames();
 		for (int i = 0; i < fontList.length; i++) {
 		System.out.println("Available font list on this machine: At index no.: " + i + " is: " + fontList[i]);
 		}
-		trackArtistFont = new Font(fontList[10],1,32);
-		numberFont = new Font(fontList[10],1,55);
+		textFont = new Font(fontList[10],1,32);
 	}
 	
 	
@@ -52,34 +49,19 @@ public class TextCompositor {
 
 	public BufferedImage nextText(boolean imOut, BufferedImage videoFrame) {
 		if ( imOut == false) {
-			if (number != null) {
-			renderText(videoFrame, number, numberFont, numberXPos, numberYPos);
+			if (text != null) {
+			renderText(videoFrame, text, textFont, textXPos, textYPos);
 			}
-			if (text1 != null) {
-			renderText(videoFrame, text1, trackArtistFont, text1XPos, text1YPos);
-			}
-			if (text2 != null) {
-			renderText(videoFrame, text2, trackArtistFont, text2XPos, text2YPos);
-			}
+			
 		}
 		BufferedImage composite = videoFrame;
 		return composite;
 	}
 	
 	
-	public void setText1Pos(int x, int y) {
-		text1XPos = x;
-		text1YPos = y;
-	}
-	
-	public void setText2Pos(int x, int y) {
-		text2XPos = x;
-		text2YPos = y;
-	}
-	
-	public void setNumberPos(int x, int y) {
-		numberXPos = x;
-		numberYPos = y;
+	public void setTextPos(int x, int y) {
+		textXPos = x;
+		textYPos = y;
 	}
 	
 	
