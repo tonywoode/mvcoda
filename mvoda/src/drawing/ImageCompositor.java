@@ -28,8 +28,8 @@ public class ImageCompositor {
 	private ArrayList<String> gfxFiles;
 	private GFXElement gfxElement;
 	@Getter boolean imOut = false;
-	private float alpha = 1f;
-	boolean fadeIt;
+	private float alpha = 0f;
+	boolean fadeIt = false;
 
 
 
@@ -80,12 +80,12 @@ public class ImageCompositor {
 		String overlayFile = gfxFiles.get(fileIndex);
 		BufferedImage overlay = ImageIO.read(new File(overlayFile));
 		if (fadeIt) {
-			BufferedImage composite = fadeImage(videoFrame, overlay, x, y);
+			BufferedImage composite = fadeImage(vidTimeStamp, inTime, desiredDuration, videoFrame, overlay, x, y);
 			return composite;
 		}
 		else {
-		BufferedImage composite = overlayImage(videoFrame, overlay, x, y);
-		return composite;
+			BufferedImage composite = overlayImage(videoFrame, overlay, x, y);
+			return composite;
 		}
 	}
 
@@ -165,22 +165,29 @@ public class ImageCompositor {
 
 
 
-	public BufferedImage fadeImage(BufferedImage image, BufferedImage overlayImage, int x, int y) throws IOException {
+	public BufferedImage fadeImage(long vidTimeStamp, long inTime, long desiredDuration, BufferedImage image, BufferedImage overlayImage, int x, int y) throws IOException {
 		//http://www.java2s.com/Code/Java/2D-Graphics-GUI/Fadeoutanimageimagegraduallygetmoretransparentuntilitiscompletelyinvisible.htm
-
+		float alphaFactor = 0.06f;
 		Graphics2D g2d = image.createGraphics();
+		long outTime = inTime + desiredDuration;
+		//alphaFactor = desiredDuration /   YES THIS IS THE WAY TO DO IT - ITS ZERO TO ONE: WORK OUT HOW LONG IT TAKES FOR EACH PERCENTAGE
 
-		if (alpha >= 0) {
+		if ( vidTimeStamp >= inTime && vidTimeStamp <= outTime) {
 			g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
 			g2d.drawImage(overlayImage, x, y, null);
+			if  (alpha < 1.00f - alphaFactor ) {	alpha += alphaFactor; }
 		}
-		alpha += -0.01f;
+		else if ( vidTimeStamp >= outTime ) { //TODO: doesn't fade out completely does it, knew it wouldn't - and these algorithms are a bit silly....
+			g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+			g2d.drawImage(overlayImage, x, y, null);
+			if ( alpha - alphaFactor >= 0.00f ) { alpha -= alphaFactor; }
+			if ( alpha - alphaFactor < 0.0f ) { alpha = 0.0f; } //we really want it to fade off at the end
+		}
+			return image;
+		}
 
-		return image;
+
 	}
-
-
-}
 
 
 
