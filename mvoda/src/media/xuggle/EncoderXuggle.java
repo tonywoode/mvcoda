@@ -120,8 +120,8 @@ public class EncoderXuggle implements Encoder {
 			if (video != null) video.close();
 
 		}
-	}
-	*/
+	}*/
+	
 	
 	//my go at big beat chart but assets not up to it
 	@Override
@@ -167,11 +167,11 @@ public class EncoderXuggle implements Encoder {
 					
 					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp() + 2000,0,video.getVidStreamDuration() - 4000, videoFrame);
 					
-					//composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),3000, 5000, composite);
-					//composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp(),15000, 2000, composite);//composite);
+					composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),3000, 5000, composite);
+					composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp(),15000, 2000, composite);//composite);
 					composite = chartCompositor.overlayNextImage(decoder.getTimeStamp(),0, 0, composite);
 					composite = transitionCompositor.overlayNextImage(decoder.getTimeStamp(),2000, 0, composite);
-					//composite = numbersCompositor.overlayNextImageAtCoord(decoder.getTimeStamp(),9000, 5000, composite, 0, 0);
+					//composite = numbersCompositor.overlayNextImage(decoder.getTimeStamp(),9000, 5000, composite);
 					//composite = textCompositor.overlayNextFontFrame(strapCompositor.isImOut(), composite);
 					//composite = textCompositor.overlayNextFontFrame(strapCompositor2.isImOut(), composite);
 					//composite = chartTextCompositor.overlayNextFontFrame(logoCompositor.isImOut(), composite);
@@ -276,8 +276,8 @@ public class EncoderXuggle implements Encoder {
 			if (video != null) video.close();
 
 		}
-	}*/
-	
+	}
+	*/
 
 	/**
 	 * This is called by render(). It makes a new writer from the tool factory, adds a video and audio stream to it, and returns it

@@ -1,21 +1,16 @@
 package drawing;
 
 import gfxelement.GFXElement;
+
+import java.awt.AlphaComposite;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.Timer;
-
-import java.awt.AlphaComposite;
 
 import lombok.Getter;
 
@@ -83,59 +78,26 @@ public class ImageCompositor {
 
 		nextFileUNC(vidTimeStamp, inTime, desiredDuration);
 		String overlayFile = gfxFiles.get(fileIndex);
-
 		BufferedImage overlay = ImageIO.read(new File(overlayFile));
+		if (fadeIt) {
+			BufferedImage composite = fadeImage(videoFrame, overlay, x, y);
+			return composite;
+		}
+		else {
 		BufferedImage composite = overlayImage(videoFrame, overlay, x, y);
 		return composite;
+		}
 	}
-
-
-	/*public BufferedImage overlayNextImageAndFade(long vidTimeStamp, long inTime, long desiredDuration, BufferedImage videoFrame) throws IOException {
-		
-		nextFileUNC(vidTimeStamp, inTime, desiredDuration);
-		String overlayFile = gfxFiles.get(fileIndex);
-
-		BufferedImage overlay = ImageIO.read(new File(overlayFile));
-		BufferedImage composite = fadeImage(overlay, gfxElement.getXOffsetSD(), gfxElement.getYOffsetSD());
-		return composite;
-	}*/
-
-
-
 
 
 
 	/**
-	 * Computes what GFX to overlay over the current videoframe by passing in the current and total video timestamps
+	 * Computes what GFX to overlay over the current videoframe by passing in the times and desired times. From these we alter the index of the current position
+	 * in the GFX Element's sequence (a field in this class)
 	 * @param vidTimeStamp current position in video
-	 * @param vidDuration total duration of video
-	 * @return the full UNC path of the next image to overlay
+	 * @param inTime the time specified for the element to animate on
+	 * @param desiredDuration the total duration the element should last for
 	 */
-	/*	public String OLDnextFileUNC(long vidTimeStamp, long vidDuration) {
-		String thisImageUNC = gfxFiles.get(fileIndex);
-
-		long inTime = vidTimeStamp + 4000;
-		long outTime = vidDuration - 6000;
-		long holdTime = 12000;
-
-
-		if ( inTime <= gfxElement.getInDuration()) {
-			fileIndex++;
-			return thisImageUNC;
-		}
-		else if ( outTime >= vidTimeStamp - gfxElement.getOutDuration()) {
-			if (fileIndex < gfxFiles.size() -1 ) {
-				System.out.println(thisImageUNC + " At gfx file no.: " + fileIndex + "     " + "Out of Total Files: " + gfxFiles.size() );
-				fileIndex++;
-			}
-			return thisImageUNC;
-		}
-		else return gfxFiles.get(fileIndex); //else return the image that's half way through
-	}
-
-	 */
-
-
 	public void nextFileUNC(long vidTimeStamp, long inTime, long desiredDuration){ //just set duration to zero to play for natural length
 		imOut = true;
 		long outTime = inTime + desiredDuration;
@@ -186,47 +148,35 @@ public class ImageCompositor {
 
 
 	public BufferedImage overlayImage(BufferedImage image, BufferedImage overlayImage, int x, int y) throws IOException {
-
 		// create the new image, canvas size is the max. of both image sizes
-		int w = image.getWidth();
-		int h = image.getHeight();
-		
-		
-
-		BufferedImage combined = new BufferedImage(w, h, BufferedImage.TYPE_3BYTE_BGR);
+		//int w = image.getWidth();
+		//int h = image.getHeight();
+		//BufferedImage combined = new BufferedImage(w, h, BufferedImage.TYPE_3BYTE_BGR);
 
 		// paint both images, preserving the alpha channels
-		Graphics g = combined.getGraphics();
-		g.drawImage(image, 0, 0, null);
-		if (fadeIt) {
-		g.drawImage(fadeImage(overlayImage,image,x,y), 0,0, null);
-		}
-			//overlayImage = fadeImage(overlayImage,x ,y );
-		else {
+		Graphics2D g = image.createGraphics();
+		//g.drawImage(image, 0, 0, null);
+		//if (fadeIt) { g.drawImage(fadeImage(image,overlayImage,x,y), 0,0, null); }
+		//overlayImage = fadeImage(overlayImage,x ,y );
 		g.drawImage(overlayImage, x, y, null);
-		}
 		//ImageIO.write(combined, "PNG", new File(outputFile));
-
-		return combined;
+		return image;
 	}
-	
-	
-	
-	public BufferedImage fadeImage(BufferedImage image, BufferedImage backImage, int x, int y) throws IOException {
+
+
+
+	public BufferedImage fadeImage(BufferedImage image, BufferedImage overlayImage, int x, int y) throws IOException {
 		//http://www.java2s.com/Code/Java/2D-Graphics-GUI/Fadeoutanimageimagegraduallygetmoretransparentuntilitiscompletelyinvisible.htm
 
-		BufferedImage canvas = backImage;
-		
-		 Graphics2D g2d = (Graphics2D) canvas.getGraphics();
+		Graphics2D g2d = image.createGraphics();
 
-		 if (alpha >= 0) {
-		 g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
-		 g2d.drawImage(image, x, y, null);
-		 }
-		 alpha += -0.01f;
-		//ImageIO.write(combined, "PNG", new File(outputFile));
+		if (alpha >= 0) {
+			g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+			g2d.drawImage(overlayImage, x, y, null);
+		}
+		alpha += -0.01f;
 
-		return canvas;
+		return image;
 	}
 
 
