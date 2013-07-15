@@ -39,7 +39,7 @@ public class EntryPoint {
 		//System.out.println("Container duration is " + test.getContainerDuration());
 		//System.out.println("Vid stream duration is " + test.getVidStreamDuration());
 		//System.out.println("Current timestamp is " + test.getDecoder().getTimeStamp());
-		Pop.setNum(14); //TODO: very silly AND has to be done before instantiation...
+		Urban.setNum(1); //TODO: very silly AND has to be done before instantiation...
 		Theme theme = new Urban();
 		
 

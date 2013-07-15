@@ -138,7 +138,7 @@ public class EncoderXuggle implements Encoder {
 			ImageCompositor strapCompositor2 = new ImageCompositor(theme.getStrap());
 			ImageCompositor chartCompositor = new ImageCompositor(theme.getChart());
 			ImageCompositor transitionCompositor = new ImageCompositor(theme.getTransition());
-			//ImageCompositor numbersCompositor = new ImageCompositor(theme.getNumbers());
+			ImageCompositor numbersCompositor = new ImageCompositor(theme.getNumbers());
 			//TextCompositor textCompositor = new TextCompositor();
 			//textCompositor.setNumber("5");
 			//textCompositor.setText1("This is the track");
@@ -171,7 +171,7 @@ public class EncoderXuggle implements Encoder {
 					composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp(),15000, 2000, composite);//composite);
 					composite = chartCompositor.overlayNextImage(decoder.getTimeStamp(),2000, 12000, composite);
 					composite = transitionCompositor.overlayNextImage(decoder.getTimeStamp(),2000, 0, composite);
-					//composite = numbersCompositor.overlayNextImage(decoder.getTimeStamp(),9000, 5000, composite);
+					composite = numbersCompositor.overlayNextImage(decoder.getTimeStamp(),9000, 5000, composite);
 					//composite = textCompositor.overlayNextFontFrame(strapCompositor.isImOut(), composite);
 					//composite = textCompositor.overlayNextFontFrame(strapCompositor2.isImOut(), composite);
 					//composite = chartTextCompositor.overlayNextFontFrame(logoCompositor.isImOut(), composite);
