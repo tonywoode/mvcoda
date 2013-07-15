@@ -32,7 +32,7 @@ public class EntryPoint {
 		long start = System.currentTimeMillis(); //get rough start time
 		Logger.getGlobal().setLevel(Level.OFF);//(Level.INFO); //using logger in some of the trickier sections
 		//load a music vid
-		String fileUNC = "../../../MVODAInputs/NeyoStayShort.avi";
+		String fileUNC = "../../../MVODAInputs/NickiMShort.avi";
 		//set an output file
 		String outFileUNC = "../../../MVODAOutputs/doesthiswork.avi";
 		MusicVideo test = new MusicVideoXuggle(fileUNC);

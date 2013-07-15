@@ -5,6 +5,7 @@ import gfxelement.GFXElement;
 import java.awt.AlphaComposite;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -30,7 +31,8 @@ public class ImageCompositor {
 	@Getter boolean imOut = false;
 	private float alpha = 0f;
 	boolean fadeIt = false;
-
+	double newWidth = 0;
+	double newHeight = 0;
 
 
 	/**
@@ -80,7 +82,8 @@ public class ImageCompositor {
 		String overlayFile = gfxFiles.get(fileIndex);
 		BufferedImage overlay = ImageIO.read(new File(overlayFile));
 		if (fadeIt) {
-			BufferedImage composite = fadeImage(vidTimeStamp, inTime, desiredDuration, videoFrame, overlay, x, y);
+			//BufferedImage composite = fadeImage(vidTimeStamp, inTime, desiredDuration, videoFrame, overlay, x, y);
+			BufferedImage composite = wipeImage(vidTimeStamp, inTime, desiredDuration, videoFrame, overlay, x, y);
 			return composite;
 		}
 		else {
@@ -185,6 +188,52 @@ public class ImageCompositor {
 		}
 			return image;
 		}
+	
+	
+	public BufferedImage wipeImage(long vidTimeStamp, long inTime, long desiredDuration,BufferedImage image, BufferedImage overlayImage, int x, int y) throws IOException {
+		//http://stackoverflow.com/questions/2386064/how-do-i-crop-an-image-in-java
+		double fadeTime = 50;
+		double width = overlayImage.getWidth();
+		double height = overlayImage.getHeight();
+			
+		double widthInc = width / fadeTime;
+		double heightInc = height / fadeTime;
+		
+		if (newWidth + widthInc <= width) { newWidth = newWidth + widthInc; }
+		if (newHeight + heightInc <= height) { newHeight = newHeight + heightInc; }
+		
+		System.out.println("Width is: " + overlayImage.getWidth()  );
+		System.out.println("Height is: " + overlayImage.getHeight() );
+		System.out.println("WidthFactor is: "+ widthInc);
+		System.out.println("HeightFactor is: "+ heightInc);
+		
+		
+		System.out.println("New Width is currently: " + newWidth  );
+		System.out.println("New Height is currently: " + newHeight  );
+		
+		
+		//int widthInc = (int) Math.ceil(width / fadeTime);
+		//int heightInc = (int) Math.ceil(height / fadeTime);
+		
+		
+		BufferedImage overlay = overlayImage.getSubimage(0, 0, (int) Math.ceil(newWidth), (int) Math.ceil(newHeight) );
+		Graphics2D g = image.createGraphics();
+		
+		
+		
+		//if (newWidth - widthInc >= 0 ) { widthInc = widthInc + 3; }
+		//if (newHeight - heightInc >= 0 ) { heightInc = heightInc + 3; }
+		//Graphics2D overlay = overlayImage.createGraphics();
+		/*Rectangle2D rect = new Rectangle2D.Float();
+		rect.setRect(0, 0, 1024,768);
+		overlay.setClip(x, y, image.getWidth(), image.getHeight());
+		overlay.clip(rect);*/
+		g.drawImage(overlay, x, y, null);
+		
+		
+		return image;
+	}
+	
 
 
 	}
