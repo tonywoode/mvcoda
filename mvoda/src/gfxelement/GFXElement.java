@@ -92,7 +92,7 @@ public abstract class GFXElement {
 	
 	
 	public long getDuration(long frameRateDivisor) {
-		return fileNumbers.size() / frameRateDivisor * 1000;
+		return fileNumbers.size() * 1000 / 25;
 		}
 
 	public abstract int getXOffsetSD();

@@ -55,7 +55,8 @@ public class ImageCompositor {
 	 * When passed the current video's timestamp, it's total duration, and the current videoframe, will return the composited image
 	 * depending on what type of compositor you've created ie: what GFX Element this object is overlaying
 	 * @param vidTimeStamp target video's timestamp
-	 * @param vidDuration targer video's total duration
+	 * @param inTime the GFX element's specified in time
+	 * @param desiredDuration GFX element's specified duration
 	 * @param videoFrame the image to overlay
 	 * @return the composited image
 	 * @throws IOException
@@ -96,7 +97,7 @@ public class ImageCompositor {
 	 * @param inTime the time specified for the element to animate on
 	 * @param desiredDuration the total duration the element should last for
 	 */
-	public void nextFileUNC() { //just set duration to zero to play for natural length
+	public void nextFileUNC() { //just set duration to zero to play for natural length //TODO: not anymore you don't!
 		imOut = true;
 		//long outTime = inTime + desiredDuration;
 		if (gfxFiles.size() == 1) { fadeIt = true; return; } //if theres just a static image rather than a sequence, return it, don't do the below

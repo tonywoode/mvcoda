@@ -157,17 +157,18 @@ public class EncoderXuggle implements Encoder {
 					//System.out.println("Duration of logo: " + theme.getLogo().getDuration(video.getFrameRateDivisor()));
 					System.out.println("at video timestamp: " + decoder.getTimeStamp() + " - formattted: "+ decoder.getFormattedTimestamp());
 					
-					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp() + 2000,0,video.getVidStreamDuration() - 4000, videoFrame);
+					//composite = logoCompositor.overlayNextImage(decoder.getTimeStamp() + 2000,0,video.getVidStreamDuration() - 4000, videoFrame);
 					
-					composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),3000, 5000, composite);
-					composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp(),15000, 2000, composite);//composite);
-					composite = chartCompositor.overlayNextImage(decoder.getTimeStamp(),2000, 5000, composite);
-					composite = transitionCompositor.overlayNextImage(decoder.getTimeStamp(),2000, 0, composite);
-					composite = numbersCompositor.overlayNextImage(decoder.getTimeStamp(),2000, 7000, composite);
-					composite = trackCompositor.overlayNextFontFrame(strapCompositor.isImOut(), composite);
-					composite = artistCompositor.overlayNextFontFrame(strapCompositor.isImOut(), composite);
-					composite = trackCompositor.overlayNextFontFrame(strapCompositor2.isImOut(), composite);
-					composite = artistCompositor.overlayNextFontFrame(strapCompositor2.isImOut(), composite);
+					//composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),3000, 5000, composite);
+					//composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp(),15000, 2000, composite);//composite);
+					//composite = chartCompositor.overlayNextImage(decoder.getTimeStamp(),2000, 5000, composite);
+					System.out.println(theme.getTransition().getDuration(25));
+					composite = transitionCompositor.overlayNextImage(decoder.getTimeStamp(),0, theme.getTransition().getDuration(25), videoFrame);
+					//composite = numbersCompositor.overlayNextImage(decoder.getTimeStamp(),2000, 7000, composite);
+					//composite = trackCompositor.overlayNextFontFrame(strapCompositor.isImOut(), composite);
+					//composite = artistCompositor.overlayNextFontFrame(strapCompositor.isImOut(), composite);
+					//composite = trackCompositor.overlayNextFontFrame(strapCompositor2.isImOut(), composite);
+					//composite = artistCompositor.overlayNextFontFrame(strapCompositor2.isImOut(), composite);
 					
 					writer.encodeVideo(0, composite, decoder.getTimeStamp(), TimeUnit.MILLISECONDS);
 				}
