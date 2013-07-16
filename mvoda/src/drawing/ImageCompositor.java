@@ -102,6 +102,15 @@ public class ImageCompositor {
 		else { imOut = true; return videoFrame; }
 
 	}
+	
+	//TODO: ok to return zero instead of erroring - not really we want to notify that an invalid timecode was entered.....
+	public int timeCodeToFrameConverter(long vidTimeStamp) {
+		int frame = 0;
+		if ((vidTimeStamp * 25) / 1000 >= 0) {
+			frame = (int) vidTimeStamp * 25 / 1000;	
+		}
+		return frame;
+	}
 
 
 	/**
@@ -114,7 +123,7 @@ public class ImageCompositor {
 	public void nextFileUNC() { //just set duration to zero to play for natural length //TODO: not anymore you don't!
 		imOut = true;
 		if (gfxFiles.size() == 1) { fadeIt = true; return; } //if theres just a static image rather than a sequence, return it, don't do the below
-		//TOD: actually below we need to get the timestamp as a frame number to be correct, not just start at non-animation point
+		//TODo: actually below we need to get the timestamp as a frame number to be correct, not just start at non-animation point
 		if (vidTimeStamp < gfxElement.getInDuration() && fileIndex == 0) { fileIndex = gfxElement.getLastInFrame(); } //if we start with no handle time, don't animate on...
 		else if (gfxElement.getOutDuration() <= -1) { nextFileUNCForReverseOut();} //if its a reverse out, go to that method
 		else if (fileIndex < gfxFiles.size() -1 ) { //if we aren't at the last element frame
