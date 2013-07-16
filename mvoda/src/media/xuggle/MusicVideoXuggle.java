@@ -80,9 +80,9 @@ public class MusicVideoXuggle implements MusicVideo {
 				frameRateDivisor = stream.getTimeBase().getNumerator() * stream.getTimeBase().getDenominator();
 				//Xugglers stream duration is in whatever time units the format uses, so we'll use time base denominator and numerator and convert micro to millis
 				vidStreamDuration = stream.getDuration() / frameRateDivisor * 1000;
-				System.out.println("numerator is " + stream.getTimeBase().getNumerator());
-				System.out.println("denomiator is " + stream.getTimeBase().getDenominator());
-				System.out.println( "real time is therefore: " + vidStreamDuration);/// (stream.getTimeBase().getNumerator() * stream.getTimeBase().getDenominator() ) * 1000 );
+				//System.out.println("numerator is " + stream.getTimeBase().getNumerator());
+				//System.out.println("denomiator is " + stream.getTimeBase().getDenominator());
+				//System.out.println( "real time is therefore: " + vidStreamDuration);/// (stream.getTimeBase().getNumerator() * stream.getTimeBase().getDenominator() ) * 1000 );
 				videoCodecID = coder.getCodecID();
 			}
 		}

@@ -3,9 +3,7 @@ package drawing;
 import gfxelement.GFXElement;
 
 import java.awt.AlphaComposite;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -211,12 +209,12 @@ public class ImageCompositor {
 		if (newHeight + heightInc <= height) { newHeight = newHeight + heightInc; }
 		}
 		
-		System.out.println("Width is: " + overlayImage.getWidth()  );
+		/*System.out.println("Width is: " + overlayImage.getWidth()  );
 		System.out.println("Height is: " + overlayImage.getHeight() );
 		System.out.println("WidthFactor is: "+ widthInc);
 		System.out.println("HeightFactor is: "+ heightInc);
 		System.out.println("New Width is currently: " + newWidth  );
-		System.out.println("New Height is currently: " + newHeight  );
+		System.out.println("New Height is currently: " + newHeight  );*/
 		
 		
 		overlayImage = overlayImage.getSubimage(0, 0, (int) Math.ceil(newWidth), (int) Math.ceil(newHeight) );//TODO: read again then delete: http://stackoverflow.com/questions/2386064/how-do-i-crop-an-image-in-java
