@@ -23,24 +23,24 @@ public class ImageCompositor {
 	private int fileIndex;
 	private ArrayList<String> gfxFiles;
 	private GFXElement gfxElement;
-	
+
 	long inTime = 0;
 	long desiredDuration = 0;
 	long vidTimeStamp = 0;
 	long outTime = 0;
-	
+
 	BufferedImage videoFrame;
 	BufferedImage overlay;
-	
+
 	int x = 0;
 	int y = 0;
 	double newWidth = 0;
 	double newHeight = 0;
-	
+
 	@Getter boolean imOut = false;
 	private float alpha = 0f;
 	boolean fadeIt = false;
-	
+
 	/**
 	 * Takes a theme name and arranges to overlay the sequence of images set as logo
 	 * @param gfxElement the element to be composited
@@ -67,22 +67,25 @@ public class ImageCompositor {
 		this.inTime = inTime;
 		this.desiredDuration = desiredDuration;
 		this.videoFrame = videoFrame;
-		outTime = inTime + desiredDuration;
-		
-		
-		
-		nextFileUNC();
-		String overlayFile = gfxFiles.get(fileIndex);
-		overlay = ImageIO.read(new File(overlayFile));
-		if (fadeIt) {
-			//BufferedImage composite = fadeImage();
-			BufferedImage composite = wipeImage();
-			return composite;
+		outTime = inTime + desiredDuration - gfxElement.getOutDuration();
+		System.out.println(gfxElement.getDirectory() + " out duration is " + gfxElement.getOutDuration());
+
+		if (vidTimeStamp >= inTime && vidTimeStamp <= outTime) {
+			nextFileUNC();
+			String overlayFile = gfxFiles.get(fileIndex);
+			overlay = ImageIO.read(new File(overlayFile));
+			if (fadeIt) {
+				//BufferedImage composite = fadeImage();
+				BufferedImage composite = wipeImage();
+				return composite;
+			}
+			else {
+				BufferedImage composite = overlayImage();
+				return composite;
+			}
 		}
-		else {
-			BufferedImage composite = overlayImage();
-			return composite;
-		}
+		else { imOut = true; return videoFrame; }
+
 	}
 
 
@@ -99,7 +102,7 @@ public class ImageCompositor {
 		if (gfxFiles.size() == 1) { fadeIt = true; return; } //if theres just a static image rather than a sequence, return it, don't do the below
 		else if (gfxElement.getOutDuration() <= 0) { nextFileUNCForReverseOut();} //if its a reverse out, go to that method
 		else if (fileIndex < gfxFiles.size() -1 ) { //if we aren't at the last element frame
-			if (vidTimeStamp >= inTime) { //and if we are at the specified in time
+			//if (vidTimeStamp >= inTime) { //and if we are at the specified in time
 				if (fileIndex < gfxElement.getLastInFrame() ) { //and if we aren't at the half-way point of the element
 					fileIndex++; //animate
 					// imOut = false; //TODO: Why DON'T I need this here?!?!
@@ -114,7 +117,7 @@ public class ImageCompositor {
 					imOut = true;
 				}
 
-			}
+			//}
 
 		}//TODO: here's the imout fire - can you make it look nicer
 		if (vidTimeStamp > inTime + gfxElement.getInDuration()
@@ -123,7 +126,7 @@ public class ImageCompositor {
 		//return; 				//else we are before, after, or at the animation hold point, so don't animate...
 	}
 
-	
+
 	public void nextFileUNCForReverseOut() {
 		int outSpeedUp = 2; //factor by which we speed up the out. This is a common trick for reverse-out animations
 		if (fileIndex < gfxFiles.size() -1 && vidTimeStamp < outTime && vidTimeStamp >= inTime) { //if we arent at the last element frame or the outTime, but we are past the intime,
@@ -149,7 +152,7 @@ public class ImageCompositor {
 
 
 	public BufferedImage fadeImage() throws IOException {//http://www.java2s.com/Code/Java/2D-Graphics-GUI/Fadeoutanimageimagegraduallygetmoretransparentuntilitiscompletelyinvisible.htm
-		
+
 		float alphaFactor = 0.06f;
 		Graphics2D g2d = videoFrame.createGraphics();
 
@@ -164,42 +167,42 @@ public class ImageCompositor {
 			if ( alpha - alphaFactor >= 0.00f ) { alpha -= alphaFactor; }
 			if ( alpha - alphaFactor < 0.0f ) { alpha = 0.0f; } //we really want it to fade off at the end
 		}
-			return videoFrame;
-		}
-	
-	
+		return videoFrame;
+	}
+
+
 	public BufferedImage wipeImage() throws IOException {
-		
+
 		if (vidTimeStamp > inTime && vidTimeStamp <= outTime ) {
-		double fadeTime = 50;
-		double width = overlay.getWidth();
-		double height = overlay.getHeight();
-			
-		double widthInc = width / fadeTime;
-		double heightInc = height / fadeTime;
-		
-		if (vidTimeStamp >= outTime - (fadeTime * 40) && newWidth - widthInc >=0 && newHeight - heightInc >=0) { 
-		//TODO: at 25fps to get one ms its 1000/25 = 40, so 25*40 gives us 1 second, need that framerate constant again
-		newWidth = newWidth - widthInc;
-		newHeight = newHeight - heightInc;//TODO: now be careful here this only works because we first hit the below increment code so w+h will be at max
-		}
-			
-		else {
-		if (newWidth + widthInc <= width) { newWidth = newWidth + widthInc; }
-		if (newHeight + heightInc <= height) { newHeight = newHeight + heightInc; }
-		}
-		/*System.out.println("Width is: " + overlayImage.getWidth()  );System.out.println("Height is: " + overlayImage.getHeight() );System.out.println("WidthFactor is: "+ widthInc);
+			double fadeTime = 50;
+			double width = overlay.getWidth();
+			double height = overlay.getHeight();
+
+			double widthInc = width / fadeTime;
+			double heightInc = height / fadeTime;
+
+			if (vidTimeStamp >= outTime - (fadeTime * 40) && newWidth - widthInc >=0 && newHeight - heightInc >=0) { 
+				//TODO: at 25fps to get one ms its 1000/25 = 40, so 25*40 gives us 1 second, need that framerate constant again
+				newWidth = newWidth - widthInc;
+				newHeight = newHeight - heightInc;//TODO: now be careful here this only works because we first hit the below increment code so w+h will be at max
+			}
+
+			else {
+				if (newWidth + widthInc <= width) { newWidth = newWidth + widthInc; }
+				if (newHeight + heightInc <= height) { newHeight = newHeight + heightInc; }
+			}
+			/*System.out.println("Width is: " + overlayImage.getWidth()  );System.out.println("Height is: " + overlayImage.getHeight() );System.out.println("WidthFactor is: "+ widthInc);
 		System.out.println("HeightFactor is: "+ heightInc);System.out.println("New Width is currently: " + newWidth  );System.out.println("New Height is currently: " + newHeight  );*/
-		overlay = overlay.getSubimage(0, 0, (int) Math.ceil(newWidth), (int) Math.ceil(newHeight) );//TODO: read again then delete: http://stackoverflow.com/questions/2386064/how-do-i-crop-an-image-in-java
-		Graphics2D g = videoFrame.createGraphics();
-		g.drawImage(overlay, x, y, null);
+			overlay = overlay.getSubimage(0, 0, (int) Math.ceil(newWidth), (int) Math.ceil(newHeight) );//TODO: read again then delete: http://stackoverflow.com/questions/2386064/how-do-i-crop-an-image-in-java
+			Graphics2D g = videoFrame.createGraphics();
+			g.drawImage(overlay, x, y, null);
 		}
 		return videoFrame;
 	}
-	
 
 
-	}
+
+}
 
 
 
