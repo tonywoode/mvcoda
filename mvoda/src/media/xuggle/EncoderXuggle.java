@@ -124,7 +124,7 @@ public class EncoderXuggle implements Encoder {
 	
 	
 	//Kiss Urban big beat chart
-	@Override
+	/*@Override
 	public void render() {
 
 		IMediaWriter writer = null;
@@ -188,10 +188,10 @@ public class EncoderXuggle implements Encoder {
 			if (video != null) video.close();
 
 		}
-	}
+	}*/
 	
 	//this render saved as it has perfect settings for pop chart
-	/*@Override
+	@Override
 	public void render() {
 
 		IMediaWriter writer = null;
@@ -231,12 +231,11 @@ public class EncoderXuggle implements Encoder {
 				if (videoFrame != null) {
 					//System.out.println("Duration of logo: " + theme.getLogo().getDuration(video.getFrameRateDivisor()));
 					System.out.println("at video timestamp: " + decoder.getTimeStamp() + " - formattted: "+ decoder.getFormattedTimestamp());
-					
-					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),0,video.getVidStreamDuration(), videoFrame);
-					
+					composite = videoFrame;
+					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),0,video.getVidStreamDuration() - 8000, composite);	
 					composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),3000, 5000, composite);
 					composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp(),14000, 2000, composite);//composite);
-					composite = chartCompositor.overlayNextImage(decoder.getTimeStamp(),2000, 0, composite);
+					composite = chartCompositor.overlayNextImage(decoder.getTimeStamp(),2000, 2000, composite);
 					composite = numbersCompositor.overlayNextImage(decoder.getTimeStamp(),10000, 2000, composite);
 					
 					composite = numberCompositor.overlayNextFontFrame(strapCompositor.isImOut(), composite);
@@ -270,7 +269,7 @@ public class EncoderXuggle implements Encoder {
 
 		}
 	}
-	*/
+	
 
 	/**
 	 * This is called by render(). It makes a new writer from the tool factory, adds a video and audio stream to it, and returns it

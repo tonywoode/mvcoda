@@ -39,8 +39,8 @@ public class EntryPoint {
 		//System.out.println("Container duration is " + test.getContainerDuration());
 		//System.out.println("Vid stream duration is " + test.getVidStreamDuration());
 		//System.out.println("Current timestamp is " + test.getDecoder().getTimeStamp());
-		Urban.setNum(1); //TODO: very silly AND has to be done before instantiation...
-		Theme theme = new Urban();
+		Pop.setNum(1); //TODO: very silly AND has to be done before instantiation...
+		Theme theme = new Pop();
 		
 
 		//get Xuggler's video info - idea could Junit test compare MY music vid class to THIS info?
