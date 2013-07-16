@@ -37,8 +37,7 @@ public class ImageCompositor {
 
 	/**
 	 * Takes a theme name and arranges to overlay the sequence of images set as logo TODO: we can have a choice of logos probably now
-	 * @param theme
-	 * @param overlayImage
+	 * @param gfxElement the element to be composited
 	 */
 	public ImageCompositor(GFXElement gfxElement) {
 		this.gfxElement = gfxElement;
@@ -191,7 +190,9 @@ public class ImageCompositor {
 	
 	
 	public BufferedImage wipeImage(long vidTimeStamp, long inTime, long desiredDuration,BufferedImage image, BufferedImage overlayImage, int x, int y) throws IOException {
-		//http://stackoverflow.com/questions/2386064/how-do-i-crop-an-image-in-java
+		
+		long outTime = inTime + desiredDuration;
+		if (vidTimeStamp > inTime && vidTimeStamp <= outTime ) {
 		double fadeTime = 50;
 		double width = overlayImage.getWidth();
 		double height = overlayImage.getHeight();
@@ -199,38 +200,31 @@ public class ImageCompositor {
 		double widthInc = width / fadeTime;
 		double heightInc = height / fadeTime;
 		
+		if (vidTimeStamp >= outTime - (fadeTime * 40) && newWidth - widthInc >=0 && newHeight - heightInc >=0) { 
+		//TODO: at 25fps to get one ms its 1000/25 = 40, so 25*40 gives us 1 second, need that framerate constant again
+		newWidth = newWidth - widthInc;
+		newHeight = newHeight - heightInc;//TODO: now be careful here this only works because we first hit the below increment code so w+h will be at max
+		}
+			
+		else {
 		if (newWidth + widthInc <= width) { newWidth = newWidth + widthInc; }
 		if (newHeight + heightInc <= height) { newHeight = newHeight + heightInc; }
+		}
 		
 		System.out.println("Width is: " + overlayImage.getWidth()  );
 		System.out.println("Height is: " + overlayImage.getHeight() );
 		System.out.println("WidthFactor is: "+ widthInc);
 		System.out.println("HeightFactor is: "+ heightInc);
-		
-		
 		System.out.println("New Width is currently: " + newWidth  );
 		System.out.println("New Height is currently: " + newHeight  );
 		
 		
-		//int widthInc = (int) Math.ceil(width / fadeTime);
-		//int heightInc = (int) Math.ceil(height / fadeTime);
-		
-		
-		BufferedImage overlay = overlayImage.getSubimage(0, 0, (int) Math.ceil(newWidth), (int) Math.ceil(newHeight) );
+		overlayImage = overlayImage.getSubimage(0, 0, (int) Math.ceil(newWidth), (int) Math.ceil(newHeight) );//TODO: read again then delete: http://stackoverflow.com/questions/2386064/how-do-i-crop-an-image-in-java
 		Graphics2D g = image.createGraphics();
 		
 		
-		
-		//if (newWidth - widthInc >= 0 ) { widthInc = widthInc + 3; }
-		//if (newHeight - heightInc >= 0 ) { heightInc = heightInc + 3; }
-		//Graphics2D overlay = overlayImage.createGraphics();
-		/*Rectangle2D rect = new Rectangle2D.Float();
-		rect.setRect(0, 0, 1024,768);
-		overlay.setClip(x, y, image.getWidth(), image.getHeight());
-		overlay.clip(rect);*/
-		g.drawImage(overlay, x, y, null);
-		
-		
+		g.drawImage(overlayImage, x, y, null);
+		}
 		return image;
 	}
 	
