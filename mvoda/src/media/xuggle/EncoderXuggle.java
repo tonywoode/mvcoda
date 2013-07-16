@@ -139,8 +139,8 @@ public class EncoderXuggle implements Encoder {
 			ImageCompositor chartCompositor = new ImageCompositor(theme.getChart());
 			ImageCompositor transitionCompositor = new ImageCompositor(theme.getTransition());
 			ImageCompositor numbersCompositor = new ImageCompositor(theme.getNumbers());
-			TextCompositor trackCompositor = new TextCompositor("This is the track", 270, 480);	
-			TextCompositor artistCompositor = new TextCompositor("This is the artist", 300, 500);
+			TextCompositor trackText = new TextCompositor("This is the track", 270, 480);	
+			TextCompositor artistText = new TextCompositor("This is the artist", 300, 500);
 			
 			
 			
@@ -156,19 +156,18 @@ public class EncoderXuggle implements Encoder {
 				if (videoFrame != null) {
 					//System.out.println("Duration of logo: " + theme.getLogo().getDuration(video.getFrameRateDivisor()));
 					System.out.println("at video timestamp: " + decoder.getTimeStamp() + " - formattted: "+ decoder.getFormattedTimestamp());
+					composite = videoFrame;
+					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),0,video.getVidStreamDuration() - 4000, composite);
 					
-					//composite = logoCompositor.overlayNextImage(decoder.getTimeStamp() + 2000,0,video.getVidStreamDuration() - 4000, videoFrame);
-					
-					//composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),3000, 5000, composite);
-					//composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp(),15000, 2000, composite);//composite);
-					//composite = chartCompositor.overlayNextImage(decoder.getTimeStamp(),2000, 5000, composite);
-					System.out.println(theme.getTransition().getDuration(25));
-					composite = transitionCompositor.overlayNextImage(decoder.getTimeStamp(),0, theme.getTransition().getDuration(25), videoFrame);
-					//composite = numbersCompositor.overlayNextImage(decoder.getTimeStamp(),2000, 7000, composite);
-					//composite = trackCompositor.overlayNextFontFrame(strapCompositor.isImOut(), composite);
-					//composite = artistCompositor.overlayNextFontFrame(strapCompositor.isImOut(), composite);
-					//composite = trackCompositor.overlayNextFontFrame(strapCompositor2.isImOut(), composite);
-					//composite = artistCompositor.overlayNextFontFrame(strapCompositor2.isImOut(), composite);
+					composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),0, 10000, composite);
+					composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp(),15000, 2000, composite);
+					composite = chartCompositor.overlayNextImage(decoder.getTimeStamp(),2000, 5000, composite);
+					composite = transitionCompositor.overlayNextImage(decoder.getTimeStamp(),0, theme.getTransition().getDuration(25), composite);
+					composite = numbersCompositor.overlayNextImage(decoder.getTimeStamp(),2000, 7000, composite);
+					composite = trackText.overlayNextFontFrame(strapCompositor.isImOut(), composite);
+					composite = artistText.overlayNextFontFrame(strapCompositor.isImOut(), composite);
+					composite = trackText.overlayNextFontFrame(strapCompositor2.isImOut(), composite);
+					composite = artistText.overlayNextFontFrame(strapCompositor2.isImOut(), composite);
 					
 					writer.encodeVideo(0, composite, decoder.getTimeStamp(), TimeUnit.MILLISECONDS);
 				}

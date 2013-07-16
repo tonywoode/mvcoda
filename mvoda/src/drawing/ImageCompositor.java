@@ -40,6 +40,8 @@ public class ImageCompositor {
 	@Getter boolean imOut = false;
 	private float alpha = 0f;
 	boolean fadeIt = false;
+	
+	int outOffset = 0;
 
 	/**
 	 * Takes a theme name and arranges to overlay the sequence of images set as logo
@@ -68,7 +70,7 @@ public class ImageCompositor {
 		this.inTime = inTime;
 		this.desiredDuration = desiredDuration;
 		this.videoFrame = videoFrame;
-		outTime = inTime + desiredDuration - gfxElement.getOutDuration();
+		outTime = inTime + desiredDuration;// - gfxElement.getOutDuration();
 		System.out.println(gfxElement.getDirectory() + " out duration is " + gfxElement.getOutDuration());
 
 		if (vidTimeStamp >= inTime && vidTimeStamp <= outTime) {
@@ -101,20 +103,22 @@ public class ImageCompositor {
 		imOut = true;
 		//long outTime = inTime + desiredDuration;
 		if (gfxFiles.size() == 1) { fadeIt = true; return; } //if theres just a static image rather than a sequence, return it, don't do the below
-		else if (gfxElement.getOutDuration() <= 0) { nextFileUNCForReverseOut();} //if its a reverse out, go to that method
+		else if (gfxElement.getOutDuration() <= -1) { nextFileUNCForReverseOut();} //if its a reverse out, go to that method
 		else if (fileIndex < gfxFiles.size() -1 ) { //if we aren't at the last element frame
 			//if (vidTimeStamp >= inTime) { //and if we are at the specified in time
-				if (fileIndex < gfxElement.getLastInFrame() ) { //and if we aren't at the half-way point of the element
+				if (fileIndex <= gfxElement.getLastInFrame() ) { //and if we aren't at the half-way point of the element
 					fileIndex++; //animate
 					// imOut = false; //TODO: Why DON'T I need this here?!?!
 				} //also if we are at the end of the specified duration
-				else if (vidTimeStamp >= outTime) {
+				else if (vidTimeStamp >= outTime - gfxElement.getOutDuration()) {
 					/*TODO: to animate the logo out we'd need this: if (vidTimeStamp >= inTime + desiredDuration - gfxElement.getOutDuration() ) {
 					 * but I can't put that in because then there'd be no possibility of ever holding the logo through videos...
 					 * there needs to be some check if an element NEEDS to fade out before a video ends that it can
 					 * and then we can use that method to ACTUALLY fade the logo out at the end video as well as ticking off the user				
 					 */
-					fileIndex++; //animate
+					fileIndex = gfxElement.getFirstOutFrame() + outOffset; //we are now in the out sequence so we jump to first out frame and then increment that
+					outOffset++;
+					//fileIndex++; //animate
 					imOut = true;
 				}
 
