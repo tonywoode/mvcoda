@@ -12,7 +12,9 @@ public abstract class GFXElement {
 	private String filetype = "";
 	private String filePrefix = "";
 	private ArrayList<String> fileNumbers;
-	
+	private long duration;
+	private long inDuration;
+	private long outDuration;
 	
 	public ArrayList<String> getOverlayFileNames(String dir) {
 		File file = new File(dir);  
@@ -77,11 +79,13 @@ public abstract class GFXElement {
 	
 
 	public long getInDuration() {
-		return getLastInFrame() * 1000 / 25;
+		inDuration = getLastInFrame() * 1000 / 25;
+		return inDuration;
 	}
 	
 	public long getOutDuration() {
-		return (getNumberOfFrames() - getFirstOutFrame()) * 1000 /25; //TODO: make sure framerate is never going to be zero
+		outDuration = (getNumberOfFrames() - getFirstOutFrame()) * 1000 /25; //TODO: make sure framerate is never going to be zero
+		return outDuration;
 	}
 
 
@@ -92,7 +96,8 @@ public abstract class GFXElement {
 	
 	
 	public long getDuration(long frameRateDivisor) {
-		return fileNumbers.size() * 1000 / 25;
+		duration = fileNumbers.size() * 1000 / 25;
+		return duration;
 		}
 
 	public abstract int getXOffsetSD();
