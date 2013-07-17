@@ -127,7 +127,7 @@ public class ImageCompositor {
 		if (gfxFiles.size() == 1) { fadeIt = true; return; } //if theres just a static image rather than a sequence, return it, don't do the below
 		//TODo: actually below we need to get the timestamp as a frame number to be correct, not just start at non-animation point
 		if (vidTimeStamp < gfxElement.getInDuration() && fileIndex == 0) { fileIndex = timeCodeToFrameConverter(vidTimeStamp); } //if we start with no handle time, don't animate on...
-		else if (gfxElement.getOutDuration() <= -1) { nextFileUNCForReverseOut();} //if its a reverse out, go to that method
+		else if (gfxElement.getOutDuration() <= 0) { nextFileUNCForReverseOut();} //if its a reverse out, go to that method
 		else if (fileIndex < gfxFiles.size() -1 ) { //if we aren't at the last element frame
 				if (fileIndex <= gfxElement.getLastInFrame() ) { //and if we aren't at the half-way point of the element
 					fileIndex++; //animate
@@ -155,9 +155,9 @@ public class ImageCompositor {
 
 	public void nextFileUNCForReverseOut() {
 		int outSpeedUp = 2; //factor by which we speed up the out. This is a common trick for reverse-out animations
-		if (fileIndex < gfxFiles.size() -1 && vidTimeStamp < outTimeWithHandles && vidTimeStamp >= inTimeWithHandles) { //if we arent at the last element frame or the outTime, but we are past the intime,
+		if (fileIndex < gfxFiles.size() -1 ) { // && vidTimeStamp < outTimeWithHandles && vidTimeStamp >= inTimeWithHandles) { //if we arent at the last element frame or the outTime, but we are past the intime,
 			fileIndex++;} //animate
-		else if (fileIndex > 0 + outSpeedUp && vidTimeStamp >= outTimeWithHandles) { //otherwise so long as we are above the sequence start frame, and past the out time
+		else if (fileIndex > 0 + outSpeedUp && vidTimeStamp >= outTime) { //otherwise so long as we are above the sequence start frame, and past the out time
 			fileIndex = fileIndex - outSpeedUp; //iterate backwards through the animation at the specified time factor
 			if (fileIndex > 0 && fileIndex < outSpeedUp) {fileIndex = 0; } //but we need the animation to end on blank frame zero irrespective of outSpeedUp factor
 		}
