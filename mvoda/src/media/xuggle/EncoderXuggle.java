@@ -62,7 +62,7 @@ public class EncoderXuggle implements Encoder {
 			ImageCompositor strapCompositor = new ImageCompositor(theme.getStrap());
 			//ImageCompositor strapCompositor2 = new ImageCompositor(theme.getStrap());
 			ImageCompositor chartCompositor = new ImageCompositor(theme.getChart());
-			ImageCompositor transitionCompositor = new ImageCompositor(theme.getTransition());
+			//ImageCompositor transitionCompositor = new ImageCompositor(theme.getTransition());
 			ImageCompositor numbersCompositor = new ImageCompositor(theme.getNumbers());
 			
 			TextCompositor numberText = new TextCompositor("5", 72, 337);
@@ -88,7 +88,7 @@ public class EncoderXuggle implements Encoder {
 					//System.out.println("Duration of logo: " + theme.getLogo().getDuration(video.getFrameRateDivisor()));
 					System.out.println("at video timestamp: " + decoder.getTimeStamp() + " - formattted: "+ decoder.getFormattedTimestamp());
 					composite = videoFrame;
-					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),0,video.getVidStreamDuration() -4000, composite);
+					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),theme.getLogo().getInDuration(),video.getVidStreamDuration() -4000, composite);
 					
 					/*composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),3000, 9000, composite);
 					//composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp(),15000, 2000, composite);//composite);
@@ -157,7 +157,7 @@ public class EncoderXuggle implements Encoder {
 					//System.out.println("Duration of logo: " + theme.getLogo().getDuration(video.getFrameRateDivisor()));
 					System.out.println("at video timestamp: " + decoder.getTimeStamp() + " - formattted: "+ decoder.getFormattedTimestamp());
 					composite = videoFrame;
-					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),0,video.getVidStreamDuration() - 4000, composite);
+					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),theme.getLogo().getInDuration(),video.getVidStreamDuration() - 4000, composite);
 					
 					composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),2000, 10000, composite);
 					composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp(),15000, 2000, composite);
@@ -232,7 +232,7 @@ public class EncoderXuggle implements Encoder {
 					//System.out.println("Duration of logo: " + theme.getLogo().getDuration(video.getFrameRateDivisor()));
 					System.out.println("at video timestamp: " + decoder.getTimeStamp() + " - formattted: "+ decoder.getFormattedTimestamp());
 					composite = videoFrame;
-					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),0,video.getVidStreamDuration() - 8000, composite);
+					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),theme.getLogo().getInDuration(),video.getVidStreamDuration() - 8000, composite);
 					//TODO: something wrong in line above with out duration - it should have ample time to fade off but doesn't...
 					composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),3000, 5000, composite);
 					composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp(),14000, 2000, composite);//composite);
@@ -269,8 +269,8 @@ public class EncoderXuggle implements Encoder {
 			if (video != null) video.close();
 
 		}
-	}
-	*/
+	}*/
+	
 
 	/**
 	 * This is called by render(). It makes a new writer from the tool factory, adds a video and audio stream to it, and returns it

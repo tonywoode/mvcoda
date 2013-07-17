@@ -87,7 +87,7 @@ public class ImageCompositor {
 		
 
 		//if its not the time for this element to come in or if its already gone out, or if the duration is not long enough even for the handle, do nothing
-		if (vidTimeStamp >= inTime && vidTimeStamp <= outTimeWithHandles && desiredDuration > gfxElement.getInDuration()) {
+		if (vidTimeStamp >= inTimeWithHandles && vidTimeStamp <= outTimeWithHandles && desiredDuration > gfxElement.getInDuration()) {
 			nextFileUNC();
 			String overlayFile = gfxFiles.get(fileIndex);
 			overlay = ImageIO.read(new File(overlayFile));
@@ -126,7 +126,7 @@ public class ImageCompositor {
 		imOut = true;
 		if (gfxFiles.size() == 1) { fadeIt = true; return; } //if theres just a static image rather than a sequence, return it, don't do the below
 		//TODo: actually below we need to get the timestamp as a frame number to be correct, not just start at non-animation point
-		if (vidTimeStamp < gfxElement.getInDuration() && fileIndex == 0) { fileIndex = gfxElement.getLastInFrame(); } //if we start with no handle time, don't animate on...
+		if (vidTimeStamp < gfxElement.getInDuration() && fileIndex == 0) { fileIndex = timeCodeToFrameConverter(vidTimeStamp); } //if we start with no handle time, don't animate on...
 		else if (gfxElement.getOutDuration() <= -1) { nextFileUNCForReverseOut();} //if its a reverse out, go to that method
 		else if (fileIndex < gfxFiles.size() -1 ) { //if we aren't at the last element frame
 				if (fileIndex <= gfxElement.getLastInFrame() ) { //and if we aren't at the half-way point of the element

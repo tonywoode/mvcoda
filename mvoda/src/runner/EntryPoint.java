@@ -1,7 +1,5 @@
 package runner;
 
-import gfxelement.numbers.Numbers;
-
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -13,7 +11,6 @@ import java.util.logging.Logger;
 import media.Encoder;
 import media.MusicVideo;
 import media.xuggle.DecodeAndPlayAudioAndVideo;
-import media.xuggle.DecodePlayVid;
 import media.xuggle.EncoderXuggle;
 import media.xuggle.MusicVideoXuggle;
 import theme.Classic;
@@ -39,7 +36,7 @@ public class EntryPoint {
 		//System.out.println("Container duration is " + test.getContainerDuration());
 		//System.out.println("Vid stream duration is " + test.getVidStreamDuration());
 		//System.out.println("Current timestamp is " + test.getDecoder().getTimeStamp());
-		//Urban.setNum(1); //TODO: very silly AND has to be done before instantiation...
+		//Classic.setNum(1); //TODO: very silly AND has to be done before instantiation...
 		Theme theme = new Classic();
 		
 
