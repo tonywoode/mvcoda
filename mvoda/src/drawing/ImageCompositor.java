@@ -78,6 +78,8 @@ public class ImageCompositor {
 		outTime = inTime + desiredDuration;
 		outTimeWithHandles = outTime + gfxElement.getOutDuration(); //TODO: but now the timing won't work for.....
 		System.out.println(gfxElement.getDirectory() + " inDuration is " + gfxElement.getInDuration());
+		System.out.println("inDuration is :" + gfxElement.getInDuration());
+		System.out.println("outDuration is :" + gfxElement.getOutDuration());
 		System.out.println(" in time with handles is " + inTimeWithHandles);
 		System.out.println(" duration is " + desiredDuration);
 		System.out.println(" out time with handles is " + outTimeWithHandles);

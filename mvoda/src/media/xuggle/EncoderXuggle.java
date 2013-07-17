@@ -49,7 +49,7 @@ public class EncoderXuggle implements Encoder {
 	 * @param filename
 	 */
 	//this is for Q
-	/*@Override
+	@Override
 	public void render() {
 
 		IMediaWriter writer = null;
@@ -87,10 +87,10 @@ public class EncoderXuggle implements Encoder {
 				if (videoFrame != null) {
 					//System.out.println("Duration of logo: " + theme.getLogo().getDuration(video.getFrameRateDivisor()));
 					System.out.println("at video timestamp: " + decoder.getTimeStamp() + " - formattted: "+ decoder.getFormattedTimestamp());
+					composite = videoFrame;
+					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),0,video.getVidStreamDuration() -4000, composite);
 					
-					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),0,video.getVidStreamDuration() -4000, videoFrame);
-					
-					composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),3000, 9000, composite);
+					/*composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),3000, 9000, composite);
 					//composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp(),15000, 2000, composite);//composite);
 					composite = chartCompositor.overlayNextImage(decoder.getTimeStamp(),0, 10000, composite);
 					//composite = transitionCompositor.overlayNextImage(decoder.getTimeStamp(),0, 4000, composite);
@@ -99,7 +99,7 @@ public class EncoderXuggle implements Encoder {
 					composite = trackText.overlayNextFontFrame(strapCompositor.isImOut(), composite);
 					composite = artistText.overlayNextFontFrame(strapCompositor.isImOut(), composite);
 					//composite = textCompositor.overlayNextFontFrame(strapCompositor2.isImOut(), composite);
-					composite = chartText.overlayNextFontFrame(chartCompositor.isImOut(), composite);
+					composite = chartText.overlayNextFontFrame(chartCompositor.isImOut(), composite);*/
 					
 					writer.encodeVideo(0, composite, decoder.getTimeStamp(), TimeUnit.MILLISECONDS);
 				}
@@ -120,7 +120,7 @@ public class EncoderXuggle implements Encoder {
 			if (video != null) video.close();
 
 		}
-	}*/
+	}
 	
 	
 	//Kiss Urban big beat chart
@@ -191,7 +191,7 @@ public class EncoderXuggle implements Encoder {
 	}*/
 	
 	//this render saved as it has perfect settings for pop chart
-	@Override
+	/*@Override
 	public void render() {
 
 		IMediaWriter writer = null;
@@ -270,7 +270,7 @@ public class EncoderXuggle implements Encoder {
 
 		}
 	}
-	
+	*/
 
 	/**
 	 * This is called by render(). It makes a new writer from the tool factory, adds a video and audio stream to it, and returns it
