@@ -75,12 +75,11 @@ public class ImageCompositor {
 		inTimeWithHandles = inTime - gfxElement.getInDuration();
 		this.desiredDuration = desiredDuration;
 		this.videoFrame = videoFrame;
-		outTime = inTime + desiredDuration;
-		
-		
-		
-		
+		outTime = inTime + desiredDuration;		
 		outTimeWithHandles = outTime + gfxElement.getOutDuration();
+		
+		
+		
 		System.out.println(gfxElement.getDirectory() + " inDuration is " + gfxElement.getInDuration());
 		System.out.println("inDuration is :" + gfxElement.getInDuration());
 		System.out.println("outDuration is :" + gfxElement.getOutDuration());
@@ -180,7 +179,7 @@ public class ImageCompositor {
 
 
 		if (vidTimeStamp > inTime //TODO: repeating code AND I SUSPECT ITS FIRING TWICE!
-				&& vidTimeStamp < outTime + (gfxElement.getInDuration() / 2 ) ) { //nb: can't use out duration, use in divided by speedup factor so NOTE NO HANDLES
+				&& vidTimeStamp < outTime + gfxElement.getOutDuration() ) { //nb: can't use out duration, use in divided by speedup factor so NOTE NO HANDLES
 			imOut = false; }
 	}
 

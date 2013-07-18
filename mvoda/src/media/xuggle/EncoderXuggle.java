@@ -71,7 +71,7 @@ public class EncoderXuggle implements Encoder {
 			
 			TextCompositor artistText = new TextCompositor("This is the artist", 100, 420);
 
-			TextCompositor chartText = new TextCompositor("Classics of the 80's", 500, 75);
+			TextCompositor chartText = new TextCompositor("Classics of the 80's", 515, 75);
 			chartText.setTextFont(new Font("Arial Narrow",1,18));			
 			
 			
@@ -88,17 +88,17 @@ public class EncoderXuggle implements Encoder {
 					//System.out.println("Duration of logo: " + theme.getLogo().getDuration(video.getFrameRateDivisor()));
 					System.out.println("at video timestamp: " + decoder.getTimeStamp() + " - formattted: "+ decoder.getFormattedTimestamp());
 					composite = videoFrame;
-					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),5000,3000, composite);
+					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),theme.getLogo().getInDuration(),video.getVidStreamDuration(), composite);
 					
-					//composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),3000, 9000, composite);
+					composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),7000, 11000, composite);
 					//composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp(),15000, 2000, composite);//composite);
-					//composite = chartCompositor.overlayNextImage(decoder.getTimeStamp(),0, 10000, composite);
+					composite = chartCompositor.overlayNextImage(decoder.getTimeStamp(),theme.getChart().getInDuration() + 1000, 10000, composite);
 					//composite = transitionCompositor.overlayNextImage(decoder.getTimeStamp(),0, 4000, composite);
-					//composite = numbersCompositor.overlayNextImage(decoder.getTimeStamp(),0, 15000, composite);
-					//composite = numberText.overlayNextFontFrame(numbersCompositor.isImOut(), composite);
-					//composite = trackText.overlayNextFontFrame(strapCompositor.isImOut(), composite);
-					//composite = artistText.overlayNextFontFrame(strapCompositor.isImOut(), composite);
-					//composite = chartText.overlayNextFontFrame(chartCompositor.isImOut(), composite);
+					composite = numbersCompositor.overlayNextImage(decoder.getTimeStamp(),5000, 10000, composite);
+					composite = numberText.overlayNextFontFrame(numbersCompositor.isImOut(), composite);
+					composite = trackText.overlayNextFontFrame(strapCompositor.isImOut(), composite);
+					composite = artistText.overlayNextFontFrame(strapCompositor.isImOut(), composite);
+					composite = chartText.overlayNextFontFrame(chartCompositor.isImOut(), composite);
 					
 					writer.encodeVideo(0, composite, decoder.getTimeStamp(), TimeUnit.MILLISECONDS);
 				}
@@ -268,8 +268,8 @@ public class EncoderXuggle implements Encoder {
 			if (video != null) video.close();
 
 		}
-	}
-	*/
+	}*/
+	
 
 	/**
 	 * This is called by render(). It makes a new writer from the tool factory, adds a video and audio stream to it, and returns it
