@@ -106,14 +106,12 @@ public class ImageCompositor {
 	}
 	
 	//TODO: ok to return zero instead of erroring - not really we want to notify that an invalid timecode was entered.....
-	public int timeCodeToFrameConverter(long vidTimeStamp) {
-		int frame = 0;
-		if ((vidTimeStamp * 25) / 1000 >= 0) {
-			frame = (int) vidTimeStamp * 25 / 1000;	
-		}
+	public int timeCodeToFrameIndexConverter(long vidTimeStamp) {
+			int frame = (int) (vidTimeStamp * 25 / 1000) - 1; //minus one because we are changing to the Array's INDEX number		
 		return frame;
 	}
-
+//TODO: WHEREVER I CHANGE A FRAME NUMBER INTO A COMMAND TO GO ONSCREEN I NEED TO SUBTRACT ONE TO GET ITS INDEX NUMBER IN THE ARRAY!!!
+//TODO: need a frame converter as well as a frame index converter - another constanty thing somewhere.....and the above should go there too
 
 	/**
 	 * Computes what GFX to overlay over the current videoframe by passing in the times and desired times. From these we alter the index of the current position
@@ -126,7 +124,7 @@ public class ImageCompositor {
 		imOut = true;
 		if (gfxFiles.size() == 1) { fadeIt = true; return; } //if theres just a static image rather than a sequence, return it, don't do the below
 		//TODo: actually below we need to get the timestamp as a frame number to be correct, not just start at non-animation point
-		if (vidTimeStamp < gfxElement.getInDuration() && fileIndex == 0) { fileIndex = timeCodeToFrameConverter(vidTimeStamp); } //if we start with no handle time, don't animate on...
+		if (vidTimeStamp < gfxElement.getInDuration() && fileIndex == 0) { fileIndex = timeCodeToFrameIndexConverter(gfxElement.getInDuration() - inTime); } //if we start with not enough handle time, find the correct animate point to come in
 		else if (gfxElement.getOutDuration() <= 0) { nextFileUNCForReverseOut();} //if its a reverse out, go to that method
 		else if (fileIndex < gfxFiles.size() -1 ) { //if we aren't at the last element frame
 				if (fileIndex <= gfxElement.getLastInFrame() ) { //and if we aren't at the half-way point of the element
