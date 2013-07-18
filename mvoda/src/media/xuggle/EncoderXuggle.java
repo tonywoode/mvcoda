@@ -49,7 +49,7 @@ public class EncoderXuggle implements Encoder {
 	 * @param filename
 	 */
 	//this is for Q
-	@Override
+	/*@Override
 	public void render() {
 
 		IMediaWriter writer = null;
@@ -88,12 +88,13 @@ public class EncoderXuggle implements Encoder {
 					//System.out.println("Duration of logo: " + theme.getLogo().getDuration(video.getFrameRateDivisor()));
 					System.out.println("at video timestamp: " + decoder.getTimeStamp() + " - formattted: "+ decoder.getFormattedTimestamp());
 					composite = videoFrame;
-					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),theme.getLogo().getInDuration(),video.getVidStreamDuration(), composite);
+					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),theme.getLogo().getInDuration(),video.getVidStreamDuration() - theme.getLogo().getInDuration() - theme.getLogo().getOutDuration(), composite);
+					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),0,16680, composite);
 					
 					composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),7000, 11000, composite);
-					//composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp(),15000, 2000, composite);//composite);
+					composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp(),15000, 2000, composite);//composite);
 					composite = chartCompositor.overlayNextImage(decoder.getTimeStamp(),theme.getChart().getInDuration() + 1000, 10000, composite);
-					//composite = transitionCompositor.overlayNextImage(decoder.getTimeStamp(),0, 4000, composite);
+					composite = transitionCompositor.overlayNextImage(decoder.getTimeStamp(),0, 4000, composite);
 					composite = numbersCompositor.overlayNextImage(decoder.getTimeStamp(),5000, 10000, composite);
 					composite = numberText.overlayNextFontFrame(numbersCompositor.isImOut(), composite);
 					composite = trackText.overlayNextFontFrame(strapCompositor.isImOut(), composite);
@@ -119,11 +120,11 @@ public class EncoderXuggle implements Encoder {
 			if (video != null) video.close();
 
 		}
-	}
+	}*/
 	
 	
 	//Kiss Urban big beat chart
-	/*@Override
+	@Override
 	public void render() {
 
 		IMediaWriter writer = null;
@@ -187,7 +188,7 @@ public class EncoderXuggle implements Encoder {
 			if (video != null) video.close();
 
 		}
-	}*/
+	}
 	
 	//this render saved as it has perfect settings for pop chart
 	/*@Override

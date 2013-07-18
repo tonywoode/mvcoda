@@ -25,7 +25,6 @@ public class ImageCompositor {
 	private GFXElement gfxElement;
 
 	long vidTimeStamp = 0;
-
 	long inTime = 0;
 	long desiredDuration = 0;
 	long outTime = 0;
@@ -44,6 +43,7 @@ public class ImageCompositor {
 	@Getter boolean imOut = false;
 	private float alpha = 0f;
 	boolean fadeIt = false;
+
 
 	int outOffset = 0;
 
@@ -77,9 +77,8 @@ public class ImageCompositor {
 		this.videoFrame = videoFrame;
 		outTime = inTime + desiredDuration;		
 		outTimeWithHandles = outTime + gfxElement.getOutDuration();
-		
-		
-		
+
+
 		System.out.println(gfxElement.getDirectory() + " inDuration is " + gfxElement.getInDuration());
 		System.out.println("inDuration is :" + gfxElement.getInDuration());
 		System.out.println("outDuration is :" + gfxElement.getOutDuration());
@@ -128,59 +127,61 @@ public class ImageCompositor {
 
 		if (gfxFiles.size() == 1) { fadeIt = true; return; } //if just a static image rather than a sequence, return it, don't do the below
 
-
 		/*if we start with not enough handle time, find the correct animate point to come in:
 		  we CHECK by seeing if the time you've said to come-in is less time than the in-handle, we ACTION
 		  if the current time is ALSO less than the in-handle, we EXECUTE by setting the Array Index of the 
 		  gfx element to the number of frames we need to miss*/
+
 		//TODO - not sure about the middle check for timestamp less than induration. Induration will always be less than zero if we have this problem and fileindex = 0 should pick up beginning anyway
 		if (inTime < gfxElement.getInDuration() && vidTimeStamp < gfxElement.getInDuration() && fileIndex == 0) { 
 			fileIndex = timeCodeToFrameIndexConverter(gfxElement.getInDuration() - inTime); } 
-		
-		
 
 		if (gfxElement.isReverse() == true) { nextFileUNCForReverseOut();} //if its a reverse out, go to that method
+		if (gfxElement.isLoop() == true) { nextFileUNCForLoop();}
 
 		else if (fileIndex < gfxFiles.size() -1 ) { //if we aren't at the last element frame
 			if (fileIndex < gfxElement.getFirstHoldFrame() ) { //and if we aren't at the half-way point of the element
 				fileIndex++; //animate
-				// imOut = false; //TODO: Why DON'T I need this here?!?!
 			} //also if we are at the end of the specified duration
 			else if (vidTimeStamp >= outTime ) { //note not with handles - we want to START the out animation.....
-				/*TODO: to animate the logo out we'd need this: if (vidTimeStamp >= inTime + desiredDuration - gfxElement.getOutDuration() ) {
-				 * but I can't put that in because then there'd be no possibility of ever holding the logo through videos...
-				 * there needs to be some check if an element NEEDS to fade out before a video ends that it can
-				 * and then we can use that method to ACTUALLY fade the logo out at the end video as well as ticking off the user				
-				 */
 				fileIndex = (gfxElement.getLastHoldFrame() + 1) + outOffset; //we are now in the out sequence so we jump to first out frame and then increment that
 				outOffset++;
 				//fileIndex++; //animate
 				imOut = true;
 			}
 
-			//}
-
-		}//TODO: here's the imout fire - can you make it look nicer
+		}
 		if (vidTimeStamp > inTime && vidTimeStamp < outTime  ) { imOut = false; } //note no handles so text comes in and out only while we are on hold
-		//return; 				//else we are before, after, or at the animation hold point, so don't animate...
+		//else we are before, after, or at the animation hold point, so don't animate...
 	}
 
 
 	public void nextFileUNCForReverseOut() {
-		int outSpeedUp = 2; //factor by which we speed up the out. This is a common trick for reverse-out animations
 		if (fileIndex > 0 && vidTimeStamp >= outTime) { //otherwise so long as we are above the sequence start frame, and past the out time
-			if (fileIndex - outSpeedUp >= 0) { fileIndex = fileIndex - outSpeedUp; }//iterate backwards through the animation at the specified time factor
-			//else fileIndex = 0;
+			if (fileIndex - gfxElement.getSpeed() >= 0) { fileIndex = fileIndex - gfxElement.getSpeed(); }//iterate backwards through the animation at the specified time factor
 			//if (fileIndex > 0 && fileIndex < outSpeedUp) {fileIndex = 0; } //but we need the animation to end on blank frame zero irrespective of outSpeedUp factor
-
 		}
 		else if (fileIndex < gfxFiles.size() -1 && fileIndex < gfxElement.getFirstHoldFrame() ) { // && vidTimeStamp < outTimeWithHandles && vidTimeStamp >= inTimeWithHandles) { //if we arent at the last element frame or the outTime, but we are past the intime,
 			fileIndex++;} //animate
 
+	}
 
-		if (vidTimeStamp > inTime //TODO: repeating code AND I SUSPECT ITS FIRING TWICE!
-				&& vidTimeStamp < outTime + gfxElement.getOutDuration() ) { //nb: can't use out duration, use in divided by speedup factor so NOTE NO HANDLES
-			imOut = false; }
+	public void nextFileUNCForLoop() {
+		if (vidTimeStamp > inTimeWithHandles ) {
+			if (fileIndex == gfxElement.getLastHoldFrame() ) {
+				fileIndex = gfxElement.getFirstHoldFrame() -1;
+			}
+		}
+		if (fileIndex < gfxFiles.size() -1 ) { //if we aren't at the last element frame
+			fileIndex++; //animate
+		 //also if we are at the end of the specified duration
+		if (vidTimeStamp >= outTime ) { //note not with handles - we want to START the out animation.....
+			fileIndex = (gfxElement.getLastHoldFrame() + 1) + outOffset; //we are now in the out sequence so we jump to first out frame and then increment that
+			outOffset++;
+			//fileIndex++; //animate
+			imOut = true;
+		}
+		}
 	}
 
 
@@ -191,7 +192,6 @@ public class ImageCompositor {
 		g.drawImage(overlay, x, y, null);
 		return videoFrame;
 	}
-
 
 
 	public BufferedImage fadeImage() throws IOException {//http://www.java2s.com/Code/Java/2D-Graphics-GUI/Fadeoutanimageimagegraduallygetmoretransparentuntilitiscompletelyinvisible.htm

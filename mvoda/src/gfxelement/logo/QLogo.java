@@ -14,14 +14,10 @@ public class QLogo extends Logo {
 	
 	@Getter boolean reverse = true;
 	@Getter boolean loop = false;
-	@Getter int speed = 2;
+	@Getter int speed = 2; //factor by which we speed up the out. This is a common trick for reverse-out animations
 	
-	public QLogo(Theme theme) {
-		super(theme);
-	}
+	public QLogo(Theme theme) {	super(theme); }
 
 	@Getter private String directory =  super.getDirectory() +  "QLogo";
 
-
-	
 }
