@@ -5,8 +5,8 @@ import theme.Theme;
 
 public class UK40BBNums extends Numbers {
 	
-	@Getter public int lastInFrame = 24;
-	@Getter public int FirstOutFrame = 151;
+	@Getter public int firstHoldFrame = 26;
+	@Getter public int lastHoldFrame = 151;
 	@Getter public int numberOfFrames = 176;
 	
 	@Getter public int xOffsetSD = 0;

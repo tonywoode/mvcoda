@@ -5,8 +5,8 @@ import theme.Theme;
 
 public class QStrap extends Strap {
 	
-	@Getter public int lastInFrame = 66;
-	@Getter public int FirstOutFrame = 68;
+	@Getter public int firstHoldFrame = 66;
+	@Getter public int lastHoldFrame = 67;
 	@Getter public int numberOfFrames = 131;
 	
 	@Getter public int xOffsetSD = -33;

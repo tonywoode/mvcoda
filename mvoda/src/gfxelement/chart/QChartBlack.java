@@ -5,8 +5,8 @@ import theme.Theme;
 
 public class QChartBlack extends Chart {
 	
-	@Getter public int lastInFrame = 48;
-	@Getter public int FirstOutFrame = 48;
+	@Getter public int firstHoldFrame = -1;
+	@Getter public int lastHoldFrame = -1;
 	@Getter public int numberOfFrames = 48; //TODO: you just need to count the items in  this folder
 	
 	@Getter public int xOffsetSD = 480;

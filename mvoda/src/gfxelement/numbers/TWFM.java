@@ -5,8 +5,8 @@ import theme.Theme;
 
 public class TWFM extends Numbers {
 	
-	@Getter public int lastInFrame = 8;
-	@Getter public int FirstOutFrame = 64;
+	@Getter public int firstHoldFrame = 9;
+	@Getter public int lastHoldFrame = 63;
 	@Getter public int numberOfFrames = 76;
 	
 	@Getter public int xOffsetSD = -680;

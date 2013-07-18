@@ -5,8 +5,8 @@ import theme.Theme;
 
 public class QRedBlock extends Numbers {
 	
-	@Getter public int lastInFrame = 53;
-	@Getter public int FirstOutFrame = 55;
+	@Getter public int firstHoldFrame = 54;
+	@Getter public int lastHoldFrame = 55;
 	@Getter public int numberOfFrames = 78;
 	
 	@Getter public int xOffsetSD = 24;

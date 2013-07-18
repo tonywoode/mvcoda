@@ -5,8 +5,8 @@ import theme.Theme;
 
 public class QLogo extends Logo {
 	
-	@Getter public int lastInFrame = 83;
-	@Getter public int FirstOutFrame = 83;
+	@Getter public int firstHoldFrame = 84;
+	@Getter public int lastHoldFrame = 84;
 	@Getter public int numberOfFrames = 86;
 	
 	@Getter public int xOffsetSD = 65;

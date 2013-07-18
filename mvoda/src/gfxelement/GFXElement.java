@@ -79,19 +79,19 @@ public abstract class GFXElement {
 	
 
 	public long getInDuration() {
-		inDuration = getLastInFrame() * 1000 / 25;
+		inDuration = (getFirstHoldFrame() - 1) * 1000 / 25;
 		return inDuration;
 	}
 	
 	public long getOutDuration() {
-		outDuration = (getNumberOfFrames() - getFirstOutFrame()) * 1000 /25; //TODO: make sure framerate is never going to be zero
+		outDuration = (getNumberOfFrames() - getLastHoldFrame() + 1) * 1000 /25; //TODO: make sure framerate is never going to be zero
 		return outDuration;
 	}
 
 
 	
-	public abstract int getLastInFrame();
-	public abstract int getFirstOutFrame();
+	public abstract int getFirstHoldFrame();
+	public abstract int getLastHoldFrame();
 	public abstract int getNumberOfFrames();
 	
 	

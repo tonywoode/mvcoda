@@ -25,14 +25,14 @@ public class ImageCompositor {
 	private GFXElement gfxElement;
 
 	long vidTimeStamp = 0;
-	
+
 	long inTime = 0;
 	long desiredDuration = 0;
 	long outTime = 0;
 
 	long inTimeWithHandles = 0;
 	long outTimeWithHandles = 0;
-	
+
 	BufferedImage videoFrame;
 	BufferedImage overlay;
 
@@ -44,7 +44,7 @@ public class ImageCompositor {
 	@Getter boolean imOut = false;
 	private float alpha = 0f;
 	boolean fadeIt = false;
-	
+
 	int outOffset = 0;
 
 	/**
@@ -84,7 +84,7 @@ public class ImageCompositor {
 		System.out.println(" duration is " + desiredDuration);
 		System.out.println(" out time with handles is " + outTimeWithHandles);
 		System.out.println("duration of element is " + gfxElement.getDuration(25));
-		
+
 
 		//if its not the time for this element to come in or if its already gone out, or if the duration is not long enough even for the handle, do nothing
 		if (vidTimeStamp >= inTimeWithHandles && vidTimeStamp <= outTimeWithHandles && desiredDuration > gfxElement.getInDuration()) {
@@ -104,14 +104,14 @@ public class ImageCompositor {
 		else { imOut = true; return videoFrame; }
 
 	}
-	
+
 	//TODO: ok to return zero instead of erroring - not really we want to notify that an invalid timecode was entered.....
-	public int timeCodeToFrameIndexConverter(long vidTimeStamp) {
-			int frame = (int) (vidTimeStamp * 25 / 1000) - 1; //minus one because we are changing to the Array's INDEX number		
+	public int timeCodeToFrameIndexConverter(long timeStamp) {
+		int frame = (int) (timeStamp * 25 / 1000) - 1; //minus one because we are changing to the Array's INDEX number		
 		return frame;
 	}
-//TODO: WHEREVER I CHANGE A FRAME NUMBER INTO A COMMAND TO GO ONSCREEN I NEED TO SUBTRACT ONE TO GET ITS INDEX NUMBER IN THE ARRAY!!!
-//TODO: need a frame converter as well as a frame index converter - another constanty thing somewhere.....and the above should go there too
+	//TODO: WHEREVER I CHANGE A FRAME NUMBER INTO A COMMAND TO GO ONSCREEN I NEED TO SUBTRACT ONE TO GET ITS INDEX NUMBER IN THE ARRAY!!!
+	//TODO: need a frame converter as well as a frame index converter - another constanty thing somewhere.....and the above should go there too
 
 	/**
 	 * Computes what GFX to overlay over the current videoframe by passing in the times and desired times. From these we alter the index of the current position
@@ -120,28 +120,36 @@ public class ImageCompositor {
 	 * @param inTime the time specified for the element to animate on
 	 * @param desiredDuration the total duration the element should last for
 	 */
-	public void nextFileUNC() { //just set duration to zero to play for natural length //TODO: not anymore you don't!
+	public void nextFileUNC() {
 		imOut = true;
-		if (gfxFiles.size() == 1) { fadeIt = true; return; } //if theres just a static image rather than a sequence, return it, don't do the below
-		//TODo: actually below we need to get the timestamp as a frame number to be correct, not just start at non-animation point
-		if (vidTimeStamp < gfxElement.getInDuration() && fileIndex == 0) { fileIndex = timeCodeToFrameIndexConverter(gfxElement.getInDuration() - inTime); } //if we start with not enough handle time, find the correct animate point to come in
+		if (gfxFiles.size() == 1) { fadeIt = true; return; } //if just a static image rather than a sequence, return it, don't do the below
+
+		/*if we start with not enough handle time, find the correct animate point to come in:
+		  we CHECK by seeing if the time you've said to come-in is less time than the in-handle, we ACTION
+		  if the current time is ALSO less than the in-handle, we EXECUTE by setting the Array Index of the 
+		  gfx element to the number of frames we need to miss*/
+		//TODO - not sure about the middle check for timestamp less than induration. Induration will always be less than zero if we have this problem and fileindex = 0 should pick up beginning anyway
+		if (inTime < gfxElement.getInDuration() /*&& vidTimeStamp < gfxElement.getInDuration() */ && fileIndex == 0) { 
+			fileIndex = timeCodeToFrameIndexConverter(gfxElement.getInDuration() - inTime); } 
+
 		else if (gfxElement.getOutDuration() <= 0) { nextFileUNCForReverseOut();} //if its a reverse out, go to that method
+		
 		else if (fileIndex < gfxFiles.size() -1 ) { //if we aren't at the last element frame
-				if (fileIndex <= gfxElement.getLastInFrame() ) { //and if we aren't at the half-way point of the element
-					fileIndex++; //animate
-					// imOut = false; //TODO: Why DON'T I need this here?!?!
-				} //also if we are at the end of the specified duration
-				else if (vidTimeStamp >= outTime ) { //note not with handles - we want to START the out animation.....
-					/*TODO: to animate the logo out we'd need this: if (vidTimeStamp >= inTime + desiredDuration - gfxElement.getOutDuration() ) {
-					 * but I can't put that in because then there'd be no possibility of ever holding the logo through videos...
-					 * there needs to be some check if an element NEEDS to fade out before a video ends that it can
-					 * and then we can use that method to ACTUALLY fade the logo out at the end video as well as ticking off the user				
-					 */
-					fileIndex = gfxElement.getFirstOutFrame() + outOffset; //we are now in the out sequence so we jump to first out frame and then increment that
-					outOffset++;
-					//fileIndex++; //animate
-					imOut = true;
-				}
+			if (fileIndex < gfxElement.getFirstHoldFrame() ) { //and if we aren't at the half-way point of the element
+				fileIndex++; //animate
+				// imOut = false; //TODO: Why DON'T I need this here?!?!
+			} //also if we are at the end of the specified duration
+			else if (vidTimeStamp >= outTime ) { //note not with handles - we want to START the out animation.....
+				/*TODO: to animate the logo out we'd need this: if (vidTimeStamp >= inTime + desiredDuration - gfxElement.getOutDuration() ) {
+				 * but I can't put that in because then there'd be no possibility of ever holding the logo through videos...
+				 * there needs to be some check if an element NEEDS to fade out before a video ends that it can
+				 * and then we can use that method to ACTUALLY fade the logo out at the end video as well as ticking off the user				
+				 */
+				fileIndex = (gfxElement.getLastHoldFrame() + 1) + outOffset; //we are now in the out sequence so we jump to first out frame and then increment that
+				outOffset++;
+				//fileIndex++; //animate
+				imOut = true;
+			}
 
 			//}
 

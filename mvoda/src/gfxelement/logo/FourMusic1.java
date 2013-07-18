@@ -6,8 +6,8 @@ import theme.Theme;
 
 public class FourMusic1 extends Logo {
 	
-	@Getter public int lastInFrame = 50;
-	@Getter public int FirstOutFrame = 80;
+	@Getter public int firstHoldFrame = 51;
+	@Getter public int lastHoldFrame = 79;
 	@Getter public int numberOfFrames = 126;
 	
 	@Getter public int xOffsetSD = 0;

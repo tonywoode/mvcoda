@@ -5,8 +5,8 @@ import theme.Theme;
 
 public class QTransition extends Transition {
 	
-	@Getter public int lastInFrame = 32;
-	@Getter public int FirstOutFrame = 32;
+	@Getter public int firstHoldFrame = -1;
+	@Getter public int lastHoldFrame = -1;
 	@Getter public int numberOfFrames = 32;
 	
 	@Getter public int xOffsetSD = 0;

@@ -5,8 +5,8 @@ import theme.Theme;
 
 public class Periscope extends Strap {
 	
-	@Getter public int lastInFrame = 19;
-	@Getter public int FirstOutFrame = 71;
+	@Getter public int firstHoldFrame = 20;
+	@Getter public int lastHoldFrame = 70;
 	@Getter public int numberOfFrames = 101;
 	
 	@Getter public int xOffsetSD = 0;

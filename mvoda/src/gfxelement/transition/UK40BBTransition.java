@@ -5,8 +5,8 @@ import theme.Theme;
 
 public class UK40BBTransition extends Transition {
 	
-	@Getter public int lastInFrame = 16;
-	@Getter public int FirstOutFrame = 16;
+	@Getter public int firstHoldFrame = -1;
+	@Getter public int lastHoldFrame = -1;
 	@Getter public int numberOfFrames = 16;
 	
 	@Getter public int xOffsetSD = 0;

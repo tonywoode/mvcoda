@@ -5,8 +5,8 @@ import theme.Theme;
 
 public class UK40BBChart extends Chart {
 	
-	@Getter public int lastInFrame = 1;
-	@Getter public int FirstOutFrame = 1;
+	@Getter public int firstHoldFrame = -1;
+	@Getter public int lastHoldFrame = -1;
 	@Getter public int numberOfFrames = 1;
 	
 	@Getter public int xOffsetSD = 400;

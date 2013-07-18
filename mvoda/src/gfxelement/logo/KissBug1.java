@@ -5,8 +5,8 @@ import theme.Theme;
 
 public class KissBug1 extends Logo {
 	
-	@Getter public int lastInFrame = 29;
-	@Getter public int FirstOutFrame = 44;
+	@Getter public int firstHoldFrame = 29;
+	@Getter public int lastHoldFrame = 43;
 	@Getter public int numberOfFrames = 75;
 	
 	@Getter public int xOffsetSD = 0;

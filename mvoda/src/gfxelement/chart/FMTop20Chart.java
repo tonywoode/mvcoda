@@ -5,8 +5,8 @@ import theme.Theme;
 
 public class FMTop20Chart extends Chart {
 	
-	@Getter public int lastInFrame = 9;
-	@Getter public int FirstOutFrame = 43;
+	@Getter public int firstHoldFrame = 10;
+	@Getter public int lastHoldFrame = 43;
 	@Getter public int numberOfFrames = 52;
 	
 	@Getter public int xOffsetSD = 0;
