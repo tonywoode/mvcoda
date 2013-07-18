@@ -12,6 +12,10 @@ public class TWFM extends Numbers {
 	@Getter public int xOffsetSD = -680;
 	@Getter public int yOffsetSD = 0;
 	
+	@Getter boolean reverse = false;
+	@Getter boolean loop = false;
+	@Getter int speed = 1;
+	
 	public TWFM(Theme theme, int num) {
 		super(theme, num);
 	}

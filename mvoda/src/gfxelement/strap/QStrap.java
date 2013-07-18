@@ -12,6 +12,10 @@ public class QStrap extends Strap {
 	@Getter public int xOffsetSD = -33;
 	@Getter public int yOffsetSD = 230;
 	
+	@Getter boolean reverse = false;
+	@Getter boolean loop = false;
+	@Getter int speed = 1;
+	
 	
 
 	public QStrap(Theme theme) {

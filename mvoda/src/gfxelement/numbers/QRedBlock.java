@@ -12,6 +12,10 @@ public class QRedBlock extends Numbers {
 	@Getter public int xOffsetSD = 24;
 	@Getter public int yOffsetSD = 194;
 	
+	@Getter boolean reverse = false;
+	@Getter boolean loop = false;
+	@Getter int speed = 1;
+	
 	public QRedBlock(Theme theme, int num) {
 		super(theme, num);
 	}

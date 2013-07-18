@@ -84,7 +84,10 @@ public abstract class GFXElement {
 	}
 	
 	public long getOutDuration() {
-		outDuration = (getNumberOfFrames() - getLastHoldFrame() + 1) * 1000 /25; //TODO: make sure framerate is never going to be zero
+		//if we have a reverse element, we need to use the inverse of the usual manner of getting duration AND know what speed we want the animate out to be
+		if (isReverse()) { outDuration = ((getNumberOfFrames() - (getNumberOfFrames() - getLastHoldFrame() + 1)) * 1000 /25) / getSpeed(); }
+		else { outDuration = (getNumberOfFrames() - getLastHoldFrame() + 1) * 1000 /25; }//TODO: make sure framerate is never going to be zero
+		
 		return outDuration;
 	}
 
@@ -95,10 +98,15 @@ public abstract class GFXElement {
 	public abstract int getNumberOfFrames();
 	
 	
-	public long getDuration(long frameRateDivisor) {
+	public long getDuration(long frameRateDivisor) { //TODO: this is just the duration of the media, that ok? what about the out and in durations?
 		duration = fileNumbers.size() * 1000 / 25;
 		return duration;
 		}
+	
+	public abstract boolean isReverse();
+	public abstract boolean isLoop();
+	public abstract int getSpeed();
+	
 
 	public abstract int getXOffsetSD();
 

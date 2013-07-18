@@ -12,6 +12,10 @@ public class UK40BBChart extends Chart {
 	@Getter public int xOffsetSD = 400;
 	@Getter public int yOffsetSD = 0;
 	
+	@Getter boolean reverse = false;
+	@Getter boolean loop = false;
+	@Getter int speed = 1;
+	
 	public UK40BBChart(Theme theme) {
 		super(theme);
 	}

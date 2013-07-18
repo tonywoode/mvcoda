@@ -13,6 +13,10 @@ public class FourMusic1 extends Logo {
 	@Getter public int xOffsetSD = 0;
 	@Getter public int yOffsetSD = 0;
 	
+	@Getter boolean reverse = false;
+	@Getter boolean loop = false;
+	@Getter int speed = 1;
+	
 	public FourMusic1(Theme theme) {
 		super(theme);
 	}

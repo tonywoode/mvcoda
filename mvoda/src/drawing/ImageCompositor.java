@@ -76,7 +76,11 @@ public class ImageCompositor {
 		this.desiredDuration = desiredDuration;
 		this.videoFrame = videoFrame;
 		outTime = inTime + desiredDuration;
-		outTimeWithHandles = outTime + gfxElement.getOutDuration(); //TODO: but now the timing won't work for.....
+		
+		
+		
+		
+		outTimeWithHandles = outTime + gfxElement.getOutDuration();
 		System.out.println(gfxElement.getDirectory() + " inDuration is " + gfxElement.getInDuration());
 		System.out.println("inDuration is :" + gfxElement.getInDuration());
 		System.out.println("outDuration is :" + gfxElement.getOutDuration());
@@ -84,10 +88,11 @@ public class ImageCompositor {
 		System.out.println(" duration is " + desiredDuration);
 		System.out.println(" out time with handles is " + outTimeWithHandles);
 		System.out.println("duration of element is " + gfxElement.getDuration(25));
+		System.out.println("Reverse for logo is " + gfxElement.isReverse());
 
 
 		//if its not the time for this element to come in or if its already gone out, or if the duration is not long enough even for the handle, do nothing
-		if (vidTimeStamp >= inTimeWithHandles && vidTimeStamp <= outTimeWithHandles && desiredDuration > gfxElement.getInDuration()) {
+		if (vidTimeStamp >= inTimeWithHandles && vidTimeStamp <= outTimeWithHandles){// && desiredDuration > gfxElement.getInDuration()) {  //TODO: why did I put this here
 			nextFileUNC();
 			String overlayFile = gfxFiles.get(fileIndex);
 			overlay = ImageIO.read(new File(overlayFile));
@@ -105,7 +110,6 @@ public class ImageCompositor {
 
 	}
 
-	//TODO: ok to return zero instead of erroring - not really we want to notify that an invalid timecode was entered.....
 	public int timeCodeToFrameIndexConverter(long timeStamp) {
 		int frame = (int) (timeStamp * 25 / 1000) - 1; //minus one because we are changing to the Array's INDEX number		
 		return frame;
@@ -122,18 +126,22 @@ public class ImageCompositor {
 	 */
 	public void nextFileUNC() {
 		imOut = true;
+
 		if (gfxFiles.size() == 1) { fadeIt = true; return; } //if just a static image rather than a sequence, return it, don't do the below
+
 
 		/*if we start with not enough handle time, find the correct animate point to come in:
 		  we CHECK by seeing if the time you've said to come-in is less time than the in-handle, we ACTION
 		  if the current time is ALSO less than the in-handle, we EXECUTE by setting the Array Index of the 
 		  gfx element to the number of frames we need to miss*/
 		//TODO - not sure about the middle check for timestamp less than induration. Induration will always be less than zero if we have this problem and fileindex = 0 should pick up beginning anyway
-		if (inTime < gfxElement.getInDuration() /*&& vidTimeStamp < gfxElement.getInDuration() */ && fileIndex == 0) { 
+		if (inTime < gfxElement.getInDuration() && vidTimeStamp < gfxElement.getInDuration() && fileIndex == 0) { 
 			fileIndex = timeCodeToFrameIndexConverter(gfxElement.getInDuration() - inTime); } 
-
-		else if (gfxElement.getOutDuration() <= 0) { nextFileUNCForReverseOut();} //if its a reverse out, go to that method
 		
+		
+
+		if (gfxElement.isReverse() == true) { nextFileUNCForReverseOut();} //if its a reverse out, go to that method
+
 		else if (fileIndex < gfxFiles.size() -1 ) { //if we aren't at the last element frame
 			if (fileIndex < gfxElement.getFirstHoldFrame() ) { //and if we aren't at the half-way point of the element
 				fileIndex++; //animate
@@ -161,12 +169,16 @@ public class ImageCompositor {
 
 	public void nextFileUNCForReverseOut() {
 		int outSpeedUp = 2; //factor by which we speed up the out. This is a common trick for reverse-out animations
-		if (fileIndex < gfxFiles.size() -1 ) { // && vidTimeStamp < outTimeWithHandles && vidTimeStamp >= inTimeWithHandles) { //if we arent at the last element frame or the outTime, but we are past the intime,
-			fileIndex++;} //animate
-		else if (fileIndex > 0 + outSpeedUp && vidTimeStamp >= outTime) { //otherwise so long as we are above the sequence start frame, and past the out time
-			fileIndex = fileIndex - outSpeedUp; //iterate backwards through the animation at the specified time factor
-			if (fileIndex > 0 && fileIndex < outSpeedUp) {fileIndex = 0; } //but we need the animation to end on blank frame zero irrespective of outSpeedUp factor
+		if (fileIndex > 0 && vidTimeStamp >= outTime) { //otherwise so long as we are above the sequence start frame, and past the out time
+			if (fileIndex - outSpeedUp >= 0) { fileIndex = fileIndex - outSpeedUp; }//iterate backwards through the animation at the specified time factor
+			//else fileIndex = 0;
+			//if (fileIndex > 0 && fileIndex < outSpeedUp) {fileIndex = 0; } //but we need the animation to end on blank frame zero irrespective of outSpeedUp factor
+
 		}
+		else if (fileIndex < gfxFiles.size() -1 && fileIndex < gfxElement.getFirstHoldFrame() ) { // && vidTimeStamp < outTimeWithHandles && vidTimeStamp >= inTimeWithHandles) { //if we arent at the last element frame or the outTime, but we are past the intime,
+			fileIndex++;} //animate
+
+
 		if (vidTimeStamp > inTime //TODO: repeating code AND I SUSPECT ITS FIRING TWICE!
 				&& vidTimeStamp < outTime + (gfxElement.getInDuration() / 2 ) ) { //nb: can't use out duration, use in divided by speedup factor so NOTE NO HANDLES
 			imOut = false; }

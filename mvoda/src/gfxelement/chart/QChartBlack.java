@@ -12,6 +12,10 @@ public class QChartBlack extends Chart {
 	@Getter public int xOffsetSD = 480;
 	@Getter public int yOffsetSD = 0;
 	
+	@Getter boolean reverse = false;
+	@Getter boolean loop = false;
+	@Getter int speed = 1;
+	
 	public QChartBlack(Theme theme) {
 		super(theme);
 	}

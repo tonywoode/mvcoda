@@ -12,6 +12,10 @@ public class QTransition extends Transition {
 	@Getter public int xOffsetSD = 0;
 	@Getter public int yOffsetSD = 200;
 	
+	@Getter boolean reverse = false;
+	@Getter boolean loop = false;
+	@Getter int speed = 1;
+	
 	
 	public QTransition(Theme theme) {
 		super(theme);

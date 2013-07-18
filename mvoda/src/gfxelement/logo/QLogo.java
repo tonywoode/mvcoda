@@ -12,9 +12,16 @@ public class QLogo extends Logo {
 	@Getter public int xOffsetSD = 65;
 	@Getter public int yOffsetSD = 0;
 	
+	@Getter boolean reverse = true;
+	@Getter boolean loop = false;
+	@Getter int speed = 2;
+	
 	public QLogo(Theme theme) {
 		super(theme);
 	}
 
 	@Getter private String directory =  super.getDirectory() +  "QLogo";
+
+
+	
 }
