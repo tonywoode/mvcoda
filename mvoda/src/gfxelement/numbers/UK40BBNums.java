@@ -13,7 +13,7 @@ public class UK40BBNums extends Numbers {
 	@Getter public int yOffsetSD = 0;
 
 	@Getter boolean reverse = false;
-	@Getter boolean loop = false;
+	@Getter boolean loop = true;
 	@Getter int speed = 1;
 	
 	public UK40BBNums(Theme theme, int num) {
