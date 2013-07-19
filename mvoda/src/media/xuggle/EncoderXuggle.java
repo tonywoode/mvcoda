@@ -26,18 +26,25 @@ import drawing.TextCompositor;
 public class EncoderXuggle implements Encoder {
 
 	private MusicVideo video;
+	private MusicVideo video2;
 	private String outFilename;
 	private BufferedImage composite;
 	private Decoder decoder;
+	private Decoder decoder2;
 	private Theme theme;
+	
+	
+	private long timecode;
+	private long timecodeFromVideoOne;
 
 	/**
 	 * By passing two UNCpaths to the constructor we specify and input and an output filename
 	 * @param filename
 	 * @param outFilename
 	 */
-	public EncoderXuggle(MusicVideo video, Theme theme,String outFilename) {
+	public EncoderXuggle(MusicVideo video, MusicVideo video2, Theme theme,String outFilename) {
 		this.video = video;
+		this.video2 = video2;
 		this.outFilename = outFilename;
 		this.theme = theme;
 		render();
@@ -49,28 +56,29 @@ public class EncoderXuggle implements Encoder {
 	 * @param filename
 	 */
 	//this is for Q
-	/*@Override
+	@Override
 	public void render() {
 
 		IMediaWriter writer = null;
 		try {
 			decoder = video.getDecoder();
+			decoder2 = video2.getDecoder();
+			
 			writer = getWriter(outFilename);
+			
 			long frame = 0;
 			long lastFrame = video.getNumVidFrames();
+			
+			
 			ImageCompositor logoCompositor = new ImageCompositor(theme.getLogo());
 			ImageCompositor strapCompositor = new ImageCompositor(theme.getStrap());
 			ImageCompositor strapCompositor2 = new ImageCompositor(theme.getStrap());
 			ImageCompositor chartCompositor = new ImageCompositor(theme.getChart());
 			ImageCompositor transitionCompositor = new ImageCompositor(theme.getTransition());
 			ImageCompositor numbersCompositor = new ImageCompositor(theme.getNumbers());
-			
 			TextCompositor numberText = new TextCompositor("5", 72, 337);
-			
 			TextCompositor trackText = new TextCompositor("This is the track", 100, 380);
-			
 			TextCompositor artistText = new TextCompositor("This is the artist", 100, 420);
-
 			TextCompositor chartText = new TextCompositor("Classics of the 80's", 515, 75);
 			chartText.setTextFont(new Font("Arial Narrow",1,18));			
 			
@@ -88,6 +96,7 @@ public class EncoderXuggle implements Encoder {
 					//System.out.println("Duration of logo: " + theme.getLogo().getDuration(video.getFrameRateDivisor()));
 					System.out.println("at video timestamp: " + decoder.getTimeStamp() + " - formattted: "+ decoder.getFormattedTimestamp());
 					composite = videoFrame;
+					/*
 					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),theme.getLogo().getInDuration(),video.getVidStreamDuration() - theme.getLogo().getInDuration() - theme.getLogo().getOutDuration(), composite);
 					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),0,16680, composite);
 					
@@ -99,9 +108,49 @@ public class EncoderXuggle implements Encoder {
 					composite = numberText.overlayNextFontFrame(numbersCompositor.isImOut(), composite);
 					composite = trackText.overlayNextFontFrame(strapCompositor.isImOut(), composite);
 					composite = artistText.overlayNextFontFrame(strapCompositor.isImOut(), composite);
-					composite = chartText.overlayNextFontFrame(chartCompositor.isImOut(), composite);
+					composite = chartText.overlayNextFontFrame(chartCompositor.isImOut(), composite);*/
 					
 					writer.encodeVideo(0, composite, decoder.getTimeStamp(), TimeUnit.MILLISECONDS);
+					timecodeFromVideoOne =  decoder.getTimeStamp();
+				}
+				if ((frame +1) >= lastFrame) { break; }
+			}
+			
+			//reset the frame and last frame for video2
+			frame = 0;
+		    lastFrame = video2.getNumVidFrames();
+		    timecode =  timecodeFromVideoOne + decoder2.getTimeStamp();
+			
+			while (decoder2.hasNextPacket()) {
+				if (decoder2.getVideoFrame() != null) {frame++;} // don't increase counter if not a video frame
+
+				IAudioSamples audioSamples = decoder2.getAudioSamples();
+				if (audioSamples != null) {
+					writer.encodeAudio(video2.getAudioStreamIndex(), audioSamples);
+				}
+				
+				BufferedImage videoFrame = decoder2.getVideoFrame(); //TODO: here they are they need to be somewhere else!!!!								
+				if (videoFrame != null) {
+					 timecode =  timecodeFromVideoOne + decoder2.getTimeStamp();
+					//System.out.println("Duration of logo: " + theme.getLogo().getDuration(video.getFrameRateDivisor()));
+					System.out.println("at video timestamp: " + decoder2.getTimeStamp() + " - formattted: "+ decoder2.getFormattedTimestamp());
+					System.out.println("Timecode is : " + timecode);
+					composite = videoFrame;
+					/*
+					composite = logoCompositor.overlayNextImage(decoder2.getTimeStamp(),theme.getLogo().getInDuration(),video2.getVidStreamDuration() - theme.getLogo().getInDuration() - theme.getLogo().getOutDuration(), composite);
+					composite = logoCompositor.overlayNextImage(decoder2.getTimeStamp(),0,16680, composite);
+					
+					composite = strapCompositor.overlayNextImage(decoder2.getTimeStamp(),7000, 11000, composite);
+					composite = strapCompositor2.overlayNextImage(decoder2.getTimeStamp(),15000, 2000, composite);//composite);
+					composite = chartCompositor.overlayNextImage(decoder2.getTimeStamp(),theme.getChart().getInDuration() + 1000, 10000, composite);
+					composite = transitionCompositor.overlayNextImage(decoder2.getTimeStamp(),0, 4000, composite);
+					composite = numbersCompositor.overlayNextImage(decoder2.getTimeStamp(),5000, 10000, composite);
+					composite = numberText.overlayNextFontFrame(numbersCompositor.isImOut(), composite);
+					composite = trackText.overlayNextFontFrame(strapCompositor.isImOut(), composite);
+					composite = artistText.overlayNextFontFrame(strapCompositor.isImOut(), composite);
+					composite = chartText.overlayNextFontFrame(chartCompositor.isImOut(), composite);*/
+					
+					writer.encodeVideo(0, composite, timecode, TimeUnit.MILLISECONDS);
 				}
 				if ((frame +1) >= lastFrame) { break; }
 			}
@@ -120,11 +169,11 @@ public class EncoderXuggle implements Encoder {
 			if (video != null) video.close();
 
 		}
-	}*/
+	}
 	
 	
 	//Kiss Urban big beat chart
-	@Override
+	/*@Override
 	public void render() {
 
 		IMediaWriter writer = null;
@@ -188,7 +237,7 @@ public class EncoderXuggle implements Encoder {
 			if (video != null) video.close();
 
 		}
-	}
+	}*/
 	
 	//this render saved as it has perfect settings for pop chart
 	/*@Override

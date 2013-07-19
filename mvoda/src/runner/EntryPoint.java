@@ -26,25 +26,36 @@ public class EntryPoint {
 	 * @throws IOException 
 	 */
 	public static void main(String[] args) throws IOException {
+		
+		
 		long start = System.currentTimeMillis(); //get rough start time
 		Logger.getGlobal().setLevel(Level.OFF);//(Level.INFO); //using logger in some of the trickier sections
+		
 		//load a music vid
 		String fileUNC = "../../../MVODAInputs/NeyoStayShort.avi";
+		String file2UNC = "../../../MVODAInputs/NickiMShort.avi";
 		//set an output file
 		String outFileUNC = "../../../MVODAOutputs/doesthiswork.avi";
+		
 		MusicVideo test = new MusicVideoXuggle(fileUNC);
+		MusicVideo test2 = new MusicVideoXuggle(file2UNC);
+		
 		//System.out.println("Container duration is " + test.getContainerDuration());
 		//System.out.println("Vid stream duration is " + test.getVidStreamDuration());
 		//System.out.println("Current timestamp is " + test.getDecoder().getTimeStamp());
-		Urban.setNum(1); //TODO: very silly AND has to be done before instantiation...
-		Theme theme = new Urban();
+		
+		//Urban.setNum(1); //TODO: very silly AND has to be done before instantiation...
+		Theme theme = new Classic();
 		
 
 		//get Xuggler's video info - idea could Junit test compare MY music vid class to THIS info?
 		System.out.println(test.toString());
 		//draw onto video
-		Encoder draw = new EncoderXuggle(test, theme, outFileUNC);
+		Encoder draw = new EncoderXuggle(test, test2, theme, outFileUNC);
 		test.close();
+		
+		
+		
 		
 		//report time taken
 		long elapsed = System.currentTimeMillis() - start;
