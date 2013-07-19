@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import playlist.Playlist;
+import playlist.PlaylistEntry;
 
 import media.Encoder;
 import media.MusicVideo;
@@ -34,20 +35,26 @@ public class EntryPoint {
 		Logger.getGlobal().setLevel(Level.OFF);//(Level.INFO); //using logger in some of the trickier sections
 		
 		
-		//make a playlist
-		Playlist playlist = new Playlist();
-		playlist.setPlaylistEntries();
-		
-		
-		
-		//load a music vid
+		//make a coupkle of music vid paths
 		String fileUNC = "../../../MVODAInputs/NeyoStayShort.avi";
 		String file2UNC = "../../../MVODAInputs/NickiMShort.avi";
+		
+		//make vids out of them
+		MusicVideo test = new MusicVideoXuggle(fileUNC);
+		MusicVideo test2 = new MusicVideoXuggle(file2UNC);
+		
+		//make a couple of playlist entries
+		PlaylistEntry playlistEntry = new PlaylistEntry(test);
+		PlaylistEntry playlistEntry2 = new PlaylistEntry(test2);
+		
+		//make a playlist
+		Playlist playlist = new Playlist("Biggest Beats I've seen in a while");
+		playlist.setNextEntry(playlistEntry);
+		playlist.setNextEntry(playlistEntry2);
+		
 		//set an output file
 		String outFileUNC = "../../../MVODAOutputs/doesthiswork.avi";
 		
-		MusicVideo test = new MusicVideoXuggle(fileUNC);
-		MusicVideo test2 = new MusicVideoXuggle(file2UNC);
 		
 		
 		
@@ -58,7 +65,7 @@ public class EntryPoint {
 		//get Xuggler's video info - idea could Junit test compare MY music vid class to THIS info?
 		System.out.println(test.toString());
 		//draw onto video
-		Encoder draw = new EncoderXuggle(test, test2, theme, outFileUNC);
+		Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC);
 		test.close();
 		
 		

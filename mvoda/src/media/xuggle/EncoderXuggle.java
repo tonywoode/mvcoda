@@ -4,6 +4,8 @@ import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.TimeUnit;
 
+import playlist.Playlist;
+
 import media.Decoder;
 import media.Encoder;
 import media.MusicVideo;
@@ -54,9 +56,12 @@ public class EncoderXuggle implements Encoder {
 	 * @param filename
 	 * @param outFilename
 	 */
-	public EncoderXuggle(MusicVideo video, MusicVideo video2, Theme theme,String outFilename) {
-		this.video = video;
-		this.video2 = video2;
+	public EncoderXuggle(Playlist playlist, Theme theme,String outFilename) {
+		//this.video = video;
+		//this.video2 = video2;
+		video = playlist.getNextEntry(0).getVideo();
+		video2 = playlist.getNextEntry(1).getVideo();
+		
 		this.outFilename = outFilename;
 		this.theme = theme;
 		render();
