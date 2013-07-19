@@ -1,5 +1,7 @@
 package media;
 
+import playlist.Playlist;
+
 import com.xuggle.mediatool.IMediaWriter;
 import com.xuggle.xuggler.IStreamCoder;
 
