@@ -88,7 +88,7 @@ public class EncoderXuggle implements Encoder {
 			for (PlaylistEntry playlistEntry : playlist.getPlaylistEntries()) {	
 				resetTheBits();
 				video = playlistEntry.getVideo(); 
-				decoder = video.getDecoder();
+				decoder = video.getDecoder(); //make a new decoder at this point? Decoder temp = new Decoder(video)
 				if (playlistEntry.getVideo().getFileUNC() == "../../../MVODAInputs/NickiMShort.avi") {
 					System.out.println("here we are");
 					}
