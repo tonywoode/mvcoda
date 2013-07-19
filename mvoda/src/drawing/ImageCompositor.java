@@ -183,7 +183,11 @@ public class ImageCompositor {
 		}
 		}
 	}
-
+	
+	
+	public void resetFileUNC() {
+		fileIndex = 0;
+	}
 
 
 	public BufferedImage overlayImage() throws IOException {

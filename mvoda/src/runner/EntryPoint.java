@@ -8,6 +8,8 @@ import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import playlist.Playlist;
+
 import media.Encoder;
 import media.MusicVideo;
 import media.xuggle.DecodeAndPlayAudioAndVideo;
@@ -31,6 +33,13 @@ public class EntryPoint {
 		long start = System.currentTimeMillis(); //get rough start time
 		Logger.getGlobal().setLevel(Level.OFF);//(Level.INFO); //using logger in some of the trickier sections
 		
+		
+		//make a playlist
+		Playlist playlist = new Playlist();
+		playlist.setPlaylistEntries();
+		
+		
+		
 		//load a music vid
 		String fileUNC = "../../../MVODAInputs/NeyoStayShort.avi";
 		String file2UNC = "../../../MVODAInputs/NickiMShort.avi";
@@ -40,9 +49,7 @@ public class EntryPoint {
 		MusicVideo test = new MusicVideoXuggle(fileUNC);
 		MusicVideo test2 = new MusicVideoXuggle(file2UNC);
 		
-		//System.out.println("Container duration is " + test.getContainerDuration());
-		//System.out.println("Vid stream duration is " + test.getVidStreamDuration());
-		//System.out.println("Current timestamp is " + test.getDecoder().getTimeStamp());
+		
 		
 		//Urban.setNum(1); //TODO: very silly AND has to be done before instantiation...
 		Theme theme = new Classic();

@@ -78,6 +78,7 @@ public class EncoderXuggle implements Encoder {
 			writer = getWriter(outFilename);
 			makeTheBits();		
 			renderNextVid(decoder);
+			resetTheBits();
 			renderNextVid(decoder2);
 			
 		} catch (Exception ex) { //TODO: what ANY exception? Why aren't we saying we throw any then?
@@ -119,7 +120,7 @@ public class EncoderXuggle implements Encoder {
 				
 				putTheBitsOn(videoFrame);
 				
-				writer.encodeVideo(0, videoFrame, timecode, TimeUnit.MILLISECONDS);
+				writer.encodeVideo(0, videoFrame, timecode, TimeUnit.MILLISECONDS); //TODO: sort out the naming of videoFrame and Composite. THAT'S confusing!
 				
 			}
 			if ((frame +1) >= lastFrame) {break; }
@@ -158,6 +159,20 @@ public class EncoderXuggle implements Encoder {
 		composite = artistText.overlayNextFontFrame(strapCompositor.isImOut(), composite);
 		composite = chartText.overlayNextFontFrame(chartCompositor.isImOut(), composite);
 		
+	}
+	
+	public void resetTheBits() {
+		logoCompositor.resetFileUNC();
+		strapCompositor.resetFileUNC();
+		strapCompositor2.resetFileUNC();
+		chartCompositor.resetFileUNC();
+		transitionCompositor.resetFileUNC();
+		numbersCompositor.resetFileUNC();
+		//numberText.resetFileUNC();
+		//trackText.resetFileUNC();
+		//artistText.resetFileUNC();
+		//chartText.resetFileUNC();
+		//chartText.resetFileUNC();
 	}
 	
 	
