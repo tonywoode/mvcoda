@@ -79,14 +79,14 @@ public class ImageCompositor {
 		outTimeWithHandles = outTime + gfxElement.getOutDuration();
 
 
-		System.out.println(gfxElement.getDirectory() + " inDuration is " + gfxElement.getInDuration());
+		/*System.out.println(gfxElement.getDirectory() + " inDuration is " + gfxElement.getInDuration());
 		System.out.println("inDuration is :" + gfxElement.getInDuration());
 		System.out.println("outDuration is :" + gfxElement.getOutDuration());
 		System.out.println(" in time with handles is " + inTimeWithHandles);
 		System.out.println(" duration is " + desiredDuration);
 		System.out.println(" out time with handles is " + outTimeWithHandles);
 		System.out.println("duration of element is " + gfxElement.getDuration(25));
-		System.out.println("Reverse for logo is " + gfxElement.isReverse());
+		System.out.println("Reverse for logo is " + gfxElement.isReverse());*/
 
 
 		//if its not the time for this element to come in or if its already gone out, or if the duration is not long enough even for the handle, do nothing

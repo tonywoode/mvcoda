@@ -33,9 +33,21 @@ public class EncoderXuggle implements Encoder {
 	private Decoder decoder2;
 	private Theme theme;
 	
+	private IMediaWriter writer = null;
 	
 	private long timecode;
 	private long timecodeFromVideoOne;
+	
+	private ImageCompositor logoCompositor;
+	private ImageCompositor strapCompositor;
+	private ImageCompositor strapCompositor2;
+	private ImageCompositor chartCompositor;
+	private ImageCompositor transitionCompositor;
+	private ImageCompositor numbersCompositor;
+	private TextCompositor numberText;
+	private TextCompositor trackText;
+	private TextCompositor artistText;
+	private TextCompositor chartText;
 
 	/**
 	 * By passing two UNCpaths to the constructor we specify and input and an output filename
@@ -59,103 +71,15 @@ public class EncoderXuggle implements Encoder {
 	@Override
 	public void render() {
 
-		IMediaWriter writer = null;
+		
 		try {
 			decoder = video.getDecoder();
-			decoder2 = video2.getDecoder();
-			
+			decoder2 = video2.getDecoder();	
 			writer = getWriter(outFilename);
+			makeTheBits();		
+			renderNextVid(decoder);
+			renderNextVid(decoder2);
 			
-			long frame = 0;
-			long lastFrame = video.getNumVidFrames();
-			
-			
-			ImageCompositor logoCompositor = new ImageCompositor(theme.getLogo());
-			ImageCompositor strapCompositor = new ImageCompositor(theme.getStrap());
-			ImageCompositor strapCompositor2 = new ImageCompositor(theme.getStrap());
-			ImageCompositor chartCompositor = new ImageCompositor(theme.getChart());
-			ImageCompositor transitionCompositor = new ImageCompositor(theme.getTransition());
-			ImageCompositor numbersCompositor = new ImageCompositor(theme.getNumbers());
-			TextCompositor numberText = new TextCompositor("5", 72, 337);
-			TextCompositor trackText = new TextCompositor("This is the track", 100, 380);
-			TextCompositor artistText = new TextCompositor("This is the artist", 100, 420);
-			TextCompositor chartText = new TextCompositor("Classics of the 80's", 515, 75);
-			chartText.setTextFont(new Font("Arial Narrow",1,18));			
-			
-			
-			while (decoder.hasNextPacket()) {
-				if (decoder.getVideoFrame() != null) {frame++;} // don't increase counter if not a video frame
-
-				IAudioSamples audioSamples = decoder.getAudioSamples();
-				if (audioSamples != null) {
-					writer.encodeAudio(video.getAudioStreamIndex(), audioSamples);
-				}
-				
-				BufferedImage videoFrame = decoder.getVideoFrame(); //TODO: here they are they need to be somewhere else!!!!								
-				if (videoFrame != null) {
-					//System.out.println("Duration of logo: " + theme.getLogo().getDuration(video.getFrameRateDivisor()));
-					System.out.println("at video timestamp: " + decoder.getTimeStamp() + " - formattted: "+ decoder.getFormattedTimestamp());
-					composite = videoFrame;
-					/*
-					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),theme.getLogo().getInDuration(),video.getVidStreamDuration() - theme.getLogo().getInDuration() - theme.getLogo().getOutDuration(), composite);
-					composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),0,16680, composite);
-					
-					composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),7000, 11000, composite);
-					composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp(),15000, 2000, composite);//composite);
-					composite = chartCompositor.overlayNextImage(decoder.getTimeStamp(),theme.getChart().getInDuration() + 1000, 10000, composite);
-					composite = transitionCompositor.overlayNextImage(decoder.getTimeStamp(),0, 4000, composite);
-					composite = numbersCompositor.overlayNextImage(decoder.getTimeStamp(),5000, 10000, composite);
-					composite = numberText.overlayNextFontFrame(numbersCompositor.isImOut(), composite);
-					composite = trackText.overlayNextFontFrame(strapCompositor.isImOut(), composite);
-					composite = artistText.overlayNextFontFrame(strapCompositor.isImOut(), composite);
-					composite = chartText.overlayNextFontFrame(chartCompositor.isImOut(), composite);*/
-					
-					writer.encodeVideo(0, composite, decoder.getTimeStamp(), TimeUnit.MILLISECONDS);
-					timecodeFromVideoOne =  decoder.getTimeStamp();
-				}
-				if ((frame +1) >= lastFrame) { break; }
-			}
-			
-			//reset the frame and last frame for video2
-			frame = 0;
-		    lastFrame = video2.getNumVidFrames();
-		    timecode =  timecodeFromVideoOne + decoder2.getTimeStamp();
-			
-			while (decoder2.hasNextPacket()) {
-				if (decoder2.getVideoFrame() != null) {frame++;} // don't increase counter if not a video frame
-
-				IAudioSamples audioSamples = decoder2.getAudioSamples();
-				if (audioSamples != null) {
-					writer.encodeAudio(video2.getAudioStreamIndex(), audioSamples);
-				}
-				
-				BufferedImage videoFrame = decoder2.getVideoFrame(); //TODO: here they are they need to be somewhere else!!!!								
-				if (videoFrame != null) {
-					 timecode =  timecodeFromVideoOne + decoder2.getTimeStamp();
-					//System.out.println("Duration of logo: " + theme.getLogo().getDuration(video.getFrameRateDivisor()));
-					System.out.println("at video timestamp: " + decoder2.getTimeStamp() + " - formattted: "+ decoder2.getFormattedTimestamp());
-					System.out.println("Timecode is : " + timecode);
-					composite = videoFrame;
-					/*
-					composite = logoCompositor.overlayNextImage(decoder2.getTimeStamp(),theme.getLogo().getInDuration(),video2.getVidStreamDuration() - theme.getLogo().getInDuration() - theme.getLogo().getOutDuration(), composite);
-					composite = logoCompositor.overlayNextImage(decoder2.getTimeStamp(),0,16680, composite);
-					
-					composite = strapCompositor.overlayNextImage(decoder2.getTimeStamp(),7000, 11000, composite);
-					composite = strapCompositor2.overlayNextImage(decoder2.getTimeStamp(),15000, 2000, composite);//composite);
-					composite = chartCompositor.overlayNextImage(decoder2.getTimeStamp(),theme.getChart().getInDuration() + 1000, 10000, composite);
-					composite = transitionCompositor.overlayNextImage(decoder2.getTimeStamp(),0, 4000, composite);
-					composite = numbersCompositor.overlayNextImage(decoder2.getTimeStamp(),5000, 10000, composite);
-					composite = numberText.overlayNextFontFrame(numbersCompositor.isImOut(), composite);
-					composite = trackText.overlayNextFontFrame(strapCompositor.isImOut(), composite);
-					composite = artistText.overlayNextFontFrame(strapCompositor.isImOut(), composite);
-					composite = chartText.overlayNextFontFrame(chartCompositor.isImOut(), composite);*/
-					
-					writer.encodeVideo(0, composite, timecode, TimeUnit.MILLISECONDS);
-				}
-				if ((frame +1) >= lastFrame) { break; }
-			}
-
-
 		} catch (Exception ex) { //TODO: what ANY exception? Why aren't we saying we throw any then?
 			ex.printStackTrace();
 		} finally {
@@ -170,6 +94,74 @@ public class EncoderXuggle implements Encoder {
 
 		}
 	}
+	
+	
+	
+	
+	public void renderNextVid(Decoder decoder) throws Exception {
+		long frame = 0;
+	    long lastFrame = video.getNumVidFrames();
+	    timecode =  timecodeFromVideoOne + decoder.getTimeStamp();
+		while (decoder.hasNextPacket()) {
+			if (decoder.getVideoFrame() != null) {frame++;} // don't increase counter if not a video frame
+			
+			IAudioSamples audioSamples = decoder.getAudioSamples();
+			if (audioSamples != null) {
+				writer.encodeAudio(video.getAudioStreamIndex(), audioSamples);
+			}
+			
+			BufferedImage videoFrame = decoder.getVideoFrame();						
+			if (videoFrame != null) {
+				timecode =  timecodeFromVideoOne + decoder.getTimeStamp();
+				//System.out.println("Duration of logo: " + theme.getLogo().getDuration(video.getFrameRateDivisor()));
+				System.out.println("at video timestamp: " + decoder.getTimeStamp() + " - formattted: "+ decoder.getFormattedTimestamp());
+				System.out.println("at timecode: " + timecode);
+				
+				putTheBitsOn(videoFrame);
+				
+				writer.encodeVideo(0, videoFrame, timecode, TimeUnit.MILLISECONDS);
+				
+			}
+			if ((frame +1) >= lastFrame) {break; }
+		}
+		timecodeFromVideoOne =  decoder.getTimeStamp();
+	}
+	
+	
+	public void makeTheBits() {
+		logoCompositor = new ImageCompositor(theme.getLogo());
+		strapCompositor = new ImageCompositor(theme.getStrap());
+		strapCompositor2 = new ImageCompositor(theme.getStrap());
+		chartCompositor = new ImageCompositor(theme.getChart());
+		transitionCompositor = new ImageCompositor(theme.getTransition());
+		numbersCompositor = new ImageCompositor(theme.getNumbers());
+		numberText = new TextCompositor("5", 72, 337);
+		trackText = new TextCompositor("This is the track", 100, 380);
+		artistText = new TextCompositor("This is the artist", 100, 420);
+		chartText = new TextCompositor("Classics of the 80's", 515, 75);
+		chartText.setTextFont(new Font("Arial Narrow",1,18));		
+	}
+	
+	public void putTheBitsOn(BufferedImage videoFrame) throws Exception{
+		composite = videoFrame;
+		
+		composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),theme.getLogo().getInDuration(),video.getVidStreamDuration() - theme.getLogo().getInDuration() - theme.getLogo().getOutDuration(), composite);
+		composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),0,16680, composite);
+		
+		composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),7000, 11000, composite);
+		composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp(),15000, 2000, composite);//composite);
+		composite = chartCompositor.overlayNextImage(decoder.getTimeStamp(),theme.getChart().getInDuration() + 1000, 10000, composite);
+		composite = transitionCompositor.overlayNextImage(decoder.getTimeStamp(),0, 4000, composite);
+		composite = numbersCompositor.overlayNextImage(decoder.getTimeStamp(),5000, 10000, composite);
+		composite = numberText.overlayNextFontFrame(numbersCompositor.isImOut(), composite);
+		composite = trackText.overlayNextFontFrame(strapCompositor.isImOut(), composite);
+		composite = artistText.overlayNextFontFrame(strapCompositor.isImOut(), composite);
+		composite = chartText.overlayNextFontFrame(chartCompositor.isImOut(), composite);
+		
+	}
+	
+	
+	
 	
 	
 	//Kiss Urban big beat chart
