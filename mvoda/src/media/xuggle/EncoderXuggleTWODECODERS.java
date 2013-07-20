@@ -151,7 +151,7 @@ public class EncoderXuggleTWODECODERS implements Encoder {
 		composite = videoFrame;
 		
 		composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),theme.getLogo().getInDuration(),video.getVidStreamDuration() - theme.getLogo().getInDuration() - theme.getLogo().getOutDuration(), composite);
-		composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),0,16680, composite);
+		//composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),0,16680, composite);
 		
 		composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),7000, 11000, composite);
 		composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp(),15000, 2000, composite);//composite);
