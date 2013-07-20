@@ -7,7 +7,8 @@ import com.xuggle.xuggler.IStreamCoder;
 
 public interface Encoder {
 	
-	public abstract void render();
+	//public abstract void render();
+	public abstract void render(Playlist playlist);
 	
 	public abstract IMediaWriter getWriter(String filename);
 	

@@ -4,9 +4,6 @@ import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.TimeUnit;
 
-import playlist.Playlist;
-import playlist.PlaylistEntry;
-
 import media.Decoder;
 import media.Encoder;
 import media.MusicVideo;
@@ -26,7 +23,7 @@ import drawing.TextCompositor;
  * @author Tony
  *
  */
-public class EncoderXuggle implements Encoder {
+public class EncoderXuggleNOCRASH implements Encoder {
 
 	private MusicVideo video;
 	private MusicVideo video2;
@@ -57,16 +54,13 @@ public class EncoderXuggle implements Encoder {
 	 * @param filename
 	 * @param outFilename
 	 */
-	public EncoderXuggle(Playlist playlist, Theme theme,String outFilename) {
-		//this.video = video;
-		//this.video2 = video2;
+	public EncoderXuggle(MusicVideo video, MusicVideo video2, Theme theme,String outFilename) {
+		this.video = video;
+		this.video2 = video2;
 		this.outFilename = outFilename;
 		this.theme = theme;
-		render(playlist);
+		render();
 	}
-	
-	
-	
 
 	/**
 	 * Creates a new music video with input filename and a new writer that will write to output filename, iterates through the packets of the music video
@@ -75,30 +69,17 @@ public class EncoderXuggle implements Encoder {
 	 */
 	//this is for Q
 	@Override
-	public void render(Playlist playlist) {
-		
-		video = playlist.getNextEntry(0).getVideo(); //TODO: bummer we have to first set a video becuase eg: line 361 below needs it to set properties
-		writer = getWriter(outFilename);
+	public void render() {
+
 		
 		try {
-			//decoder2 = video2.getDecoder();	
-			
-			makeTheBits();
-			
-			for (PlaylistEntry playlistEntry : playlist.getPlaylistEntries()) {	
-				resetTheBits();
-				video = playlistEntry.getVideo(); 
-				decoder = video.getDecoder(); //make a new decoder at this point? Decoder temp = new Decoder(video)
-				if (playlistEntry.getVideo().getFileUNC() == "../../../MVODAInputs/NickiMShort.avi") {
-					System.out.println("here we are");
-					}
-				renderNextVid(decoder);
-				
-				
-			}
-			
-			
-			//renderNextVid(decoder2);
+			decoder = video.getDecoder();
+			decoder2 = video2.getDecoder();	
+			writer = getWriter(outFilename);
+			makeTheBits();		
+			renderNextVid(decoder);
+			resetTheBits();
+			renderNextVid(decoder2);
 			
 		} catch (Exception ex) { //TODO: what ANY exception? Why aren't we saying we throw any then?
 			ex.printStackTrace();

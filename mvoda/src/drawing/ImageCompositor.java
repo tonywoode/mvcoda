@@ -187,6 +187,7 @@ public class ImageCompositor {
 	
 	public void resetFileUNC() {
 		fileIndex = 0;
+		outOffset = 0;
 	}
 
 
