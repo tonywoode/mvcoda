@@ -15,6 +15,7 @@ import media.Encoder;
 import media.MusicVideo;
 import media.xuggle.DecodeAndPlayAudioAndVideo;
 import media.xuggle.EncoderXuggle;
+import media.xuggle.EncoderXuggleTWODECODERS;
 import media.xuggle.MusicVideoXuggle;
 import theme.Classic;
 import theme.Pop;
@@ -66,7 +67,8 @@ public class EntryPoint {
 		System.out.println(test.toString());
 		//draw onto video
 		//Encoder draw = new EncoderXuggle(test, test2, theme, outFileUNC);
-		Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC);
+		//Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC);
+		Encoder draw = new EncoderXuggleTWODECODERS(playlist, theme, outFileUNC);
 		test.close();
 		
 		

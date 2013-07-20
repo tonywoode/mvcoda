@@ -4,6 +4,8 @@ import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.TimeUnit;
 
+import playlist.Playlist;
+
 import media.Decoder;
 import media.Encoder;
 import media.MusicVideo;
@@ -23,7 +25,7 @@ import drawing.TextCompositor;
  * @author Tony
  *
  */
-public class EncoderXuggleNOCRASH implements Encoder {
+public class EncoderXuggleTWODECODERS implements Encoder {
 
 	private MusicVideo video;
 	private MusicVideo video2;
@@ -54,12 +56,14 @@ public class EncoderXuggleNOCRASH implements Encoder {
 	 * @param filename
 	 * @param outFilename
 	 */
-	public EncoderXuggle(MusicVideo video, MusicVideo video2, Theme theme,String outFilename) {
-		this.video = video;
-		this.video2 = video2;
+	public EncoderXuggleTWODECODERS(Playlist playlist, Theme theme,String outFilename) {
+		//this.video = video;
+		//this.video2 = video2;
+		video = playlist.getNextEntry(0).getVideo();
+		video2 = playlist.getNextEntry(1).getVideo();
 		this.outFilename = outFilename;
 		this.theme = theme;
-		render();
+		render(playlist);//now using the playlist just trying to get it to run against new method
 	}
 
 	/**
@@ -69,7 +73,7 @@ public class EncoderXuggleNOCRASH implements Encoder {
 	 */
 	//this is for Q
 	@Override
-	public void render() {
+	public void render(Playlist playlist) {
 
 		
 		try {
