@@ -39,7 +39,7 @@ public class EncoderXuggle implements Encoder {
 	private IMediaWriter writer = null;
 	
 	private long timecode;
-	private long timecodeFromVideoOne;
+	private long timecodeFromLastVid;
 	
 	private ImageCompositor logoCompositor;
 	private ImageCompositor strapCompositor;
@@ -121,7 +121,7 @@ public class EncoderXuggle implements Encoder {
 	public void renderNextVid(Decoder decoder) throws Exception {
 		long frame = 0;
 	    long lastFrame = video.getNumVidFrames();
-	    timecode =  timecodeFromVideoOne + decoder.getTimeStamp();
+	    timecode =  timecodeFromLastVid+ decoder.getTimeStamp();
 		while (decoder.hasNextPacket()) {
 			if (decoder.getVideoFrame() != null) {frame++;} // don't increase counter if not a video frame
 			
@@ -132,7 +132,7 @@ public class EncoderXuggle implements Encoder {
 			
 			BufferedImage videoFrame = decoder.getVideoFrame();						
 			if (videoFrame != null) {
-				timecode =  timecodeFromVideoOne + decoder.getTimeStamp();
+				timecode =  timecodeFromLastVid + decoder.getTimeStamp();
 				//System.out.println("Duration of logo: " + theme.getLogo().getDuration(video.getFrameRateDivisor()));
 				System.out.println("at video timestamp: " + decoder.getTimeStamp() + " - formattted: "+ decoder.getFormattedTimestamp());
 				System.out.println("at timecode: " + timecode);
@@ -142,9 +142,9 @@ public class EncoderXuggle implements Encoder {
 				writer.encodeVideo(0, videoFrame, timecode, TimeUnit.MILLISECONDS); //TODO: sort out the naming of videoFrame and Composite. THAT'S confusing!
 				
 			}
-			if ((frame +1) >= lastFrame) {break; }
+			//if ((frame +1) >= lastFrame) {break; }
 		}
-		timecodeFromVideoOne =  decoder.getTimeStamp();
+		timecodeFromLastVid =  timecode;
 	}
 	
 	

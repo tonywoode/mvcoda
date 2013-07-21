@@ -37,24 +37,59 @@ public class EntryPoint {
 		
 		
 		//make a coupkle of music vid paths
-		String fileUNC = "../../../MVODAInputs/NeyoStayShort.avi";
-		String file2UNC = "../../../MVODAInputs/NickiMShort.avi";
+		String fileUNC = "../../../MVODAInputs/Love/BrunoMarsJustTheWay.avi";
+		String fileUNC2 = "../../../MVODAInputs/Love/FlorenceAndTheMachineLoverToLover.avi";
+		String fileUNC3 = "../../../MVODAInputs/Love/GloriaEstefanAnythingForYou.avi";
+		String fileUNC4 = "../../../MVODAInputs/Love/KateBushWutheringHeights.avi";
+		String fileUNC5 = "../../../MVODAInputs/Love/LeonaLewisHappy.avi";
+		String fileUNC6 = "../../../MVODAInputs/Love/Maroon5SheWillBeLoved.avi";
+		String fileUNC7 = "../../../MVODAInputs/Love/NeyoStay.avi";
+		String fileUNC8 = "../../../MVODAInputs/Love/NickiMinajYourLove.avi";
+		String fileUNC9 = "../../../MVODAInputs/Love/PinkOneLastKiss.avi";
+		String fileUNC10 = "../../../MVODAInputs/Love/RihannaYouDaOne.avi";
 		
 		//make vids out of them
 		MusicVideo test = new MusicVideoXuggle(fileUNC);
-		MusicVideo test2 = new MusicVideoXuggle(file2UNC);
+		MusicVideo test2 = new MusicVideoXuggle(fileUNC2);
+		MusicVideo test3 = new MusicVideoXuggle(fileUNC3);
+		MusicVideo test4 = new MusicVideoXuggle(fileUNC4);
+		MusicVideo test5 = new MusicVideoXuggle(fileUNC5);
+		MusicVideo test6 = new MusicVideoXuggle(fileUNC6);
+		MusicVideo test7 = new MusicVideoXuggle(fileUNC7);
+		MusicVideo test8 = new MusicVideoXuggle(fileUNC8);
+		MusicVideo test9 = new MusicVideoXuggle(fileUNC9);
+		MusicVideo test10 = new MusicVideoXuggle(fileUNC10);
+		
 		
 		//make a couple of playlist entries
 		PlaylistEntry playlistEntry = new PlaylistEntry(test);
 		PlaylistEntry playlistEntry2 = new PlaylistEntry(test2);
+		PlaylistEntry playlistEntry3 = new PlaylistEntry(test3);
+		PlaylistEntry playlistEntry4 = new PlaylistEntry(test4);
+		PlaylistEntry playlistEntry5 = new PlaylistEntry(test5);
+		PlaylistEntry playlistEntry6 = new PlaylistEntry(test6);
+		PlaylistEntry playlistEntry7 = new PlaylistEntry(test7);
+		PlaylistEntry playlistEntry8 = new PlaylistEntry(test8);
+		PlaylistEntry playlistEntry9 = new PlaylistEntry(test9);
+		PlaylistEntry playlistEntry10 = new PlaylistEntry(test10);
+		
 		
 		//make a playlist
 		Playlist playlist = new Playlist("Biggest Beats I've seen in a while");
 		playlist.setNextEntry(playlistEntry);
 		playlist.setNextEntry(playlistEntry2);
+		playlist.setNextEntry(playlistEntry3);
+		playlist.setNextEntry(playlistEntry4);
+		playlist.setNextEntry(playlistEntry5);
+		playlist.setNextEntry(playlistEntry6);
+		playlist.setNextEntry(playlistEntry7);
+		playlist.setNextEntry(playlistEntry8);
+		playlist.setNextEntry(playlistEntry9);
+		playlist.setNextEntry(playlistEntry10);
+		
 		
 		//set an output file
-		String outFileUNC = "../../../MVODAOutputs/doesthiswork.avi";
+		String outFileUNC = "E:/Output.avi";
 		
 		
 		
@@ -68,7 +103,7 @@ public class EntryPoint {
 		//draw onto video
 		//Encoder draw = new EncoderXuggle(test, test2, theme, outFileUNC);
 		//Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC);
-		Encoder draw = new EncoderXuggleTWODECODERS(playlist, theme, outFileUNC);
+		Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC);
 		test.close();
 		
 		
