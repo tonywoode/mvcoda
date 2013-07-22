@@ -30,13 +30,13 @@ public class EntryPoint {
 	 * @throws IOException 
 	 */
 	public static void main(String[] args) throws IOException {
-		
-		
+
+
 		long start = System.currentTimeMillis(); //get rough start time
 		Logger.getGlobal().setLevel(Level.OFF);//(Level.INFO); //using logger in some of the trickier sections
-		
-		
-		//make a coupkle of music vid paths
+
+
+		/*//make a coupkle of music vid paths
 		String fileUNC = "../../../MVODAInputs/Love/BrunoMarsJustTheWay.avi";
 		String fileUNC2 = "../../../MVODAInputs/Love/FlorenceAndTheMachineLoverToLover.avi";
 		String fileUNC3 = "../../../MVODAInputs/Love/GloriaEstefanAnythingForYou.avi";
@@ -46,8 +46,20 @@ public class EntryPoint {
 		String fileUNC7 = "../../../MVODAInputs/Love/NeyoStay.avi";
 		String fileUNC8 = "../../../MVODAInputs/Love/NickiMinajYourLove.avi";
 		String fileUNC9 = "../../../MVODAInputs/Love/PinkOneLastKiss.avi";
-		String fileUNC10 = "../../../MVODAInputs/Love/RihannaYouDaOne.avi";
-		
+		String fileUNC10 = "../../../MVODAInputs/Love/RihannaYouDaOne.avi";*/
+
+		//make a couple of music vid paths
+		String fileUNC = "../../../MVODAInputs/BrunoShort.avi";
+		String fileUNC2 = "../../../MVODAInputs/FlorenceShort.avi";
+		String fileUNC3 = "../../../MVODAInputs/GloriaShort.avi";
+		String fileUNC4 = "../../../MVODAInputs/KateShort.avi";
+		String fileUNC5 = "../../../MVODAInputs/LeonaShort.avi";
+		String fileUNC6 = "../../../MVODAInputs/MaroonShort.avi";
+		String fileUNC7 = "../../../MVODAInputs/NeyoShort.avi";
+		String fileUNC8 = "../../../MVODAInputs/NickiShort.avi";
+		String fileUNC9 = "../../../MVODAInputs/PinkShort.avi";
+		String fileUNC10 = "../../../MVODAInputs/RihannaShort.avi";
+
 		//make vids out of them
 		MusicVideo test = new MusicVideoXuggle(fileUNC);
 		MusicVideo test2 = new MusicVideoXuggle(fileUNC2);
@@ -59,8 +71,8 @@ public class EntryPoint {
 		MusicVideo test8 = new MusicVideoXuggle(fileUNC8);
 		MusicVideo test9 = new MusicVideoXuggle(fileUNC9);
 		MusicVideo test10 = new MusicVideoXuggle(fileUNC10);
-		
-		
+
+
 		//make a couple of playlist entries
 		PlaylistEntry playlistEntry = new PlaylistEntry(test);
 		PlaylistEntry playlistEntry2 = new PlaylistEntry(test2);
@@ -72,8 +84,8 @@ public class EntryPoint {
 		PlaylistEntry playlistEntry8 = new PlaylistEntry(test8);
 		PlaylistEntry playlistEntry9 = new PlaylistEntry(test9);
 		PlaylistEntry playlistEntry10 = new PlaylistEntry(test10);
-		
-		
+
+
 		//make a playlist
 		Playlist playlist = new Playlist("Biggest Beats I've seen in a while");
 		playlist.setNextEntry(playlistEntry);
@@ -86,17 +98,17 @@ public class EntryPoint {
 		playlist.setNextEntry(playlistEntry8);
 		playlist.setNextEntry(playlistEntry9);
 		playlist.setNextEntry(playlistEntry10);
-		
-		
+
+
 		//set an output file
 		String outFileUNC = "E:/Output.avi";
-		
-		
-		
-		
+
+
+
+
 		//Urban.setNum(1); //TODO: very silly AND has to be done before instantiation...
 		Theme theme = new Classic();
-		
+
 
 		//get Xuggler's video info - idea could Junit test compare MY music vid class to THIS info?
 		System.out.println(test.toString());
@@ -105,21 +117,21 @@ public class EntryPoint {
 		//Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC);
 		Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC);
 		test.close();
-		
-		
-		
-		
+
+
+
+
 		//report time taken
 		long elapsed = System.currentTimeMillis() - start;
 		DateFormat df = new SimpleDateFormat("mm 'mins,' ss 'seconds', SS 'millis'");
 		df.setTimeZone(TimeZone.getTimeZone("GMT+0"));
 		System.out.println("TIME TAKEN: " + df.format(new Date(elapsed)));
-		
+
 		//play it in xugglers media player
 		DecodeAndPlayAudioAndVideo player = new DecodeAndPlayAudioAndVideo(outFileUNC);
-		
-		
-		
+
+
+
 
 	}
 }

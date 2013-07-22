@@ -35,8 +35,10 @@ public class DecoderXuggle implements Decoder {
 
 	@Getter private IAudioSamples audioSamples;
 	@Getter private BufferedImage videoFrame;	
-	@Getter private long timeStamp;
-	@Getter private String formattedTimestamp;
+	@Getter private long videoTimeStamp;
+	@Getter private String formattedVideoTimestamp;
+	@Getter private long audioTimeStamp;
+	@Getter private String formattedAudioTimestamp;
 
 	private MusicVideo video;
 
@@ -109,8 +111,8 @@ public class DecoderXuggle implements Decoder {
 			offset += bytesDecoded;
 			if (picture.isComplete()) {
 				/*we DIVIDE BY 1000 TO GET TIMESTAMP IN MILLI FROM MICROSECONDS*/
-				timeStamp = picture.getTimeStamp() / CONVERT_MICRO_TO_MILLISEC; //We get a timestamp for the picture for the re-encode
-				formattedTimestamp = picture.getFormattedTimeStamp(); //we also get a human readable timestamp for troubleshooting
+				videoTimeStamp = picture.getTimeStamp() / CONVERT_MICRO_TO_MILLISEC; //We get a timestamp for the picture for the re-encode
+				formattedVideoTimestamp = picture.getFormattedTimeStamp(); //we also get a human readable timestamp for troubleshooting
 				IVideoPicture resampled = picture;
 				if (picture.getPixelType() != XUGGLER_PIX_TYPE) {
 					//default output pix format for resampler WILL be XUGGLER_PIX_TYPE, in future we could set XUGGLER_PIX_TYPE to resampler as resampler implements IConfigurable
@@ -138,7 +140,14 @@ public class DecoderXuggle implements Decoder {
 			int numBytesDecoded = video.getAudioCoder().decodeAudio(audioSamples, packet, offset);
 			if (numBytesDecoded < 0) {throw new RuntimeException("Problem decoding audio samples");}
 			offset += numBytesDecoded;
+			
+			
 			//if (audioSamples.isComplete()) { break;	} //TODO: delete?
+			if (audioSamples.isComplete()) {
+			audioTimeStamp = audioSamples.getTimeStamp();
+			formattedAudioTimestamp = audioSamples.getFormattedTimeStamp();
+			System.out.println("I've made a timestamp");
+			}
 		}
 	}
 

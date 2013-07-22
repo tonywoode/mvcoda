@@ -38,8 +38,10 @@ public class EncoderXuggle implements Encoder {
 	
 	private IMediaWriter writer = null;
 	
-	private long timecode;
-	private long timecodeFromLastVid;
+	private long videoTimecode;
+	private long videoTimecodeFromLastVid;
+	private long audioTimecode;
+	private long audioTimecodeFromLastVid;
 	
 	private ImageCompositor logoCompositor;
 	private ImageCompositor strapCompositor;
@@ -89,17 +91,9 @@ public class EncoderXuggle implements Encoder {
 				resetTheBits();
 				video = playlistEntry.getVideo(); 
 				decoder = video.getDecoder(); //make a new decoder at this point? Decoder temp = new Decoder(video)
-				if (playlistEntry.getVideo().getFileUNC() == "../../../MVODAInputs/NickiMShort.avi") {
-					System.out.println("here we are");
-					}
-				renderNextVid(decoder);
-				
-				
+				renderNextVid(decoder);	
 			}
-			
-			
-			//renderNextVid(decoder2);
-			
+					
 		} catch (Exception ex) { //TODO: what ANY exception? Why aren't we saying we throw any then?
 			ex.printStackTrace();
 		} finally {
@@ -111,7 +105,6 @@ public class EncoderXuggle implements Encoder {
 				}
 			}
 			if (video != null) video.close();
-
 		}
 	}
 	
@@ -121,30 +114,37 @@ public class EncoderXuggle implements Encoder {
 	public void renderNextVid(Decoder decoder) throws Exception {
 		long frame = 0;
 	    long lastFrame = video.getNumVidFrames();
-	    timecode =  timecodeFromLastVid+ decoder.getTimeStamp();
+	    System.out.println(decoder.getFormattedAudioTimestamp());
+	    videoTimecode =  videoTimecodeFromLastVid + decoder.getVideoTimeStamp();
+	    audioTimecode = audioTimecodeFromLastVid + decoder.getAudioTimeStamp();
 		while (decoder.hasNextPacket()) {
 			if (decoder.getVideoFrame() != null) {frame++;} // don't increase counter if not a video frame
-			
 			IAudioSamples audioSamples = decoder.getAudioSamples();
 			if (audioSamples != null) {
+				audioTimecode = audioTimecodeFromLastVid + decoder.getAudioTimeStamp();
+				audioSamples.setTimeStamp(audioTimecode);
 				writer.encodeAudio(video.getAudioStreamIndex(), audioSamples);
+				System.out.println("at Audio Timestamp: " + decoder.getAudioTimeStamp() + " - formatted:" + decoder.getFormattedAudioTimestamp());
+				System.out.println("at realtive Audio timecode: " + audioTimecode);
 			}
 			
 			BufferedImage videoFrame = decoder.getVideoFrame();						
 			if (videoFrame != null) {
-				timecode =  timecodeFromLastVid + decoder.getTimeStamp();
-				//System.out.println("Duration of logo: " + theme.getLogo().getDuration(video.getFrameRateDivisor()));
-				System.out.println("at video timestamp: " + decoder.getTimeStamp() + " - formattted: "+ decoder.getFormattedTimestamp());
-				System.out.println("at timecode: " + timecode);
+				videoTimecode =  videoTimecodeFromLastVid + decoder.getVideoTimeStamp();
+			
+				System.out.println("at Video timestamp: " + decoder.getVideoTimeStamp() + " - formattted: "+ decoder.getFormattedVideoTimestamp());
+				System.out.println("at realtive Video timecode: " + videoTimecode);
 				
 				putTheBitsOn(videoFrame);
 				
-				writer.encodeVideo(0, videoFrame, timecode, TimeUnit.MILLISECONDS); //TODO: sort out the naming of videoFrame and Composite. THAT'S confusing!
+				writer.encodeVideo(0, videoFrame, videoTimecode, TimeUnit.MILLISECONDS); //TODO: sort out the naming of videoFrame and Composite. THAT'S confusing!
 				
 			}
-			//if ((frame +1) >= lastFrame) {break; }
+			if ((frame +1) >= lastFrame) {System.out.println("ITS THE LAST FRAME!!!!!!!!!!!!!!!!!!!!!!!!!!!!");break; }
 		}
-		timecodeFromLastVid =  timecode;
+		videoTimecodeFromLastVid =  videoTimecode;
+		audioTimecodeFromLastVid = audioTimecode;
+		
 	}
 	
 	
@@ -165,14 +165,14 @@ public class EncoderXuggle implements Encoder {
 	public void putTheBitsOn(BufferedImage videoFrame) throws Exception{
 		composite = videoFrame;
 		
-		composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),theme.getLogo().getInDuration(),video.getVidStreamDuration() - theme.getLogo().getInDuration() - theme.getLogo().getOutDuration(), composite);
+		composite = logoCompositor.overlayNextImage(decoder.getVideoTimeStamp(),theme.getLogo().getInDuration(),video.getVidStreamDuration() - theme.getLogo().getInDuration() - theme.getLogo().getOutDuration(), composite);
 		//composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),0,16680, composite);
 		
-		composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),7000, 11000, composite);
-		composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp(),15000, 2000, composite);//composite);
-		composite = chartCompositor.overlayNextImage(decoder.getTimeStamp(),theme.getChart().getInDuration() + 1000, 10000, composite);
-		composite = transitionCompositor.overlayNextImage(decoder.getTimeStamp(),0, 4000, composite);
-		composite = numbersCompositor.overlayNextImage(decoder.getTimeStamp(),5000, 10000, composite);
+		composite = strapCompositor.overlayNextImage(decoder.getVideoTimeStamp(),7000, 11000, composite);
+		composite = strapCompositor2.overlayNextImage(decoder.getVideoTimeStamp(),15000, 2000, composite);//composite);
+		composite = chartCompositor.overlayNextImage(decoder.getVideoTimeStamp(),theme.getChart().getInDuration() + 1000, 10000, composite);
+		composite = transitionCompositor.overlayNextImage(decoder.getVideoTimeStamp(),0, 4000, composite);
+		composite = numbersCompositor.overlayNextImage(decoder.getVideoTimeStamp(),5000, 10000, composite);
 		composite = numberText.overlayNextFontFrame(numbersCompositor.isImOut(), composite);
 		composite = trackText.overlayNextFontFrame(strapCompositor.isImOut(), composite);
 		composite = artistText.overlayNextFontFrame(strapCompositor.isImOut(), composite);

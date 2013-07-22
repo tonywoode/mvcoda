@@ -29,10 +29,26 @@ public class EncoderXuggleTWODECODERS implements Encoder {
 
 	private MusicVideo video;
 	private MusicVideo video2;
+	private MusicVideo video3;
+	private MusicVideo video4;
+	private MusicVideo video5;
+	private MusicVideo video6;
+	private MusicVideo video7;
+	private MusicVideo video8;
+	private MusicVideo video9;
+	private MusicVideo video10;
 	private String outFilename;
 	private BufferedImage composite;
 	private Decoder decoder;
 	private Decoder decoder2;
+	private Decoder decoder3;
+	private Decoder decoder4;
+	private Decoder decoder5;
+	private Decoder decoder6;
+	private Decoder decoder7;
+	private Decoder decoder8;
+	private Decoder decoder9;
+	private Decoder decoder10;
 	private Theme theme;
 	
 	private IMediaWriter writer = null;
@@ -61,6 +77,14 @@ public class EncoderXuggleTWODECODERS implements Encoder {
 		//this.video2 = video2;
 		video = playlist.getNextEntry(0).getVideo();
 		video2 = playlist.getNextEntry(1).getVideo();
+		video3 = playlist.getNextEntry(2).getVideo();
+		video4 = playlist.getNextEntry(3).getVideo();
+		video4 = playlist.getNextEntry(4).getVideo();
+		video5 = playlist.getNextEntry(5).getVideo();
+		video6 = playlist.getNextEntry(6).getVideo();
+		video7 = playlist.getNextEntry(7).getVideo();
+		video8 = playlist.getNextEntry(8).getVideo();
+		video10 = playlist.getNextEntry(9).getVideo();
 		this.outFilename = outFilename;
 		this.theme = theme;
 		render(playlist);//now using the playlist just trying to get it to run against new method
@@ -79,11 +103,35 @@ public class EncoderXuggleTWODECODERS implements Encoder {
 		try {
 			decoder = video.getDecoder();
 			decoder2 = video2.getDecoder();	
+			decoder3 = video3.getDecoder();	
+			decoder4 = video4.getDecoder();	
+			decoder5 = video5.getDecoder();	
+			decoder6 = video6.getDecoder();	
+			decoder7 = video7.getDecoder();	
+			decoder8 = video8.getDecoder();	
+			decoder9 = video9.getDecoder();	
+			decoder10 = video10.getDecoder();	
 			writer = getWriter(outFilename);
 			makeTheBits();		
 			renderNextVid(decoder);
 			resetTheBits();
 			renderNextVid(decoder2);
+			resetTheBits();
+			renderNextVid(decoder3);
+			resetTheBits();
+			renderNextVid(decoder4);
+			resetTheBits();
+			renderNextVid(decoder5);
+			resetTheBits();
+			renderNextVid(decoder6);
+			resetTheBits();
+			renderNextVid(decoder7);
+			resetTheBits();
+			renderNextVid(decoder8);
+			resetTheBits();
+			renderNextVid(decoder9);
+			resetTheBits();
+			renderNextVid(decoder10);
 			
 		} catch (Exception ex) { //TODO: what ANY exception? Why aren't we saying we throw any then?
 			ex.printStackTrace();
@@ -106,7 +154,7 @@ public class EncoderXuggleTWODECODERS implements Encoder {
 	public void renderNextVid(Decoder decoder) throws Exception {
 		long frame = 0;
 	    long lastFrame = video.getNumVidFrames();
-	    timecode =  timecodeFromVideoOne + decoder.getTimeStamp();
+	    timecode =  timecodeFromVideoOne + decoder.getVideoTimeStamp();
 		while (decoder.hasNextPacket()) {
 			if (decoder.getVideoFrame() != null) {frame++;} // don't increase counter if not a video frame
 			
@@ -117,9 +165,9 @@ public class EncoderXuggleTWODECODERS implements Encoder {
 			
 			BufferedImage videoFrame = decoder.getVideoFrame();						
 			if (videoFrame != null) {
-				timecode =  timecodeFromVideoOne + decoder.getTimeStamp();
+				timecode =  timecodeFromVideoOne + decoder.getVideoTimeStamp();
 				//System.out.println("Duration of logo: " + theme.getLogo().getDuration(video.getFrameRateDivisor()));
-				System.out.println("at video timestamp: " + decoder.getTimeStamp() + " - formattted: "+ decoder.getFormattedTimestamp());
+				System.out.println("at video timestamp: " + decoder.getVideoTimeStamp() + " - formattted: "+ decoder.getFormattedVideoTimestamp());
 				System.out.println("at timecode: " + timecode);
 				
 				putTheBitsOn(videoFrame);
@@ -129,7 +177,7 @@ public class EncoderXuggleTWODECODERS implements Encoder {
 			}
 			if ((frame +1) >= lastFrame) {break; }
 		}
-		timecodeFromVideoOne =  decoder.getTimeStamp();
+		timecodeFromVideoOne =  decoder.getVideoTimeStamp();
 	}
 	
 	
@@ -150,14 +198,14 @@ public class EncoderXuggleTWODECODERS implements Encoder {
 	public void putTheBitsOn(BufferedImage videoFrame) throws Exception{
 		composite = videoFrame;
 		
-		composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),theme.getLogo().getInDuration(),video.getVidStreamDuration() - theme.getLogo().getInDuration() - theme.getLogo().getOutDuration(), composite);
+		composite = logoCompositor.overlayNextImage(decoder.getVideoTimeStamp(),theme.getLogo().getInDuration(),video.getVidStreamDuration() - theme.getLogo().getInDuration() - theme.getLogo().getOutDuration(), composite);
 		//composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),0,16680, composite);
 		
-		composite = strapCompositor.overlayNextImage(decoder.getTimeStamp(),7000, 11000, composite);
-		composite = strapCompositor2.overlayNextImage(decoder.getTimeStamp(),15000, 2000, composite);//composite);
-		composite = chartCompositor.overlayNextImage(decoder.getTimeStamp(),theme.getChart().getInDuration() + 1000, 10000, composite);
-		composite = transitionCompositor.overlayNextImage(decoder.getTimeStamp(),0, 4000, composite);
-		composite = numbersCompositor.overlayNextImage(decoder.getTimeStamp(),5000, 10000, composite);
+		composite = strapCompositor.overlayNextImage(decoder.getVideoTimeStamp(),7000, 11000, composite);
+		composite = strapCompositor2.overlayNextImage(decoder.getVideoTimeStamp(),15000, 2000, composite);//composite);
+		composite = chartCompositor.overlayNextImage(decoder.getVideoTimeStamp(),theme.getChart().getInDuration() + 1000, 10000, composite);
+		composite = transitionCompositor.overlayNextImage(decoder.getVideoTimeStamp(),0, 4000, composite);
+		composite = numbersCompositor.overlayNextImage(decoder.getVideoTimeStamp(),5000, 10000, composite);
 		composite = numberText.overlayNextFontFrame(numbersCompositor.isImOut(), composite);
 		composite = trackText.overlayNextFontFrame(strapCompositor.isImOut(), composite);
 		composite = artistText.overlayNextFontFrame(strapCompositor.isImOut(), composite);

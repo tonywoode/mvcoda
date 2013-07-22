@@ -16,9 +16,13 @@ public interface Decoder {
 
 	public abstract BufferedImage getVideoFrame();
 
-	public abstract long getTimeStamp();
+	public abstract long getVideoTimeStamp();
 
-	public abstract String getFormattedTimestamp();
+	public abstract String getFormattedVideoTimestamp();
+	
+	public abstract long getAudioTimeStamp();
+
+	public abstract String getFormattedAudioTimestamp();
 
 	public abstract void makeResampler(int outputWidth, int outputHeight);
 	
