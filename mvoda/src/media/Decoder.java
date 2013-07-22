@@ -18,6 +18,8 @@ public interface Decoder {
 
 	public abstract long getVideoTimeStamp();
 
+	public abstract long getVideoTimeStampInMicros();
+	
 	public abstract String getFormattedVideoTimestamp();
 	
 	public abstract long getAudioTimeStamp();

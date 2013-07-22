@@ -142,8 +142,9 @@ public class EncoderXuggle implements Encoder {
 			}
 			if ((frame +1) >= lastFrame) {System.out.println("ITS THE LAST FRAME!!!!!!!!!!!!!!!!!!!!!!!!!!!!");break; }
 		}
-		videoTimecodeFromLastVid =  videoTimecode;
-		audioTimecodeFromLastVid = audioTimecode;
+		long offset = Math.max(videoTimecode, audioTimecode);
+		videoTimecodeFromLastVid =  offset;
+		audioTimecodeFromLastVid = offset;
 		
 	}
 	
