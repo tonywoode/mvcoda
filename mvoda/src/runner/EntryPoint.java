@@ -101,7 +101,7 @@ public class EntryPoint {
 
 
 		//set an output file
-		String outFileUNC = "E:/Output.avi";
+		String outFileUNC = "E:/Output.mp4";
 
 
 

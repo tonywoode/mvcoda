@@ -109,7 +109,7 @@ public class ImageCompositor {
 	}
 
 	public int timeCodeToFrameIndexConverter(long timeStamp) {
-		int frame = (int) (timeStamp * 25 / 1000) - 1; //minus one because we are changing to the Array's INDEX number		
+		int frame = (int) (timeStamp * 25 - 1); // / 1000) - 1; //minus one because we are changing to the Array's INDEX number		
 		return frame;
 	}
 	//TODO: WHEREVER I CHANGE A FRAME NUMBER INTO A COMMAND TO GO ONSCREEN I NEED TO SUBTRACT ONE TO GET ITS INDEX NUMBER IN THE ARRAY!!!
@@ -229,8 +229,9 @@ public class ImageCompositor {
 			double widthInc = width / fadeTime;
 			double heightInc = height / fadeTime;
 
-			if (vidTimeStamp >= outTimeWithHandles - (fadeTime * 40) && newWidth - widthInc >=0 && newHeight - heightInc >=0) { 
+			if (vidTimeStamp >= outTimeWithHandles - (fadeTime * 40000) && newWidth - widthInc >=0 && newHeight - heightInc >=0) { 
 				//TODO: at 25fps to get one ms its 1000/25 = 40, so 25*40 gives us 1 second, need that framerate constant again
+				//uh oh so in microseconds that's 1000000/25 = 
 				newWidth = newWidth - widthInc;
 				newHeight = newHeight - heightInc;//TODO: now be careful here this only works because we first hit the below increment code so w+h will be at max
 			}

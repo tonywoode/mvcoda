@@ -79,7 +79,7 @@ public class MusicVideoXuggle implements MusicVideo {
 				numVidFrames = stream.getNumFrames();
 				frameRateDivisor = stream.getTimeBase().getNumerator() * stream.getTimeBase().getDenominator();
 				//Xugglers stream duration is in whatever time units the format uses, so we'll use time base denominator and numerator and convert micro to millis
-				vidStreamDuration = stream.getDuration() / frameRateDivisor * 1000;
+				vidStreamDuration = stream.getDuration() / frameRateDivisor * 1000000; //microsenconds
 				//System.out.println("numerator is " + stream.getTimeBase().getNumerator());
 				//System.out.println("denomiator is " + stream.getTimeBase().getDenominator());
 				//System.out.println( "real time is therefore: " + vidStreamDuration);/// (stream.getTimeBase().getNumerator() * stream.getTimeBase().getDenominator() ) * 1000 );
@@ -101,7 +101,7 @@ public class MusicVideoXuggle implements MusicVideo {
 		numChannelsAudio = audioCoder.getChannels();
 		framesPerSecond = videoCoder.getFrameRate();
 		framesPerSecondAsDouble = videoCoder.getFrameRate().getDouble();
-		containerDuration = ( container.getDuration() == Global.NO_PTS ? 0 : container.getDuration() /1000 ); //gives result in milliseconds
+		containerDuration = ( container.getDuration() == Global.NO_PTS ? 0 : container.getDuration()  ); //gives result in microseconds
 
 	}
 
@@ -138,7 +138,7 @@ public class MusicVideoXuggle implements MusicVideo {
 		str += String.format("\nFile Size (bytes): %d", container.getFileSize() );
 		str += String.format("\nBit Rate: %d", container.getBitRate() );
 		str += String.format("\nNumber of streams: %d", numStreams);
-		str += String.format("\nDuration (ms): %d", containerDuration);
+		str += String.format("\nDuration (microseconds): %d", containerDuration);
 		// iterate through the streams to print their meta data
 		for (int i = 0; i < numStreams; i++) {
 			IStream stream = container.getStream(i); // find the stream object

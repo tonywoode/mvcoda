@@ -125,7 +125,7 @@ public class EncoderXuggle implements Encoder {
 				audioSamples.setTimeStamp(audioTimecode);
 				writer.encodeAudio(video.getAudioStreamIndex(), audioSamples);
 				System.out.println("at Audio Timestamp: " + decoder.getAudioTimeStamp() + " - formatted:" + decoder.getFormattedAudioTimestamp());
-				System.out.println("at realtive Audio timecode: " + audioTimecode);
+				System.out.println("at relative Audio timecode: " + audioTimecode);
 			}
 			
 			BufferedImage videoFrame = decoder.getVideoFrame();						
@@ -133,11 +133,11 @@ public class EncoderXuggle implements Encoder {
 				videoTimecode =  videoTimecodeFromLastVid + decoder.getVideoTimeStamp();
 			
 				System.out.println("at Video timestamp: " + decoder.getVideoTimeStamp() + " - formattted: "+ decoder.getFormattedVideoTimestamp());
-				System.out.println("at realtive Video timecode: " + videoTimecode);
+				System.out.println("at relative Video timecode: " + videoTimecode);
 				
 				putTheBitsOn(videoFrame);
 				
-				writer.encodeVideo(0, videoFrame, videoTimecode, TimeUnit.MILLISECONDS); //TODO: sort out the naming of videoFrame and Composite. THAT'S confusing!
+				writer.encodeVideo(0, videoFrame, videoTimecode, TimeUnit.MICROSECONDS); //TODO: sort out the naming of videoFrame and Composite. THAT'S confusing!
 				
 			}
 			if ((frame +1) >= lastFrame) {System.out.println("ITS THE LAST FRAME!!!!!!!!!!!!!!!!!!!!!!!!!!!!");break; }
@@ -169,11 +169,11 @@ public class EncoderXuggle implements Encoder {
 		composite = logoCompositor.overlayNextImage(decoder.getVideoTimeStamp(),theme.getLogo().getInDuration(),video.getVidStreamDuration() - theme.getLogo().getInDuration() - theme.getLogo().getOutDuration(), composite);
 		//composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),0,16680, composite);
 		
-		composite = strapCompositor.overlayNextImage(decoder.getVideoTimeStamp(),7000, 11000, composite);
-		composite = strapCompositor2.overlayNextImage(decoder.getVideoTimeStamp(),15000, 2000, composite);//composite);
-		composite = chartCompositor.overlayNextImage(decoder.getVideoTimeStamp(),theme.getChart().getInDuration() + 1000, 10000, composite);
-		composite = transitionCompositor.overlayNextImage(decoder.getVideoTimeStamp(),0, 4000, composite);
-		composite = numbersCompositor.overlayNextImage(decoder.getVideoTimeStamp(),5000, 10000, composite);
+		composite = strapCompositor.overlayNextImage(decoder.getVideoTimeStamp(),7000000, 11000000, composite);
+		composite = strapCompositor2.overlayNextImage(decoder.getVideoTimeStamp(),15000000, 2000000, composite);//composite);
+		composite = chartCompositor.overlayNextImage(decoder.getVideoTimeStamp(),theme.getChart().getInDuration() + 1000000, 10000000, composite);
+		composite = transitionCompositor.overlayNextImage(decoder.getVideoTimeStamp(),0, 4000000, composite);
+		composite = numbersCompositor.overlayNextImage(decoder.getVideoTimeStamp(),5000000, 10000000, composite);
 		composite = numberText.overlayNextFontFrame(numbersCompositor.isImOut(), composite);
 		composite = trackText.overlayNextFontFrame(strapCompositor.isImOut(), composite);
 		composite = artistText.overlayNextFontFrame(strapCompositor.isImOut(), composite);

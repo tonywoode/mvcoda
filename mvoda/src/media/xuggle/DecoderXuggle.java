@@ -111,7 +111,7 @@ public class DecoderXuggle implements Decoder {
 			offset += bytesDecoded;
 			if (picture.isComplete()) {
 				/*we DIVIDE BY 1000 TO GET TIMESTAMP IN MILLI FROM MICROSECONDS*/
-				videoTimeStamp = picture.getTimeStamp() / CONVERT_MICRO_TO_MILLISEC; //We get a timestamp for the picture for the re-encode
+				videoTimeStamp = picture.getTimeStamp();// / CONVERT_MICRO_TO_MILLISEC; //We get a timestamp for the picture for the re-encode
 				//videoTimeStampInMicros = picture.getTimeStamp();
 				formattedVideoTimestamp = picture.getFormattedTimeStamp(); //we also get a human readable timestamp for troubleshooting
 				IVideoPicture resampled = picture;
@@ -145,7 +145,7 @@ public class DecoderXuggle implements Decoder {
 			
 			//if (audioSamples.isComplete()) { break;	} //TODO: delete?
 			if (audioSamples.isComplete()) {
-			audioTimeStamp = audioSamples.getTimeStamp() / CONVERT_MICRO_TO_MILLISEC;
+			audioTimeStamp = audioSamples.getTimeStamp();// / CONVERT_MICRO_TO_MILLISEC;
 			formattedAudioTimestamp = audioSamples.getFormattedTimeStamp();
 			}
 		}
