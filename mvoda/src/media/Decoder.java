@@ -17,8 +17,6 @@ public interface Decoder {
 	public abstract BufferedImage getVideoFrame();
 
 	public abstract long getVideoTimeStamp();
-
-	public abstract long getVideoTimeStampInMicros();
 	
 	public abstract String getFormattedVideoTimestamp();
 	

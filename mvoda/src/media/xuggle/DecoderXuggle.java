@@ -36,7 +36,6 @@ public class DecoderXuggle implements Decoder {
 	@Getter private IAudioSamples audioSamples;
 	@Getter private BufferedImage videoFrame;	
 	@Getter private long videoTimeStamp;
-	@Getter private long videoTimeStampInMicros;
 	@Getter private String formattedVideoTimestamp;
 	@Getter private long audioTimeStamp;
 	@Getter private String formattedAudioTimestamp;
@@ -146,7 +145,7 @@ public class DecoderXuggle implements Decoder {
 			
 			//if (audioSamples.isComplete()) { break;	} //TODO: delete?
 			if (audioSamples.isComplete()) {
-			audioTimeStamp = audioSamples.getTimeStamp()  / CONVERT_MICRO_TO_MILLISEC;
+			audioTimeStamp = audioSamples.getTimeStamp() / CONVERT_MICRO_TO_MILLISEC;
 			formattedAudioTimestamp = audioSamples.getFormattedTimeStamp();
 			}
 		}

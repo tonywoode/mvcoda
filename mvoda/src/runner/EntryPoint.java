@@ -49,16 +49,16 @@ public class EntryPoint {
 		String fileUNC10 = "../../../MVODAInputs/Love/RihannaYouDaOne.avi";*/
 
 		//make a couple of music vid paths
-		String fileUNC = "../../../MVODAInputs/BrunoShort.avi";
-		String fileUNC2 = "../../../MVODAInputs/FlorenceShort.avi";
-		String fileUNC3 = "../../../MVODAInputs/GloriaShort.avi";
-		String fileUNC4 = "../../../MVODAInputs/KateShort.avi";
-		String fileUNC5 = "../../../MVODAInputs/LeonaShort.avi";
-		String fileUNC6 = "../../../MVODAInputs/MaroonShort.avi";
-		String fileUNC7 = "../../../MVODAInputs/NeyoShort.avi";
-		String fileUNC8 = "../../../MVODAInputs/NickiShort.avi";
-		String fileUNC9 = "../../../MVODAInputs/PinkShort.avi";
-		String fileUNC10 = "../../../MVODAInputs/RihannaShort.avi";
+		String fileUNC = "../../../MVODAInputs/BrunoShort.mp4";
+		String fileUNC2 = "../../../MVODAInputs/FlorenceShort.mp4";
+		String fileUNC3 = "../../../MVODAInputs/GloriaShort.mp4";
+		String fileUNC4 = "../../../MVODAInputs/KateShort.mp4";
+		String fileUNC5 = "../../../MVODAInputs/LeonaShort.mp4";
+		String fileUNC6 = "../../../MVODAInputs/MaroonShort.mp4";
+		String fileUNC7 = "../../../MVODAInputs/NeyoShort.mp4";
+		String fileUNC8 = "../../../MVODAInputs/NickiShort.mp4";
+		String fileUNC9 = "../../../MVODAInputs/PinkShort.mp4";
+		String fileUNC10 = "../../../MVODAInputs/RihannaShort.mp4";
 
 		//make vids out of them
 		MusicVideo test = new MusicVideoXuggle(fileUNC);
