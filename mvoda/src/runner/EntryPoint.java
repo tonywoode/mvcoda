@@ -8,6 +8,8 @@ import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.thoughtworks.xstream.XStream;
+
 import playlist.Playlist;
 import playlist.PlaylistEntry;
 
@@ -102,8 +104,6 @@ public class EntryPoint {
 
 		//set an output file
 		String outFileUNC = "E:/Output.mp4";
-
-
 
 
 		//Urban.setNum(1); //TODO: very silly AND has to be done before instantiation...
