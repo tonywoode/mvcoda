@@ -25,7 +25,7 @@ import drawing.TextCompositor;
  * @author Tony
  *
  */
-public class EncoderXuggleTWODECODERS implements Encoder {
+public class EncoderXuggleMultipleFixedDecoders implements Encoder {
 
 	private MusicVideo video;
 	private MusicVideo video2;
@@ -72,18 +72,18 @@ public class EncoderXuggleTWODECODERS implements Encoder {
 	 * @param filename
 	 * @param outFilename
 	 */
-	public EncoderXuggleTWODECODERS(Playlist playlist, Theme theme,String outFilename) {
+	public EncoderXuggleMultipleFixedDecoders(Playlist playlist, Theme theme,String outFilename) {
 		//this.video = video;
 		//this.video2 = video2;
 		video = playlist.getNextEntry(0).getVideo();
 		video2 = playlist.getNextEntry(1).getVideo();
 		video3 = playlist.getNextEntry(2).getVideo();
 		video4 = playlist.getNextEntry(3).getVideo();
-		video4 = playlist.getNextEntry(4).getVideo();
-		video5 = playlist.getNextEntry(5).getVideo();
-		video6 = playlist.getNextEntry(6).getVideo();
-		video7 = playlist.getNextEntry(7).getVideo();
-		video8 = playlist.getNextEntry(8).getVideo();
+		video5 = playlist.getNextEntry(4).getVideo();
+		video6 = playlist.getNextEntry(5).getVideo();
+		video7 = playlist.getNextEntry(6).getVideo();
+		video8 = playlist.getNextEntry(7).getVideo();
+		video9 = playlist.getNextEntry(8).getVideo();
 		video10 = playlist.getNextEntry(9).getVideo();
 		this.outFilename = outFilename;
 		this.theme = theme;
@@ -109,7 +109,7 @@ public class EncoderXuggleTWODECODERS implements Encoder {
 			decoder6 = video6.getDecoder();	
 			decoder7 = video7.getDecoder();	
 			decoder8 = video8.getDecoder();	
-			decoder9 = video9.getDecoder();	
+			decoder9 = video9.getDecoder();
 			decoder10 = video10.getDecoder();	
 			writer = getWriter(outFilename);
 			makeTheBits();		
@@ -172,7 +172,7 @@ public class EncoderXuggleTWODECODERS implements Encoder {
 				
 				putTheBitsOn(videoFrame);
 				
-				writer.encodeVideo(0, videoFrame, timecode, TimeUnit.MILLISECONDS); //TODO: sort out the naming of videoFrame and Composite. THAT'S confusing!
+				writer.encodeVideo(0, videoFrame, timecode, TimeUnit.MICROSECONDS); //TODO: sort out the naming of videoFrame and Composite. THAT'S confusing!
 				
 			}
 			if ((frame +1) >= lastFrame) {break; }
@@ -201,11 +201,11 @@ public class EncoderXuggleTWODECODERS implements Encoder {
 		composite = logoCompositor.overlayNextImage(decoder.getVideoTimeStamp(),theme.getLogo().getInDuration(),video.getVidStreamDuration() - theme.getLogo().getInDuration() - theme.getLogo().getOutDuration(), composite);
 		//composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),0,16680, composite);
 		
-		composite = strapCompositor.overlayNextImage(decoder.getVideoTimeStamp(),7000, 11000, composite);
-		composite = strapCompositor2.overlayNextImage(decoder.getVideoTimeStamp(),15000, 2000, composite);//composite);
-		composite = chartCompositor.overlayNextImage(decoder.getVideoTimeStamp(),theme.getChart().getInDuration() + 1000, 10000, composite);
-		composite = transitionCompositor.overlayNextImage(decoder.getVideoTimeStamp(),0, 4000, composite);
-		composite = numbersCompositor.overlayNextImage(decoder.getVideoTimeStamp(),5000, 10000, composite);
+		composite = strapCompositor.overlayNextImage(decoder.getVideoTimeStamp(),7000000, 11000000, composite);
+		composite = strapCompositor2.overlayNextImage(decoder.getVideoTimeStamp(),150000000, 20000000, composite);//composite);
+		composite = chartCompositor.overlayNextImage(decoder.getVideoTimeStamp(),theme.getChart().getInDuration() + 1000000, 10000000, composite);
+		composite = transitionCompositor.overlayNextImage(decoder.getVideoTimeStamp(),0, 4000000, composite);
+		composite = numbersCompositor.overlayNextImage(decoder.getVideoTimeStamp(),5000000, 10000000, composite);
 		composite = numberText.overlayNextFontFrame(numbersCompositor.isImOut(), composite);
 		composite = trackText.overlayNextFontFrame(strapCompositor.isImOut(), composite);
 		composite = artistText.overlayNextFontFrame(strapCompositor.isImOut(), composite);

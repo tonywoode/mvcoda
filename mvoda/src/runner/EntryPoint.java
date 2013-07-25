@@ -17,7 +17,7 @@ import media.Encoder;
 import media.MusicVideo;
 import media.xuggle.DecodeAndPlayAudioAndVideo;
 import media.xuggle.EncoderXuggle;
-import media.xuggle.EncoderXuggleTWODECODERS;
+import media.xuggle.EncoderXuggleMultipleFixedDecoders;
 import media.xuggle.MusicVideoXuggle;
 import theme.Classic;
 import theme.Pop;
@@ -115,7 +115,7 @@ public class EntryPoint {
 		//draw onto video
 		//Encoder draw = new EncoderXuggle(test, test2, theme, outFileUNC);
 		//Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC);
-		Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC);
+		Encoder draw = new EncoderXuggleMultipleFixedDecoders(playlist, theme, outFileUNC);
 		test.close();
 
 
