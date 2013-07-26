@@ -29,11 +29,9 @@ import drawing.TextCompositor;
 public class EncoderXuggle implements Encoder {
 
 	private MusicVideo video;
-	private MusicVideo video2;
 	private String outFilename;
 	private BufferedImage composite;
 	private Decoder decoder;
-	private Decoder decoder2;
 	private Theme theme;
 	
 	private IMediaWriter writer = null;
@@ -112,37 +110,38 @@ public class EncoderXuggle implements Encoder {
 	
 	
 	public void renderNextVid(Decoder decoder) throws Exception {
-		long frame = 0;
-	    long lastFrame = video.getNumVidFrames();
-	    System.out.println(decoder.getFormattedAudioTimestamp());
+		//long frame = 0;
+	    //long lastFrame = video.getNumVidFrames();
+	    //System.out.println(decoder.getFormattedAudioTimestamp());
 	    videoTimecode =  videoTimecodeFromLastVid + decoder.getVideoTimeStamp();
 	    audioTimecode = audioTimecodeFromLastVid + decoder.getAudioTimeStamp();
 		while (decoder.hasNextPacket()) {
-			if (decoder.getVideoFrame() != null) {frame++;} // don't increase counter if not a video frame
+			//if (decoder.getVideoFrame() != null) {frame++;} // don't increase counter if not a video frame
 			IAudioSamples audioSamples = decoder.getAudioSamples();
 			if (audioSamples != null) {
 				audioTimecode = audioTimecodeFromLastVid + decoder.getAudioTimeStamp();
 				audioSamples.setTimeStamp(audioTimecode);
 				writer.encodeAudio(video.getAudioStreamIndex(), audioSamples);
-				System.out.println("at Audio Timestamp: " + decoder.getAudioTimeStamp() + " - formatted:" + decoder.getFormattedAudioTimestamp());
-				System.out.println("at relative Audio timecode: " + audioTimecode);
+				
+				System.out.printf("%7s%15d%10s%15d%12s%13s\n", "AUDIO:", audioTimecode, "Relative:", decoder.getAudioTimeStamp(), "Formatted:", decoder.getFormattedAudioTimestamp());
+				//System.out.println("at relative Audio timecode: " + audioTimecode);
 			}
 			
 			BufferedImage videoFrame = decoder.getVideoFrame();						
 			if (videoFrame != null) {
 				videoTimecode =  videoTimecodeFromLastVid + decoder.getVideoTimeStamp();
 			
-				System.out.println("at Video timestamp: " + decoder.getVideoTimeStamp() + " - formattted: "+ decoder.getFormattedVideoTimestamp());
-				System.out.println("at relative Video timecode: " + videoTimecode);
+				System.out.printf("%7s%15d%10s%15d%12s%13s\n","VIDEO:", videoTimecode, "Relative:", decoder.getVideoTimeStamp(), "Formatted:", decoder.getFormattedVideoTimestamp());
+				//System.out.println("Combined Video timecode: " + videoTimecode);
 				
 				putTheBitsOn(videoFrame);
 				
 				writer.encodeVideo(0, videoFrame, videoTimecode, TimeUnit.MICROSECONDS); //TODO: sort out the naming of videoFrame and Composite. THAT'S confusing!
 				
 			}
-			if ((frame +1) >= lastFrame) {System.out.println("ITS THE LAST FRAME!!!!!!!!!!!!!!!!!!!!!!!!!!!!");break; }
+			//if ((frame +1) >= lastFrame) {System.out.println("ITS THE LAST FRAME!!!!!!!!!!!!!!!!!!!!!!!!!!!!");break; }
 		}
-		long offset = Math.max(videoTimecode, audioTimecode);
+		long offset = Math.max(videoTimecode, audioTimecode);//set timecode we pass on to be the LARGER of audio and video - this helps sync when concatenating
 		videoTimecodeFromLastVid =  offset;
 		audioTimecodeFromLastVid = offset;
 		

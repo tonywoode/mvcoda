@@ -115,7 +115,7 @@ public class EntryPoint {
 		//draw onto video
 		//Encoder draw = new EncoderXuggle(test, test2, theme, outFileUNC);
 		//Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC);
-		Encoder draw = new EncoderXuggleMultipleFixedDecoders(playlist, theme, outFileUNC);
+		Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC);
 		test.close();
 
 
