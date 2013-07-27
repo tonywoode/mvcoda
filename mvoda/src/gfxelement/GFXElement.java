@@ -94,7 +94,7 @@ public abstract class GFXElement {
 	public static long convertFrameToTime(long frames) {
 		//TODO: if we divide by zero, throw an exception
 		long result = frames * 1000000; //the time basis
-			 result = frames/ 25; //the frame rate //TODO: magic numbers....
+			 result = result / 25; //the frame rate //TODO: magic numbers....
 		return result;
 	}
 
