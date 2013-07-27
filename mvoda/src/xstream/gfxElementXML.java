@@ -9,10 +9,10 @@ public class gfxElementXML {
 	@Getter @Setter private String rootPath;
 	@Getter @Setter private String author;
 	@Getter @Setter private String type;
+	@Getter @Setter private String version;
 	
 	
-	@Getter @Setter public int xOffsetSD;
-	@Getter @Setter public int yOffsetSD;
+	@Getter @Setter public CoOrd coOrd;
 	
 	
 
