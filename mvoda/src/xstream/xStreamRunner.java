@@ -33,6 +33,8 @@ public class xStreamRunner {
 		GFXElement chart = new FMTop20Chart(new Pop());
 		String xml2 = xstream.toXML(chart);
 		System.out.println("and from the class \n" + xml2);
+		
+		//hmmm it's printed the entire theme of Pop not just the FMTop20Chart - why?
 	}
 
 }
