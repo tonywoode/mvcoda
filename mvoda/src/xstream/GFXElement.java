@@ -3,7 +3,7 @@ package xstream;
 import lombok.Getter;
 import lombok.Setter;
 
-public class gfxElementXML {
+public class GFXElement {
 	
 	@Getter @Setter private String themeName;
 	@Getter @Setter private String rootPath;

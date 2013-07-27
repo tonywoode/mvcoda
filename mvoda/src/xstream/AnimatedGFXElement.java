@@ -3,7 +3,7 @@ package xstream;
 import lombok.Getter;
 import lombok.Setter;
 
-public class animatedGFXElementXML extends gfxElementXML {
+public class AnimatedGFXElement extends GFXElement {
 
 	@Getter @Setter public int firstHoldFrame;
 	@Getter @Setter public int lastHoldFrame;
