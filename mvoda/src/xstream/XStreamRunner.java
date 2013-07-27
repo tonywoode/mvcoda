@@ -16,6 +16,7 @@ public class XStreamRunner {
 		
 		GFXElement urbanChart = new GFXElement();
 		urbanChart.setThemeName("Urban");
+		urbanChart.setElementName("UrbanChart");
 		urbanChart.setType("Static");
 		urbanChart.setVersion("1.0");
 		urbanChart.setAuthor("BoxTV Design Team");

@@ -11,45 +11,55 @@ import com.thoughtworks.xstream.XStream;
 
 public class GFXElementXMLBuilders {
 
+	private static Path rootDir;
+	private static Path themeDir;
+	static XStream xstream = new XStream();
+
 	/**
 	 * @param args
 	 * @throws FileNotFoundException 
 	 */
 	public static void main(String[] args) throws FileNotFoundException {
-		
-		
-		Path path1 = Paths.get("Elements");
-		Path path2 = Paths.get(path1.toString(),"Urban");
-		
-		XStream xstream = new XStream();
+
+		GFXElementXMLBuilders gfx = new GFXElementXMLBuilders();
+		gfx.makeUrbanChart();
+
+	}
+	
+	public void makeUrbanChart(){
+
+		rootDir = Paths.get("Elements");
+		themeDir = Paths.get(rootDir.toString(),"Urban");
+
+
 		xstream.alias("gfxElement", GFXElement.class);
-		
+
 		GFXElement urbanChart = new GFXElement();
 		urbanChart.setThemeName("Urban");
+		urbanChart.setElementName("UrbanChart");
 		urbanChart.setType("Static");
 		urbanChart.setVersion("1.0");
 		urbanChart.setAuthor("BoxTV Design Team");
 		urbanChart.setCoOrd( new CoOrd(400,0) );
-		
-		 
-		
-		
-		
+
+
 		String xml = xstream.toXML(urbanChart);
-		System.out.println("Making xml " + urbanChart.getClass().getClass().getName() + "\n");
+		System.out.println("Making xml " + urbanChart.toString() + "\n");
 		System.out.println(xml);
-		
-		 try {
-			 Path path3 = Paths.get(path2.toString(), "UrbanChart.xml");
-	            FileOutputStream fs = new FileOutputStream(path3.toString());
-	            xstream.toXML(urbanChart, fs);
-	        } catch (FileNotFoundException e1) {
-	            e1.printStackTrace();
-	        }
-		
-	
-		
-		
+		writeXML(urbanChart);
 	}
 
+
+	public void writeXML(GFXElement gfxElement) {
+		try {
+			Path elementFileName = Paths.get(themeDir.toString(), gfxElement.getElementName() + ".xml");
+			FileOutputStream fs = new FileOutputStream(elementFileName.toString());
+			xstream.toXML(gfxElement, fs);
+		} 
+		catch (FileNotFoundException e) {	e.printStackTrace(); }
+	}
+
+
 }
+
+
