@@ -1,0 +1,15 @@
+<AnimatedGFXElement>
+  <elementName>QRedBlock</elementName>
+  <author>BoxTV Design Team</author>
+  <version>1.0</version>
+  <coOrd>
+    <xOffsetSD>24</xOffsetSD>
+    <yOffsetSD>194</yOffsetSD>
+  </coOrd>
+  <firstHoldFrame>54</firstHoldFrame>
+  <lastHoldFrame>55</lastHoldFrame>
+  <numberOfFrames>78</numberOfFrames>
+  <reverse>false</reverse>
+  <loop>false</loop>
+  <speed>1</speed>
+</AnimatedGFXElement>

@@ -3,7 +3,9 @@ package xstream;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Theme {
+public class Theme implements XMLSerialisable {
+	
+	@Getter @Setter private String itemName;
 	
 	@Getter @Setter private String directory;
 
@@ -16,5 +18,7 @@ public class Theme {
 	@Getter @Setter public GFXElement Transition;
 
 	@Getter @Setter public GFXElement Numbers;
+	
+
 
 }

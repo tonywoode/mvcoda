@@ -15,16 +15,12 @@ public class XStreamRunner {
 		XStream xstream = new XStream();
 		
 		GFXElement urbanChart = new GFXElement();
-		urbanChart.setThemeName("Urban");
-		urbanChart.setElementName("UrbanChart");
-		urbanChart.setType("Static");
+		//urbanChart.setThemeName("Urban");
+		urbanChart.setItemName("UrbanChart");
+		//urbanChart.setType("Static");
 		urbanChart.setVersion("1.0");
 		urbanChart.setAuthor("BoxTV Design Team");
 		urbanChart.setCoOrd( new CoOrd(400,0) );
-		
-		
-		
-		
 		
 		
 		xstream.alias("gfxElement", GFXElement.class);

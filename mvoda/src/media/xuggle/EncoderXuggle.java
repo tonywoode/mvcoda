@@ -83,10 +83,10 @@ public class EncoderXuggle implements Encoder {
 		try {
 			//decoder2 = video2.getDecoder();	
 			
-			makeTheBits();
+			makeTheBitsPop();
 			
 			for (PlaylistEntry playlistEntry : playlist.getPlaylistEntries()) {	
-				resetTheBits();
+				resetTheBitsPop();
 				video = playlistEntry.getVideo(); 
 				decoder = video.getDecoder(); //make a new decoder at this point? Decoder temp = new Decoder(video)
 				renderNextVid(decoder);	
@@ -134,7 +134,7 @@ public class EncoderXuggle implements Encoder {
 				System.out.printf("%7s%15d%10s%15d%12s%13s\n","VIDEO:", videoTimecode, "Relative:", decoder.getVideoTimeStamp(), "Formatted:", decoder.getFormattedVideoTimestamp());
 				//System.out.println("Combined Video timecode: " + videoTimecode);
 				
-				putTheBitsOn(videoFrame);
+				putTheBitsOnPop(videoFrame);
 				
 				writer.encodeVideo(0, videoFrame, videoTimecode, TimeUnit.MICROSECONDS); //TODO: sort out the naming of videoFrame and Composite. THAT'S confusing!
 				
@@ -148,7 +148,7 @@ public class EncoderXuggle implements Encoder {
 	}
 	
 	
-	public void makeTheBits() {
+	public void makeTheBitsClassic() {
 		logoCompositor = new ImageCompositor(theme.getLogo());
 		strapCompositor = new ImageCompositor(theme.getStrap());
 		strapCompositor2 = new ImageCompositor(theme.getStrap());
@@ -162,13 +162,41 @@ public class EncoderXuggle implements Encoder {
 		chartText.setTextFont(new Font("Arial Narrow",1,18));		
 	}
 	
+	public void makeTheBitsUrban() {
+		logoCompositor = new ImageCompositor(theme.getLogo());
+		strapCompositor = new ImageCompositor(theme.getStrap());
+		strapCompositor2 = new ImageCompositor(theme.getStrap());
+		chartCompositor = new ImageCompositor(theme.getChart());
+		transitionCompositor = new ImageCompositor(theme.getTransition());
+		numbersCompositor = new ImageCompositor(theme.getNumbers());
+		trackText = new TextCompositor("This is the track", 270, 480);
+		artistText = new TextCompositor("This is the artist", 300, 500);
+		chartText = new TextCompositor("Classics of the 80's", 515, 75);
+		chartText.setTextFont(new Font("Arial Narrow",1,18));		
+	}
+	
+	
+	public void makeTheBitsPop() {
+		logoCompositor = new ImageCompositor(theme.getLogo());
+		strapCompositor = new ImageCompositor(theme.getStrap());
+		strapCompositor2 = new ImageCompositor(theme.getStrap());
+		chartCompositor = new ImageCompositor(theme.getChart());
+		numbersCompositor = new ImageCompositor(theme.getNumbers());
+		numberText = new TextCompositor("5", 285, 490);
+		trackText = new TextCompositor("This is the track", 390, 460);
+		artistText = new TextCompositor("This is the artist", 380, 500);
+		chartText = new TextCompositor("This Week's Fresh Music", 515, 75);
+		chartText.setTextFont(new Font("Arial Narrow",1, 18));		
+	}
+	
+	
 	public void putTheBitsOn(BufferedImage videoFrame) throws Exception{
 		composite = videoFrame;
 		
 		composite = logoCompositor.overlayNextImage(decoder.getVideoTimeStamp(),theme.getLogo().getInDuration(),video.getVidStreamDuration() - theme.getLogo().getInDuration() - theme.getLogo().getOutDuration(), composite);
 		//composite = logoCompositor.overlayNextImage(decoder.getTimeStamp(),0,16680, composite);
 		
-		composite = strapCompositor.overlayNextImage(decoder.getVideoTimeStamp(),7000000, 11000000, composite);
+		composite = strapCompositor.overlayNextImage(decoder.getVideoTimeStamp(),7000000, 10000000, composite);
 		composite = strapCompositor2.overlayNextImage(decoder.getVideoTimeStamp(),15000000, 2000000, composite);//composite);
 		composite = chartCompositor.overlayNextImage(decoder.getVideoTimeStamp(),theme.getChart().getInDuration() + 1000000, 10000000, composite);
 		composite = transitionCompositor.overlayNextImage(decoder.getVideoTimeStamp(),0, 4000000, composite);
@@ -177,7 +205,21 @@ public class EncoderXuggle implements Encoder {
 		composite = trackText.overlayNextFontFrame(strapCompositor.isImOut(), composite);
 		composite = artistText.overlayNextFontFrame(strapCompositor.isImOut(), composite);
 		composite = chartText.overlayNextFontFrame(chartCompositor.isImOut(), composite);
+	}
+	
+	
+	public void putTheBitsOnPop(BufferedImage videoFrame) throws Exception{
+		composite = videoFrame;
 		
+		composite = logoCompositor.overlayNextImage(decoder.getVideoTimeStamp(),theme.getLogo().getInDuration(),video.getVidStreamDuration() - theme.getLogo().getInDuration() - theme.getLogo().getOutDuration(), composite);
+		composite = strapCompositor.overlayNextImage(decoder.getVideoTimeStamp(),3000000, 5000000, composite);
+		composite = strapCompositor2.overlayNextImage(decoder.getVideoTimeStamp(),14000000, 2000000, composite);//composite);
+		composite = chartCompositor.overlayNextImage(decoder.getVideoTimeStamp(),theme.getChart().getInDuration() + 1000000, 10000000, composite);
+		composite = numbersCompositor.overlayNextImage(decoder.getVideoTimeStamp(),10000000, 2000000, composite);
+		composite = numberText.overlayNextFontFrame(numbersCompositor.isImOut(), composite);
+		composite = trackText.overlayNextFontFrame(strapCompositor.isImOut(), composite);
+		composite = artistText.overlayNextFontFrame(strapCompositor.isImOut(), composite);
+		composite = chartText.overlayNextFontFrame(chartCompositor.isImOut(), composite);
 	}
 	
 	public void resetTheBits() {
@@ -194,6 +236,19 @@ public class EncoderXuggle implements Encoder {
 		//chartText.resetFileUNC();
 	}
 	
+	public void resetTheBitsPop() {
+		logoCompositor.resetFileUNC();
+		strapCompositor.resetFileUNC();
+		strapCompositor2.resetFileUNC();
+		chartCompositor.resetFileUNC();
+		//transitionCompositor.resetFileUNC();
+		numbersCompositor.resetFileUNC();
+		//numberText.resetFileUNC();
+		//trackText.resetFileUNC();
+		//artistText.resetFileUNC();
+		//chartText.resetFileUNC();
+		//chartText.resetFileUNC();
+	}
 	
 	
 	

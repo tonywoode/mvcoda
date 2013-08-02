@@ -1,0 +1,15 @@
+<AnimatedGFXElement>
+  <elementName>QTransition</elementName>
+  <author>BoxTV Design Team</author>
+  <version>1.0</version>
+  <coOrd>
+    <xOffsetSD>0</xOffsetSD>
+    <yOffsetSD>200</yOffsetSD>
+  </coOrd>
+  <firstHoldFrame>-1</firstHoldFrame>
+  <lastHoldFrame>-1</lastHoldFrame>
+  <numberOfFrames>32</numberOfFrames>
+  <reverse>false</reverse>
+  <loop>false</loop>
+  <speed>1</speed>
+</AnimatedGFXElement>
