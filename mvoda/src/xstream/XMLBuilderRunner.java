@@ -9,70 +9,53 @@ import java.nio.file.Paths;
 import com.thoughtworks.xstream.XStream;
 
 
-public class GFXElementXMLBuilders {
+public class XMLBuilderRunner {
 
 	private static Path rootDir;
 	private static Path themeDir;
-	static XStream xstream = new XStream();
+	static XStream xstream = new XStream(); //TODO: dependency
 
-	/**
-	 * @param args
-	 * @throws FileNotFoundException 
-	 */
 	public static void main(String[] args) throws FileNotFoundException {
 		
+		
+		//setup aliasesfor XStream (so xml doesn't contain absolute class names)
 		xstream.alias("GfxElement", GFXElement.class);
 		xstream.alias("AnimatedGFXElement", AnimatedGFXElement.class);
 		xstream.alias("Theme", Theme.class);
+		
+		//setup paths - all themes and elements are going to go in a respective themes directory	
+		
+		rootDir = Paths.get("Elements");
+		themeDir = Paths.get(rootDir.toString(),"Urban");
 
-		GFXElementXMLBuilders gfx = new GFXElementXMLBuilders();
+		//Make an object from this static class so we can run the code to generate the theme 
+		XMLBuilderRunner gfx = new XMLBuilderRunner();
 		gfx.makeUrbanChart();
 		gfx.makeKissBug1();
-		gfx.makeUrbanChart();
 
 	}
 	
-	public void writeXML(XMLSerialisable gfxElement) {
-		try {
-			Path elementFileName = Paths.get(themeDir.toString(), gfxElement.getItemName() + ".xml");
-			FileOutputStream fs = new FileOutputStream(elementFileName.toString());
-			xstream.toXML(gfxElement, fs);
-		} 
-		catch (FileNotFoundException e) {	e.printStackTrace(); }
-	}
 	
 	//public voidreadXML() //we need to write and read not just GFXElements here, I'm trying to load a theme
 	//or do we just need to load a theme?
 
+
 	
-	
-	public void makeUrbanChart(){
-
-		rootDir = Paths.get("Elements");
-		themeDir = Paths.get(rootDir.toString(),"Urban");
-
-
-		
+	public  void makeUrbanChart() {
 
 		GFXElement urbanChart = new GFXElement();
-		//urbanChart.setThemeName("Urban");
 		urbanChart.setItemName("UrbanChart");
-		//urbanChart.setType("Static");
 		urbanChart.setVersion("1.0");
 		urbanChart.setAuthor("BoxTV Design Team");
 		urbanChart.setCoOrd( new CoOrd(400,0) );
 
-
-		String xml = xstream.toXML(urbanChart);
-		System.out.println("Making xml " + urbanChart.toString() + "\n");
-		System.out.println(xml);
-		writeXML(urbanChart);
+		XMLWriter.writeXML(themeDir, urbanChart);		
 	}
 	
 	public void makeKissBug1() {
+		
 		AnimatedGFXElement kissBug1 = new AnimatedGFXElement();
 		kissBug1.setItemName("KissBug1");
-		//kissBug1.setType("Something");
 		kissBug1.setVersion("1.0");
 		kissBug1.setAuthor("BoxTV Design Team");
 		kissBug1.setCoOrd( new CoOrd(0,0) );
@@ -83,11 +66,7 @@ public class GFXElementXMLBuilders {
 		kissBug1.setLoop(false);
 		kissBug1.setLoop(false);
 		
-		String xml = xstream.toXML(kissBug1);
-		System.out.println("Making xml " + kissBug1.toString() + "\n");
-		System.out.println(xml);
-		writeXML(kissBug1);
-		
+		XMLWriter.writeXML(themeDir, kissBug1);
 		
 	}
 

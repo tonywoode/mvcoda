@@ -1,5 +1,5 @@
-<AnimatedGFXElement>
-  <elementName>KissBug1</elementName>
+<xstream.AnimatedGFXElement>
+  <itemName>KissBug1</itemName>
   <author>BoxTV Design Team</author>
   <version>1.0</version>
   <coOrd>
@@ -12,4 +12,4 @@
   <reverse>false</reverse>
   <loop>false</loop>
   <speed>0</speed>
-</AnimatedGFXElement>
+</xstream.AnimatedGFXElement>
