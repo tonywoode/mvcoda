@@ -13,10 +13,16 @@ public class XMLWriter {
 		
 		XStream xstream = new XStream();
 		
+		xstream.processAnnotations(GFXElement.class);
+		xstream.processAnnotations(AnimatedGFXElement.class);
+		xstream.processAnnotations(Theme.class);
+		//If we don't do this we get animate elements with "Class=AnimatedGFXElement" in the xml - see http://stackoverflow.com/questions/2008043/xstream-removing-class-attribute
+		xstream.alias("AnimatedGFXElement", AnimatedGFXElement.class, GFXElement.class);
+		
 		//setup aliasesfor XStream (so xml doesn't contain absolute class names)
-				xstream.alias("GfxElement", GFXElement.class);
-				xstream.alias("AnimatedGFXElement", AnimatedGFXElement.class);
-				xstream.alias("Theme", Theme.class);
+		//xstream.alias("AnimatedGFXElement", AnimatedGFXElement.class);		
+		//xstream.alias("GfxElement", GFXElement.class);	
+		//xstream.alias("Theme", Theme.class);
 
 		try {	
 
@@ -26,6 +32,7 @@ public class XMLWriter {
 
 			Path elementFileName = Paths.get(themeDir.toString(), xmlserialisable.getItemName() + ".xml");
 			FileOutputStream fs = new FileOutputStream(elementFileName.toString());
+			
 			xstream.toXML(xmlserialisable, fs);
 		} 
 		catch (FileNotFoundException e) {	e.printStackTrace(); } //TODO: something better?

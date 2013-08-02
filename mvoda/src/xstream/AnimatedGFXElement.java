@@ -1,8 +1,11 @@
 package xstream;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 import lombok.Getter;
 import lombok.Setter;
 
+@XStreamAlias("AnimatedGFXElement")
 public class AnimatedGFXElement extends GFXElement {
 
 	@Getter @Setter public int firstHoldFrame;

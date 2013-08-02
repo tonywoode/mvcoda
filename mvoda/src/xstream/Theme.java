@@ -1,8 +1,11 @@
 package xstream;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 import lombok.Getter;
 import lombok.Setter;
 
+@XStreamAlias("Theme")
 public class Theme implements XMLSerialisable {
 	
 	@Getter @Setter private String itemName;

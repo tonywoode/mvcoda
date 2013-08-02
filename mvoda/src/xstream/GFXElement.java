@@ -1,8 +1,11 @@
 package xstream;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 import lombok.Getter;
 import lombok.Setter;
 
+@XStreamAlias("GFXElement")
 public class GFXElement implements XMLSerialisable {
 	
 	//@Getter @Setter private String themeName;

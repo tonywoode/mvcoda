@@ -14,9 +14,11 @@ public class XMLBuilderRunner {
 
 	private static Path rootDir;
 	private static Path themeDir;
-	static XStream xstream = new XStream(); //TODO: dependency
+	//static XStream xstream = new XStream(); //TODO: dependency
 
 	public static void main(String[] args) throws FileNotFoundException {
+		
+		
 		
 		//which theme are we doing i.e.: which folder do we want the xml to end up in?
 		String theme = "Urban";
@@ -27,19 +29,14 @@ public class XMLBuilderRunner {
 
 		//Make an object from this static class so we can run the code to generate the theme 
 		XMLBuilderRunner gfx = new XMLBuilderRunner();
-		gfx.makeUrbanChart();
-		gfx.makeKissBug1();
-
+		gfx.run();
 	}
 	
+	public void run() {	
+		makeUrbanTheme();
+	}
 	
-	
-
-
-
-
-	
-	public  void makeUrbanChart() {
+	public XMLSerialisable makeUrbanChart() {
 
 		GFXElement urbanChart = new GFXElement();
 		urbanChart.setItemName("UrbanChart");
@@ -47,10 +44,11 @@ public class XMLBuilderRunner {
 		urbanChart.setAuthor("BoxTV Design Team");
 		urbanChart.setCoOrd( new CoOrd(400,0) );
 
-		XMLWriter.writeXML(themeDir, urbanChart);		
+		//XMLWriter.writeXML(themeDir, urbanChart);
+		return urbanChart;
 	}
 	
-	public void makeKissBug1() {
+	public XMLSerialisable makeKissBug1() {
 		
 		AnimatedGFXElement kissBug1 = new AnimatedGFXElement();
 		kissBug1.setItemName("KissBug1");
@@ -64,8 +62,8 @@ public class XMLBuilderRunner {
 		kissBug1.setLoop(false);
 		kissBug1.setLoop(false);
 		
-		XMLWriter.writeXML(themeDir, kissBug1);
-		
+		//XMLWriter.writeXML(themeDir, kissBug1);
+		return kissBug1;
 	}
 
 //and then i build the rest, by hand. Quickly. Therefore its time for a theme
@@ -73,8 +71,20 @@ public class XMLBuilderRunner {
 	public void makeUrbanTheme() {
 		
 		Theme urban = new Theme();
-		FileInputStream fs = 
-		GFXElement urbanChart = (GFXElement)xstream.fromXML(file)
+		urban.setItemName("Urban");
+		
+		XMLSerialisable urbanChart = makeUrbanChart();
+		//XMLSerialisable urbanChart = XMLReader.readXML(themeDir, "UrbanChart");
+		
+		System.out.println(urbanChart);
+		urban.setChart((GFXElement)urbanChart);
+		
+		
+		XMLSerialisable kissBug1 = makeKissBug1();
+		System.out.println(kissBug1);
+		urban.setLogo((AnimatedGFXElement) kissBug1);
+		
+		XMLWriter.writeXML(themeDir, urban);
 		
 				
 				//urban.setLogo(xstream.fromXML())
