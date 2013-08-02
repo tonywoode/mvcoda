@@ -43,7 +43,6 @@ public class XMLBuilderRunner {
 		urbanChart.setVersion("1.0");
 		urbanChart.setAuthor("BoxTV Design Team");
 		urbanChart.setCoOrd( new CoOrd(400,0) );
-
 		//XMLWriter.writeXML(themeDir, urbanChart);
 		return urbanChart;
 	}
@@ -61,10 +60,12 @@ public class XMLBuilderRunner {
 		kissBug1.setReverse(false);
 		kissBug1.setLoop(false);
 		kissBug1.setLoop(false);
-		
 		//XMLWriter.writeXML(themeDir, kissBug1);
 		return kissBug1;
 	}
+	
+	
+	
 
 //and then i build the rest, by hand. Quickly. Therefore its time for a theme
 

@@ -1,0 +1,27 @@
+<Theme>
+  <itemName>Urban</itemName>
+  <Logo>
+    <itemName>KissBug1</itemName>
+    <author>BoxTV Design Team</author>
+    <version>1.0</version>
+    <coOrd>
+      <xOffsetSD>0</xOffsetSD>
+      <yOffsetSD>0</yOffsetSD>
+    </coOrd>
+    <firstHoldFrame>29</firstHoldFrame>
+    <lastHoldFrame>43</lastHoldFrame>
+    <numberOfFrames>75</numberOfFrames>
+    <reverse>false</reverse>
+    <loop>false</loop>
+    <speed>0</speed>
+  </Logo>
+  <Chart>
+    <itemName>UrbanChart</itemName>
+    <author>BoxTV Design Team</author>
+    <version>1.0</version>
+    <coOrd>
+      <xOffsetSD>400</xOffsetSD>
+      <yOffsetSD>0</yOffsetSD>
+    </coOrd>
+  </Chart>
+</Theme>

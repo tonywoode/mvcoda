@@ -15,10 +15,11 @@ public class XMLReader {
 		XStream xstream = new XStream();
 		XMLSerialisable xml = null;
 		
-		//setup aliasesfor XStream (so xml doesn't contain absolute class names)
-				xstream.alias("GfxElement", GFXElement.class);
-				xstream.alias("AnimatedGFXElement", AnimatedGFXElement.class);
-				xstream.alias("Theme", Theme.class);
+		xstream.processAnnotations(GFXElement.class);
+		xstream.processAnnotations(AnimatedGFXElement.class);
+		xstream.processAnnotations(Theme.class);
+		//If we don't do this we get animate elements with "Class=AnimatedGFXElement" in the xml - see http://stackoverflow.com/questions/2008043/xstream-removing-class-attribute
+		xstream.alias("AnimatedGFXElement", AnimatedGFXElement.class, GFXElement.class);
 
 		try {	
 
