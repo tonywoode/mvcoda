@@ -1,6 +1,7 @@
 package xstream;
 
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.nio.file.Path;
@@ -17,16 +18,12 @@ public class XMLBuilderRunner {
 
 	public static void main(String[] args) throws FileNotFoundException {
 		
-		
-		//setup aliasesfor XStream (so xml doesn't contain absolute class names)
-		xstream.alias("GfxElement", GFXElement.class);
-		xstream.alias("AnimatedGFXElement", AnimatedGFXElement.class);
-		xstream.alias("Theme", Theme.class);
+		//which theme are we doing i.e.: which folder do we want the xml to end up in?
+		String theme = "Urban";
 		
 		//setup paths - all themes and elements are going to go in a respective themes directory	
-		
 		rootDir = Paths.get("Elements");
-		themeDir = Paths.get(rootDir.toString(),"Urban");
+		themeDir = Paths.get(rootDir.toString(),theme);
 
 		//Make an object from this static class so we can run the code to generate the theme 
 		XMLBuilderRunner gfx = new XMLBuilderRunner();
@@ -36,8 +33,9 @@ public class XMLBuilderRunner {
 	}
 	
 	
-	//public voidreadXML() //we need to write and read not just GFXElements here, I'm trying to load a theme
-	//or do we just need to load a theme?
+	
+
+
 
 
 	
@@ -75,7 +73,11 @@ public class XMLBuilderRunner {
 	public void makeUrbanTheme() {
 		
 		Theme urban = new Theme();
-		//urban.setLogo(xstream.fromXML(file))
+		FileInputStream fs = 
+		GFXElement urbanChart = (GFXElement)xstream.fromXML(file)
+		
+				
+				//urban.setLogo(xstream.fromXML())
 		
 		
 		
