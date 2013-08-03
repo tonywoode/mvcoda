@@ -106,8 +106,8 @@ public class EntryPoint {
 		String outFileUNC = "E:/Output.mp4";
 
 
-		Pop.setNum(1); //TODO: very silly AND has to be done before instantiation...
-		Theme theme = new Pop();
+		//Pop.setNum(1); //TODO: very silly AND has to be done before instantiation...
+		Theme theme = new Classic();
 
 
 		//get Xuggler's video info - idea could Junit test compare MY music vid class to THIS info?

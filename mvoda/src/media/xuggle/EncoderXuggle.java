@@ -83,10 +83,10 @@ public class EncoderXuggle implements Encoder {
 		try {
 			//decoder2 = video2.getDecoder();	
 			
-			makeTheBitsPop();
+			makeTheBitsClassic();
 			
 			for (PlaylistEntry playlistEntry : playlist.getPlaylistEntries()) {	
-				resetTheBitsPop();
+				resetTheBits();
 				video = playlistEntry.getVideo(); 
 				decoder = video.getDecoder(); //make a new decoder at this point? Decoder temp = new Decoder(video)
 				renderNextVid(decoder);	
