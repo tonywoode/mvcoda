@@ -1,88 +1,98 @@
 <Theme>
-  <itemName>Urban</itemName>
+  <itemName>Classic</itemName>
   <Logo>
-    <itemName>KissBug1</itemName>
+    <itemName>QLogo</itemName>
     <rootPath>Total Rubbish</rootPath>
     <author>BoxTV Design Team</author>
     <version>1.0</version>
     <coOrd>
-      <xOffsetSD>0</xOffsetSD>
+      <xOffsetSD>65</xOffsetSD>
       <yOffsetSD>0</yOffsetSD>
     </coOrd>
     <frameData>
-      <firstHoldFrame>29</firstHoldFrame>
-      <lastHoldFrame>43</lastHoldFrame>
-      <numberOfFrames>75</numberOfFrames>
+      <firstHoldFrame>84</firstHoldFrame>
+      <lastHoldFrame>84</lastHoldFrame>
+      <numberOfFrames>86</numberOfFrames>
+    </frameData>
+    <animationData>
+      <reverse>true</reverse>
+      <loop>false</loop>
+      <speed>2</speed>
+    </animationData>
+  </Logo>
+  <Chart>
+    <itemName>QChartBlack</itemName>
+    <rootPath>Total Rubbish</rootPath>
+    <author>BoxTV Design Team</author>
+    <version>1.0</version>
+    <coOrd>
+      <xOffsetSD>480</xOffsetSD>
+      <yOffsetSD>0</yOffsetSD>
+    </coOrd>
+    <frameData>
+      <firstHoldFrame>47</firstHoldFrame>
+      <lastHoldFrame>47</lastHoldFrame>
+      <numberOfFrames>48</numberOfFrames>
+    </frameData>
+    <animationData>
+      <reverse>true</reverse>
+      <loop>false</loop>
+      <speed>1</speed>
+    </animationData>
+  </Chart>
+  <Strap>
+    <itemName>QStrap</itemName>
+    <rootPath>Total Rubbish</rootPath>
+    <author>BoxTV Design Team</author>
+    <version>1.0</version>
+    <coOrd>
+      <xOffsetSD>-33</xOffsetSD>
+      <yOffsetSD>230</yOffsetSD>
+    </coOrd>
+    <frameData>
+      <firstHoldFrame>66</firstHoldFrame>
+      <lastHoldFrame>67</lastHoldFrame>
+      <numberOfFrames>131</numberOfFrames>
     </frameData>
     <animationData>
       <reverse>false</reverse>
       <loop>false</loop>
       <speed>1</speed>
     </animationData>
-  </Logo>
-  <Chart>
-    <itemName>UrbanChart</itemName>
-    <rootPath>Total Rubbish</rootPath>
-    <author>BoxTV Design Team</author>
-    <version>1.0</version>
-    <coOrd>
-      <xOffsetSD>400</xOffsetSD>
-      <yOffsetSD>0</yOffsetSD>
-    </coOrd>
-  </Chart>
-  <Strap>
-    <itemName>UK40BB</itemName>
-    <rootPath>Total Rubbish</rootPath>
-    <author>BoxTV Design Team</author>
-    <version>1.0</version>
-    <coOrd>
-      <xOffsetSD>0</xOffsetSD>
-      <yOffsetSD>0</yOffsetSD>
-    </coOrd>
-    <frameData>
-      <firstHoldFrame>26</firstHoldFrame>
-      <lastHoldFrame>150</lastHoldFrame>
-      <numberOfFrames>176</numberOfFrames>
-    </frameData>
-    <animationData>
-      <reverse>false</reverse>
-      <loop>true</loop>
-      <speed>1</speed>
-    </animationData>
   </Strap>
   <Numbers>
-    <itemName>UK40BBNums</itemName>
+    <itemName>QRedBlockLarger</itemName>
     <rootPath>Total Rubbish</rootPath>
     <author>BoxTV Design Team</author>
     <version>1.0</version>
     <coOrd>
-      <xOffsetSD>0</xOffsetSD>
-      <yOffsetSD>0</yOffsetSD>
+      <xOffsetSD>24</xOffsetSD>
+      <yOffsetSD>194</yOffsetSD>
     </coOrd>
     <frameData>
-      <firstHoldFrame>26</firstHoldFrame>
-      <lastHoldFrame>151</lastHoldFrame>
-      <numberOfFrames>176</numberOfFrames>
+      <firstHoldFrame>54</firstHoldFrame>
+      <lastHoldFrame>55</lastHoldFrame>
+      <numberOfFrames>78</numberOfFrames>
     </frameData>
     <animationData>
       <reverse>false</reverse>
-      <loop>true</loop>
+      <loop>false</loop>
       <speed>1</speed>
     </animationData>
   </Numbers>
   <Transition>
-    <itemName>UK40BBTransition</itemName>
+    <itemName>QTransition</itemName>
     <rootPath>Total Rubbish</rootPath>
     <author>BoxTV Design Team</author>
     <version>1.0</version>
     <coOrd>
       <xOffsetSD>0</xOffsetSD>
-      <yOffsetSD>0</yOffsetSD>
+      <yOffsetSD>200</yOffsetSD>
     </coOrd>
     <frameData>
       <firstHoldFrame>-1</firstHoldFrame>
       <lastHoldFrame>-1</lastHoldFrame>
-      <numberOfFrames>16</numberOfFrames>
+      <numberOfFrames>32</numberOfFrames>
     </frameData>
     <animationData>
       <reverse>false</reverse>

@@ -1,7 +1,7 @@
 <Theme>
-  <itemName>Urban</itemName>
+  <itemName>Pop</itemName>
   <Logo>
-    <itemName>KissBug1</itemName>
+    <itemName>4M1BugFrames</itemName>
     <rootPath>Total Rubbish</rootPath>
     <author>BoxTV Design Team</author>
     <version>1.0</version>
@@ -10,9 +10,9 @@
       <yOffsetSD>0</yOffsetSD>
     </coOrd>
     <frameData>
-      <firstHoldFrame>29</firstHoldFrame>
-      <lastHoldFrame>43</lastHoldFrame>
-      <numberOfFrames>75</numberOfFrames>
+      <firstHoldFrame>51</firstHoldFrame>
+      <lastHoldFrame>79</lastHoldFrame>
+      <numberOfFrames>126</numberOfFrames>
     </frameData>
     <animationData>
       <reverse>false</reverse>
@@ -21,17 +21,7 @@
     </animationData>
   </Logo>
   <Chart>
-    <itemName>UrbanChart</itemName>
-    <rootPath>Total Rubbish</rootPath>
-    <author>BoxTV Design Team</author>
-    <version>1.0</version>
-    <coOrd>
-      <xOffsetSD>400</xOffsetSD>
-      <yOffsetSD>0</yOffsetSD>
-    </coOrd>
-  </Chart>
-  <Strap>
-    <itemName>UK40BB</itemName>
+    <itemName>FMTop20Chart</itemName>
     <rootPath>Total Rubbish</rootPath>
     <author>BoxTV Design Team</author>
     <version>1.0</version>
@@ -40,29 +30,49 @@
       <yOffsetSD>0</yOffsetSD>
     </coOrd>
     <frameData>
-      <firstHoldFrame>26</firstHoldFrame>
-      <lastHoldFrame>150</lastHoldFrame>
-      <numberOfFrames>176</numberOfFrames>
+      <firstHoldFrame>10</firstHoldFrame>
+      <lastHoldFrame>43</lastHoldFrame>
+      <numberOfFrames>52</numberOfFrames>
     </frameData>
     <animationData>
       <reverse>false</reverse>
-      <loop>true</loop>
+      <loop>false</loop>
+      <speed>1</speed>
+    </animationData>
+  </Chart>
+  <Strap>
+    <itemName>PeriscopeFrames</itemName>
+    <rootPath>Total Rubbish</rootPath>
+    <author>BoxTV Design Team</author>
+    <version>1.0</version>
+    <coOrd>
+      <xOffsetSD>0</xOffsetSD>
+      <yOffsetSD>0</yOffsetSD>
+    </coOrd>
+    <frameData>
+      <firstHoldFrame>20</firstHoldFrame>
+      <lastHoldFrame>70</lastHoldFrame>
+      <numberOfFrames>101</numberOfFrames>
+    </frameData>
+    <animationData>
+      <reverse>false</reverse>
+      <loop>false</loop>
       <speed>1</speed>
     </animationData>
   </Strap>
   <Numbers>
-    <itemName>UK40BBNums</itemName>
+    <itemName>Animated/Num</itemName>
     <rootPath>Total Rubbish</rootPath>
     <author>BoxTV Design Team</author>
     <version>1.0</version>
     <coOrd>
-      <xOffsetSD>0</xOffsetSD>
+      <xOffsetSD>-680</xOffsetSD>
       <yOffsetSD>0</yOffsetSD>
     </coOrd>
     <frameData>
-      <firstHoldFrame>26</firstHoldFrame>
-      <lastHoldFrame>151</lastHoldFrame>
-      <numberOfFrames>176</numberOfFrames>
+      <firstHoldFrame>9</firstHoldFrame>
+      <lastHoldFrame>63</lastHoldFrame>
+      <numberOfFrames>76</numberOfFrames>
     </frameData>
     <animationData>
       <reverse>false</reverse>
@@ -70,24 +80,4 @@
       <speed>1</speed>
     </animationData>
   </Numbers>
-  <Transition>
-    <itemName>UK40BBTransition</itemName>
-    <rootPath>Total Rubbish</rootPath>
-    <author>BoxTV Design Team</author>
-    <version>1.0</version>
-    <coOrd>
-      <xOffsetSD>0</xOffsetSD>
-      <yOffsetSD>0</yOffsetSD>
-    </coOrd>
-    <frameData>
-      <firstHoldFrame>-1</firstHoldFrame>
-      <lastHoldFrame>-1</lastHoldFrame>
-      <numberOfFrames>16</numberOfFrames>
-    </frameData>
-    <animationData>
-      <reverse>false</reverse>
-      <loop>false</loop>
-      <speed>1</speed>
-    </animationData>
-  </Transition>
 </Theme>
