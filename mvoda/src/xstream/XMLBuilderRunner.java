@@ -18,8 +18,6 @@ public class XMLBuilderRunner {
 
 	public static void main(String[] args) throws FileNotFoundException {
 		
-		
-		
 		//which theme are we doing i.e.: which folder do we want the xml to end up in?
 		String theme = "Urban";
 		
@@ -63,6 +61,8 @@ public class XMLBuilderRunner {
 		//XMLWriter.writeXML(themeDir, kissBug1);
 		return kissBug1;
 	}
+	
+	
 	
 	
 	

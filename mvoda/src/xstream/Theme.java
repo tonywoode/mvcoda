@@ -12,16 +12,16 @@ public class Theme implements XMLSerialisable {
 	
 	@Getter @Setter private String directory;
 
+	//elements cited in order of importance which is maintained in other classes e.g.: xml generation classes
+	
 	@Getter @Setter public GFXElement Logo;
 
-	@Getter @Setter public GFXElement Strap;
-
 	@Getter @Setter public GFXElement Chart;
-
-	@Getter @Setter public GFXElement Transition;
+	
+	@Getter @Setter public GFXElement Strap;
 
 	@Getter @Setter public GFXElement Numbers;
 	
-
+	@Getter @Setter public GFXElement Transition;
 
 }
