@@ -1,14 +1,19 @@
 <Theme>
   <itemName>Classic</itemName>
   <Logo class="AnimatedGFXElement">
+    <filetype></filetype>
+    <filePrefix></filePrefix>
+    <duration>0</duration>
     <itemName>QLogo</itemName>
-    <rootPath>Total Rubbish</rootPath>
+    <rootPath>Logo</rootPath>
     <author>BoxTV Design Team</author>
     <version>1.0</version>
     <coOrd>
       <xOffsetSD>65</xOffsetSD>
       <yOffsetSD>0</yOffsetSD>
     </coOrd>
+    <inDuration>0</inDuration>
+    <outDuration>0</outDuration>
     <frameData>
       <firstHoldFrame>84</firstHoldFrame>
       <lastHoldFrame>84</lastHoldFrame>
@@ -21,14 +26,19 @@
     </animationData>
   </Logo>
   <Chart class="AnimatedGFXElement">
+    <filetype></filetype>
+    <filePrefix></filePrefix>
+    <duration>0</duration>
     <itemName>QChartBlack</itemName>
-    <rootPath>Total Rubbish</rootPath>
+    <rootPath>Chart</rootPath>
     <author>BoxTV Design Team</author>
     <version>1.0</version>
     <coOrd>
       <xOffsetSD>480</xOffsetSD>
       <yOffsetSD>0</yOffsetSD>
     </coOrd>
+    <inDuration>0</inDuration>
+    <outDuration>0</outDuration>
     <frameData>
       <firstHoldFrame>47</firstHoldFrame>
       <lastHoldFrame>47</lastHoldFrame>
@@ -41,14 +51,19 @@
     </animationData>
   </Chart>
   <Strap class="AnimatedGFXElement">
+    <filetype></filetype>
+    <filePrefix></filePrefix>
+    <duration>0</duration>
     <itemName>QStrap</itemName>
-    <rootPath>Total Rubbish</rootPath>
+    <rootPath>Strap</rootPath>
     <author>BoxTV Design Team</author>
     <version>1.0</version>
     <coOrd>
       <xOffsetSD>-33</xOffsetSD>
       <yOffsetSD>230</yOffsetSD>
     </coOrd>
+    <inDuration>0</inDuration>
+    <outDuration>0</outDuration>
     <frameData>
       <firstHoldFrame>66</firstHoldFrame>
       <lastHoldFrame>67</lastHoldFrame>
@@ -61,14 +76,19 @@
     </animationData>
   </Strap>
   <Numbers class="AnimatedGFXElement">
+    <filetype></filetype>
+    <filePrefix></filePrefix>
+    <duration>0</duration>
     <itemName>QRedBlockLarger</itemName>
-    <rootPath>Total Rubbish</rootPath>
+    <rootPath>Numbers</rootPath>
     <author>BoxTV Design Team</author>
     <version>1.0</version>
     <coOrd>
       <xOffsetSD>24</xOffsetSD>
       <yOffsetSD>194</yOffsetSD>
     </coOrd>
+    <inDuration>0</inDuration>
+    <outDuration>0</outDuration>
     <frameData>
       <firstHoldFrame>54</firstHoldFrame>
       <lastHoldFrame>55</lastHoldFrame>
@@ -81,14 +101,19 @@
     </animationData>
   </Numbers>
   <Transition class="AnimatedGFXElement">
+    <filetype></filetype>
+    <filePrefix></filePrefix>
+    <duration>0</duration>
     <itemName>QTransition</itemName>
-    <rootPath>Total Rubbish</rootPath>
+    <rootPath>Transition</rootPath>
     <author>BoxTV Design Team</author>
     <version>1.0</version>
     <coOrd>
       <xOffsetSD>0</xOffsetSD>
       <yOffsetSD>200</yOffsetSD>
     </coOrd>
+    <inDuration>0</inDuration>
+    <outDuration>0</outDuration>
     <frameData>
       <firstHoldFrame>-1</firstHoldFrame>
       <lastHoldFrame>-1</lastHoldFrame>

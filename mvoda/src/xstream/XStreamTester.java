@@ -20,7 +20,7 @@ public class XStreamTester {
 
 		XMLSerialisable themeAsSerialisable = XMLReader.readXML(themeDir, themeName);
 		Theme theme = (Theme) themeAsSerialisable;
-		System.out.println(theme.getLogo().getxOffsetSD()); //TODO:classic case for JUnit this should be 65
+		System.out.println(theme.getLogo().getXOffsetSD()); //TODO:classic case for JUnit this should be 65
 
 
 

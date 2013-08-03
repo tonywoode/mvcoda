@@ -1,6 +1,6 @@
 package drawing;
 
-import gfxelement.GFXElement;
+//import gfxelement.GFXElement;
 
 import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+
+import xstream.GFXElement;
 
 import lombok.Getter;
 

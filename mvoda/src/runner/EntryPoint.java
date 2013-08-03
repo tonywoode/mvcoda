@@ -1,6 +1,8 @@
 package runner;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,8 +23,11 @@ import media.xuggle.EncoderXuggleMultipleFixedDecoders;
 import media.xuggle.MusicVideoXuggle;
 import theme.Classic;
 import theme.Pop;
-import theme.Theme;
+//import theme.Theme;
 import theme.Urban;
+import xstream.Theme;
+import xstream.XMLReader;
+import xstream.XMLSerialisable;
 
 public class EntryPoint {
 
@@ -107,7 +112,16 @@ public class EntryPoint {
 
 
 		//Pop.setNum(1); //TODO: very silly AND has to be done before instantiation...
-		Theme theme = new Classic();
+		
+		String themeName = "Classic";
+		Path rootDir = Paths.get("Elements");
+		Path themeDir = Paths.get(rootDir.toString(),themeName);
+
+
+		XMLSerialisable themeAsSerialisable = XMLReader.readXML(themeDir, themeName);
+		Theme theme = (Theme) themeAsSerialisable;
+		
+		//Theme theme = new Classic();
 
 
 		//get Xuggler's video info - idea could Junit test compare MY music vid class to THIS info?

@@ -7,6 +7,10 @@ import lombok.Setter;
 
 @XStreamAlias("AnimatedGFXElement")
 public class AnimatedGFXElement extends GFXElement {
+	
+	
+	private long inDuration;
+	private long outDuration;
 
 	@Getter @Setter public FrameData frameData;
 	@Getter @Setter public AnimationData animationData;
@@ -29,6 +33,28 @@ public class AnimatedGFXElement extends GFXElement {
 	public int getFirstHoldFrame() { return frameData.getFirstHoldFrame(); }
 	public int getLastHoldFrame() { return frameData.getLastHoldFrame(); }
 	public int getNumberOfFrames() { return frameData.getNumberOfFrames(); }
+	
+	@Override
+	public boolean isReverse() { return animationData.isReverse(); }
+	@Override
+	public boolean isLoop() { return animationData.isLoop(); }
+	@Override
+	public int getSpeed() { return animationData.getSpeed(); }
+	
+	@Override //TODO:pay attention to these two overrides when you doc
+	public long getInDuration() {
+		inDuration = convertFrameToTime(getFirstHoldFrame() - 1);
+		return inDuration;
+	}
+	
+	@Override
+	public long getOutDuration() {
+		//if we have a reverse element, we need to use the inverse of the usual manner of getting duration AND know what speed we want the animate out to be
+		if (isReverse()) { outDuration = ( convertFrameToTime(getNumberOfFrames() - (getNumberOfFrames() - getLastHoldFrame() + 1)) / getSpeed() ); }
+		else { outDuration = convertFrameToTime(getNumberOfFrames() - getLastHoldFrame() + 1); }//TODO: make sure framerate is never going to be zero
+		
+		return outDuration;
+	}
 
 
 	//don't need any of these anymore as we've abstracteed them to the two classes

@@ -6,11 +6,12 @@ import java.util.concurrent.TimeUnit;
 
 import playlist.Playlist;
 import playlist.PlaylistEntry;
+import xstream.Theme;
 
 import media.Decoder;
 import media.Encoder;
 import media.MusicVideo;
-import theme.Theme;
+//import theme.Theme;
 
 import com.xuggle.mediatool.IMediaWriter;
 import com.xuggle.mediatool.ToolFactory;

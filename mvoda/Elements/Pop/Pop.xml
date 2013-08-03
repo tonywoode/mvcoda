@@ -1,14 +1,19 @@
 <Theme>
   <itemName>Pop</itemName>
   <Logo class="AnimatedGFXElement">
+    <filetype></filetype>
+    <filePrefix></filePrefix>
+    <duration>0</duration>
     <itemName>4M1BugFrames</itemName>
-    <rootPath>Total Rubbish</rootPath>
+    <rootPath>Logo</rootPath>
     <author>BoxTV Design Team</author>
     <version>1.0</version>
     <coOrd>
       <xOffsetSD>0</xOffsetSD>
       <yOffsetSD>0</yOffsetSD>
     </coOrd>
+    <inDuration>0</inDuration>
+    <outDuration>0</outDuration>
     <frameData>
       <firstHoldFrame>51</firstHoldFrame>
       <lastHoldFrame>79</lastHoldFrame>
@@ -21,14 +26,19 @@
     </animationData>
   </Logo>
   <Chart class="AnimatedGFXElement">
+    <filetype></filetype>
+    <filePrefix></filePrefix>
+    <duration>0</duration>
     <itemName>FMTop20Chart</itemName>
-    <rootPath>Total Rubbish</rootPath>
+    <rootPath>Chart</rootPath>
     <author>BoxTV Design Team</author>
     <version>1.0</version>
     <coOrd>
       <xOffsetSD>0</xOffsetSD>
       <yOffsetSD>0</yOffsetSD>
     </coOrd>
+    <inDuration>0</inDuration>
+    <outDuration>0</outDuration>
     <frameData>
       <firstHoldFrame>10</firstHoldFrame>
       <lastHoldFrame>43</lastHoldFrame>
@@ -41,14 +51,19 @@
     </animationData>
   </Chart>
   <Strap class="AnimatedGFXElement">
+    <filetype></filetype>
+    <filePrefix></filePrefix>
+    <duration>0</duration>
     <itemName>PeriscopeFrames</itemName>
-    <rootPath>Total Rubbish</rootPath>
+    <rootPath>Strap</rootPath>
     <author>BoxTV Design Team</author>
     <version>1.0</version>
     <coOrd>
       <xOffsetSD>0</xOffsetSD>
       <yOffsetSD>0</yOffsetSD>
     </coOrd>
+    <inDuration>0</inDuration>
+    <outDuration>0</outDuration>
     <frameData>
       <firstHoldFrame>20</firstHoldFrame>
       <lastHoldFrame>70</lastHoldFrame>
@@ -61,14 +76,19 @@
     </animationData>
   </Strap>
   <Numbers class="AnimatedGFXElement">
+    <filetype></filetype>
+    <filePrefix></filePrefix>
+    <duration>0</duration>
     <itemName>Animated/Num</itemName>
-    <rootPath>Total Rubbish</rootPath>
+    <rootPath>Numbers</rootPath>
     <author>BoxTV Design Team</author>
     <version>1.0</version>
     <coOrd>
       <xOffsetSD>-680</xOffsetSD>
       <yOffsetSD>0</yOffsetSD>
     </coOrd>
+    <inDuration>0</inDuration>
+    <outDuration>0</outDuration>
     <frameData>
       <firstHoldFrame>9</firstHoldFrame>
       <lastHoldFrame>63</lastHoldFrame>
