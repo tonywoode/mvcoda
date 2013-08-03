@@ -14,6 +14,13 @@ public class XMLBuilderRunner {
 
 	private static Path rootDir;
 	private static Path themeDir;
+	
+	
+	//these variables will be constant to all the XML's that are being created for version 1.0 so are fields here
+	private String path = "Total Rubbish"; //TODO: I don't know how this is being used now
+	private String author = "BoxTV Design Team";
+	private String version  = "1.0";
+	
 	//static XStream xstream = new XStream(); //TODO: dependency
 
 	public static void main(String[] args) throws FileNotFoundException {
@@ -36,19 +43,20 @@ public class XMLBuilderRunner {
 	
 	public XMLSerialisable makeUrbanChart() {
 
-		GFXElement urbanChart = new GFXElement();
-		urbanChart.setItemName("UrbanChart");
-		urbanChart.setVersion("1.0");
-		urbanChart.setAuthor("BoxTV Design Team");
-		urbanChart.setCoOrd( new CoOrd(400,0) );
+		GFXElement urbanChart = new GFXElement("UrbanChart", path, author, version, new CoOrd(400,0));
+		//urbanChart.setItemName("UrbanChart");
+		//urbanChart.setVersion("1.0");
+		//urbanChart.setAuthor("BoxTV Design Team");
+		//urbanChart.setCoOrd( new CoOrd(400,0) );
+		
 		//XMLWriter.writeXML(themeDir, urbanChart);
 		return urbanChart;
 	}
 	
 	public XMLSerialisable makeKissBug1() {
 		
-		AnimatedGFXElement kissBug1 = new AnimatedGFXElement();
-		kissBug1.setItemName("KissBug1");
+		AnimatedGFXElement kissBug1 = new AnimatedGFXElement("KissBug1", path, author,version, new CoOrd(0,0), new FrameData(29, 43, 75), new AnimationData(false, false, 1));
+		/*kissBug1.setItemName("KissBug1");
 		kissBug1.setVersion("1.0");
 		kissBug1.setAuthor("BoxTV Design Team");
 		kissBug1.setCoOrd( new CoOrd(0,0) );
@@ -57,7 +65,8 @@ public class XMLBuilderRunner {
 		kissBug1.setNumberOfFrames(75);
 		kissBug1.setReverse(false);
 		kissBug1.setLoop(false);
-		kissBug1.setLoop(false);
+		kissBug1.setLoop(false);*/
+		
 		//XMLWriter.writeXML(themeDir, kissBug1);
 		return kissBug1;
 	}

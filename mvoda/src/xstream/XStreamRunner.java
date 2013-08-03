@@ -14,7 +14,7 @@ public class XStreamRunner {
 		
 		XStream xstream = new XStream();
 		
-		GFXElement urbanChart = new GFXElement();
+		/*GFXElement urbanChart = new GFXElement();
 		//urbanChart.setThemeName("Urban");
 		urbanChart.setItemName("UrbanChart");
 		//urbanChart.setType("Static");
@@ -26,7 +26,7 @@ public class XStreamRunner {
 		xstream.alias("gfxElement", GFXElement.class);
 		String xml = xstream.toXML(urbanChart);
 		System.out.println(xml);
-		
+		*/
 	/*	//lets see what happens if i go for an existing class
 		XStream xstreamExisting = new XStream();
 		xstreamExisting.alias("GFXElement", FMTop20Chart.class);

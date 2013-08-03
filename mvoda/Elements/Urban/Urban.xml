@@ -2,21 +2,27 @@
   <itemName>Urban</itemName>
   <Logo>
     <itemName>KissBug1</itemName>
+    <rootPath>Total Rubbish</rootPath>
     <author>BoxTV Design Team</author>
     <version>1.0</version>
     <coOrd>
       <xOffsetSD>0</xOffsetSD>
       <yOffsetSD>0</yOffsetSD>
     </coOrd>
-    <firstHoldFrame>29</firstHoldFrame>
-    <lastHoldFrame>43</lastHoldFrame>
-    <numberOfFrames>75</numberOfFrames>
-    <reverse>false</reverse>
-    <loop>false</loop>
-    <speed>0</speed>
+    <frameData>
+      <firstHoldFrame>29</firstHoldFrame>
+      <lastHoldFrame>43</lastHoldFrame>
+      <numberOfFrames>75</numberOfFrames>
+    </frameData>
+    <animationData>
+      <reverse>false</reverse>
+      <loop>false</loop>
+      <speed>1</speed>
+    </animationData>
   </Logo>
   <Chart>
     <itemName>UrbanChart</itemName>
+    <rootPath>Total Rubbish</rootPath>
     <author>BoxTV Design Team</author>
     <version>1.0</version>
     <coOrd>
