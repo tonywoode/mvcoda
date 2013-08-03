@@ -17,7 +17,7 @@ public class XMLWriter {
 		xstream.processAnnotations(AnimatedGFXElement.class);
 		xstream.processAnnotations(Theme.class);
 		//If we don't do this we get animate elements with "Class=AnimatedGFXElement" in the xml - see http://stackoverflow.com/questions/2008043/xstream-removing-class-attribute
-		xstream.alias("AnimatedGFXElement", AnimatedGFXElement.class, GFXElement.class);
+		//xstream.alias("AnimatedGFXElement", AnimatedGFXElement.class, GFXElement.class);
 		
 		//setup aliasesfor XStream (so xml doesn't contain absolute class names)
 		//xstream.alias("AnimatedGFXElement", AnimatedGFXElement.class);		

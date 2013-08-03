@@ -3,9 +3,12 @@ package xstream;
 
 
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import com.thoughtworks.xstream.XStream;
 
-public class XStreamRunner {
+public class XStreamTester {
 
 	/**
 	 * @param args
@@ -13,6 +16,13 @@ public class XStreamRunner {
 	public static void main(String[] args) {
 		
 		XStream xstream = new XStream();
+		String themeName = "Classic";
+		Path rootDir = Paths.get("Elements");
+		Path themeDir = Paths.get(rootDir.toString(),themeName);
+		
+		
+		XMLSerialisable theme = XMLReader.readXML(themeDir, themeName);
+		
 		
 		/*GFXElement urbanChart = new GFXElement();
 		//urbanChart.setThemeName("Urban");

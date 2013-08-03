@@ -1,6 +1,6 @@
 <Theme>
   <itemName>Classic</itemName>
-  <Logo>
+  <Logo class="AnimatedGFXElement">
     <itemName>QLogo</itemName>
     <rootPath>Total Rubbish</rootPath>
     <author>BoxTV Design Team</author>
@@ -20,7 +20,7 @@
       <speed>2</speed>
     </animationData>
   </Logo>
-  <Chart>
+  <Chart class="AnimatedGFXElement">
     <itemName>QChartBlack</itemName>
     <rootPath>Total Rubbish</rootPath>
     <author>BoxTV Design Team</author>
@@ -40,7 +40,7 @@
       <speed>1</speed>
     </animationData>
   </Chart>
-  <Strap>
+  <Strap class="AnimatedGFXElement">
     <itemName>QStrap</itemName>
     <rootPath>Total Rubbish</rootPath>
     <author>BoxTV Design Team</author>
@@ -60,7 +60,7 @@
       <speed>1</speed>
     </animationData>
   </Strap>
-  <Numbers>
+  <Numbers class="AnimatedGFXElement">
     <itemName>QRedBlockLarger</itemName>
     <rootPath>Total Rubbish</rootPath>
     <author>BoxTV Design Team</author>
@@ -80,7 +80,7 @@
       <speed>1</speed>
     </animationData>
   </Numbers>
-  <Transition>
+  <Transition class="AnimatedGFXElement">
     <itemName>QTransition</itemName>
     <rootPath>Total Rubbish</rootPath>
     <author>BoxTV Design Team</author>

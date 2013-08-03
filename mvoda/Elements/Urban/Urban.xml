@@ -1,6 +1,6 @@
 <Theme>
   <itemName>Urban</itemName>
-  <Logo>
+  <Logo class="AnimatedGFXElement">
     <itemName>KissBug1</itemName>
     <rootPath>Total Rubbish</rootPath>
     <author>BoxTV Design Team</author>
@@ -30,7 +30,7 @@
       <yOffsetSD>0</yOffsetSD>
     </coOrd>
   </Chart>
-  <Strap>
+  <Strap class="AnimatedGFXElement">
     <itemName>UK40BB</itemName>
     <rootPath>Total Rubbish</rootPath>
     <author>BoxTV Design Team</author>
@@ -50,7 +50,7 @@
       <speed>1</speed>
     </animationData>
   </Strap>
-  <Numbers>
+  <Numbers class="AnimatedGFXElement">
     <itemName>UK40BBNums</itemName>
     <rootPath>Total Rubbish</rootPath>
     <author>BoxTV Design Team</author>
@@ -70,7 +70,7 @@
       <speed>1</speed>
     </animationData>
   </Numbers>
-  <Transition>
+  <Transition class="AnimatedGFXElement">
     <itemName>UK40BBTransition</itemName>
     <rootPath>Total Rubbish</rootPath>
     <author>BoxTV Design Team</author>
