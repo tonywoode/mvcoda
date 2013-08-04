@@ -40,7 +40,7 @@ public class Theme implements XMLSerialisable {
 	
 	@Getter @Setter public GFXElement Transition;
 	
-	public Theme(String itemName) { //TODO: this never gets called because the xml doesn't call new
+	/*public Theme(String itemName) { //TODO: this never gets called because the xml doesn't call new
 		
 		this.itemName = itemName;
 		this.themeDir = Paths.get(rootDir.toString(),itemName);
@@ -52,6 +52,6 @@ public class Theme implements XMLSerialisable {
 		this.Strap = theme.getStrap();
 		this.Numbers = theme.getNumbers();
 		this.Transition = theme.getTransition();
-	}
+	}*/
 
 }

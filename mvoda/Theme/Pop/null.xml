@@ -1,0 +1,82 @@
+<Theme>
+  <Logo class="AnimatedGFXElement">
+    <itemName>4M1BugFrames</itemName>
+    <rootPath>Logo</rootPath>
+    <author>BoxTV Design Team</author>
+    <version>1.0</version>
+    <coOrd>
+      <xOffsetSD>0</xOffsetSD>
+      <yOffsetSD>0</yOffsetSD>
+    </coOrd>
+    <frameData>
+      <firstHoldFrame>51</firstHoldFrame>
+      <lastHoldFrame>79</lastHoldFrame>
+      <numberOfFrames>126</numberOfFrames>
+    </frameData>
+    <animationData>
+      <reverse>false</reverse>
+      <loop>false</loop>
+      <speed>1</speed>
+    </animationData>
+  </Logo>
+  <Chart class="AnimatedGFXElement">
+    <itemName>FMTop20Chart</itemName>
+    <rootPath>Chart</rootPath>
+    <author>BoxTV Design Team</author>
+    <version>1.0</version>
+    <coOrd>
+      <xOffsetSD>0</xOffsetSD>
+      <yOffsetSD>0</yOffsetSD>
+    </coOrd>
+    <frameData>
+      <firstHoldFrame>10</firstHoldFrame>
+      <lastHoldFrame>43</lastHoldFrame>
+      <numberOfFrames>52</numberOfFrames>
+    </frameData>
+    <animationData>
+      <reverse>false</reverse>
+      <loop>false</loop>
+      <speed>1</speed>
+    </animationData>
+  </Chart>
+  <Strap class="AnimatedGFXElement">
+    <itemName>PeriscopeFrames</itemName>
+    <rootPath>Strap</rootPath>
+    <author>BoxTV Design Team</author>
+    <version>1.0</version>
+    <coOrd>
+      <xOffsetSD>0</xOffsetSD>
+      <yOffsetSD>0</yOffsetSD>
+    </coOrd>
+    <frameData>
+      <firstHoldFrame>20</firstHoldFrame>
+      <lastHoldFrame>70</lastHoldFrame>
+      <numberOfFrames>101</numberOfFrames>
+    </frameData>
+    <animationData>
+      <reverse>false</reverse>
+      <loop>false</loop>
+      <speed>1</speed>
+    </animationData>
+  </Strap>
+  <Numbers class="AnimatedGFXElement">
+    <itemName>Animated/Num</itemName>
+    <rootPath>Numbers</rootPath>
+    <author>BoxTV Design Team</author>
+    <version>1.0</version>
+    <coOrd>
+      <xOffsetSD>-680</xOffsetSD>
+      <yOffsetSD>0</yOffsetSD>
+    </coOrd>
+    <frameData>
+      <firstHoldFrame>9</firstHoldFrame>
+      <lastHoldFrame>63</lastHoldFrame>
+      <numberOfFrames>76</numberOfFrames>
+    </frameData>
+    <animationData>
+      <reverse>false</reverse>
+      <loop>true</loop>
+      <speed>1</speed>
+    </animationData>
+  </Numbers>
+</Theme>

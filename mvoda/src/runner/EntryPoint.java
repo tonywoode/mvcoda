@@ -117,10 +117,20 @@ public class EntryPoint {
 		//Path rootDir = Paths.get("Theme");
 		//Path themeDir = Paths.get(rootDir.toString(),themeName);
 
+		
+		String themeName = "Classic";
+		Path rootDir = Paths.get("Elements");
+		Path themeDir = Paths.get(rootDir.toString(),themeName);
 
-		Theme theme = new Theme("Classic");
+
+		XMLSerialisable themeAsSerialisable = XMLReader.readXML(themeDir, themeName);
+		Theme theme = (Theme) themeAsSerialisable;
+		
+		
+
+		//Theme theme = new Theme();
 		//XMLSerialisable themeAsSerialisable = XMLReader.readXML(theme.getThemeDir(), theme.getItemName());
-		//theme = (Theme) themeAsSerialisable;
+		//Theme theme = (Theme) themeAsSerialisable;
 		
 		System.out.println("This is the dir: " + theme.getThemeDir());
 		System.out.println("and this is the logo: " + theme.getLogo());

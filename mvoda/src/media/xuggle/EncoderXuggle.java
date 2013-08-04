@@ -150,12 +150,12 @@ public class EncoderXuggle implements Encoder {
 	
 	
 	public void makeTheBitsClassic() {
-		logoCompositor = new ImageCompositor(theme, theme.getLogo());
-		strapCompositor = new ImageCompositor(theme, theme.getStrap());
-		strapCompositor2 = new ImageCompositor(theme, theme.getStrap());
-		chartCompositor = new ImageCompositor(theme, theme.getChart());
-		transitionCompositor = new ImageCompositor(theme, theme.getTransition());
-		numbersCompositor = new ImageCompositor(theme, theme.getNumbers());
+		logoCompositor = new ImageCompositor(theme.getLogo());
+		strapCompositor = new ImageCompositor(theme.getStrap());
+		strapCompositor2 = new ImageCompositor(theme.getStrap());
+		chartCompositor = new ImageCompositor(theme.getChart());
+		transitionCompositor = new ImageCompositor(theme.getTransition());
+		numbersCompositor = new ImageCompositor(theme.getNumbers());
 		numberText = new TextCompositor("5", 72, 337);
 		trackText = new TextCompositor("This is the track", 100, 380);
 		artistText = new TextCompositor("This is the artist", 100, 420);
@@ -164,12 +164,12 @@ public class EncoderXuggle implements Encoder {
 	}
 	
 	public void makeTheBitsUrban() {
-		logoCompositor = new ImageCompositor(theme, theme.getLogo());
-		strapCompositor = new ImageCompositor(theme, theme.getStrap());
-		strapCompositor2 = new ImageCompositor(theme, theme.getStrap());
-		chartCompositor = new ImageCompositor(theme, theme.getChart());
-		transitionCompositor = new ImageCompositor(theme, theme.getTransition());
-		numbersCompositor = new ImageCompositor(theme, theme.getNumbers());
+		logoCompositor = new ImageCompositor(theme.getLogo());
+		strapCompositor = new ImageCompositor(theme.getStrap());
+		strapCompositor2 = new ImageCompositor(theme.getStrap());
+		chartCompositor = new ImageCompositor(theme.getChart());
+		transitionCompositor = new ImageCompositor(theme.getTransition());
+		numbersCompositor = new ImageCompositor(theme.getNumbers());
 		trackText = new TextCompositor("This is the track", 270, 480);
 		artistText = new TextCompositor("This is the artist", 300, 500);
 		chartText = new TextCompositor("Classics of the 80's", 515, 75);
@@ -178,11 +178,11 @@ public class EncoderXuggle implements Encoder {
 	
 	
 	public void makeTheBitsPop() {
-		logoCompositor = new ImageCompositor(theme, theme.getLogo());
-		strapCompositor = new ImageCompositor(theme, theme.getStrap());
-		strapCompositor2 = new ImageCompositor(theme, theme.getStrap());
-		chartCompositor = new ImageCompositor(theme, theme.getChart());
-		numbersCompositor = new ImageCompositor(theme, theme.getNumbers());
+		logoCompositor = new ImageCompositor(theme.getLogo());
+		strapCompositor = new ImageCompositor(theme.getStrap());
+		strapCompositor2 = new ImageCompositor(theme.getStrap());
+		chartCompositor = new ImageCompositor(theme.getChart());
+		numbersCompositor = new ImageCompositor(theme.getNumbers());
 		numberText = new TextCompositor("5", 285, 490);
 		trackText = new TextCompositor("This is the track", 390, 460);
 		artistText = new TextCompositor("This is the artist", 380, 500);
