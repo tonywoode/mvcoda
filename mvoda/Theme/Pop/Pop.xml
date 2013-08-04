@@ -68,7 +68,7 @@
   </strap>
   <numbers class="AnimatedGFXElement">
     <themeName>Pop</themeName>
-    <itemName>Animated/Num</itemName>
+    <itemName>Num</itemName>
     <elementName>numbers</elementName>
     <author>BoxTV Design Team</author>
     <version>1.0</version>

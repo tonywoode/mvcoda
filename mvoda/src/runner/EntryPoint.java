@@ -114,7 +114,7 @@ public class EntryPoint {
 		//Path themeDir = Paths.get(rootDir.toString(),themeName);
 		//Theme theme2 = new Theme();
 		
-		String themeName = "Urban";
+		String themeName = "Pop";
 		Path rootDir = Paths.get("Theme");
 		Path themeDir = Paths.get(rootDir.toString(),themeName);
 		

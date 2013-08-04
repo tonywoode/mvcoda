@@ -84,10 +84,10 @@ public class EncoderXuggle implements Encoder {
 		try {
 			//decoder2 = video2.getDecoder();	
 			
-			makeTheBitsUrban();
+			makeTheBitsPop();
 			
 			for (PlaylistEntry playlistEntry : playlist.getPlaylistEntries()) {	
-				resetTheBits();
+				resetTheBitsPop();
 				video = playlistEntry.getVideo(); 
 				decoder = video.getDecoder(); //make a new decoder at this point? Decoder temp = new Decoder(video)
 				renderNextVid(decoder);	
@@ -135,7 +135,7 @@ public class EncoderXuggle implements Encoder {
 				System.out.printf("%7s%15d%10s%15d%12s%13s\n","VIDEO:", videoTimecode, "Relative:", decoder.getVideoTimeStamp(), "Formatted:", decoder.getFormattedVideoTimestamp());
 				//System.out.println("Combined Video timecode: " + videoTimecode);
 				
-				putTheBitsOn(videoFrame); //!!!!!!!!!!!!!!!!!!!!!!!!HERE YOU NEED PUT THE BITS ON POP - YES POP!!!!
+				putTheBitsOnPop(videoFrame); //!!!!!!!!!!!!!!!!!!!!!!!!HERE YOU NEED PUT THE BITS ON POP - YES POP!!!!
 				
 				writer.encodeVideo(0, videoFrame, videoTimecode, TimeUnit.MICROSECONDS); //TODO: sort out the naming of videoFrame and Composite. THAT'S confusing!
 				

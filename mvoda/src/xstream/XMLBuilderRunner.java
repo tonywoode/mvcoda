@@ -70,7 +70,7 @@ public class XMLBuilderRunner {
 		XMLSerialisable logo = new AnimatedGFXElement(themeName, "4M1BugFrames", "logo", author, version, new CoOrd(0,0), new FrameData(51, 79, 126), new AnimationData(false, false, false, 1) );
 		XMLSerialisable chart = new AnimatedGFXElement(themeName, "FMTop20Chart", "chart", author, version, new CoOrd(0,0), new FrameData(10, 43, 52), new AnimationData(false, false, false, 1) );
 		XMLSerialisable strap = new AnimatedGFXElement(themeName, "PeriscopeFrames", "strap", author,version, new CoOrd(0,0), new FrameData(20, 70, 101), new AnimationData(false, false, false, 1) );
-		XMLSerialisable numbers = new AnimatedGFXElement(themeName, "Animated/Num", "numbers", author,version, new CoOrd(-680,0), new FrameData(9, 63, 76), new AnimationData(false, true, true, 1) );
+		XMLSerialisable numbers = new AnimatedGFXElement(themeName, "Num", "numbers", author,version, new CoOrd(-680,0), new FrameData(9, 63, 76), new AnimationData(false, true, true, 1) );
 		//we don't have a transition for Pop
 		XMLSerialisable transition = null;
 
