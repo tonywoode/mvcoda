@@ -83,7 +83,7 @@ public class GFXElement implements XMLSerialisable {
 	}
 
 
-	public ArrayList<String> getOverlayFileNames(String dir) {
+	public ArrayList<String> getOverlayFileNames(Path dir) {
 		File file = new File(dir.toString());  
 		File[] files = file.listFiles();
 		fileNumbers = new ArrayList<>();

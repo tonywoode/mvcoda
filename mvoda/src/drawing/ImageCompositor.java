@@ -61,8 +61,8 @@ public class ImageCompositor {
 		System.out.println("********************************************");
 		//System.out.println(Theme.getRootDir() + "/" + theme.getItemName() + "/" + gfxElement.getRootPath() + "/"  + gfxElement.getItemName() +"\n");
 		//System.out.println("verses: " + gfxElement.getDirectory());
-		Path dir2 = Paths.get(gfxElement.getDirectory().toString());
-		String dir = dir2.toString();
+		Path dir = Paths.get(gfxElement.getDirectory().toString());
+		//String dir = dir2.toString();
 		gfxFiles = gfxElement.getOverlayFileNames(dir);
 	}
 
