@@ -17,6 +17,10 @@ public class Playlist {
 		playlistEntries = new ArrayList<PlaylistEntry>();
 	}
 	
+	public int getSize() {
+		return playlistEntries.size();
+	}
+	
 	public void setNextEntry(PlaylistEntry playlistEntry) {	playlistEntries.add(playlistEntry);	}
 	
 	public PlaylistEntry getNextEntry(int index) { return playlistEntries.get(index); }
