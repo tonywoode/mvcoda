@@ -10,24 +10,20 @@ import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.thoughtworks.xstream.XStream;
-
-import playlist.Playlist;
-import playlist.PlaylistEntry;
-
 import media.Encoder;
 import media.MusicVideo;
 import media.xuggle.DecodeAndPlayAudioAndVideo;
 import media.xuggle.EncoderXuggle;
-import media.xuggle.EncoderXuggleMultipleFixedDecoders;
 import media.xuggle.MusicVideoXuggle;
+import playlist.Playlist;
+import playlist.PlaylistEntry;
+import xstream.Theme;
+import xstream.XMLReader;
+import xstream.XMLSerialisable;
 //import theme.Classic;
 //import theme.Pop;
 //import theme.Theme;
 //import theme.Urban;
-import xstream.Theme;
-import xstream.XMLReader;
-import xstream.XMLSerialisable;
 
 public class EntryPoint {
 
@@ -116,24 +112,24 @@ public class EntryPoint {
 		//String themeName = "Classic";
 		//Path rootDir = Paths.get("Theme");
 		//Path themeDir = Paths.get(rootDir.toString(),themeName);
-
+		//Theme theme2 = new Theme();
 		
 		String themeName = "Classic";
-		Path rootDir = Paths.get("Elements");
+		Path rootDir = Paths.get("Theme");
 		Path themeDir = Paths.get(rootDir.toString(),themeName);
-
-
+		
 		XMLSerialisable themeAsSerialisable = XMLReader.readXML(themeDir, themeName);
 		Theme theme = (Theme) themeAsSerialisable;
 		
+		Path properDir = Paths.get( Theme.getRootDir().toString(), theme.getItemName() );
 		
-
-		//Theme theme = new Theme();
 		//XMLSerialisable themeAsSerialisable = XMLReader.readXML(theme.getThemeDir(), theme.getItemName());
 		//Theme theme = (Theme) themeAsSerialisable;
 		
 		System.out.println("This is the dir: " + theme.getThemeDir());
+		System.out.println("This is the root dir: " + Theme.getRootDir());
 		System.out.println("and this is the logo: " + theme.getLogo());
+		System.out.println("AND THE REAL PATH IS:" + properDir);
 		
 		
 

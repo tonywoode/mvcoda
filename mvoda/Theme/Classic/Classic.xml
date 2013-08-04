@@ -1,8 +1,8 @@
 <Theme>
   <itemName>Classic</itemName>
-  <Logo class="AnimatedGFXElement">
+  <logo class="AnimatedGFXElement">
     <itemName>QLogo</itemName>
-    <rootPath>Logo</rootPath>
+    <elementName>logo</elementName>
     <author>BoxTV Design Team</author>
     <version>1.0</version>
     <coOrd>
@@ -19,10 +19,10 @@
       <loop>false</loop>
       <speed>2</speed>
     </animationData>
-  </Logo>
-  <Chart class="AnimatedGFXElement">
+  </logo>
+  <chart class="AnimatedGFXElement">
     <itemName>QChartBlack</itemName>
-    <rootPath>Chart</rootPath>
+    <elementName>chart</elementName>
     <author>BoxTV Design Team</author>
     <version>1.0</version>
     <coOrd>
@@ -39,10 +39,10 @@
       <loop>false</loop>
       <speed>1</speed>
     </animationData>
-  </Chart>
-  <Strap class="AnimatedGFXElement">
+  </chart>
+  <strap class="AnimatedGFXElement">
     <itemName>QStrap</itemName>
-    <rootPath>Strap</rootPath>
+    <elementName>strap</elementName>
     <author>BoxTV Design Team</author>
     <version>1.0</version>
     <coOrd>
@@ -59,10 +59,10 @@
       <loop>false</loop>
       <speed>1</speed>
     </animationData>
-  </Strap>
-  <Numbers class="AnimatedGFXElement">
+  </strap>
+  <numbers class="AnimatedGFXElement">
     <itemName>QRedBlockLarger</itemName>
-    <rootPath>Numbers</rootPath>
+    <elementName>numbers</elementName>
     <author>BoxTV Design Team</author>
     <version>1.0</version>
     <coOrd>
@@ -79,10 +79,10 @@
       <loop>false</loop>
       <speed>1</speed>
     </animationData>
-  </Numbers>
-  <Transition class="AnimatedGFXElement">
+  </numbers>
+  <transition class="AnimatedGFXElement">
     <itemName>QTransition</itemName>
-    <rootPath>Transition</rootPath>
+    <elementName>transition</elementName>
     <author>BoxTV Design Team</author>
     <version>1.0</version>
     <coOrd>
@@ -99,5 +99,5 @@
       <loop>false</loop>
       <speed>1</speed>
     </animationData>
-  </Transition>
+  </transition>
 </Theme>

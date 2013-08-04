@@ -1,8 +1,8 @@
 <Theme>
   <itemName>Urban</itemName>
-  <Logo class="AnimatedGFXElement">
+  <logo class="AnimatedGFXElement">
     <itemName>KissBug1</itemName>
-    <rootPath>Logo</rootPath>
+    <elementName>logo</elementName>
     <author>BoxTV Design Team</author>
     <version>1.0</version>
     <coOrd>
@@ -19,20 +19,20 @@
       <loop>false</loop>
       <speed>1</speed>
     </animationData>
-  </Logo>
-  <Chart>
+  </logo>
+  <chart>
     <itemName>UrbanChart</itemName>
-    <rootPath>Chart</rootPath>
+    <elementName>chart</elementName>
     <author>BoxTV Design Team</author>
     <version>1.0</version>
     <coOrd>
       <xOffsetSD>400</xOffsetSD>
       <yOffsetSD>0</yOffsetSD>
     </coOrd>
-  </Chart>
-  <Strap class="AnimatedGFXElement">
+  </chart>
+  <strap class="AnimatedGFXElement">
     <itemName>UK40BB</itemName>
-    <rootPath>Strap</rootPath>
+    <elementName>strap</elementName>
     <author>BoxTV Design Team</author>
     <version>1.0</version>
     <coOrd>
@@ -49,10 +49,10 @@
       <loop>true</loop>
       <speed>1</speed>
     </animationData>
-  </Strap>
-  <Numbers class="AnimatedGFXElement">
+  </strap>
+  <numbers class="AnimatedGFXElement">
     <itemName>UK40BBNums</itemName>
-    <rootPath>Numbers</rootPath>
+    <elementName>numbers</elementName>
     <author>BoxTV Design Team</author>
     <version>1.0</version>
     <coOrd>
@@ -69,10 +69,10 @@
       <loop>true</loop>
       <speed>1</speed>
     </animationData>
-  </Numbers>
-  <Transition class="AnimatedGFXElement">
+  </numbers>
+  <transition class="AnimatedGFXElement">
     <itemName>UK40BBTransition</itemName>
-    <rootPath>Transition</rootPath>
+    <elementName>transition</elementName>
     <author>BoxTV Design Team</author>
     <version>1.0</version>
     <coOrd>
@@ -89,5 +89,5 @@
       <loop>false</loop>
       <speed>1</speed>
     </animationData>
-  </Transition>
+  </transition>
 </Theme>

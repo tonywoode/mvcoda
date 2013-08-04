@@ -1,13 +1,9 @@
 package xstream;
 
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
-import com.thoughtworks.xstream.XStream;
 
 
 public class XMLBuilderRunner {
@@ -46,11 +42,11 @@ public class XMLBuilderRunner {
 		theme.setItemName(themeName);
 
 		//generate the elements
-		XMLSerialisable logo = new AnimatedGFXElement("KissBug1", "Logo", author,version, new CoOrd(0,0), new FrameData(29, 43, 75), new AnimationData(false, false, 1) );
-		XMLSerialisable chart = new GFXElement("UrbanChart", "Chart", author, version, new CoOrd(400,0)); //this chart is a static image
-		XMLSerialisable strap = new AnimatedGFXElement("UK40BB", "Strap", author,version, new CoOrd(0,0), new FrameData(26, 150, 176), new AnimationData(false, true, 1) );
-		XMLSerialisable numbers = new AnimatedGFXElement("UK40BBNums", "Numbers", author,version, new CoOrd(0,0), new FrameData(26, 151, 176), new AnimationData(false, true, 1) );
-		XMLSerialisable transition = new AnimatedGFXElement("UK40BBTransition", "Transition", author,version, new CoOrd(0,0), new FrameData(-1, -1, 16), new AnimationData(false, false, 1) );
+		XMLSerialisable logo = new AnimatedGFXElement(theme, "KissBug1", "logo", author,version, new CoOrd(0,0), new FrameData(29, 43, 75), new AnimationData(false, false, 1) );
+		XMLSerialisable chart = new GFXElement(theme,"UrbanChart", "chart", author, version, new CoOrd(400,0)); //this chart is a static image
+		XMLSerialisable strap = new AnimatedGFXElement(theme,"UK40BB", "strap", author,version, new CoOrd(0,0), new FrameData(26, 150, 176), new AnimationData(false, true, 1) );
+		XMLSerialisable numbers = new AnimatedGFXElement(theme,"UK40BBNums", "numbers", author,version, new CoOrd(0,0), new FrameData(26, 151, 176), new AnimationData(false, true, 1) );
+		XMLSerialisable transition = new AnimatedGFXElement(theme,"UK40BBTransition", "transition", author,version, new CoOrd(0,0), new FrameData(-1, -1, 16), new AnimationData(false, false, 1) );
 
 		//set the elements into the theme
 		theme.setLogo((AnimatedGFXElement) logo);
@@ -71,10 +67,10 @@ public class XMLBuilderRunner {
 		theme.setItemName(themeName);
 
 		//generate the elements
-		XMLSerialisable logo = new AnimatedGFXElement("4M1BugFrames", "Logo", author, version, new CoOrd(0,0), new FrameData(51, 79, 126), new AnimationData(false, false, 1) );
-		XMLSerialisable chart = new AnimatedGFXElement("FMTop20Chart", "Chart", author, version, new CoOrd(0,0), new FrameData(10, 43, 52), new AnimationData(false, false, 1) );
-		XMLSerialisable strap = new AnimatedGFXElement("PeriscopeFrames", "Strap", author,version, new CoOrd(0,0), new FrameData(20, 70, 101), new AnimationData(false, false, 1) );
-		XMLSerialisable numbers = new AnimatedGFXElement("Animated/Num", "Numbers", author,version, new CoOrd(-680,0), new FrameData(9, 63, 76), new AnimationData(false, true, 1) );
+		XMLSerialisable logo = new AnimatedGFXElement(theme,"4M1BugFrames", "logo", author, version, new CoOrd(0,0), new FrameData(51, 79, 126), new AnimationData(false, false, 1) );
+		XMLSerialisable chart = new AnimatedGFXElement(theme,"FMTop20Chart", "chart", author, version, new CoOrd(0,0), new FrameData(10, 43, 52), new AnimationData(false, false, 1) );
+		XMLSerialisable strap = new AnimatedGFXElement(theme,"PeriscopeFrames", "strap", author,version, new CoOrd(0,0), new FrameData(20, 70, 101), new AnimationData(false, false, 1) );
+		XMLSerialisable numbers = new AnimatedGFXElement(theme,"Animated/Num", "numbers", author,version, new CoOrd(-680,0), new FrameData(9, 63, 76), new AnimationData(false, true, 1) );
 		//we don't have a transition for Pop
 		XMLSerialisable transition = null;
 
@@ -98,11 +94,11 @@ public class XMLBuilderRunner {
 		theme.setItemName(themeName);
 
 		//generate the elements
-		XMLSerialisable logo = new AnimatedGFXElement("QLogo", "Logo", author, version, new CoOrd(65,0), new FrameData(84, 84, 86), new AnimationData(true, false, 2) );
-		XMLSerialisable chart = new AnimatedGFXElement("QChartBlack", "Chart", author, version, new CoOrd(480,0), new FrameData(47, 47, 48), new AnimationData(true, false, 1) );
-		XMLSerialisable strap = new AnimatedGFXElement("QStrap", "Strap", author,version, new CoOrd(-33,230), new FrameData(66, 67, 131), new AnimationData(false, false, 1) );
-		XMLSerialisable numbers = new AnimatedGFXElement("QRedBlockLarger", "Numbers", author,version, new CoOrd(24,194), new FrameData(54, 55, 78), new AnimationData(false, false, 1) );
-		XMLSerialisable transition = new AnimatedGFXElement("QTransition", "Transition", author,version, new CoOrd(0,200), new FrameData(-1, -1, 32), new AnimationData(false, false, 1) );
+		XMLSerialisable logo = new AnimatedGFXElement(theme,"QLogo", "logo", author, version, new CoOrd(65,0), new FrameData(84, 84, 86), new AnimationData(true, false, 2) );
+		XMLSerialisable chart = new AnimatedGFXElement(theme,"QChartBlack", "chart", author, version, new CoOrd(480,0), new FrameData(47, 47, 48), new AnimationData(true, false, 1) );
+		XMLSerialisable strap = new AnimatedGFXElement(theme,"QStrap", "strap", author,version, new CoOrd(-33,230), new FrameData(66, 67, 131), new AnimationData(false, false, 1) );
+		XMLSerialisable numbers = new AnimatedGFXElement(theme,"QRedBlockLarger", "numbers", author,version, new CoOrd(24,194), new FrameData(54, 55, 78), new AnimationData(false, false, 1) );
+		XMLSerialisable transition = new AnimatedGFXElement(theme,"QTransition", "transition", author,version, new CoOrd(0,200), new FrameData(-1, -1, 32), new AnimationData(false, false, 1) );
 
 
 		//set the elements into the theme

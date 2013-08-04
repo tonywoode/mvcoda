@@ -1,6 +1,8 @@
 package xstream;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.logging.Logger;
@@ -21,19 +23,21 @@ public class GFXElement implements XMLSerialisable {
 	@XStreamOmitField private String filePrefix = "";
 	private ArrayList<String> fileNumbers;
 	@XStreamOmitField private long duration;
+	@XStreamOmitField private Theme theme;
 
 
 	//@Getter @Setter private String themeName;
 	@Getter @Setter private String itemName;
-	@Getter @Setter private String rootPath;
+	@Getter @Setter private String elementName;
 	@Getter @Setter private String author;
 	//@Getter @Setter private String type;
 	@Getter @Setter private String version;
 	@Getter @Setter public CoOrd coOrd;
 
-	public GFXElement(String itemName, String rootPath, String author, String version, CoOrd coOrd) {
+	public GFXElement(Theme theme, String itemName, String elementName, String author, String version, CoOrd coOrd) {
+		this.theme = theme;
 		this.itemName = itemName;
-		this.rootPath = rootPath;
+		this.elementName = elementName;
 		this.author = author;
 		this.version = version;
 		this.coOrd = coOrd;
@@ -41,10 +45,11 @@ public class GFXElement implements XMLSerialisable {
 
 
 	//**************************************HERE'S THE PROBLEM*******************************
-	public String getDirectory() {
+	public Path getDirectory() {
 		System.out.println("***********" + Theme.getRootDir());
-		return Theme.getRootDir() + "/Classic/"+ rootPath + "/" + itemName;
-		
+		//System.out.println(theme.getItemName());
+		return Paths.get("Theme", "Classic", elementName, itemName );
+		//return Theme.getRootDir().toString() + "/" + theme.getItemName() + "/" + elementName + "/" + itemName;
 	}
 
 	//have these getters so we don't have to call clasA.classB.getxoffset()
@@ -79,7 +84,7 @@ public class GFXElement implements XMLSerialisable {
 
 
 	public ArrayList<String> getOverlayFileNames(String dir) {
-		File file = new File(dir);  
+		File file = new File(dir.toString());  
 		File[] files = file.listFiles();
 		fileNumbers = new ArrayList<>();
 
@@ -88,7 +93,7 @@ public class GFXElement implements XMLSerialisable {
 			String i = files[g].toString();
 			Logger.getGlobal().info(i);
 			String path = i;
-			String base = dir;
+			String base = dir.toString();
 			//first we need to get the relative path - we do this by effectively masking
 			String relative = new File(base).toURI().relativize(new File(path).toURI()).getPath();
 			Logger.getGlobal().info("relative filename is: " + relative);

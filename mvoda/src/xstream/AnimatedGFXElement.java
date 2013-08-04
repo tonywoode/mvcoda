@@ -16,15 +16,17 @@ public class AnimatedGFXElement extends GFXElement {
 	@Getter @Setter public FrameData frameData;
 	@Getter @Setter public AnimationData animationData;
 
-	public AnimatedGFXElement(String itemName, 
-			String rootPath, 
+	public AnimatedGFXElement(
+			Theme theme,
+			String itemName, 
+			String elementName, 
 			String author, 
 			String version, 
 			CoOrd coOrd, 
 			FrameData frameData, 
 			AnimationData animationData) {
 		
-		super(itemName, rootPath, author, version, coOrd); //send super the elements for a standard gfxElement
+		super(theme, itemName, elementName, author, version, coOrd); //send super the elements for a standard gfxElement
 		this.frameData = frameData;
 		this.animationData = animationData;
 	}

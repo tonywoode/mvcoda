@@ -26,19 +26,19 @@ public class Theme implements XMLSerialisable {
 	
 	
 	
-	//@Getter @Setter private Path directory;
+	@Getter @Setter private String directory;
 
 	//elements cited in order of importance which is maintained in other classes e.g.: xml generation classes
 	
-	@Getter @Setter public GFXElement Logo;
+	@Getter @Setter public GFXElement logo;
 
-	@Getter @Setter public GFXElement Chart;
+	@Getter @Setter public GFXElement chart;
 	
-	@Getter @Setter public GFXElement Strap;
+	@Getter @Setter public GFXElement strap;
 
-	@Getter @Setter public GFXElement Numbers;
+	@Getter @Setter public GFXElement numbers;
 	
-	@Getter @Setter public GFXElement Transition;
+	@Getter @Setter public GFXElement transition;
 	
 	/*public Theme(String itemName) { //TODO: this never gets called because the xml doesn't call new
 		

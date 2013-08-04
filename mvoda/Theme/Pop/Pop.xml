@@ -1,8 +1,8 @@
 <Theme>
   <itemName>Pop</itemName>
-  <Logo class="AnimatedGFXElement">
+  <logo class="AnimatedGFXElement">
     <itemName>4M1BugFrames</itemName>
-    <rootPath>Logo</rootPath>
+    <elementName>logo</elementName>
     <author>BoxTV Design Team</author>
     <version>1.0</version>
     <coOrd>
@@ -19,10 +19,10 @@
       <loop>false</loop>
       <speed>1</speed>
     </animationData>
-  </Logo>
-  <Chart class="AnimatedGFXElement">
+  </logo>
+  <chart class="AnimatedGFXElement">
     <itemName>FMTop20Chart</itemName>
-    <rootPath>Chart</rootPath>
+    <elementName>chart</elementName>
     <author>BoxTV Design Team</author>
     <version>1.0</version>
     <coOrd>
@@ -39,10 +39,10 @@
       <loop>false</loop>
       <speed>1</speed>
     </animationData>
-  </Chart>
-  <Strap class="AnimatedGFXElement">
+  </chart>
+  <strap class="AnimatedGFXElement">
     <itemName>PeriscopeFrames</itemName>
-    <rootPath>Strap</rootPath>
+    <elementName>strap</elementName>
     <author>BoxTV Design Team</author>
     <version>1.0</version>
     <coOrd>
@@ -59,10 +59,10 @@
       <loop>false</loop>
       <speed>1</speed>
     </animationData>
-  </Strap>
-  <Numbers class="AnimatedGFXElement">
+  </strap>
+  <numbers class="AnimatedGFXElement">
     <itemName>Animated/Num</itemName>
-    <rootPath>Numbers</rootPath>
+    <elementName>numbers</elementName>
     <author>BoxTV Design Team</author>
     <version>1.0</version>
     <coOrd>
@@ -79,5 +79,5 @@
       <loop>true</loop>
       <speed>1</speed>
     </animationData>
-  </Numbers>
+  </numbers>
 </Theme>

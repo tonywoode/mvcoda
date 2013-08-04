@@ -7,6 +7,8 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -59,7 +61,8 @@ public class ImageCompositor {
 		System.out.println("********************************************");
 		//System.out.println(Theme.getRootDir() + "/" + theme.getItemName() + "/" + gfxElement.getRootPath() + "/"  + gfxElement.getItemName() +"\n");
 		//System.out.println("verses: " + gfxElement.getDirectory());
-		String dir = gfxElement.getDirectory();
+		Path dir2 = Paths.get(gfxElement.getDirectory().toString());
+		String dir = dir2.toString();
 		gfxFiles = gfxElement.getOverlayFileNames(dir);
 	}
 

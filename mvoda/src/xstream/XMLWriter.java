@@ -27,7 +27,7 @@ public class XMLWriter {
 		try {	
 
 			String xml = xstream.toXML(xmlserialisable);
-			System.out.println("\n ***********Generating xml " + xmlserialisable.toString() + "************\n");
+			System.out.println("\n ***********Generating xml " + xmlserialisable.getItemName() + "************\n");
 			System.out.println(xml);
 
 			Path elementFileName = Paths.get(themeDir.toString(), xmlserialisable.getItemName() + ".xml");
