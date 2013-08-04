@@ -48,6 +48,7 @@ public class GFXElement implements XMLSerialisable {
 	public Path getDirectory() {
 		//System.out.println("***********" + Theme.getRootDir());
 		//System.out.println(theme.getItemName());
+		if (isNumbers()) return (Paths.get( Theme.getRootDir().toString(), themeName, elementName, Number.getNumber() +itemName ) );
 		return Paths.get(Theme.getRootDir().toString(), themeName, elementName, itemName );
 		//return Theme.getRootDir().toString() + "/" + theme.getItemName() + "/" + elementName + "/" + itemName;
 	}
@@ -69,6 +70,7 @@ public class GFXElement implements XMLSerialisable {
 	//an animatedGFXElement has none of these things //TODO: I wish we could get this stuff out of here then
 	public boolean isReverse() { return false; }
 	public boolean isLoop() { return false; }
+	public boolean isNumbers() { return false; }
 	public int getSpeed() { return 1; } //TODO: is 1x speed correct for a static element?
 	public int getFirstHoldFrame() { return -1; }
 	public int getLastHoldFrame() { return -1; }

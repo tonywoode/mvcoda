@@ -58,12 +58,13 @@ public class ImageCompositor {
 	 */
 	public ImageCompositor(GFXElement gfxElement) {
 		this.gfxElement = gfxElement;
-		System.out.println("********************************************");
+		//System.out.println("********************************************");
 		//System.out.println(Theme.getRootDir() + "/" + theme.getItemName() + "/" + gfxElement.getRootPath() + "/"  + gfxElement.getItemName() +"\n");
 		//System.out.println("verses: " + gfxElement.getDirectory());
 		Path dir = Paths.get(gfxElement.getDirectory().toString());
 		//String dir = dir2.toString();
 		gfxFiles = gfxElement.getOverlayFileNames(dir);
+		System.out.println(gfxFiles);
 	}
 
 	/**

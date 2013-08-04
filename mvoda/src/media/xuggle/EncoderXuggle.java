@@ -84,7 +84,7 @@ public class EncoderXuggle implements Encoder {
 		try {
 			//decoder2 = video2.getDecoder();	
 			
-			makeTheBitsClassic();
+			makeTheBitsUrban();
 			
 			for (PlaylistEntry playlistEntry : playlist.getPlaylistEntries()) {	
 				resetTheBits();
@@ -135,7 +135,7 @@ public class EncoderXuggle implements Encoder {
 				System.out.printf("%7s%15d%10s%15d%12s%13s\n","VIDEO:", videoTimecode, "Relative:", decoder.getVideoTimeStamp(), "Formatted:", decoder.getFormattedVideoTimestamp());
 				//System.out.println("Combined Video timecode: " + videoTimecode);
 				
-				putTheBitsOnPop(videoFrame);
+				putTheBitsOn(videoFrame); //!!!!!!!!!!!!!!!!!!!!!!!!HERE YOU NEED PUT THE BITS ON POP - YES POP!!!!
 				
 				writer.encodeVideo(0, videoFrame, videoTimecode, TimeUnit.MICROSECONDS); //TODO: sort out the naming of videoFrame and Composite. THAT'S confusing!
 				
@@ -202,7 +202,7 @@ public class EncoderXuggle implements Encoder {
 		composite = chartCompositor.overlayNextImage(decoder.getVideoTimeStamp(),theme.getChart().getInDuration() + 1000000, 10000000, composite);
 		composite = transitionCompositor.overlayNextImage(decoder.getVideoTimeStamp(),0, 4000000, composite);
 		composite = numbersCompositor.overlayNextImage(decoder.getVideoTimeStamp(),5000000, 10000000, composite);
-		composite = numberText.overlayNextFontFrame(numbersCompositor.isImOut(), composite);
+		//composite = numberText.overlayNextFontFrame(numbersCompositor.isImOut(), composite); //!!!!!PROBABLY NEED THIS FOR CLASSIC BUT NOT FOR URBAN
 		composite = trackText.overlayNextFontFrame(strapCompositor.isImOut(), composite);
 		composite = artistText.overlayNextFontFrame(strapCompositor.isImOut(), composite);
 		composite = chartText.overlayNextFontFrame(chartCompositor.isImOut(), composite);

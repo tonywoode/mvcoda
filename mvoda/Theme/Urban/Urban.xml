@@ -2,7 +2,7 @@
   <itemName>Urban</itemName>
   <logo class="AnimatedGFXElement">
     <themeName>Urban</themeName>
-    <itemName>KissBug1</itemName>
+    <itemName>Kiss1Bug</itemName>
     <elementName>logo</elementName>
     <author>BoxTV Design Team</author>
     <version>1.0</version>
@@ -18,12 +18,13 @@
     <animationData>
       <reverse>false</reverse>
       <loop>false</loop>
+      <numbers>false</numbers>
       <speed>1</speed>
     </animationData>
   </logo>
   <chart>
     <themeName>Urban</themeName>
-    <itemName>UrbanChart</itemName>
+    <itemName>UK40BB</itemName>
     <elementName>chart</elementName>
     <author>BoxTV Design Team</author>
     <version>1.0</version>
@@ -50,6 +51,7 @@
     <animationData>
       <reverse>false</reverse>
       <loop>true</loop>
+      <numbers>false</numbers>
       <speed>1</speed>
     </animationData>
   </strap>
@@ -71,6 +73,7 @@
     <animationData>
       <reverse>false</reverse>
       <loop>true</loop>
+      <numbers>true</numbers>
       <speed>1</speed>
     </animationData>
   </numbers>
@@ -92,6 +95,7 @@
     <animationData>
       <reverse>false</reverse>
       <loop>false</loop>
+      <numbers>false</numbers>
       <speed>1</speed>
     </animationData>
   </transition>

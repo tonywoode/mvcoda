@@ -42,7 +42,10 @@ public class AnimatedGFXElement extends GFXElement {
 	@Override
 	public boolean isLoop() { return animationData.isLoop(); }
 	@Override
+	public boolean isNumbers() { return animationData.isNumbers(); }
+	@Override
 	public int getSpeed() { return animationData.getSpeed(); }
+
 	
 	@Override //TODO:pay attention to these two overrides when you doc
 	public long getInDuration() {

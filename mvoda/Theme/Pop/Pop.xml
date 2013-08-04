@@ -18,6 +18,7 @@
     <animationData>
       <reverse>false</reverse>
       <loop>false</loop>
+      <numbers>false</numbers>
       <speed>1</speed>
     </animationData>
   </logo>
@@ -39,6 +40,7 @@
     <animationData>
       <reverse>false</reverse>
       <loop>false</loop>
+      <numbers>false</numbers>
       <speed>1</speed>
     </animationData>
   </chart>
@@ -60,6 +62,7 @@
     <animationData>
       <reverse>false</reverse>
       <loop>false</loop>
+      <numbers>false</numbers>
       <speed>1</speed>
     </animationData>
   </strap>
@@ -81,6 +84,7 @@
     <animationData>
       <reverse>false</reverse>
       <loop>true</loop>
+      <numbers>true</numbers>
       <speed>1</speed>
     </animationData>
   </numbers>
