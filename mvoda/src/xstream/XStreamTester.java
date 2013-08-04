@@ -14,7 +14,7 @@ public class XStreamTester {
 
 		//XStream xstream = new XStream();
 		String themeName = "Classic";
-		Path rootDir = Paths.get("Elements");
+		Path rootDir = Paths.get("Theme");
 		Path themeDir = Paths.get(rootDir.toString(),themeName);
 
 

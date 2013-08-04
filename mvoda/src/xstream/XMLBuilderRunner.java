@@ -13,7 +13,7 @@ import com.thoughtworks.xstream.XStream;
 public class XMLBuilderRunner {
 
 	//This is the root directory for all the XML's. It is not expected to change or be alterable
-	private static final Path rootDir = Paths.get("Elements");
+	private static final Path rootDir = Paths.get("Theme");
 
 	//this is the changable directory for the theme being generated
 	private Path themeDir;
@@ -41,7 +41,7 @@ public class XMLBuilderRunner {
 
 	public void makeUrbanTheme() {
 		String themeName = "Urban"; //which theme are we doing i.e.: what do we want it called in the xml, and which  folder do we want the xml to end up in?
-		Theme theme = new Theme();
+		Theme theme = new Theme(themeName);
 
 		theme.setItemName(themeName);
 
@@ -66,7 +66,7 @@ public class XMLBuilderRunner {
 	
 	public void makePopTheme() {
 		String themeName = "Pop"; //which theme are we doing i.e.: what do we want it called in the xml, and which  folder do we want the xml to end up in?
-		Theme theme = new Theme();
+		Theme theme = new Theme(themeName);
 
 		theme.setItemName(themeName);
 
@@ -93,7 +93,7 @@ public class XMLBuilderRunner {
 
 	public void makeClassicTheme() {
 		String themeName = "Classic"; //which theme are we doing i.e.: what do we want it called in the xml, and which  folder do we want the xml to end up in?
-		Theme theme = new Theme();
+		Theme theme = new Theme(themeName);
 
 		theme.setItemName(themeName);
 
@@ -116,8 +116,6 @@ public class XMLBuilderRunner {
 		themeDir = Paths.get(rootDir.toString(),themeName);
 		XMLWriter.writeXML(themeDir, theme);
 	}
-	
-	
 	
 	
 	

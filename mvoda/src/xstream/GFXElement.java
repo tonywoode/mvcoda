@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.logging.Logger;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 import drawing.NumberedFileComparator;
 
@@ -14,14 +15,14 @@ import lombok.Setter;
 
 @XStreamAlias("GFXElement")
 public class GFXElement implements XMLSerialisable {
-	
-	
-	private String filetype = "";
-	private String filePrefix = "";
-	private ArrayList<String> fileNumbers;
-	private long duration;
 
-	
+	//annotations because we'd like to omit some of these fields from the XML, they are calculated fields only for the class to use
+	@XStreamOmitField private String filetype = "";
+	@XStreamOmitField private String filePrefix = "";
+	private ArrayList<String> fileNumbers;
+	@XStreamOmitField private long duration;
+
+
 	//@Getter @Setter private String themeName;
 	@Getter @Setter private String itemName;
 	@Getter @Setter private String rootPath;
@@ -37,27 +38,29 @@ public class GFXElement implements XMLSerialisable {
 		this.version = version;
 		this.coOrd = coOrd;
 	}
-	
-	
+
+
 	//**************************************HERE'S THE PROBLEM*******************************
 	public String getDirectory() {
-		return "Theme/Classic/"+ rootPath + "/" + itemName;
+		System.out.println("***********" + Theme.getRootDir());
+		return Theme.getRootDir() + "/Classic/"+ rootPath + "/" + itemName;
+		
 	}
-	
+
 	//have these getters so we don't have to call clasA.classB.getxoffset()
 	public int getXOffsetSD() {	return coOrd.getXOffsetSD(); }
 	public int getYOffsetSD() {	return coOrd.getYOffsetSD(); }
-	
-	
+
+
 	public long getDuration(long frameRateDivisor) { //TODO: this is just the duration of the media, that ok? what about the out and in durations?
 		duration = convertFrameToTime( fileNumbers.size() );
 		return duration;
-		}
-	
+	}
+
 	//we need these so that we can call an AnimatedGFXElement as a GFXElement
 	public long getInDuration() { return 0;	}
 	public long getOutDuration() { return 0; }
-	
+
 	//an animatedGFXElement has none of these things //TODO: I wish we could get this stuff out of here then
 	public boolean isReverse() { return false; }
 	public boolean isLoop() { return false; }
@@ -65,16 +68,16 @@ public class GFXElement implements XMLSerialisable {
 	public int getFirstHoldFrame() { return -1; }
 	public int getLastHoldFrame() { return -1; }
 	public int getNumberOfFrames() { return 1; }
-	
-	
+
+
 	public static long convertFrameToTime(long frames) {
 		//TODO: if we divide by zero, throw an exception
 		long result = frames * 1000000; //the time basis
-			 result = result / 25; //the frame rate //TODO: magic numbers....
+		result = result / 25; //the frame rate //TODO: magic numbers....
 		return result;
 	}
-	
-	
+
+
 	public ArrayList<String> getOverlayFileNames(String dir) {
 		File file = new File(dir);  
 		File[] files = file.listFiles();
@@ -133,16 +136,16 @@ public class GFXElement implements XMLSerialisable {
 
 		return fileNumbers;
 	}
-	
-	
-	
-	
+
+
+
+
 	@Override
 	public String toString() {
 		return itemName;		
 	}
-	
-	
+
+
 
 }
 

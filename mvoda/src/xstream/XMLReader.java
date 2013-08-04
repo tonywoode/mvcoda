@@ -10,7 +10,7 @@ import com.thoughtworks.xstream.XStream;
 
 public class XMLReader {
 
-	public static XMLSerialisable readXML(Path themeDir, String elementName) {
+	public static XMLSerialisable readXML(Path themeDir, String itemName) {
 		
 		XStream xstream = new XStream();
 		XMLSerialisable xml = null;
@@ -24,10 +24,10 @@ public class XMLReader {
 		try {	
 
 			//String xml = xstream.toXML(xmlserialisable);
-			System.out.println("\n ***********Reading xml " + elementName + "************\n");
+			System.out.println("\n ***********Reading xml " + itemName + "************\n");
 			//System.out.println(xml);
 
-			Path elementFileName = Paths.get(themeDir.toString(), elementName + ".xml");
+			Path elementFileName = Paths.get(themeDir.toString(), itemName + ".xml");
 			FileInputStream fs = new FileInputStream(elementFileName.toString());
 			
 			xml = (XMLSerialisable) xstream.fromXML(fs);

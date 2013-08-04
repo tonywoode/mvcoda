@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import xstream.GFXElement;
+import xstream.Theme;
 
 import lombok.Getter;
 
@@ -53,8 +54,11 @@ public class ImageCompositor {
 	 * Takes a theme name and arranges to overlay the sequence of images set as logo
 	 * @param gfxElement the element to be composited
 	 */
-	public ImageCompositor(GFXElement gfxElement) {
+	public ImageCompositor(Theme theme, GFXElement gfxElement) {
 		this.gfxElement = gfxElement;
+		System.out.println("********************************************");
+		System.out.println(Theme.getRootDir() + "/" + theme.getItemName() + "/" + gfxElement.getRootPath() + "/"  + gfxElement.getItemName() +"\n");
+		System.out.println("verses: " + gfxElement.getDirectory());
 		String dir = gfxElement.getDirectory();
 		gfxFiles = gfxElement.getOverlayFileNames(dir);
 	}
