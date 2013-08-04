@@ -17,13 +17,8 @@ public class Playlist {
 		playlistEntries = new ArrayList<PlaylistEntry>();
 	}
 	
+	public void setNextEntry(PlaylistEntry playlistEntry) {	playlistEntries.add(playlistEntry);	}
 	
-	public void setNextEntry(PlaylistEntry playlistEntry) {
-		playlistEntries.add(playlistEntry);
-	}
-	
-	public PlaylistEntry getNextEntry(int index) {
-		return playlistEntries.get(index);
-	}
+	public PlaylistEntry getNextEntry(int index) { return playlistEntries.get(index); }
 
 }

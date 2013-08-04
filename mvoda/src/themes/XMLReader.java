@@ -1,4 +1,4 @@
-package xstream;
+package themes;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -18,7 +18,8 @@ public class XMLReader {
 		xstream.processAnnotations(GFXElement.class);
 		xstream.processAnnotations(AnimatedGFXElement.class);
 		xstream.processAnnotations(Theme.class);
-		//If we don't do this we get animate elements with "Class=AnimatedGFXElement" in the xml - see http://stackoverflow.com/questions/2008043/xstream-removing-class-attribute
+		//TODO - If we do this we don't get animate elements with "Class=AnimatedGFXElement" in the xml - see http://stackoverflow.com/questions/2008043/xstream-removing-class-attribute
+		//but then of course it doesn't work - need a custom converter
 		//xstream.alias("AnimatedGFXElement", AnimatedGFXElement.class, GFXElement.class);
 
 		try {	

@@ -1,4 +1,4 @@
-package xstream;
+package themes;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +13,6 @@ public class FrameData {
 	this.firstHoldFrame = firstHoldFrame;
 	this.lastHoldFrame = lastHoldFrame;
 	this.numberOfFrames = numberOfFrames;
-	
 	}
 
 }

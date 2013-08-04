@@ -1,23 +1,87 @@
-package gfxelement;
+package themes;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.logging.Logger;
 
+import playlist.Number;
+
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
 import drawing.NumberedFileComparator;
 
-public abstract class GFXElement {
-	
-	private String filetype = "";
-	private String filePrefix = "";
+import lombok.Getter;
+import lombok.Setter;
+
+@XStreamAlias("GFXElement")
+public class GFXElement implements XMLSerialisable {
+
+	//annotations because we'd like to omit some of these fields from the XML, they are calculated fields only for the class to use
+	@XStreamOmitField private String filetype = "";
+	@XStreamOmitField private String filePrefix = "";
 	private ArrayList<String> fileNumbers;
-	private long duration;
-	private long inDuration;
-	private long outDuration;
+	@XStreamOmitField private long duration;
 	
-	public ArrayList<String> getOverlayFileNames(String dir) {
-		File file = new File(dir);  
+	@Getter @Setter private String themeName;
+	@Getter @Setter private String itemName;
+	@Getter @Setter private String elementName;
+	@Getter @Setter private String author;
+	@Getter @Setter private String version;
+	@Getter @Setter public CoOrd coOrd;
+
+	public GFXElement(String themeName, String itemName, String elementName, String author, String version, CoOrd coOrd) {
+		this.themeName = themeName;
+		this.itemName = itemName;
+		this.elementName = elementName;
+		this.author = author;
+		this.version = version;
+		this.coOrd = coOrd;
+	}
+
+
+	public Path getDirectory() {
+		if (isNumbers()) return (Paths.get( Theme.getRootDir().toString(), themeName, elementName, Number.getNumber() +itemName ) );
+		return Paths.get(Theme.getRootDir().toString(), themeName, elementName, itemName );
+	}
+
+	//have these getters so we don't have to call clasA.classB.getxoffset()
+	public int getXOffsetSD() {	return coOrd.getXOffsetSD(); }
+	public int getYOffsetSD() {	return coOrd.getYOffsetSD(); }
+
+
+	public long getDuration(long frameRateDivisor) { //TODO: this is just the duration of the media, that ok? what about the out and in durations?
+		duration = convertFrameToTime( fileNumbers.size() );
+		return duration;
+	}
+
+	//we need these so that we can call an AnimatedGFXElement as a GFXElement
+	public long getInDuration() { return 0;	}
+	public long getOutDuration() { return 0; }
+
+	//an animatedGFXElement has none of these things //TODO: I wish we could get this stuff out of here then
+	public boolean isReverse() { return false; }
+	public boolean isLoop() { return false; }
+	public boolean isNumbers() { return false; }
+	public int getSpeed() { return 1; } //TODO: is 1x speed correct for a static element?
+	public int getFirstHoldFrame() { return -1; }
+	public int getLastHoldFrame() { return -1; }
+	public int getNumberOfFrames() { return 1; }
+
+
+	public static long convertFrameToTime(long frames) {
+		//TODO: if we divide by zero, throw an exception
+		long result = frames * 1000000; //the time basis
+		result = result / 25; //the frame rate //TODO: magic numbers....
+		return result;
+	}
+
+
+	public ArrayList<String> getOverlayFileNames(Path dir) {
+		File file = new File(dir.toString());  
 		File[] files = file.listFiles();
 		fileNumbers = new ArrayList<>();
 
@@ -26,7 +90,7 @@ public abstract class GFXElement {
 			String i = files[g].toString();
 			Logger.getGlobal().info(i);
 			String path = i;
-			String base = dir;
+			String base = dir.toString();
 			//first we need to get the relative path - we do this by effectively masking
 			String relative = new File(base).toURI().relativize(new File(path).toURI()).getPath();
 			Logger.getGlobal().info("relative filename is: " + relative);
@@ -74,49 +138,13 @@ public abstract class GFXElement {
 
 		return fileNumbers;
 	}
-	
-	public abstract String getDirectory();
-	
-
-	public long getInDuration() {
-		inDuration = convertFrameToTime(getFirstHoldFrame() - 1);
-		return inDuration;
-	}
-	
-	public long getOutDuration() {
-		//if we have a reverse element, we need to use the inverse of the usual manner of getting duration AND know what speed we want the animate out to be
-		if (isReverse()) { outDuration = ( convertFrameToTime(getNumberOfFrames() - (getNumberOfFrames() - getLastHoldFrame() + 1)) / getSpeed() ); }
-		else { outDuration = convertFrameToTime(getNumberOfFrames() - getLastHoldFrame() + 1); }//TODO: make sure framerate is never going to be zero
-		
-		return outDuration;
-	}
-	
-	public static long convertFrameToTime(long frames) {
-		//TODO: if we divide by zero, throw an exception
-		long result = frames * 1000000; //the time basis
-			 result = result / 25; //the frame rate //TODO: magic numbers....
-		return result;
-	}
 
 
-	
-	public abstract int getFirstHoldFrame();
-	public abstract int getLastHoldFrame();
-	public abstract int getNumberOfFrames();
-	
-	
-	public long getDuration(long frameRateDivisor) { //TODO: this is just the duration of the media, that ok? what about the out and in durations?
-		duration = convertFrameToTime( fileNumbers.size() );
-		return duration;
-		}
-	
-	public abstract boolean isReverse();
-	public abstract boolean isLoop();
-	public abstract int getSpeed();
-	
 
-	public abstract int getXOffsetSD();
+	//TODO: one of these I ended up not using either here or in theme
+	@Override public String toString() { return itemName; }
 
-	public abstract int getYOffsetSD();
+
 
 }
+

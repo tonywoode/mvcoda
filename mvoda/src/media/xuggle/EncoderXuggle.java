@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 import playlist.Playlist;
 import playlist.PlaylistEntry;
-import xstream.Theme;
+import themes.Theme;
 
 import media.Decoder;
 import media.Encoder;
@@ -66,8 +66,6 @@ public class EncoderXuggle implements Encoder {
 		render(playlist);
 	}
 	
-	
-	
 
 	/**
 	 * Creates a new music video with input filename and a new writer that will write to output filename, iterates through the packets of the music video
@@ -106,7 +104,6 @@ public class EncoderXuggle implements Encoder {
 			if (video != null) video.close();
 		}
 	}
-	
 	
 	
 	

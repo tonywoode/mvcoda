@@ -17,13 +17,9 @@ import media.xuggle.EncoderXuggle;
 import media.xuggle.MusicVideoXuggle;
 import playlist.Playlist;
 import playlist.PlaylistEntry;
-import xstream.Theme;
-import xstream.XMLReader;
-import xstream.XMLSerialisable;
-//import theme.Classic;
-//import theme.Pop;
-//import theme.Theme;
-//import theme.Urban;
+import themes.Theme;
+import themes.XMLReader;
+import themes.XMLSerialisable;
 
 public class EntryPoint {
 
@@ -102,17 +98,10 @@ public class EntryPoint {
 		playlist.setNextEntry(playlistEntry9);
 		playlist.setNextEntry(playlistEntry10);
 
-
 		//set an output file
 		String outFileUNC = "E:/Output.mp4";
 
-
 		//Pop.setNum(1); //TODO: very silly AND has to be done before instantiation...
-		
-		//String themeName = "Classic";
-		//Path rootDir = Paths.get("Theme");
-		//Path themeDir = Paths.get(rootDir.toString(),themeName);
-		//Theme theme2 = new Theme();
 		
 		String themeName = "Pop";
 		Path rootDir = Paths.get("Theme");
@@ -123,27 +112,17 @@ public class EntryPoint {
 		
 		Path properDir = Paths.get( Theme.getRootDir().toString(), theme.getItemName() );
 		
-		//XMLSerialisable themeAsSerialisable = XMLReader.readXML(theme.getThemeDir(), theme.getItemName());
-		//Theme theme = (Theme) themeAsSerialisable;
-		
-		System.out.println("This is the dir: " + theme.getThemeDir());
+		/*System.out.println("This is the dir: " + theme.getThemeDir());
 		System.out.println("This is the root dir: " + Theme.getRootDir());
 		System.out.println("and this is the logo: " + theme.getLogo());
-		System.out.println("AND THE REAL PATH IS:" + properDir);
-		
-		
-
+		System.out.println("AND THE REAL PATH IS:" + properDir);*/
 
 		//get Xuggler's video info - idea could Junit test compare MY music vid class to THIS info?
 		System.out.println(test.toString());
 		//draw onto video
 		//Encoder draw = new EncoderXuggle(test, test2, theme, outFileUNC);
-		//Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC);
 		Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC);
 		test.close();
-
-
-
 
 		//report time taken
 		long elapsed = System.currentTimeMillis() - start;
@@ -153,9 +132,6 @@ public class EntryPoint {
 
 		//play it in xugglers media player
 		DecodeAndPlayAudioAndVideo player = new DecodeAndPlayAudioAndVideo(outFileUNC);
-
-
-
 
 	}
 }

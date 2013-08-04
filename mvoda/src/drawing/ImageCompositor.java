@@ -13,10 +13,8 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-import xstream.GFXElement;
-import xstream.Theme;
-
 import lombok.Getter;
+import themes.GFXElement;
 
 /**
  * deals with overlaying graphics over Buffered Images passed to it by the media package of MVODA
@@ -58,13 +56,8 @@ public class ImageCompositor {
 	 */
 	public ImageCompositor(GFXElement gfxElement) {
 		this.gfxElement = gfxElement;
-		//System.out.println("********************************************");
-		//System.out.println(Theme.getRootDir() + "/" + theme.getItemName() + "/" + gfxElement.getRootPath() + "/"  + gfxElement.getItemName() +"\n");
-		//System.out.println("verses: " + gfxElement.getDirectory());
 		Path dir = Paths.get(gfxElement.getDirectory().toString());
-		//String dir = dir2.toString();
 		gfxFiles = gfxElement.getOverlayFileNames(dir);
-		System.out.println(gfxFiles);
 	}
 
 	/**

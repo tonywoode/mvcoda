@@ -1,4 +1,4 @@
-package xstream;
+package themes;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
@@ -37,18 +37,13 @@ public class AnimatedGFXElement extends GFXElement {
 	public int getLastHoldFrame() { return frameData.getLastHoldFrame(); }
 	public int getNumberOfFrames() { return frameData.getNumberOfFrames(); }
 	
-	@Override
-	public boolean isReverse() { return animationData.isReverse(); }
-	@Override
-	public boolean isLoop() { return animationData.isLoop(); }
-	@Override
-	public boolean isNumbers() { return animationData.isNumbers(); }
-	@Override
-	public int getSpeed() { return animationData.getSpeed(); }
+	@Override public boolean isReverse() { return animationData.isReverse(); }
+	@Override public boolean isLoop() { return animationData.isLoop(); }
+	@Override public boolean isNumbers() { return animationData.isNumbers(); }
+	@Override public int getSpeed() { return animationData.getSpeed(); } //factor by which we speed up the out. This is a common trick for some reverse-out animations
 
-	
-	@Override //TODO:pay attention to these two overrides when you doc
-	public long getInDuration() {
+	//TODO:pay attention to these two overrides when you doc
+	@Override public long getInDuration() {	
 		inDuration = convertFrameToTime(getFirstHoldFrame() - 1);
 		return inDuration;
 	}
@@ -58,18 +53,7 @@ public class AnimatedGFXElement extends GFXElement {
 		//if we have a reverse element, we need to use the inverse of the usual manner of getting duration AND know what speed we want the animate out to be
 		if (isReverse()) { outDuration = ( convertFrameToTime(getNumberOfFrames() - (getNumberOfFrames() - getLastHoldFrame() + 1)) / getSpeed() ); }
 		else { outDuration = convertFrameToTime(getNumberOfFrames() - getLastHoldFrame() + 1); }//TODO: make sure framerate is never going to be zero
-		
 		return outDuration;
 	}
-
-
-	//don't need any of these anymore as we've abstracteed them to the two classes
-	/*@Getter @Setter public int firstHoldFrame;
-	@Getter @Setter public int lastHoldFrame;
-	@Getter @Setter public int numberOfFrames;
-
-	@Getter @Setter boolean reverse;
-	@Getter @Setter boolean loop;
-	@Getter @Setter int speed;*/
 
 }

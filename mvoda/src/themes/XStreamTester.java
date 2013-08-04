@@ -1,4 +1,4 @@
-package xstream;
+package themes;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

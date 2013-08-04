@@ -23,9 +23,9 @@ public class TextCompositor {
 		
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		String[] fontList = ge.getAvailableFontFamilyNames();
-		for (int i = 0; i < fontList.length; i++) {
+		/*for (int i = 0; i < fontList.length; i++) {
 		System.out.println("Available font list on this machine: At index no.: " + i + " is: " + fontList[i]);
-		}
+		}*/
 		textFont = new Font(fontList[10],1,32);
 	}
 	
@@ -42,7 +42,6 @@ public class TextCompositor {
 		Graphics2D g = image.createGraphics();
 		g.setFont(font);
 		g.drawString(text, x, y);
-		
 		//g.dispose(); //TODO: investigate
 	}
 

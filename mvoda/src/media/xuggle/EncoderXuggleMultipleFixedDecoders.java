@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.concurrent.TimeUnit;
 
 import playlist.Playlist;
-import xstream.Theme;
+import themes.Theme;
 
 import media.Decoder;
 import media.Encoder;

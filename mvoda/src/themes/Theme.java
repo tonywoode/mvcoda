@@ -1,4 +1,4 @@
-package xstream;
+package themes;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
@@ -18,12 +18,8 @@ public class Theme implements XMLSerialisable {
 	
 	@Getter @Setter private String itemName;
 	
+	//TODO: well the below didn't work very well now did it.....I think it can be removed atm
 	@XStreamOmitField @Getter private Path themeDir;// = Paths.get(rootDir.toString(),getItemName());
-	
-	
-	//@XStreamOmitField private String themeName;
-	
-	
 	
 	
 	@Getter @Setter private String directory;

@@ -1,4 +1,4 @@
-package xstream;
+package themes;
 
 
 import java.io.FileNotFoundException;
@@ -7,9 +7,6 @@ import java.nio.file.Paths;
 
 
 public class XMLBuilderRunner {
-
-	//This is the root directory for all the XML's. It is not expected to change or be alterable
-	//private static final Path rootDir = Paths.get("Theme");
 
 	//this is the changable directory for the theme being generated
 	private Path themeDir;
