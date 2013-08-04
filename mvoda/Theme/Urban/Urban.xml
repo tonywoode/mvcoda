@@ -1,6 +1,7 @@
 <Theme>
   <itemName>Urban</itemName>
   <logo class="AnimatedGFXElement">
+    <themeName>Urban</themeName>
     <itemName>KissBug1</itemName>
     <elementName>logo</elementName>
     <author>BoxTV Design Team</author>
@@ -21,6 +22,7 @@
     </animationData>
   </logo>
   <chart>
+    <themeName>Urban</themeName>
     <itemName>UrbanChart</itemName>
     <elementName>chart</elementName>
     <author>BoxTV Design Team</author>
@@ -31,6 +33,7 @@
     </coOrd>
   </chart>
   <strap class="AnimatedGFXElement">
+    <themeName>Urban</themeName>
     <itemName>UK40BB</itemName>
     <elementName>strap</elementName>
     <author>BoxTV Design Team</author>
@@ -51,6 +54,7 @@
     </animationData>
   </strap>
   <numbers class="AnimatedGFXElement">
+    <themeName>Urban</themeName>
     <itemName>UK40BBNums</itemName>
     <elementName>numbers</elementName>
     <author>BoxTV Design Team</author>
@@ -71,6 +75,7 @@
     </animationData>
   </numbers>
   <transition class="AnimatedGFXElement">
+    <themeName>Urban</themeName>
     <itemName>UK40BBTransition</itemName>
     <elementName>transition</elementName>
     <author>BoxTV Design Team</author>

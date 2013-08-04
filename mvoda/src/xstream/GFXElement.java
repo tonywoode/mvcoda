@@ -23,10 +23,10 @@ public class GFXElement implements XMLSerialisable {
 	@XStreamOmitField private String filePrefix = "";
 	private ArrayList<String> fileNumbers;
 	@XStreamOmitField private long duration;
-	@XStreamOmitField private Theme theme;
+	
 
 
-	//@Getter @Setter private String themeName;
+	@Getter @Setter private String themeName;
 	@Getter @Setter private String itemName;
 	@Getter @Setter private String elementName;
 	@Getter @Setter private String author;
@@ -34,8 +34,8 @@ public class GFXElement implements XMLSerialisable {
 	@Getter @Setter private String version;
 	@Getter @Setter public CoOrd coOrd;
 
-	public GFXElement(Theme theme, String itemName, String elementName, String author, String version, CoOrd coOrd) {
-		this.theme = theme;
+	public GFXElement(String themeName, String itemName, String elementName, String author, String version, CoOrd coOrd) {
+		this.themeName = themeName;
 		this.itemName = itemName;
 		this.elementName = elementName;
 		this.author = author;
@@ -46,9 +46,9 @@ public class GFXElement implements XMLSerialisable {
 
 	//**************************************HERE'S THE PROBLEM*******************************
 	public Path getDirectory() {
-		System.out.println("***********" + Theme.getRootDir());
+		//System.out.println("***********" + Theme.getRootDir());
 		//System.out.println(theme.getItemName());
-		return Paths.get("Theme", "Classic", elementName, itemName );
+		return Paths.get(Theme.getRootDir().toString(), themeName, elementName, itemName );
 		//return Theme.getRootDir().toString() + "/" + theme.getItemName() + "/" + elementName + "/" + itemName;
 	}
 

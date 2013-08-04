@@ -40,6 +40,11 @@ public class Theme implements XMLSerialisable {
 	
 	@Getter @Setter public GFXElement transition;
 	
+	@Override
+	public String toString() {
+		return itemName;		
+	}
+	
 	/*public Theme(String itemName) { //TODO: this never gets called because the xml doesn't call new
 		
 		this.itemName = itemName;

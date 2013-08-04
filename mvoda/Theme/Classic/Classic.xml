@@ -1,6 +1,7 @@
 <Theme>
   <itemName>Classic</itemName>
   <logo class="AnimatedGFXElement">
+    <themeName>Classic</themeName>
     <itemName>QLogo</itemName>
     <elementName>logo</elementName>
     <author>BoxTV Design Team</author>
@@ -21,6 +22,7 @@
     </animationData>
   </logo>
   <chart class="AnimatedGFXElement">
+    <themeName>Classic</themeName>
     <itemName>QChartBlack</itemName>
     <elementName>chart</elementName>
     <author>BoxTV Design Team</author>
@@ -41,6 +43,7 @@
     </animationData>
   </chart>
   <strap class="AnimatedGFXElement">
+    <themeName>Classic</themeName>
     <itemName>QStrap</itemName>
     <elementName>strap</elementName>
     <author>BoxTV Design Team</author>
@@ -61,6 +64,7 @@
     </animationData>
   </strap>
   <numbers class="AnimatedGFXElement">
+    <themeName>Classic</themeName>
     <itemName>QRedBlockLarger</itemName>
     <elementName>numbers</elementName>
     <author>BoxTV Design Team</author>
@@ -81,6 +85,7 @@
     </animationData>
   </numbers>
   <transition class="AnimatedGFXElement">
+    <themeName>Classic</themeName>
     <itemName>QTransition</itemName>
     <elementName>transition</elementName>
     <author>BoxTV Design Team</author>

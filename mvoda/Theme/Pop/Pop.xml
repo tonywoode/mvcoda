@@ -1,6 +1,7 @@
 <Theme>
   <itemName>Pop</itemName>
   <logo class="AnimatedGFXElement">
+    <themeName>Pop</themeName>
     <itemName>4M1BugFrames</itemName>
     <elementName>logo</elementName>
     <author>BoxTV Design Team</author>
@@ -21,6 +22,7 @@
     </animationData>
   </logo>
   <chart class="AnimatedGFXElement">
+    <themeName>Pop</themeName>
     <itemName>FMTop20Chart</itemName>
     <elementName>chart</elementName>
     <author>BoxTV Design Team</author>
@@ -41,6 +43,7 @@
     </animationData>
   </chart>
   <strap class="AnimatedGFXElement">
+    <themeName>Pop</themeName>
     <itemName>PeriscopeFrames</itemName>
     <elementName>strap</elementName>
     <author>BoxTV Design Team</author>
@@ -61,6 +64,7 @@
     </animationData>
   </strap>
   <numbers class="AnimatedGFXElement">
+    <themeName>Pop</themeName>
     <itemName>Animated/Num</itemName>
     <elementName>numbers</elementName>
     <author>BoxTV Design Team</author>
