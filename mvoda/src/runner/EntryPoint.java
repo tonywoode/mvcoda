@@ -21,10 +21,10 @@ import media.xuggle.DecodeAndPlayAudioAndVideo;
 import media.xuggle.EncoderXuggle;
 import media.xuggle.EncoderXuggleMultipleFixedDecoders;
 import media.xuggle.MusicVideoXuggle;
-import theme.Classic;
-import theme.Pop;
+//import theme.Classic;
+//import theme.Pop;
 //import theme.Theme;
-import theme.Urban;
+//import theme.Urban;
 import xstream.Theme;
 import xstream.XMLReader;
 import xstream.XMLSerialisable;
@@ -113,15 +113,19 @@ public class EntryPoint {
 
 		//Pop.setNum(1); //TODO: very silly AND has to be done before instantiation...
 		
-		String themeName = "Classic";
-		Path rootDir = Paths.get("Elements");
-		Path themeDir = Paths.get(rootDir.toString(),themeName);
+		//String themeName = "Classic";
+		//Path rootDir = Paths.get("Theme");
+		//Path themeDir = Paths.get(rootDir.toString(),themeName);
 
 
-		XMLSerialisable themeAsSerialisable = XMLReader.readXML(themeDir, themeName);
-		Theme theme = (Theme) themeAsSerialisable;
+		Theme theme = new Theme("Classic");
+		//XMLSerialisable themeAsSerialisable = XMLReader.readXML(theme.getThemeDir(), theme.getItemName());
+		//theme = (Theme) themeAsSerialisable;
 		
-		//Theme theme = new Classic();
+		System.out.println("This is the dir: " + theme.getThemeDir());
+		System.out.println("and this is the logo: " + theme.getLogo());
+		
+		
 
 
 		//get Xuggler's video info - idea could Junit test compare MY music vid class to THIS info?

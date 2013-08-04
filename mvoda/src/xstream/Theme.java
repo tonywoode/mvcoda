@@ -16,11 +16,15 @@ public class Theme implements XMLSerialisable {
 	//This is the root directory for all the XML's. It is not expected to change or be alterable
 	@XStreamOmitField @Getter private static final Path rootDir = Paths.get("Theme");
 	
-	@XStreamOmitField private Path themeDir;
-	
-	@XStreamOmitField private String themeName;
-	
 	@Getter @Setter private String itemName;
+	
+	@XStreamOmitField @Getter private Path themeDir;// = Paths.get(rootDir.toString(),getItemName());
+	
+	
+	//@XStreamOmitField private String themeName;
+	
+	
+	
 	
 	//@Getter @Setter private Path directory;
 
@@ -36,9 +40,18 @@ public class Theme implements XMLSerialisable {
 	
 	@Getter @Setter public GFXElement Transition;
 	
-	public Theme(String themeName) { //TODO: this never gets called because the xml doesn't call new
-		this.themeName = themeName;
-		themeDir = Paths.get(rootDir.toString(),themeName);
+	public Theme(String itemName) { //TODO: this never gets called because the xml doesn't call new
+		
+		this.itemName = itemName;
+		this.themeDir = Paths.get(rootDir.toString(),itemName);
+		System.out.println("Right now rootDir is " + rootDir + " and themeDir is " + themeDir);
+		XMLSerialisable themeAsSerialisable = XMLReader.readXML(getThemeDir(), getItemName());
+		Theme theme = (Theme) themeAsSerialisable;
+		this.Logo = theme.getLogo();
+		this.Chart = theme.getChart();
+		this.Strap = theme.getStrap();
+		this.Numbers = theme.getNumbers();
+		this.Transition = theme.getTransition();
 	}
 
 }

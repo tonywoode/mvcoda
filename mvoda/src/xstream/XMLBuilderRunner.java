@@ -13,10 +13,10 @@ import com.thoughtworks.xstream.XStream;
 public class XMLBuilderRunner {
 
 	//This is the root directory for all the XML's. It is not expected to change or be alterable
-	private static final Path rootDir = Paths.get("Theme");
+	//private static final Path rootDir = Paths.get("Theme");
 
 	//this is the changable directory for the theme being generated
-	private Path themeDir;
+	//private Path themeDir;
 
 
 	//these variables will be constant to all the XML's that are being created for version 1.0 so are fields here
@@ -43,7 +43,7 @@ public class XMLBuilderRunner {
 		String themeName = "Urban"; //which theme are we doing i.e.: what do we want it called in the xml, and which  folder do we want the xml to end up in?
 		Theme theme = new Theme(themeName);
 
-		theme.setItemName(themeName);
+		//theme.setItemName(themeName);
 
 		//generate the elements
 		XMLSerialisable logo = new AnimatedGFXElement("KissBug1", "Logo", author,version, new CoOrd(0,0), new FrameData(29, 43, 75), new AnimationData(false, false, 1) );
@@ -60,15 +60,15 @@ public class XMLBuilderRunner {
 		theme.setTransition((GFXElement) transition);
 
 		//set our path to write to, and write the xml for this theme
-		themeDir = Paths.get(rootDir.toString(),themeName);
-		XMLWriter.writeXML(themeDir, theme);
+		//themeDir = Paths.get(rootDir.toString(),themeName);
+		XMLWriter.writeXML(theme.getThemeDir(), theme);
 	}
 	
 	public void makePopTheme() {
 		String themeName = "Pop"; //which theme are we doing i.e.: what do we want it called in the xml, and which  folder do we want the xml to end up in?
 		Theme theme = new Theme(themeName);
 
-		theme.setItemName(themeName);
+		//theme.setItemName(themeName);
 
 		//generate the elements
 		XMLSerialisable logo = new AnimatedGFXElement("4M1BugFrames", "Logo", author, version, new CoOrd(0,0), new FrameData(51, 79, 126), new AnimationData(false, false, 1) );
@@ -86,8 +86,8 @@ public class XMLBuilderRunner {
 		theme.setTransition((GFXElement) transition);
 
 		//set our path to write to, and write the xml for this theme
-		themeDir = Paths.get(rootDir.toString(),themeName);
-		XMLWriter.writeXML(themeDir, theme);
+		//themeDir = Paths.get(rootDir.toString(),themeName);
+		XMLWriter.writeXML(theme.getThemeDir(), theme);
 	}	
 	
 
@@ -95,7 +95,7 @@ public class XMLBuilderRunner {
 		String themeName = "Classic"; //which theme are we doing i.e.: what do we want it called in the xml, and which  folder do we want the xml to end up in?
 		Theme theme = new Theme(themeName);
 
-		theme.setItemName(themeName);
+		//theme.setItemName(themeName);
 
 		//generate the elements
 		XMLSerialisable logo = new AnimatedGFXElement("QLogo", "Logo", author, version, new CoOrd(65,0), new FrameData(84, 84, 86), new AnimationData(true, false, 2) );
@@ -113,8 +113,8 @@ public class XMLBuilderRunner {
 		theme.setTransition((GFXElement) transition);
 
 		//set our path to write to, and write the xml for this theme
-		themeDir = Paths.get(rootDir.toString(),themeName);
-		XMLWriter.writeXML(themeDir, theme);
+		//themeDir = Paths.get(rootDir.toString(),themeName);
+		XMLWriter.writeXML(theme.getThemeDir(), theme);
 	}
 	
 	
