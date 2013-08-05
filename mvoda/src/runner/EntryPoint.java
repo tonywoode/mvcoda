@@ -103,7 +103,7 @@ public class EntryPoint {
 
 		//Pop.setNum(1); //TODO: very silly AND has to be done before instantiation...
 		
-		String themeName = "Pop";
+		String themeName = "Classic";
 		Path rootDir = Paths.get("Theme");
 		Path themeDir = Paths.get(rootDir.toString(),themeName);
 		
