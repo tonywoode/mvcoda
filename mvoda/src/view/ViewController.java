@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import media.Encoder;
 import media.MusicVideo;
+import media.xuggle.DecodeAndPlayAudioAndVideo;
 import media.xuggle.EncoderXuggle;
 import media.xuggle.MusicVideoXuggle;
 import playlist.Playlist;
@@ -144,6 +145,7 @@ public class ViewController {
 		//draw onto video
 		Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC);
 		test.close();
+		DecodeAndPlayAudioAndVideo player = new DecodeAndPlayAudioAndVideo(outFileUNC);
 	}
 
 }
