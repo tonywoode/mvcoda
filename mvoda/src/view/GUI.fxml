@@ -5,12 +5,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="view.ViewController">
   <!-- TODO Add Nodes -->
   <children>
     <GridPane layoutX="0.0" layoutY="0.0">
       <children>
-        <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Button fx:id="renderButton" mnemonicParsing="false" onMouseClicked="#render" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="1" />
         <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="0" />
         <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="0" GridPane.rowIndex="0" />
         <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="0" GridPane.rowIndex="1" />

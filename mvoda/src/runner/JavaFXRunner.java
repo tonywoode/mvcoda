@@ -10,7 +10,7 @@ public class JavaFXRunner extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		stage.setTitle("MVCODA");
-		Parent root = FXMLLoader.load(getClass().getResource("GUI.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("../view/GUI.fxml"));
 		stage.setScene(new Scene(root));
 		stage.show();
 	}
