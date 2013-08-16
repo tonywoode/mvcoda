@@ -5,15 +5,33 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="view.ViewController">
+<AnchorPane prefHeight="523.0" prefWidth="615.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="view.ViewController">
   <!-- TODO Add Nodes -->
   <children>
-    <GridPane layoutX="0.0" layoutY="0.0">
+    <GridPane layoutX="0.0" layoutY="0.0" prefHeight="523.0" prefWidth="615.0">
       <children>
-        <Button fx:id="renderButton" mnemonicParsing="false" onMouseClicked="#render" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-        <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-        <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <Button fx:id="renderButton" contentDisplay="LEFT" mnemonicParsing="false" onMouseClicked="#render" prefHeight="46.0" prefWidth="256.0" text="Render" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
         <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+          </content>
+        </ScrollPane>
+        <GridPane id="GridPane" prefHeight="153.0" prefWidth="308.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+          <children>
+            <Button fx:id="loadPlaylistButton" mnemonicParsing="false" onMouseClicked="#loadPlaylist" text="Load Playlist" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="TOP" />
+            <Button fx:id="savePlaylistButton" mnemonicParsing="false" onMouseClicked="#savePlaylist" text="Save Playlist" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+            <Button fx:id="newPlaylistButton" mnemonicParsing="false" onMouseClicked="#newPlaylist" text="New Playlist" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
+          </children>
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints maxHeight="250.0" minHeight="10.0" prefHeight="71.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="191.0" minHeight="10.0" prefHeight="108.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="191.0" minHeight="10.0" prefHeight="83.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </GridPane>
       </children>
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
