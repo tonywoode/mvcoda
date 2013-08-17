@@ -29,20 +29,24 @@
     </GridPane>
     <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
       <content>
-        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="224.0" prefWidth="281.0">
+          <children>
+            <ListView fx:id="playlistView" layoutX="-14.0" layoutY="0.0" prefHeight="224.0" prefWidth="289.0" />
+          </children>
+        </AnchorPane>
       </content>
     </ScrollPane>
     <GridPane id="GridPane" prefHeight="153.0" prefWidth="308.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
       <children>
-        <Button fx:id="loadPlaylistButton" mnemonicParsing="false" onMouseClicked="#loadPlaylist" text="Load Playlist" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="TOP" />
+        <Button fx:id="loadPlaylistButton" mnemonicParsing="false" onAction="#loadPlaylist" onMouseClicked="#loadPlaylist" text="Load Playlist" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="TOP" />
         <Button fx:id="savePlaylistButton" mnemonicParsing="false" onMouseClicked="#savePlaylist" text="Save Playlist" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
         <Button fx:id="newPlaylistButton" mnemonicParsing="false" onMouseClicked="#newPlaylist" text="New Playlist" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
         <Text scaleX="2.9424741308437063" scaleY="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="TOP" />
         <Text scaleX="3.9581012955042327" scaleY="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
         <Text scaleX="4.8849479762762025" scaleY="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
-        <ComboBox prefHeight="21.0" prefWidth="307.0" promptText="Select Theme" GridPane.columnIndex="0" GridPane.rowIndex="1">
+        <ComboBox fx:id="themeSelectBox" prefHeight="21.0" prefWidth="307.0" promptText="Select Theme" GridPane.columnIndex="0" GridPane.rowIndex="1">
           <items>
-            <FXCollections fx:id="themeSelectBox" fx:factory="observableArrayList">
+            <FXCollections fx:factory="observableArrayList">
               <String fx:value="Item 1" />
               <String fx:value="Item 2" />
               <String fx:value="Item 3" />
@@ -66,8 +70,8 @@
             <Insets bottom="10.0" fx:id="x1" />
           </VBox.margin>
         </TextField>
-        <TextField prefWidth="200.0" promptText="Enter Artist" VBox.margin="$x1" />
-        <TextArea prefWidth="200.0" promptText="Enter Track Info" wrapText="true" />
+        <TextField fx:id="artistTextField" prefWidth="200.0" promptText="Enter Artist" VBox.margin="$x1" />
+        <TextArea fx:id="trackInfoTextField" prefWidth="200.0" promptText="Enter Track Info" wrapText="true" />
       </children>
     </VBox>
   </children>

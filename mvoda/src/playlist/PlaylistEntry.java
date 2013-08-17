@@ -12,4 +12,10 @@ public class PlaylistEntry {
 	@Setter @Getter private MusicVideo video;
 	
 	public PlaylistEntry(MusicVideo video) { this.video = video; }
+	
+	public PlaylistEntry(MusicVideo video, String trackName, String artistName) { 
+		this.video = video; 
+		this.trackName = trackName;
+		this.artistName = artistName;
+	}
 }
