@@ -8,6 +8,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.logging.Logger;
 
+import lombok.Getter;
+import lombok.Setter;
 import media.Encoder;
 import media.MusicVideo;
 import media.xuggle.DecodeAndPlayAudioAndVideo;
@@ -21,6 +23,7 @@ import themes.XMLSerialisable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 
@@ -28,8 +31,12 @@ public class ViewController {
 
 	public Button loadPlaylistButton;
 	public Button renderButton;
+	public TextField trackTextField;
+	
 	private Desktop desktop = Desktop.getDesktop();
 
+	@Getter @Setter ViewControllerListener viewListener;
+	
 	@FXML void loadPlaylist(MouseEvent e) {
 		final FileChooser fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
@@ -40,6 +47,11 @@ public class ViewController {
 			catch (IOException ex) { System.out.println("oops cant open file"); }
 		}
 
+	}
+	
+	@FXML void playlistEntryEntered(ActionEvent e) {
+		String name = ""; // get from textbox
+		viewListener.onNewTrackAvailable(name);
 	}
 
 	@FXML void savePlaylist(MouseEvent e) {
