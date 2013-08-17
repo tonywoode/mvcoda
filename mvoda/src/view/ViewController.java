@@ -258,15 +258,30 @@ public class ViewController implements Initializable {
 		renderPlaylist(videos);
 		
 		playlistView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<PlaylistEntry>() {
-            public void changed(ObservableValue<? extends PlaylistEntry> ov, 
+            public void changed(final ObservableValue<? extends PlaylistEntry> ov, 
                 PlaylistEntry old_val, PlaylistEntry new_val) {
             	
-                trackTextField.textProperty().bindBidirectional(new SimpleStringProperty(ov.getValue().getTrackName()));
-                artistTextField.textProperty().bindBidirectional(new SimpleStringProperty(ov.getValue().getArtistName()));                
+            	//trackTextField.textProperty().bindBidirectional(new StringBeanProperty(ov.getValue(), "artistName"));
             	
-                    //trackTextField.textProperty().bind(new SimpleStringProperty())
-//                trackTextField.textProperty().set(ov.getValue().getTrackName());
-//                artistTextField.textProperty().set(ov.getValue().getArtistName());            	
+            	SimpleStringProperty sspTrack = new SimpleStringProperty(ov.getValue().getTrackName());
+            	SimpleStringProperty sspArtist = new SimpleStringProperty(ov.getValue().getArtistName());
+            	
+            	sspTrack.addListener(new ChangeListener<String>() {
+                    public void changed(ObservableValue<? extends String> ovTrack, 
+                            String old_val, String new_val) { 
+                    	ov.getValue().setTrackName(ovTrack.getValue().toString());
+                    }
+            	});
+            	
+            	sspArtist.addListener(new ChangeListener<String>() {
+                    public void changed(ObservableValue<? extends String> ovArtist, 
+                            String old_val, String new_val) { 
+                    	ov.getValue().setArtistName(ovArtist.getValue().toString());
+                    }
+            	});		
+            			
+                trackTextField.textProperty().bindBidirectional(sspTrack);
+                artistTextField.textProperty().bindBidirectional(sspArtist);                
             }
         });
 	}
