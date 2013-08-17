@@ -4,8 +4,11 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
 import lombok.Getter;
@@ -18,16 +21,21 @@ import media.xuggle.MusicVideoXuggle;
 import playlist.Playlist;
 import playlist.PlaylistEntry;
 import themes.Theme;
+import themes.ThemeFinder;
+import themes.ThemeFinderImpl;
 import themes.XMLReader;
 import themes.XMLSerialisable;
+import javafx.beans.value.ObservableIntegerValue;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 
-public class ViewController {
+public class ViewController implements Initializable {
 
 	public Button loadPlaylistButton;
 	public Button renderButton;
@@ -36,6 +44,8 @@ public class ViewController {
 	private Desktop desktop = Desktop.getDesktop();
 
 	@Getter @Setter ViewControllerListener viewListener;
+	
+	@FXML ObservableList<String> themeSelectBox; 
 	
 	@FXML void loadPlaylist(MouseEvent e) {
 		final FileChooser fileChooser = new FileChooser();
@@ -158,6 +168,31 @@ public class ViewController {
 		Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC);
 		test.close();
 		DecodeAndPlayAudioAndVideo player = new DecodeAndPlayAudioAndVideo(outFileUNC);
+	}
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) { //intialise is like an @Before kind of thing
+		//themeSelectBox.add("Hello");
+		ThemeFinder themeFinder = new ThemeFinderImpl();
+		ArrayList<Theme> themes = new ArrayList<>();
+		try {
+			themes = themeFinder.returnThemes();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ArrayList<String> themename = new ArrayList<>();
+		for (Theme element : themes) {
+			String name = element.getItemName();
+			themename.add(name);
+		}
+			
+		themeSelectBox.setAll(themename);
+		
 	}
 
 }

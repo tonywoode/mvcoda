@@ -37,18 +37,18 @@
         <Button fx:id="loadPlaylistButton" mnemonicParsing="false" onMouseClicked="#loadPlaylist" text="Load Playlist" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="TOP" />
         <Button fx:id="savePlaylistButton" mnemonicParsing="false" onMouseClicked="#savePlaylist" text="Save Playlist" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
         <Button fx:id="newPlaylistButton" mnemonicParsing="false" onMouseClicked="#newPlaylist" text="New Playlist" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
-        <ComboBox cache="true" cacheHint="DEFAULT" prefHeight="21.0" prefWidth="268.0" promptText="Select Theme" visibleRowCount="10" GridPane.columnIndex="0" GridPane.rowIndex="1">
-          <items>
-            <FXCollections fx:factory="observableArrayList">
-              <String fx:value="Pop Theme" />
-              <String fx:value="Clasic Theme" />
-              <String fx:value="Urban Theme" />
-            </FXCollections>
-          </items>
-        </ComboBox>
         <Text scaleX="2.9424741308437063" scaleY="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="TOP" />
         <Text scaleX="3.9581012955042327" scaleY="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
         <Text scaleX="4.8849479762762025" scaleY="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
+        <ComboBox prefHeight="21.0" prefWidth="307.0" promptText="Select Theme" GridPane.columnIndex="0" GridPane.rowIndex="1">
+          <items>
+            <FXCollections fx:id="themeSelectBox" fx:factory="observableArrayList">
+              <String fx:value="Item 1" />
+              <String fx:value="Item 2" />
+              <String fx:value="Item 3" />
+            </FXCollections>
+          </items>
+        </ComboBox>
       </children>
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
