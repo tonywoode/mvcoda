@@ -4,6 +4,7 @@ package drawing;
 
 import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -198,6 +199,7 @@ public class ImageCompositor {
 		//see history for some ways to make a new bufferedimage of correct type for xuggle and to output to file instead of passing back
 		Graphics2D g = videoFrame.createGraphics();
 		g.drawImage(overlay, x, y, null);
+		//TODO - need a map of these: g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
 		return videoFrame;
 	}
 

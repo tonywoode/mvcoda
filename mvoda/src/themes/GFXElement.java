@@ -12,7 +12,6 @@ import playlist.Number;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
-import drawing.NumberedFileComparator;
 
 import lombok.Getter;
 import lombok.Setter;

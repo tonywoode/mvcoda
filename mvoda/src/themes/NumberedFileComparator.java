@@ -1,4 +1,4 @@
-package drawing;
+package themes;
 
 import java.util.Comparator;
 
@@ -6,7 +6,7 @@ import java.util.Comparator;
 public class NumberedFileComparator implements Comparator<Object> {
 //taken from http://answers.yahoo.com/question/index?qid=20090616170823AAPtPWG
 	
-	final int CHARS_BEFORE_NUMS = 30;
+	//final int CHARS_BEFORE_NUMS = 30;
 	
 	public int compare(Object o1, Object o2) {
 		String f1 = (String)o1;
