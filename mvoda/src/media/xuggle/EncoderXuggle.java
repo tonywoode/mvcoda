@@ -52,6 +52,8 @@ public class EncoderXuggle implements Encoder {
 	private TextCompositor trackText;
 	private TextCompositor artistText;
 	private TextCompositor chartText;
+	
+	long offset;
 
 	/**
 	 * By passing two UNCpaths to the constructor we specify and input and an output filename
@@ -106,13 +108,18 @@ public class EncoderXuggle implements Encoder {
 	
 	public void renderNextVid(Decoder decoder) throws Exception {
 	    //System.out.println(decoder.getFormattedAudioTimestamp());
-	    videoTimecode =  videoTimecodeFromLastVid + decoder.getVideoTimeStamp();
-	    audioTimecode = audioTimecodeFromLastVid + decoder.getAudioTimeStamp();
+	    //videoTimecode =  videoTimecodeFromLastVid + decoder.getVideoTimeStamp();
+	    //audioTimecode = audioTimecodeFromLastVid + decoder.getAudioTimeStamp();
+	    long nextAudioTimecode = 0;
+	    long nextVideoTimecode = 0;
+	    //long offset = 0;
 		while (decoder.hasNextPacket()) {
 			IAudioSamples audioSamples = decoder.getAudioSamples();
-			if (audioSamples != null) {
-				audioTimecode = audioTimecodeFromLastVid + decoder.getAudioTimeStamp();
-				audioSamples.setTimeStamp(audioTimecode);
+			if (audioSamples != null && decoder.getVideoTimeStamp() > 0) {
+				
+				long newAudioTimecode = decoder.getAudioTimeStamp() + offset;
+				nextAudioTimecode = decoder.getAudioSamples().getNextPts();
+				audioSamples.setTimeStamp(newAudioTimecode);
 				writer.encodeAudio(video.getAudioStreamIndex(), audioSamples);
 				
 				System.out.printf("%7s%15d%10s%15d%12s%13s\n", "AUDIO:", audioTimecode, "Relative:", decoder.getAudioTimeStamp(), "Formatted:", decoder.getFormattedAudioTimestamp());
@@ -120,16 +127,21 @@ public class EncoderXuggle implements Encoder {
 			
 			BufferedImage videoFrame = decoder.getVideoFrame();						
 			if (videoFrame != null) {
-				videoTimecode =  videoTimecodeFromLastVid + decoder.getVideoTimeStamp();	
+				long originalVideoTimecode = decoder.getVideoTimeStamp();
+				long newVideoTimecode =  decoder.getVideoTimeStamp() + offset;
+				nextVideoTimecode = originalVideoTimecode + offset;
 				System.out.printf("%7s%15d%10s%15d%12s%13s\n","VIDEO:", videoTimecode, "Relative:", decoder.getVideoTimeStamp(), "Formatted:", decoder.getFormattedVideoTimestamp());
 				putTheBitsOnClassic(videoFrame); //!!!!!!!!!!!!!!!!!!!!!!!!HERE YOU NEED PUT THE BITS ON POP - YES POP!!!!	
-				writer.encodeVideo(0, videoFrame, videoTimecode, TimeUnit.MICROSECONDS); //TODO: sort out the naming of videoFrame and Composite. THAT'S confusing!
+				writer.encodeVideo(0, videoFrame, newVideoTimecode, TimeUnit.MICROSECONDS); //TODO: sort out the naming of videoFrame and Composite. THAT'S confusing!
 				
 			}
 		}
-		long offset = Math.max(videoTimecode, audioTimecode);//set timecode we pass on to be the LARGER of audio and video - this helps sync when concatenating
-		videoTimecodeFromLastVid =  offset;
-		audioTimecodeFromLastVid = offset;
+		
+		offset = Math.max(nextVideoTimecode, nextAudioTimecode);//set timecode we pass on to be the LARGER of audio and video - this helps sync when concatenating
+		//if (videoTimecode + 1 > nextAudioTimecode) { System.out.println("The video is larger at: " + videoTimecode + 1); }
+		//System.out.println("next audio timecode is predicted as" + nextAudioTimecode);
+		//videoTimecodeFromLastVid =  offset;
+		//audioTimecodeFromLastVid = offset;
 		
 	}
 	
