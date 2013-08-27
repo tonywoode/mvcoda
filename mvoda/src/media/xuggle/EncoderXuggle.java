@@ -115,14 +115,14 @@ public class EncoderXuggle implements Encoder {
 	    //long offset = 0;
 		while (decoder.hasNextPacket()) {
 			IAudioSamples audioSamples = decoder.getAudioSamples();
-			if (audioSamples != null && decoder.getVideoTimeStamp() > 0) {
+			if (audioSamples != null && decoder.getVideoTimeStamp() > 0) { //the second test ensures audio MP4 packets don't go out of sync
 				
 				long newAudioTimecode = decoder.getAudioTimeStamp() + offset;
 				nextAudioTimecode = decoder.getAudioSamples().getNextPts();
 				audioSamples.setTimeStamp(newAudioTimecode);
 				writer.encodeAudio(video.getAudioStreamIndex(), audioSamples);
 				
-				System.out.printf("%7s%15d%10s%15d%12s%13s\n", "AUDIO:", audioTimecode, "Relative:", decoder.getAudioTimeStamp(), "Formatted:", decoder.getFormattedAudioTimestamp());
+				System.out.printf("%7s\t%7s%15d\t\t%10s%15d\t%12s%13s\n", "AUDIO", "Offset",newAudioTimecode, "Relative:", decoder.getAudioTimeStamp(), "Formatted:", decoder.getFormattedAudioTimestamp());
 			}
 			
 			BufferedImage videoFrame = decoder.getVideoFrame();						
@@ -130,7 +130,7 @@ public class EncoderXuggle implements Encoder {
 				long originalVideoTimecode = decoder.getVideoTimeStamp();
 				long newVideoTimecode =  decoder.getVideoTimeStamp() + offset;
 				nextVideoTimecode = originalVideoTimecode + offset;
-				System.out.printf("%7s%15d%10s%15d%12s%13s\n","VIDEO:", videoTimecode, "Relative:", decoder.getVideoTimeStamp(), "Formatted:", decoder.getFormattedVideoTimestamp());
+				System.out.printf("%7s\t%7s%15d\t\t%10s%15d\t%12s%13s\n","VIDEO", "Offset", newVideoTimecode, "Relative:", decoder.getVideoTimeStamp(), "Formatted:", decoder.getFormattedVideoTimestamp());
 				putTheBitsOnClassic(videoFrame); //!!!!!!!!!!!!!!!!!!!!!!!!HERE YOU NEED PUT THE BITS ON POP - YES POP!!!!	
 				writer.encodeVideo(0, videoFrame, newVideoTimecode, TimeUnit.MICROSECONDS); //TODO: sort out the naming of videoFrame and Composite. THAT'S confusing!
 				
