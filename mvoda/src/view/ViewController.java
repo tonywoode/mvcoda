@@ -79,9 +79,6 @@ public class ViewController implements Initializable {
 		if (file != null) {
 			try { 
 				desktop.open(file); 
-				
-				
-				
 			} 
 			catch (IOException ex) { System.out.println("oops cant open file"); }
 		}
