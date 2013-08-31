@@ -13,7 +13,7 @@
   <children>
     <GridPane id="GridPane" GridPane.columnIndex="1" GridPane.rowIndex="1">
       <children>
-        <Button fx:id="renderButton" contentDisplay="LEFT" mnemonicParsing="false" onMouseClicked="#render" prefHeight="46.0" prefWidth="256.0" text="Render" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+        <Button fx:id="renderButton" contentDisplay="LEFT" mnemonicParsing="false" onAction="#render" prefHeight="46.0" prefWidth="256.0" text="Render" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
         <TextArea prefHeight="106.0" prefWidth="307.0" text="Media Info will go here" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="2" />
         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Image Goes Here" GridPane.columnIndex="0" GridPane.rowIndex="1" />
@@ -29,18 +29,14 @@
     </GridPane>
     <VBox id="VBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
       <children>
-        <ScrollPane prefHeight="227.0" prefWidth="307.0">
-          <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="260.5" prefWidth="306.0">
-              <children>
-                <ListView fx:id="playlistView" layoutX="-14.0" layoutY="0.0" prefHeight="242.0" prefWidth="306.0" />
-              </children>
-            </AnchorPane>
-          </content>
-        </ScrollPane>
+        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="260.5" prefWidth="306.0">
+          <children>
+            <ListView fx:id="playlistView" layoutX="0.0" layoutY="0.0" prefHeight="238.0" prefWidth="306.9998779296875" />
+          </children>
+        </AnchorPane>
         <HBox prefHeight="33.0" prefWidth="307.0">
           <children>
-            <Button fx:id="addPlaylistEntryButton" alignment="CENTER" mnemonicParsing="false" prefHeight="32.0" prefWidth="91.423828125" rotate="0.0" text="Add Playlist Entry" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true">
+            <Button fx:id="addPlaylistEntryButton" alignment="CENTER" mnemonicParsing="false" onAction="#addPlaylistEntry" prefHeight="32.0" prefWidth="91.423828125" rotate="0.0" text="Add Playlist Entry" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true">
               <font>
                 <Font size="10.0" fx:id="x3" />
               </font>
@@ -48,9 +44,9 @@
                 <Insets fx:id="x2" />
               </HBox.margin>
             </Button>
-            <Button fx:id="deletePlaylistEntryButton" font="$x3" mnemonicParsing="false" prefHeight="32.0" prefWidth="82.0" text="Delete Playlist Entry" textAlignment="CENTER" wrapText="true" HBox.margin="$x2" />
-            <Button fx:id="moveUpButton" font="$x3" mnemonicParsing="false" prefHeight="32.0" prefWidth="78.0" text="Move Up" HBox.margin="$x2" />
-            <Button fx:id="moveDownButton" font="$x3" mnemonicParsing="false" prefHeight="32.0" prefWidth="83.0" text="Move Down" />
+            <Button fx:id="deletePlaylistEntryButton" font="$x3" mnemonicParsing="false" onAction="#deletePlaylistEntry" prefHeight="32.0" prefWidth="82.0" text="Delete Playlist Entry" textAlignment="CENTER" wrapText="true" HBox.margin="$x2" />
+            <Button fx:id="moveUpButton" font="$x3" mnemonicParsing="false" onAction="#moveUp" prefHeight="32.0" prefWidth="78.0" text="Move Up" HBox.margin="$x2" />
+            <Button fx:id="moveDownButton" font="$x3" mnemonicParsing="false" onAction="#moveDown" prefHeight="32.0" prefWidth="83.0" text="Move Down" />
           </children>
         </HBox>
       </children>
@@ -59,7 +55,8 @@
       <children>
         <Button fx:id="loadPlaylistButton" mnemonicParsing="false" onAction="#loadPlaylist" text="Load Playlist" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="TOP" />
         <Button fx:id="savePlaylistButton" mnemonicParsing="false" onAction="#savePlaylist" text="Save Playlist" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
-        <Button fx:id="newPlaylistButton" mnemonicParsing="false" onAction="#newPlaylist" text="New Playlist" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" /> <!-- (MouseEvent e) { -->
+        <Button fx:id="newPlaylistButton" mnemonicParsing="false" onAction="#newPlaylist" text="New Playlist" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
+        <!-- (MouseEvent e) { -->
         <Text scaleX="2.9424741308437063" scaleY="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="TOP" />
         <Text scaleX="3.9581012955042327" scaleY="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
         <Text scaleX="4.8849479762762025" scaleY="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />

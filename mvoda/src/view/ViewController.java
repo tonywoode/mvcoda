@@ -30,6 +30,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableIntegerValue;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -52,6 +53,12 @@ public class ViewController implements Initializable {
 	
 	public TextField trackTextField;
 	public TextField artistTextField;
+	
+	private ObservableList<PlaylistEntry> videosObservable;
+	
+	public Playlist videos = new Playlist("Biggest Beats I've seen in a while"); //TODO: playlist name
+	
+	public ArrayList<String> vidFiles = new ArrayList<>();
 	
 	private Desktop desktop = Desktop.getDesktop();
 
@@ -108,19 +115,16 @@ public class ViewController implements Initializable {
 	}
 	
 	@FXML void newPlaylist(ActionEvent e) { //(MouseEvent e) {
-		final FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Set location for New Playlist");
-		File file = fileChooser.showOpenDialog(null);
-		if (file != null) {
-			try { desktop.open(file); } 
-			catch (IOException ex) { System.out.println("oops cant open file"); }
+		makeAPlaylist();
 		}
 
-	}
 
 
 
-	@FXML void render(MouseEvent e) {
+	@FXML void render(ActionEvent e) {
+		
+		//TODO: first we must ask where you want to save with a dialog
+		
 		//make a couple of music vid paths
 		String fileUNC = "../../../MVODAInputs/BrunoShort.mp4";
 		String fileUNC2 = "../../../MVODAInputs/FlorenceShort.mp4";
@@ -199,8 +203,10 @@ public class ViewController implements Initializable {
 		DecodeAndPlayAudioAndVideo player = new DecodeAndPlayAudioAndVideo(outFileUNC);
 	}
 
+	
+	
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) { //intialise is like an @Before kind of thing
+	public void initialize(URL arg0, ResourceBundle arg1) {
 		//themeSelectBox.add("Hello");
 		ThemeFinder themeFinder = new ThemeFinderImpl();
 		ArrayList<Theme> themes = new ArrayList<>();
@@ -225,7 +231,7 @@ public class ViewController implements Initializable {
 		themeSelectBox.setItems(themename);
 
 		
-		makeAPlaylist();
+		//makeAPlaylist();
 		
 		playlistView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<PlaylistEntry>() {
             public void changed(final ObservableValue<? extends PlaylistEntry> ov, 
@@ -261,7 +267,7 @@ public class ViewController implements Initializable {
 	 */
 	public void makeAPlaylist() {
 		
-				ArrayList<String> vidFiles = new ArrayList<>();
+				
 				
 				vidFiles.add("../../../MVODAInputs/BrunoShort.mp4");
 				vidFiles.add("../../../MVODAInputs/FlorenceShort.mp4");
@@ -274,19 +280,75 @@ public class ViewController implements Initializable {
 				vidFiles.add("../../../MVODAInputs/PinkShort.mp4");
 				vidFiles.add("../../../MVODAInputs/RihannaShort.mp4");
 		
-				//List<PlaylistEntry> videos = new ArrayList<>();
 				
-				Playlist videos = new Playlist("Biggest Beats I've seen in a while"); //TODO: playlist name
+				
+				
 				
 				for (int i = 0; i < vidFiles.size(); i++) {
-					videos.setNextEntry(new PlaylistEntry( new MusicVideoXuggle( vidFiles.get( i ) ),"Track" + (i + 1) , "Artist" + (i + 1 ) ) );
+					PlaylistEntry entry = new PlaylistEntry( new MusicVideoXuggle( vidFiles.get( i ) ),"Track" + (i + 1) , "Artist" + (i + 1 ) );
+					entry.setPositionInPlaylist(i + 1); //set the playlist entry number while we have a loop! may be a problem later.....
+					videos.setNextEntry(entry);
 				}
 				
 				/*videos.setNextEntry(new PlaylistEntry(new MusicVideoXuggle(fileUNC), "Track 1", "Artist 1"));
 				videos.setNextEntry(new PlaylistEntry(new MusicVideoXuggle(fileUNC2), "Track 2", "Artist 2"));
 				*/
-
 				sendPlaylistNodesToScreen(videos);
 	}
+	
+	public void addPlaylistEntry(ActionEvent e) throws IOException { //TOD: loading a music video exception please
+		final FileChooser fileChooser = new FileChooser();
+		//FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
+		//fileChooser.getExtensionFilters().add(extFilter);
+		File file = fileChooser.showOpenDialog(null);
+		if (file != null) {
+			String fileUNC = file.getAbsolutePath();
+			MusicVideo vid = new MusicVideoXuggle(fileUNC);
+			PlaylistEntry entry = new PlaylistEntry( vid, "Track" + (videos.getSize() + 1), "Artist" + (videos.getSize() + 1) );
+			entry.setPositionInPlaylist(videos.getSize() + 1);//no point in doing this really
+			videos.setNextEntry(entry);
+			ObservableList<PlaylistEntry> videosObservable = playlistView.getItems();
+			videosObservable.add(entry);
+			//sendPlaylistNodesToScreen(videos);	
+			
+		}
+
+	}
+	
+	
+public void deletePlaylistEntry(ActionEvent e) { //https://gist.github.com/jewelsea/5559262
+	//PlaylistEntry toDelete = playlistView.getSelectionModel().getSelectedItem();
+	int indexOfItemToDelete = playlistView.getSelectionModel().getSelectedIndex();
+	//ObservableList<PlaylistEntry> videosObservable = playlistView.getItems();
+	playlistView.getItems().remove(indexOfItemToDelete);
+	videosObservable = playlistView.getItems();
+	videosObservable.addListener(new ListChangeListener<PlaylistEntry>() {
+
+		@Override
+		public void onChanged(
+				javafx.collections.ListChangeListener.Change<? extends PlaylistEntry> c) {
+			videos.resetArray(videosObservable);
+		}
+	});
+	sendPlaylistNodesToScreen(videos);
+	
+	
+	}
+	
+
+public void moveUp(ActionEvent e) {
+	
+}
+
+public void moveDown(ActionEvent e) {
+	
+}
+
+
+	
+	
+	
+	
+	
 
 }
