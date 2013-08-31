@@ -11,7 +11,7 @@ import lombok.Setter;
 public class Playlist {
 
 	@Getter private static int playlistID; 
-	@Getter private ArrayList<PlaylistEntry> playlistEntries;
+	@Getter @Setter private ArrayList<PlaylistEntry> playlistEntries;
 	@Getter @Setter String playlistName;
 
 	public Playlist(String playlistName) {
@@ -42,6 +42,7 @@ public class Playlist {
 		temp.addAll(videosObservable);
 		playlistEntries = temp;
 		playlistEntries = playlistEntries; //just so we can set the breakpoint here
+		//System.out.println(playlistEntries.get(4).getVideo().getFileUNC()); //yup it look like we really are deleting
 	}
 
 }

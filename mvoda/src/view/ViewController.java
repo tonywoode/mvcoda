@@ -328,9 +328,16 @@ public void deletePlaylistEntry(ActionEvent e) { //https://gist.github.com/jewel
 		public void onChanged(
 				javafx.collections.ListChangeListener.Change<? extends PlaylistEntry> c) {
 			videos.resetArray(videosObservable);
+			for (int j = 0; j < videosObservable.size(); j++) {
+				videosObservable.get(j).setPositionInPlaylist(j + 1);
+				videos.getPlaylistEntries().get(j).setPositionInPlaylist(j + 1);	
+			}
+			//sendPlaylistNodesToScreen(videos);
 		}
 	});
-	sendPlaylistNodesToScreen(videos);
+	
+	
+	
 	
 	
 	}
