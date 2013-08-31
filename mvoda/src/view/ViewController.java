@@ -30,6 +30,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableIntegerValue;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -54,7 +55,7 @@ public class ViewController implements Initializable {
 	public TextField trackTextField;
 	public TextField artistTextField;
 	
-	private ObservableList<PlaylistEntry> videosObservable;
+	private ObservableList<PlaylistEntry> videosObservable = FXCollections.observableArrayList(new ArrayList<PlaylistEntry>());
 	
 	public Playlist videos = new Playlist("Biggest Beats I've seen in a while"); //TODO: playlist name
 	
@@ -257,7 +258,22 @@ public class ViewController implements Initializable {
             	});		
             			
                 trackTextField.textProperty().bindBidirectional(sspTrack);
-                artistTextField.textProperty().bindBidirectional(sspArtist);                
+                artistTextField.textProperty().bindBidirectional(sspArtist); 
+                
+            	videosObservable.addListener(new ListChangeListener<PlaylistEntry>() {
+
+            		@Override
+            		public void onChanged(
+            				javafx.collections.ListChangeListener.Change<? extends PlaylistEntry> c) {
+            			videos.resetArray(videosObservable);
+            			for (int j = 0; j < videosObservable.size(); j++) {
+            				videosObservable.get(j).setPositionInPlaylist(j + 1);
+            				videos.getPlaylistEntries().get(j).setPositionInPlaylist(j + 1);	
+            			}
+            			//sendPlaylistNodesToScreen(videos);
+            		}
+            	});
+
             }
         });
 	}
@@ -294,6 +310,8 @@ public class ViewController implements Initializable {
 				videos.setNextEntry(new PlaylistEntry(new MusicVideoXuggle(fileUNC2), "Track 2", "Artist 2"));
 				*/
 				sendPlaylistNodesToScreen(videos);
+				
+				videosObservable = playlistView.getItems();
 	}
 	
 	public void addPlaylistEntry(ActionEvent e) throws IOException { //TOD: loading a music video exception please
@@ -321,30 +339,14 @@ public void deletePlaylistEntry(ActionEvent e) { //https://gist.github.com/jewel
 	int indexOfItemToDelete = playlistView.getSelectionModel().getSelectedIndex();
 	//ObservableList<PlaylistEntry> videosObservable = playlistView.getItems();
 	playlistView.getItems().remove(indexOfItemToDelete);
-	videosObservable = playlistView.getItems();
-	videosObservable.addListener(new ListChangeListener<PlaylistEntry>() {
-
-		@Override
-		public void onChanged(
-				javafx.collections.ListChangeListener.Change<? extends PlaylistEntry> c) {
-			videos.resetArray(videosObservable);
-			for (int j = 0; j < videosObservable.size(); j++) {
-				videosObservable.get(j).setPositionInPlaylist(j + 1);
-				videos.getPlaylistEntries().get(j).setPositionInPlaylist(j + 1);	
-			}
-			//sendPlaylistNodesToScreen(videos);
-		}
-	});
-	
-	
-	
-	
-	
 	}
 	
 
 public void moveUp(ActionEvent e) {
-	
+	int indexOfItemToMove = playlistView.getSelectionModel().getSelectedIndex();
+	PlaylistEntry temp = playlistView.getSelectionModel().getSelectedItem();
+	playlistView.getItems().set(indexOfItemToMove, playlistView.getItems().get(indexOfItemToMove -1));
+	playlistView.getItems().set(indexOfItemToMove - 1, temp);
 }
 
 public void moveDown(ActionEvent e) {
