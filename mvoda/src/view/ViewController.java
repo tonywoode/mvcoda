@@ -45,8 +45,11 @@ import javafx.util.Callback;
 
 public class ViewController implements Initializable {
 
-	public Button loadPlaylistButton;
-	public Button renderButton;
+	//TODO: you've given these fx:id's but why? you don't do anything with the button but onClick...., so why do they need to be here
+	//public Button loadPlaylistButton;
+	//public Button renderButton;
+	//public Button addPlaylistEntryButton;
+	
 	public TextField trackTextField;
 	public TextField artistTextField;
 	
@@ -59,19 +62,19 @@ public class ViewController implements Initializable {
 	
 	@FXML ListView<PlaylistEntry> playlistView;
 	
-	public void renderPlaylist(List<PlaylistEntry> playlist) {
+	public void sendPlaylistNodesToScreen(Playlist videos) {
 		playlistView.setCellFactory(new Callback<ListView<PlaylistEntry>, ListCell<PlaylistEntry>>() {
             @Override public ListCell<PlaylistEntry> call(ListView<PlaylistEntry> list) {
                 return new PlaylistEntryListCell();
             }
         });
 		
-		for (PlaylistEntry playlistEntry : playlist)
+		for (PlaylistEntry playlistEntry : videos.getPlaylistEntries())
 			playlistView.getItems().add(playlistEntry);
 	}
 	
 	
-	@FXML void loadPlaylist(MouseEvent e) {		
+	@FXML void loadPlaylist(ActionEvent e) {		
 		final FileChooser fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
 		fileChooser.getExtensionFilters().add(extFilter);
@@ -90,7 +93,7 @@ public class ViewController implements Initializable {
 		viewListener.onNewTrackAvailable(name);
 	}
 
-	@FXML void savePlaylist(MouseEvent e) {
+	@FXML void savePlaylist(ActionEvent e) {
 		final FileChooser fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
 		fileChooser.getExtensionFilters().add(extFilter);
@@ -104,7 +107,7 @@ public class ViewController implements Initializable {
 			} catch (IOException ex) { System.out.println("error saving the file"); } }
 	}
 	
-	@FXML void newPlaylist(MouseEvent e) {
+	@FXML void newPlaylist(ActionEvent e) { //(MouseEvent e) {
 		final FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Set location for New Playlist");
 		File file = fileChooser.showOpenDialog(null);
@@ -203,12 +206,10 @@ public class ViewController implements Initializable {
 		ArrayList<Theme> themes = new ArrayList<>();
 		try {
 			themes = themeFinder.returnThemes();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} catch (IOException e) { // TODO exception handling 
 			e.printStackTrace();
 			
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+		} catch (InterruptedException e) { // TODO exception handling
 			e.printStackTrace();
 		}
 		ObservableList<String> themename = themeSelectBox.getItems(); //TODO: how to instantiate this without having to do that....
@@ -224,35 +225,7 @@ public class ViewController implements Initializable {
 		themeSelectBox.setItems(themename);
 
 		
-		// render playlist
-		
-		//make a couple of music vid paths
-		String fileUNC = "../../../MVODAInputs/BrunoShort.mp4";
-		String fileUNC2 = "../../../MVODAInputs/FlorenceShort.mp4";
-		String fileUNC3 = "../../../MVODAInputs/GloriaShort.mp4";
-		String fileUNC4 = "../../../MVODAInputs/KateShort.mp4";
-		String fileUNC5 = "../../../MVODAInputs/LeonaShort.mp4";
-		String fileUNC6 = "../../../MVODAInputs/MaroonShort.mp4";
-		String fileUNC7 = "../../../MVODAInputs/NeyoShort.mp4";
-		String fileUNC8 = "../../../MVODAInputs/NickiShort.mp4";
-		String fileUNC9 = "../../../MVODAInputs/PinkShort.mp4";
-		String fileUNC10 = "../../../MVODAInputs/RihannaShort.mp4";
-
-		//make vids out of them
-		List<PlaylistEntry> videos = new ArrayList<>();
-		
-		videos.add(new PlaylistEntry(new MusicVideoXuggle(fileUNC), "Track 1", "Artist 1"));
-		videos.add(new PlaylistEntry(new MusicVideoXuggle(fileUNC2), "Track 2", "Artist 2"));
-		videos.add(new PlaylistEntry(new MusicVideoXuggle(fileUNC3), "Track 3", "Artist 3"));
-		videos.add(new PlaylistEntry(new MusicVideoXuggle(fileUNC4)));
-		videos.add(new PlaylistEntry(new MusicVideoXuggle(fileUNC5)));
-		videos.add(new PlaylistEntry(new MusicVideoXuggle(fileUNC6)));
-		videos.add(new PlaylistEntry(new MusicVideoXuggle(fileUNC7)));
-		videos.add(new PlaylistEntry(new MusicVideoXuggle(fileUNC8)));
-		videos.add(new PlaylistEntry(new MusicVideoXuggle(fileUNC9)));
-		videos.add(new PlaylistEntry(new MusicVideoXuggle(fileUNC10)));
-
-		renderPlaylist(videos);
+		makeAPlaylist();
 		
 		playlistView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<PlaylistEntry>() {
             public void changed(final ObservableValue<? extends PlaylistEntry> ov, 
@@ -281,6 +254,39 @@ public class ViewController implements Initializable {
                 artistTextField.textProperty().bindBidirectional(sspArtist);                
             }
         });
+	}
+	
+	/**
+	 * Makes an array of file unc paths to ten videos, then makes a new playlist, turns the UNC's into playlist entry music vids and adds them to the playlist,
+	 */
+	public void makeAPlaylist() {
+		
+				ArrayList<String> vidFiles = new ArrayList<>();
+				
+				vidFiles.add("../../../MVODAInputs/BrunoShort.mp4");
+				vidFiles.add("../../../MVODAInputs/FlorenceShort.mp4");
+				vidFiles.add("../../../MVODAInputs/GloriaShort.mp4");
+				vidFiles.add("../../../MVODAInputs/KateShort.mp4");
+				vidFiles.add("../../../MVODAInputs/LeonaShort.mp4");
+				vidFiles.add("../../../MVODAInputs/MaroonShort.mp4");
+				vidFiles.add("../../../MVODAInputs/NeyoShort.mp4");
+				vidFiles.add("../../../MVODAInputs/NickiShort.mp4");
+				vidFiles.add("../../../MVODAInputs/PinkShort.mp4");
+				vidFiles.add("../../../MVODAInputs/RihannaShort.mp4");
+		
+				//List<PlaylistEntry> videos = new ArrayList<>();
+				
+				Playlist videos = new Playlist("Biggest Beats I've seen in a while"); //TODO: playlist name
+				
+				for (int i = 0; i < vidFiles.size(); i++) {
+					videos.setNextEntry(new PlaylistEntry( new MusicVideoXuggle( vidFiles.get( i ) ),"Track" + (i + 1) , "Artist" + (i + 1 ) ) );
+				}
+				
+				/*videos.setNextEntry(new PlaylistEntry(new MusicVideoXuggle(fileUNC), "Track 1", "Artist 1"));
+				videos.setNextEntry(new PlaylistEntry(new MusicVideoXuggle(fileUNC2), "Track 2", "Artist 2"));
+				*/
+
+				sendPlaylistNodesToScreen(videos);
 	}
 
 }

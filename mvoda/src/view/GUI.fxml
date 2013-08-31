@@ -27,20 +27,39 @@
         <RowConstraints maxHeight="217.0" minHeight="10.0" prefHeight="82.0" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>
-    <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
-      <content>
-        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="224.0" prefWidth="281.0">
+    <VBox id="VBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+      <children>
+        <ScrollPane prefHeight="227.0" prefWidth="307.0">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="260.5" prefWidth="306.0">
+              <children>
+                <ListView fx:id="playlistView" layoutX="-14.0" layoutY="0.0" prefHeight="242.0" prefWidth="306.0" />
+              </children>
+            </AnchorPane>
+          </content>
+        </ScrollPane>
+        <HBox prefHeight="33.0" prefWidth="307.0">
           <children>
-            <ListView fx:id="playlistView" layoutX="-14.0" layoutY="0.0" prefHeight="224.0" prefWidth="289.0" />
+            <Button fx:id="addPlaylistEntryButton" alignment="CENTER" mnemonicParsing="false" prefHeight="32.0" prefWidth="91.423828125" rotate="0.0" text="Add Playlist Entry" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true">
+              <font>
+                <Font size="10.0" fx:id="x3" />
+              </font>
+              <HBox.margin>
+                <Insets fx:id="x2" />
+              </HBox.margin>
+            </Button>
+            <Button fx:id="deletePlaylistEntryButton" font="$x3" mnemonicParsing="false" prefHeight="32.0" prefWidth="82.0" text="Delete Playlist Entry" textAlignment="CENTER" wrapText="true" HBox.margin="$x2" />
+            <Button fx:id="moveUpButton" font="$x3" mnemonicParsing="false" prefHeight="32.0" prefWidth="78.0" text="Move Up" HBox.margin="$x2" />
+            <Button fx:id="moveDownButton" font="$x3" mnemonicParsing="false" prefHeight="32.0" prefWidth="83.0" text="Move Down" />
           </children>
-        </AnchorPane>
-      </content>
-    </ScrollPane>
+        </HBox>
+      </children>
+    </VBox>
     <GridPane id="GridPane" prefHeight="153.0" prefWidth="308.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
       <children>
-        <Button fx:id="loadPlaylistButton" mnemonicParsing="false" onAction="#loadPlaylist" onMouseClicked="#loadPlaylist" text="Load Playlist" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="TOP" />
-        <Button fx:id="savePlaylistButton" mnemonicParsing="false" onMouseClicked="#savePlaylist" text="Save Playlist" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
-        <Button fx:id="newPlaylistButton" mnemonicParsing="false" onMouseClicked="#newPlaylist" text="New Playlist" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
+        <Button fx:id="loadPlaylistButton" mnemonicParsing="false" onAction="#loadPlaylist" text="Load Playlist" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="TOP" />
+        <Button fx:id="savePlaylistButton" mnemonicParsing="false" onAction="#savePlaylist" text="Save Playlist" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+        <Button fx:id="newPlaylistButton" mnemonicParsing="false" onAction="#newPlaylist" text="New Playlist" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" /> <!-- (MouseEvent e) { -->
         <Text scaleX="2.9424741308437063" scaleY="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="TOP" />
         <Text scaleX="3.9581012955042327" scaleY="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
         <Text scaleX="4.8849479762762025" scaleY="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
