@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
 
-<GridPane prefHeight="523.0" prefWidth="615.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="view.ViewController">
+<GridPane prefHeight="523.0" prefWidth="615.0" style="-fx-background-color:gainsboro;&#10;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="view.ViewController">
   <children>
     <GridPane id="GridPane" GridPane.columnIndex="1" GridPane.rowIndex="1">
       <children>
