@@ -103,7 +103,7 @@ public class ThemeFinderImpl implements ThemeFinder {
 		System.out.println(thePathsItFound);
 	
 		//ok great we can get the path, but you need to save the PATH in a THEME - a theme needs to know its own path eh!
-		//testing
+		//testing again
 	}
 	
 	
