@@ -13,7 +13,13 @@ public class PlaylistEntryListCell extends ListCell<PlaylistEntry> {
         if (item != null) {
         	 //setText("NUMBER: " + number + item.getVideo().getFileUNC());
         	//number++;
-            setText("NUMBER " + item.getPositionInPlaylist() + "\t" + item.getVideo().getFileUNC());
+        	
+        	int pos = this.getIndex() + 1;
+//        	int pos = item.getPositionInPlaylist();
+        	
+        	System.out.println("PlaylistEntry Cell: " + "NUMBER: " + pos + "\t" + item.getVideo().getFileUNC());
+        	
+            setText("NUMBER " + pos + "\t" + item.getVideo().getFileUNC());
         }
     }
 	

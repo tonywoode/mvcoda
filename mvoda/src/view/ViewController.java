@@ -233,10 +233,14 @@ public class ViewController implements Initializable {
 
 		
 		//makeAPlaylist();
-		
+	
 		playlistView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<PlaylistEntry>() {
             public void changed(final ObservableValue<? extends PlaylistEntry> ov, 
                 PlaylistEntry old_val, PlaylistEntry new_val) {
+            	
+            	// TODO: remove this
+            	if (ov == null || ov.getValue() == null)
+            		return;
             	
             	//trackTextField.textProperty().bindBidirectional(new StringBeanProperty(ov.getValue(), "artistName"));
             	
@@ -260,19 +264,24 @@ public class ViewController implements Initializable {
                 trackTextField.textProperty().bindBidirectional(sspTrack);
                 artistTextField.textProperty().bindBidirectional(sspArtist); 
                 
-            	videosObservable.addListener(new ListChangeListener<PlaylistEntry>() {
+/*            	videosObservable.addListener(new ListChangeListener<PlaylistEntry>() {
 
             		@Override
             		public void onChanged(
             				javafx.collections.ListChangeListener.Change<? extends PlaylistEntry> c) {
-            			videos.resetArray(videosObservable);
-            			for (int j = 0; j < videosObservable.size(); j++) {
-            				videosObservable.get(j).setPositionInPlaylist(j + 1);
-            				videos.getPlaylistEntries().get(j).setPositionInPlaylist(j + 1);	
+            			//videos.resetArray(videosObservable);
+            			//for (int j = 0; j < videosObservable.size(); j++) {
+            			//	videosObservable.get(j).setPositionInPlaylist(j + 1);
+            			//	videos.getPlaylistEntries().get(j).setPositionInPlaylist(j + 1);	
             			}
             			//sendPlaylistNodesToScreen(videos);
+            			//forceListRefreshOn(playlistView);
+            			
+            			//playlistView.getSelectionModel().clearAndSelect(indexOfItemToMove - 1);	
+            			//playlistView.getFocusModel().focus(indexOfItemToMove - 1);	
+
             		}
-            	});
+            	});*/
 
             }
         });
@@ -335,7 +344,7 @@ public class ViewController implements Initializable {
 	
 	
 public void deletePlaylistEntry(ActionEvent e) { //https://gist.github.com/jewelsea/5559262
-	//PlaylistEntry toDelete = playlistView.getSelectionModel().getSelectedItem();
+	PlaylistEntry toDelete = playlistView.getSelectionModel().getSelectedItem();
 	int indexOfItemToDelete = playlistView.getSelectionModel().getSelectedIndex();
 	//ObservableList<PlaylistEntry> videosObservable = playlistView.getItems();
 	playlistView.getItems().remove(indexOfItemToDelete);
@@ -344,9 +353,30 @@ public void deletePlaylistEntry(ActionEvent e) { //https://gist.github.com/jewel
 
 public void moveUp(ActionEvent e) {
 	int indexOfItemToMove = playlistView.getSelectionModel().getSelectedIndex();
+	
+	if (indexOfItemToMove < 0) return;
+	
 	PlaylistEntry temp = playlistView.getSelectionModel().getSelectedItem();
-	playlistView.getItems().set(indexOfItemToMove, playlistView.getItems().get(indexOfItemToMove -1));
+	playlistView.getItems().set(indexOfItemToMove, playlistView.getItems().get(indexOfItemToMove - 1));
 	playlistView.getItems().set(indexOfItemToMove - 1, temp);
+	
+	PlaylistEntry movingUp = playlistView.getSelectionModel().getSelectedItem();
+	
+	PlaylistEntry movingDown = playlistView.getItems().get(indexOfItemToMove - 1);
+	
+	movingUp.setPositionInPlaylist(indexOfItemToMove);
+	movingDown.setPositionInPlaylist(indexOfItemToMove + 1);
+	
+	System.out.println("Moving Up: " + movingUp.getPositionInPlaylist() + "; " + movingUp.getVideo().getFileUNC());
+	System.out.println("Moving Down: " + movingDown.getPositionInPlaylist() + "; " + movingDown.getVideo().getFileUNC());
+	
+/*	forceListRefreshOn(playlistView);
+	
+	playlistView.getSelectionModel().clearAndSelect(indexOfItemToMove - 1);	
+	playlistView.getFocusModel().focus(indexOfItemToMove - 1);	
+	playlistView.requestLayout();
+*/	
+
 }
 
 public void moveDown(ActionEvent e) {
@@ -355,8 +385,12 @@ public void moveDown(ActionEvent e) {
 
 
 	
-	
-	
+	// adapted from: http://stackoverflow.com/questions/16880115/javafx-2-2-how-to-force-a-redraw-update-of-a-listview
+	private void forceListRefreshOn(ListView lsv) {
+	    ObservableList items = lsv.getItems();
+	    lsv.setItems(lsv.getItems());
+	    lsv.setItems(items);
+	}
 	
 	
 
