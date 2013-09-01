@@ -129,10 +129,8 @@ public class ViewController implements Initializable {
 			System.out.println("At postion: " + (i + 1) + " We have " + playlist.getPlaylistEntries().get(i).getVideo().getFileUNC() );
 		}
 
-
-
 		//mock the theme
-		String themeName = "Classic";
+		String themeName = themeSelectBox.getSelectionModel().getSelectedItem().toString();
 		Path rootDir = Paths.get("Theme");
 		Path themeDir = Paths.get(rootDir.toString(),themeName);
 		XMLSerialisable themeAsSerialisable = XMLReader.readXML(themeDir, themeName);
@@ -326,8 +324,6 @@ public class ViewController implements Initializable {
 	 */
 	public void makeAPlaylist() {
 
-
-
 		vidFiles.add("../../../MVODAInputs/BrunoShort.mp4");
 		vidFiles.add("../../../MVODAInputs/FlorenceShort.mp4");
 		vidFiles.add("../../../MVODAInputs/GloriaShort.mp4");
@@ -338,9 +334,6 @@ public class ViewController implements Initializable {
 		vidFiles.add("../../../MVODAInputs/NickiShort.mp4");
 		vidFiles.add("../../../MVODAInputs/PinkShort.mp4");
 		vidFiles.add("../../../MVODAInputs/RihannaShort.mp4");
-
-
-
 
 
 		for (int i = 0; i < vidFiles.size(); i++) {
