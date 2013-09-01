@@ -144,7 +144,10 @@ public class ViewController implements Initializable {
 
 		//TODO: first we must ask where you want to save with a dialog
 		final FileChooser fileChooser = new FileChooser();
-		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("MP4 files (*.MP4)", "*.MP4");
+		String filetype = playlist.getNextEntry(0).getVideo().getFiletype();
+		//System.out.println(filetype + " files (*" + filetype + ")");
+		//System.out.println( "*." + filetype);
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(filetype + " files (*" + filetype + ")", "*" + filetype);
 		fileChooser.getExtensionFilters().add(extFilter);
 		File file = fileChooser.showSaveDialog(null);
 		String outFileUNC = file.toString();
@@ -158,82 +161,7 @@ public class ViewController implements Initializable {
 		
 		
 		DecodeAndPlayAudioAndVideo player = new DecodeAndPlayAudioAndVideo(outFileUNC);
-		/*//make a couple of music vid paths
-		String fileUNC = "../../../MVODAInputs/BrunoShort.mp4";
-		String fileUNC2 = "../../../MVODAInputs/FlorenceShort.mp4";
-		String fileUNC3 = "../../../MVODAInputs/GloriaShort.mp4";
-		String fileUNC4 = "../../../MVODAInputs/KateShort.mp4";
-		String fileUNC5 = "../../../MVODAInputs/LeonaShort.mp4";
-		String fileUNC6 = "../../../MVODAInputs/MaroonShort.mp4";
-		String fileUNC7 = "../../../MVODAInputs/NeyoShort.mp4";
-		String fileUNC8 = "../../../MVODAInputs/NickiShort.mp4";
-		String fileUNC9 = "../../../MVODAInputs/PinkShort.mp4";
-		String fileUNC10 = "../../../MVODAInputs/RihannaShort.mp4";
-
-		//make vids out of them
-		MusicVideo test = new MusicVideoXuggle(fileUNC);
-		MusicVideo test2 = new MusicVideoXuggle(fileUNC2);
-		MusicVideo test3 = new MusicVideoXuggle(fileUNC3);
-		MusicVideo test4 = new MusicVideoXuggle(fileUNC4);
-		MusicVideo test5 = new MusicVideoXuggle(fileUNC5);
-		MusicVideo test6 = new MusicVideoXuggle(fileUNC6);
-		MusicVideo test7 = new MusicVideoXuggle(fileUNC7);
-		MusicVideo test8 = new MusicVideoXuggle(fileUNC8);
-		MusicVideo test9 = new MusicVideoXuggle(fileUNC9);
-		MusicVideo test10 = new MusicVideoXuggle(fileUNC10);
-
-
-		//make a couple of playlist entries
-		PlaylistEntry playlistEntry = new PlaylistEntry(test);
-		PlaylistEntry playlistEntry2 = new PlaylistEntry(test2);
-		PlaylistEntry playlistEntry3 = new PlaylistEntry(test3);
-		PlaylistEntry playlistEntry4 = new PlaylistEntry(test4);
-		PlaylistEntry playlistEntry5 = new PlaylistEntry(test5);
-		PlaylistEntry playlistEntry6 = new PlaylistEntry(test6);
-		PlaylistEntry playlistEntry7 = new PlaylistEntry(test7);
-		PlaylistEntry playlistEntry8 = new PlaylistEntry(test8);
-		PlaylistEntry playlistEntry9 = new PlaylistEntry(test9);
-		PlaylistEntry playlistEntry10 = new PlaylistEntry(test10);
-
-
-		//make a playlist
-		Playlist playlist = new Playlist("Biggest Beats I've seen in a while");
-		playlist.setNextEntry(playlistEntry);
-		playlist.setNextEntry(playlistEntry2);
-		playlist.setNextEntry(playlistEntry3);
-		playlist.setNextEntry(playlistEntry4);
-		playlist.setNextEntry(playlistEntry5);
-		playlist.setNextEntry(playlistEntry6);
-		playlist.setNextEntry(playlistEntry7);
-		playlist.setNextEntry(playlistEntry8);
-		playlist.setNextEntry(playlistEntry9);
-		playlist.setNextEntry(playlistEntry10);
-
-		//set an output file
-		String outFileUNC = "E:/Output.mp4";
-
-		//Pop.setNum(1); //TODO: very silly AND has to be done before instantiation...
-
-		String themeName = "Classic";
-		Path rootDir = Paths.get("Theme");
-		Path themeDir = Paths.get(rootDir.toString(),themeName);
-
-		XMLSerialisable themeAsSerialisable = XMLReader.readXML(themeDir, themeName);
-		Theme theme = (Theme) themeAsSerialisable;
-
-		Path properDir = Paths.get( Theme.getRootDir().toString(), theme.getItemName() );
-
-		System.out.println("This is the dir: " + theme.getThemeDir());
-		System.out.println("This is the root dir: " + Theme.getRootDir());
-		System.out.println("and this is the logo: " + theme.getLogo());
-		System.out.println("AND THE REAL PATH IS:" + properDir);
-
-		//get Xuggler's video info - idea could Junit test compare MY music vid class to THIS info?
-		System.out.println(test.toString());
-		//draw onto video
-		Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC);
-		test.close();
-		DecodeAndPlayAudioAndVideo player = new DecodeAndPlayAudioAndVideo(outFileUNC);*/
+		
 	}
 
 
@@ -263,9 +191,7 @@ public class ViewController implements Initializable {
 		System.out.println(themename);
 		themeSelectBox.setItems(themename);
 
-
-		//makeAPlaylist();
-
+		
 		playlistView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<PlaylistEntry>() {
 			public void changed(final ObservableValue<? extends PlaylistEntry> ov, 
 					PlaylistEntry old_val, PlaylistEntry new_val) {
@@ -364,7 +290,6 @@ public class ViewController implements Initializable {
 			ObservableList<PlaylistEntry> playlistObservable = playlistView.getItems();
 			playlistObservable.add(entry);
 			//sendPlaylistNodesToScreen(videos);	
-
 		}
 
 	}
@@ -388,7 +313,6 @@ public class ViewController implements Initializable {
 		playlistView.getItems().set(indexOfItemToMove - 1, temp); //now move 
 
 		PlaylistEntry movingUp = playlistView.getSelectionModel().getSelectedItem();
-
 		PlaylistEntry movingDown = playlistView.getItems().get(indexOfItemToMove - 1);
 
 		movingUp.setPositionInPlaylist(indexOfItemToMove);
@@ -410,14 +334,13 @@ public class ViewController implements Initializable {
 		int indexOfItemToMove = playlistView.getSelectionModel().getSelectedIndex();
 		int lastIndex = playlistView.getItems().size() -1;
 
-		if (indexOfItemToMove > lastIndex) return; //TODO: still causing exception is it because i'm only catching the viewbox's error conditiion not the lists?
+		if (indexOfItemToMove > lastIndex) return; //TODO: still causing exception is it because i'm only catching the viewbox's error condition not the lists?
 
 		PlaylistEntry temp = playlistView.getSelectionModel().getSelectedItem();
 		playlistView.getItems().set(indexOfItemToMove, playlistView.getItems().get(indexOfItemToMove + 1));
 		playlistView.getItems().set(indexOfItemToMove + 1, temp);
 
 		PlaylistEntry movingDown = playlistView.getSelectionModel().getSelectedItem();
-
 		PlaylistEntry movingUp = playlistView.getItems().get(indexOfItemToMove + 1);
 
 		movingDown.setPositionInPlaylist(indexOfItemToMove);

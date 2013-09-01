@@ -23,6 +23,8 @@ public interface MusicVideo {
 	public abstract ICodec.ID getVideoCodecID();
 
 	public abstract String getFileUNC();
+	
+	public abstract String getFiletype();
 
 	public abstract int getWidth();
 

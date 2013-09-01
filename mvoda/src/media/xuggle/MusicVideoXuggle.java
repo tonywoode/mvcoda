@@ -1,5 +1,6 @@
 package media.xuggle;
 
+import util.FileUtil;
 import lombok.Getter;
 import media.Decoder;
 import media.MusicVideo;
@@ -30,6 +31,7 @@ public class MusicVideoXuggle implements MusicVideo {
 
 
 	@Getter private String fileUNC;	
+	@Getter private String filetype;
 	@Getter private int width;
 	@Getter private int height;
 	@Getter private int numChannelsAudio;	
@@ -57,6 +59,7 @@ public class MusicVideoXuggle implements MusicVideo {
 		if (container.open(fileUNC, IContainer.Type.READ, null) <0) { //populate with the UNC you passed in
 			throw new RuntimeException(fileUNC + ": failed to open");  
 		}
+		filetype = FileUtil.getFiletype(fileUNC);
 
 		//then iterate through the container trying to find the video and audio streams
 		numStreams = container.getNumStreams();  
