@@ -120,8 +120,6 @@ public class ViewController implements Initializable {
 	}
 
 
-
-
 	@FXML void render(ActionEvent e) {
 		playlist.resetArray(playlistObservable);
 
@@ -136,28 +134,20 @@ public class ViewController implements Initializable {
 		XMLSerialisable themeAsSerialisable = XMLReader.readXML(themeDir, themeName);
 		Theme theme = (Theme) themeAsSerialisable;
 		Path properDir = Paths.get( Theme.getRootDir().toString(), theme.getItemName() );
-
-//and do it
 		
 		//draw onto video
-		
-
-		//TODO: first we must ask where you want to save with a dialog
+	
+		//first we must ask where you want to save with a dialog
 		final FileChooser fileChooser = new FileChooser();
 		String filetype = playlist.getNextEntry(0).getVideo().getFiletype();
-		//System.out.println(filetype + " files (*" + filetype + ")");
-		//System.out.println( "*." + filetype);
+		//TODO: problem is we need to get the FIRST files' filetype....is there a better way of encapsulating this its not obvious it go through about 3 classes...
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(filetype + " files (*" + filetype + ")", "*" + filetype);
 		fileChooser.getExtensionFilters().add(extFilter);
 		File file = fileChooser.showSaveDialog(null);
-		String outFileUNC = file.toString();
-		System.out.println("Here's what I'm going to send you: " + file);
+		String outFileUNC = file.toString() + filetype; //append filetype to the UNC the user chooses
 		if(file != null){ 
-				//mock an output file
 				Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC);
-		}//} catch (IOException ex) { System.out.println("error saving the file"); } }//TODOthe encoder is the thing writing....
-		
-		
+		}
 		
 		
 		DecodeAndPlayAudioAndVideo player = new DecodeAndPlayAudioAndVideo(outFileUNC);
