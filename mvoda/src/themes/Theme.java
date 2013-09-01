@@ -36,6 +36,8 @@ public class Theme implements XMLSerialisable {
 	
 	@Getter @Setter public GFXElement transition;
 	
+	@XStreamOmitField @Getter @Setter public int index; //TODO: omit means set this only after instantiating with a read
+	
 	@Override
 	public String toString() {
 		return itemName;		

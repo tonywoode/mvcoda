@@ -133,6 +133,7 @@ public class ViewController implements Initializable {
 		Path themeDir = Paths.get(rootDir.toString(),themeName);
 		XMLSerialisable themeAsSerialisable = XMLReader.readXML(themeDir, themeName);
 		Theme theme = (Theme) themeAsSerialisable;
+		theme.setIndex(themeSelectBox.getSelectionModel().getSelectedIndex()); //TODO; the lines above is effectively a new so any index setting before this has no effect
 		Path properDir = Paths.get( Theme.getRootDir().toString(), theme.getItemName() );
 		
 		//draw onto video

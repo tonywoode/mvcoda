@@ -24,17 +24,20 @@ public class ThemeFinderImpl implements ThemeFinder {
 		Path themeDir = Paths.get(rootDir.toString(),themeName);
 		XMLSerialisable themeAsSerialisable = XMLReader.readXML(themeDir, themeName);
 		Theme theme1 = (Theme) themeAsSerialisable;
+		theme1.setIndex(0); //TODO: this has no effect see encoder
 		
 		
 		String themeName2 = "Pop";
 		Path themeDir2 = Paths.get(rootDir.toString(),themeName2);
 		XMLSerialisable themeAsSerialisable2 = XMLReader.readXML(themeDir2, themeName2);
 		Theme theme2 = (Theme) themeAsSerialisable2;
+		theme2.setIndex(1); //TODO: this has no effect see encoder
 		
 		String themeName3 = "Urban";
 		Path themeDir3 = Paths.get(rootDir.toString(),themeName3);
 		XMLSerialisable themeAsSerialisable3 = XMLReader.readXML(themeDir3, themeName3);
 		Theme theme3 = (Theme) themeAsSerialisable3;
+		theme3.setIndex(2); //TODO: this has no effect see encoder
 		
 		ArrayList<Theme> themeArray = new ArrayList<>();
 		themeArray.add(theme1);
@@ -42,6 +45,7 @@ public class ThemeFinderImpl implements ThemeFinder {
 		themeArray.add(theme3);
 		
 		return themeArray;
+		
 		
 		
 	}

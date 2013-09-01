@@ -22,6 +22,7 @@ import com.xuggle.xuggler.IStreamCoder;
 
 import drawing.ImageCompositor;
 import drawing.TextCompositor;
+import drawing.ThemeCompositor;
 /**
  * Basic methods to deal with buffered images we get from music video packets so that we can manipulate them and recode a video. Its basically "do something then encode"
  * @author Tony
@@ -53,6 +54,8 @@ public class EncoderXuggle implements Encoder {
 	private TextCompositor artistText;
 	private TextCompositor chartText;
 	
+	private ThemeCompositor themeCompositor;
+	
 	long offset;
 
 	/**
@@ -63,6 +66,7 @@ public class EncoderXuggle implements Encoder {
 	public EncoderXuggle(Playlist playlist, Theme theme,String outFilename) {
 		this.outFilename = outFilename;
 		this.theme = theme;
+		themeCompositor = new ThemeCompositor(theme);
 		render(playlist);
 	}
 	
@@ -82,12 +86,15 @@ public class EncoderXuggle implements Encoder {
 		
 		try {
 			//decoder2 = video2.getDecoder();		
-			for (PlaylistEntry playlistEntry : playlist.getPlaylistEntries()) {	
-				makeTheBitsClassic(); //if it's not in the loop you'll end up with the same number file being called each time round
-				resetTheBits();
+			for (PlaylistEntry playlistEntry : playlist.getPlaylistEntries()) {
+				
+				themeCompositor.makeThemeElements();
+				//makeTheBitsClassic(); //if it's not in the loop you'll end up with the same number file being called each time round
+				themeCompositor.resetThemeElements();
+				//resetTheBits();
 				video = playlistEntry.getVideo(); 
 				decoder = video.getDecoder(); //make a new decoder at this point? Decoder temp = new Decoder(video)
-				renderNextVid(decoder);	
+				renderNextVid(decoder, video);	
 				Number.setNumber(Number.getNumber() -1);
 			}
 					
@@ -106,7 +113,7 @@ public class EncoderXuggle implements Encoder {
 	}
 	
 	
-	public void renderNextVid(Decoder decoder) throws Exception {
+	public void renderNextVid(Decoder decoder, MusicVideo video) throws Exception {
 	    //System.out.println(decoder.getFormattedAudioTimestamp());
 	    //videoTimecode =  videoTimecodeFromLastVid + decoder.getVideoTimeStamp();
 	    //audioTimecode = audioTimecodeFromLastVid + decoder.getAudioTimeStamp();
@@ -131,7 +138,8 @@ public class EncoderXuggle implements Encoder {
 				long newVideoTimecode =  decoder.getVideoTimeStamp() + offset;
 				nextVideoTimecode = originalVideoTimecode + offset;
 				System.out.printf("%7s\t%7s%15d\t\t%10s%15d\t%12s%13s\n","VIDEO", "Offset", newVideoTimecode, "Relative:", decoder.getVideoTimeStamp(), "Formatted:", decoder.getFormattedVideoTimestamp());
-				putTheBitsOnClassic(videoFrame); //!!!!!!!!!!!!!!!!!!!!!!!!HERE YOU NEED PUT THE BITS ON POP - YES POP!!!!	
+				themeCompositor.renderThemeElements(videoFrame, decoder, video);
+				//putTheBitsOnClassic(videoFrame); //!!!!!!!!!!!!!!!!!!!!!!!!HERE YOU NEED PUT THE BITS ON POP - YES POP!!!!	
 				writer.encodeVideo(0, videoFrame, newVideoTimecode, TimeUnit.MICROSECONDS); //TODO: sort out the naming of videoFrame and Composite. THAT'S confusing!
 				
 			}
@@ -146,7 +154,7 @@ public class EncoderXuggle implements Encoder {
 	}
 	
 	
-	public void makeTheBitsClassic() {
+/*	public void makeTheBitsClassic() {
 		logoCompositor = new ImageCompositor(theme.getLogo());
 		strapCompositor = new ImageCompositor(theme.getStrap());
 		strapCompositor2 = new ImageCompositor(theme.getStrap());
@@ -257,7 +265,7 @@ public class EncoderXuggle implements Encoder {
 		chartCompositor.resetFileUNC();
 		numbersCompositor.resetFileUNC();
 
-	}
+	}*/
 
 	/**
 	 * This is called by render(). It makes a new writer from the tool factory, adds a video and audio stream to it, and returns it
