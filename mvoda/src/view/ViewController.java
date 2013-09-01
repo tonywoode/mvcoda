@@ -51,37 +51,37 @@ public class ViewController implements Initializable {
 	//public Button loadPlaylistButton;
 	//public Button renderButton;
 	//public Button addPlaylistEntryButton;
-	
+
 	public TextField trackTextField;
 	public TextField artistTextField;
-	
-	private ObservableList<PlaylistEntry> videosObservable = FXCollections.observableArrayList(new ArrayList<PlaylistEntry>());
-	
-	public Playlist videos = new Playlist("Biggest Beats I've seen in a while"); //TODO: playlist name
-	
+
+	private ObservableList<PlaylistEntry> playlistObservable = FXCollections.observableArrayList(new ArrayList<PlaylistEntry>());
+
+	public Playlist playlist = new Playlist("Biggest Beats I've seen in a while"); //TODO: playlist name
+
 	public ArrayList<String> vidFiles = new ArrayList<>();
-	
+
 	private Desktop desktop = Desktop.getDesktop();
 
 	@Getter @Setter ViewControllerListener viewListener;
-	
+
 	//@FXML ObservableList<String> themeSelectBox; 
 	@FXML ComboBox themeSelectBox;
-	
+
 	@FXML ListView<PlaylistEntry> playlistView;
-	
+
 	public void sendPlaylistNodesToScreen(Playlist videos) {
 		playlistView.setCellFactory(new Callback<ListView<PlaylistEntry>, ListCell<PlaylistEntry>>() {
-            @Override public ListCell<PlaylistEntry> call(ListView<PlaylistEntry> list) {
-                return new PlaylistEntryListCell();
-            }
-        });
-		
+			@Override public ListCell<PlaylistEntry> call(ListView<PlaylistEntry> list) {
+				return new PlaylistEntryListCell();
+			}
+		});
+
 		for (PlaylistEntry playlistEntry : videos.getPlaylistEntries())
 			playlistView.getItems().add(playlistEntry);
 	}
-	
-	
+
+
 	@FXML void loadPlaylist(ActionEvent e) {		
 		final FileChooser fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
@@ -95,7 +95,7 @@ public class ViewController implements Initializable {
 		}
 
 	}
-	
+
 	@FXML void playlistEntryEntered(ActionEvent e) {
 		String name = ""; // get from textbox
 		viewListener.onNewTrackAvailable(name);
@@ -114,19 +114,53 @@ public class ViewController implements Initializable {
 				fileWriter.close();
 			} catch (IOException ex) { System.out.println("error saving the file"); } }
 	}
-	
+
 	@FXML void newPlaylist(ActionEvent e) { //(MouseEvent e) {
 		makeAPlaylist();
-		}
+	}
 
 
 
 
 	@FXML void render(ActionEvent e) {
+		playlist.resetArray(playlistObservable);
+
+		for (int i=0;i < playlist.getPlaylistEntries().size();i++) {
+			System.out.println("At postion: " + (i + 1) + " We have " + playlist.getPlaylistEntries().get(i).getVideo().getFileUNC() );
+		}
+
+
+
+		//mock the theme
+		String themeName = "Classic";
+		Path rootDir = Paths.get("Theme");
+		Path themeDir = Paths.get(rootDir.toString(),themeName);
+		XMLSerialisable themeAsSerialisable = XMLReader.readXML(themeDir, themeName);
+		Theme theme = (Theme) themeAsSerialisable;
+		Path properDir = Paths.get( Theme.getRootDir().toString(), theme.getItemName() );
+
+//and do it
 		
+		//draw onto video
+		
+
 		//TODO: first we must ask where you want to save with a dialog
+		final FileChooser fileChooser = new FileChooser();
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("MP4 files (*.MP4)", "*.MP4");
+		fileChooser.getExtensionFilters().add(extFilter);
+		File file = fileChooser.showSaveDialog(null);
+		String outFileUNC = file.toString();
+		System.out.println("Here's what I'm going to send you: " + file);
+		if(file != null){ 
+				//mock an output file
+				Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC);
+		}//} catch (IOException ex) { System.out.println("error saving the file"); } }//TODOthe encoder is the thing writing....
 		
-		//make a couple of music vid paths
+		
+		
+		
+		DecodeAndPlayAudioAndVideo player = new DecodeAndPlayAudioAndVideo(outFileUNC);
+		/*//make a couple of music vid paths
 		String fileUNC = "../../../MVODAInputs/BrunoShort.mp4";
 		String fileUNC2 = "../../../MVODAInputs/FlorenceShort.mp4";
 		String fileUNC3 = "../../../MVODAInputs/GloriaShort.mp4";
@@ -191,21 +225,21 @@ public class ViewController implements Initializable {
 
 		Path properDir = Paths.get( Theme.getRootDir().toString(), theme.getItemName() );
 
-		/*System.out.println("This is the dir: " + theme.getThemeDir());
-				System.out.println("This is the root dir: " + Theme.getRootDir());
-				System.out.println("and this is the logo: " + theme.getLogo());
-				System.out.println("AND THE REAL PATH IS:" + properDir);*/
+		System.out.println("This is the dir: " + theme.getThemeDir());
+		System.out.println("This is the root dir: " + Theme.getRootDir());
+		System.out.println("and this is the logo: " + theme.getLogo());
+		System.out.println("AND THE REAL PATH IS:" + properDir);
 
 		//get Xuggler's video info - idea could Junit test compare MY music vid class to THIS info?
 		System.out.println(test.toString());
 		//draw onto video
 		Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC);
 		test.close();
-		DecodeAndPlayAudioAndVideo player = new DecodeAndPlayAudioAndVideo(outFileUNC);
+		DecodeAndPlayAudioAndVideo player = new DecodeAndPlayAudioAndVideo(outFileUNC);*/
 	}
 
-	
-	
+
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		//themeSelectBox.add("Hello");
@@ -215,7 +249,7 @@ public class ViewController implements Initializable {
 			themes = themeFinder.returnThemes();
 		} catch (IOException e) { // TODO exception handling 
 			e.printStackTrace();
-			
+
 		} catch (InterruptedException e) { // TODO exception handling
 			e.printStackTrace();
 		}
@@ -225,104 +259,104 @@ public class ViewController implements Initializable {
 			String name = element.getItemName();
 			themename.add(name);
 		}
-			
+
 		//themeSelectBox.setAll(themename);
 		//ObservableList<String> list = themeSelectBox.getItems();
 		System.out.println(themename);
 		themeSelectBox.setItems(themename);
 
-		
+
 		//makeAPlaylist();
-	
+
 		playlistView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<PlaylistEntry>() {
-            public void changed(final ObservableValue<? extends PlaylistEntry> ov, 
-                PlaylistEntry old_val, PlaylistEntry new_val) {
-            	
-            	// TODO: remove this
-            	if (ov == null || ov.getValue() == null)
-            		return;
-            	
-            	//trackTextField.textProperty().bindBidirectional(new StringBeanProperty(ov.getValue(), "artistName"));
-            	
-            	SimpleStringProperty sspTrack = new SimpleStringProperty(ov.getValue().getTrackName());
-            	SimpleStringProperty sspArtist = new SimpleStringProperty(ov.getValue().getArtistName());
-            	
-            	sspTrack.addListener(new ChangeListener<String>() {
-                    public void changed(ObservableValue<? extends String> ovTrack, 
-                            String old_val, String new_val) { 
-                    	ov.getValue().setTrackName(ovTrack.getValue().toString());
-                    }
-            	});
-            	
-            	sspArtist.addListener(new ChangeListener<String>() {
-                    public void changed(ObservableValue<? extends String> ovArtist, 
-                            String old_val, String new_val) { 
-                    	ov.getValue().setArtistName(ovArtist.getValue().toString());
-                    }
-            	});		
-            			
-                trackTextField.textProperty().bindBidirectional(sspTrack);
-                artistTextField.textProperty().bindBidirectional(sspArtist); 
-                
-/*            	videosObservable.addListener(new ListChangeListener<PlaylistEntry>() {
+			public void changed(final ObservableValue<? extends PlaylistEntry> ov, 
+					PlaylistEntry old_val, PlaylistEntry new_val) {
+
+				// TODO: remove this
+				if (ov == null || ov.getValue() == null)
+					return;
+
+				//trackTextField.textProperty().bindBidirectional(new StringBeanProperty(ov.getValue(), "artistName"));
+
+				SimpleStringProperty sspTrack = new SimpleStringProperty(ov.getValue().getTrackName());
+				SimpleStringProperty sspArtist = new SimpleStringProperty(ov.getValue().getArtistName());
+
+				sspTrack.addListener(new ChangeListener<String>() {
+					public void changed(ObservableValue<? extends String> ovTrack, 
+							String old_val, String new_val) { 
+						ov.getValue().setTrackName(ovTrack.getValue().toString());
+					}
+				});
+
+				sspArtist.addListener(new ChangeListener<String>() {
+					public void changed(ObservableValue<? extends String> ovArtist, 
+							String old_val, String new_val) { 
+						ov.getValue().setArtistName(ovArtist.getValue().toString());
+					}
+				});		
+
+				trackTextField.textProperty().bindBidirectional(sspTrack);
+				artistTextField.textProperty().bindBidirectional(sspArtist); 
+
+				/*            	playlistObservable.addListener(new ListChangeListener<PlaylistEntry>() {
 
             		@Override
             		public void onChanged(
             				javafx.collections.ListChangeListener.Change<? extends PlaylistEntry> c) {
-            			//videos.resetArray(videosObservable);
-            			//for (int j = 0; j < videosObservable.size(); j++) {
-            			//	videosObservable.get(j).setPositionInPlaylist(j + 1);
+            			//videos.resetArray(playlistObservable);
+            			//for (int j = 0; j < playlistObservable.size(); j++) {
+            			//	playlistObservable.get(j).setPositionInPlaylist(j + 1);
             			//	videos.getPlaylistEntries().get(j).setPositionInPlaylist(j + 1);	
             			}
             			//sendPlaylistNodesToScreen(videos);
             			//forceListRefreshOn(playlistView);
-            			
+
             			//playlistView.getSelectionModel().clearAndSelect(indexOfItemToMove - 1);	
             			//playlistView.getFocusModel().focus(indexOfItemToMove - 1);	
 
             		}
             	});*/
 
-            }
-        });
+			}
+		});
 	}
-	
+
 	/**
 	 * Makes an array of file unc paths to ten videos, then makes a new playlist, turns the UNC's into playlist entry music vids and adds them to the playlist,
 	 */
 	public void makeAPlaylist() {
-		
-				
-				
-				vidFiles.add("../../../MVODAInputs/BrunoShort.mp4");
-				vidFiles.add("../../../MVODAInputs/FlorenceShort.mp4");
-				vidFiles.add("../../../MVODAInputs/GloriaShort.mp4");
-				vidFiles.add("../../../MVODAInputs/KateShort.mp4");
-				vidFiles.add("../../../MVODAInputs/LeonaShort.mp4");
-				vidFiles.add("../../../MVODAInputs/MaroonShort.mp4");
-				vidFiles.add("../../../MVODAInputs/NeyoShort.mp4");
-				vidFiles.add("../../../MVODAInputs/NickiShort.mp4");
-				vidFiles.add("../../../MVODAInputs/PinkShort.mp4");
-				vidFiles.add("../../../MVODAInputs/RihannaShort.mp4");
-		
-				
-				
-				
-				
-				for (int i = 0; i < vidFiles.size(); i++) {
-					PlaylistEntry entry = new PlaylistEntry( new MusicVideoXuggle( vidFiles.get( i ) ),"Track" + (i + 1) , "Artist" + (i + 1 ) );
-					entry.setPositionInPlaylist(i + 1); //set the playlist entry number while we have a loop! may be a problem later.....
-					videos.setNextEntry(entry);
-				}
-				
-				/*videos.setNextEntry(new PlaylistEntry(new MusicVideoXuggle(fileUNC), "Track 1", "Artist 1"));
+
+
+
+		vidFiles.add("../../../MVODAInputs/BrunoShort.mp4");
+		vidFiles.add("../../../MVODAInputs/FlorenceShort.mp4");
+		vidFiles.add("../../../MVODAInputs/GloriaShort.mp4");
+		vidFiles.add("../../../MVODAInputs/KateShort.mp4");
+		vidFiles.add("../../../MVODAInputs/LeonaShort.mp4");
+		vidFiles.add("../../../MVODAInputs/MaroonShort.mp4");
+		vidFiles.add("../../../MVODAInputs/NeyoShort.mp4");
+		vidFiles.add("../../../MVODAInputs/NickiShort.mp4");
+		vidFiles.add("../../../MVODAInputs/PinkShort.mp4");
+		vidFiles.add("../../../MVODAInputs/RihannaShort.mp4");
+
+
+
+
+
+		for (int i = 0; i < vidFiles.size(); i++) {
+			PlaylistEntry entry = new PlaylistEntry( new MusicVideoXuggle( vidFiles.get( i ) ),"Track" + (i + 1) , "Artist" + (i + 1 ) );
+			entry.setPositionInPlaylist(i + 1); //set the playlist entry number while we have a loop! may be a problem later.....
+			playlist.setNextEntry(entry);
+		}
+
+		/*videos.setNextEntry(new PlaylistEntry(new MusicVideoXuggle(fileUNC), "Track 1", "Artist 1"));
 				videos.setNextEntry(new PlaylistEntry(new MusicVideoXuggle(fileUNC2), "Track 2", "Artist 2"));
-				*/
-				sendPlaylistNodesToScreen(videos);
-				
-				videosObservable = playlistView.getItems();
+		 */
+		sendPlaylistNodesToScreen(playlist);
+
+		playlistObservable = playlistView.getItems();
 	}
-	
+
 	public void addPlaylistEntry(ActionEvent e) throws IOException { //TOD: loading a music video exception please
 		final FileChooser fileChooser = new FileChooser();
 		//FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
@@ -331,84 +365,84 @@ public class ViewController implements Initializable {
 		if (file != null) {
 			String fileUNC = file.getAbsolutePath();
 			MusicVideo vid = new MusicVideoXuggle(fileUNC);
-			PlaylistEntry entry = new PlaylistEntry( vid, "Track" + (videos.getSize() + 1), "Artist" + (videos.getSize() + 1) );
-			entry.setPositionInPlaylist(videos.getSize() + 1);//no point in doing this really
-			videos.setNextEntry(entry);
-			ObservableList<PlaylistEntry> videosObservable = playlistView.getItems();
-			videosObservable.add(entry);
+			PlaylistEntry entry = new PlaylistEntry( vid, "Track" + (playlist.getSize() + 1), "Artist" + (playlist.getSize() + 1) );
+			entry.setPositionInPlaylist(playlist.getSize() + 1);//no point in doing this really
+			playlist.setNextEntry(entry);
+			ObservableList<PlaylistEntry> playlistObservable = playlistView.getItems();
+			playlistObservable.add(entry);
 			//sendPlaylistNodesToScreen(videos);	
-			
+
 		}
 
 	}
-	
-	
-public void deletePlaylistEntry(ActionEvent e) { //https://gist.github.com/jewelsea/5559262
-	PlaylistEntry toDelete = playlistView.getSelectionModel().getSelectedItem();
-	int indexOfItemToDelete = playlistView.getSelectionModel().getSelectedIndex();
-	//ObservableList<PlaylistEntry> videosObservable = playlistView.getItems();
-	playlistView.getItems().remove(indexOfItemToDelete);
-	}
-	
 
-public void moveUp(ActionEvent e) {
-	int indexOfItemToMove = playlistView.getSelectionModel().getSelectedIndex();
-	
-	if (indexOfItemToMove < 0) return; //don't attempt to move the top item
-	
-	PlaylistEntry temp = playlistView.getSelectionModel().getSelectedItem(); //temp entry holds the entry we want to move
-	playlistView.getItems().set(indexOfItemToMove, playlistView.getItems().get(indexOfItemToMove - 1)); //set replaces the item: so move item below to selected index
-	playlistView.getItems().set(indexOfItemToMove - 1, temp); //now move 
-	
-	PlaylistEntry movingUp = playlistView.getSelectionModel().getSelectedItem();
-	
-	PlaylistEntry movingDown = playlistView.getItems().get(indexOfItemToMove - 1);
-	
-	movingUp.setPositionInPlaylist(indexOfItemToMove);
-	movingDown.setPositionInPlaylist(indexOfItemToMove + 1);
-	
-	System.out.println("Moving Up: " + movingUp.getPositionInPlaylist() + "; " + movingUp.getVideo().getFileUNC());
-	System.out.println("Moving Down: " + movingDown.getPositionInPlaylist() + "; " + movingDown.getVideo().getFileUNC());
-	
-/*	forceListRefreshOn(playlistView);
-	
+
+	public void deletePlaylistEntry(ActionEvent e) { //https://gist.github.com/jewelsea/5559262
+		PlaylistEntry toDelete = playlistView.getSelectionModel().getSelectedItem();
+		int indexOfItemToDelete = playlistView.getSelectionModel().getSelectedIndex();
+		//ObservableList<PlaylistEntry> playlistObservable = playlistView.getItems();
+		playlistView.getItems().remove(indexOfItemToDelete);
+	}
+
+
+	public void moveUp(ActionEvent e) {
+		int indexOfItemToMove = playlistView.getSelectionModel().getSelectedIndex();
+
+		if (indexOfItemToMove < 0) return; //don't attempt to move the top item
+
+		PlaylistEntry temp = playlistView.getSelectionModel().getSelectedItem(); //temp entry holds the entry we want to move
+		playlistView.getItems().set(indexOfItemToMove, playlistView.getItems().get(indexOfItemToMove - 1)); //set replaces the item: so move item below to selected index
+		playlistView.getItems().set(indexOfItemToMove - 1, temp); //now move 
+
+		PlaylistEntry movingUp = playlistView.getSelectionModel().getSelectedItem();
+
+		PlaylistEntry movingDown = playlistView.getItems().get(indexOfItemToMove - 1);
+
+		movingUp.setPositionInPlaylist(indexOfItemToMove);
+		movingDown.setPositionInPlaylist(indexOfItemToMove + 1);
+
+		System.out.println("Moving Up: " + movingUp.getPositionInPlaylist() + "; " + movingUp.getVideo().getFileUNC());
+		System.out.println("Moving Down: " + movingDown.getPositionInPlaylist() + "; " + movingDown.getVideo().getFileUNC());
+
+		/*	forceListRefreshOn(playlistView);
+
 	playlistView.getSelectionModel().clearAndSelect(indexOfItemToMove - 1);	
 	playlistView.getFocusModel().focus(indexOfItemToMove - 1);	
 	playlistView.requestLayout();
-*/	
+		 */	
 
-}
+	}
 
-public void moveDown(ActionEvent e) {
-int indexOfItemToMove = playlistView.getSelectionModel().getSelectedIndex();
-int lastIndex = playlistView.getItems().size() -1;
-	
-	if (indexOfItemToMove > lastIndex) return; //TODO: still causing exception is it because i'm only catching the viewbox's error conditiion not the lists?
-	
-	PlaylistEntry temp = playlistView.getSelectionModel().getSelectedItem();
-	playlistView.getItems().set(indexOfItemToMove, playlistView.getItems().get(indexOfItemToMove + 1));
-	playlistView.getItems().set(indexOfItemToMove + 1, temp);
-	
-	PlaylistEntry movingDown = playlistView.getSelectionModel().getSelectedItem();
-	
-	PlaylistEntry movingUp = playlistView.getItems().get(indexOfItemToMove + 1);
-	
-	movingDown.setPositionInPlaylist(indexOfItemToMove);
-	movingUp.setPositionInPlaylist(indexOfItemToMove);
-	
-	System.out.println("Moving Down: " + movingDown.getPositionInPlaylist() + "; " + movingDown.getVideo().getFileUNC());
-	System.out.println("Moving Up: " + movingUp.getPositionInPlaylist() + "; " + movingUp.getVideo().getFileUNC());
-}
+	public void moveDown(ActionEvent e) {
+		int indexOfItemToMove = playlistView.getSelectionModel().getSelectedIndex();
+		int lastIndex = playlistView.getItems().size() -1;
+
+		if (indexOfItemToMove > lastIndex) return; //TODO: still causing exception is it because i'm only catching the viewbox's error conditiion not the lists?
+
+		PlaylistEntry temp = playlistView.getSelectionModel().getSelectedItem();
+		playlistView.getItems().set(indexOfItemToMove, playlistView.getItems().get(indexOfItemToMove + 1));
+		playlistView.getItems().set(indexOfItemToMove + 1, temp);
+
+		PlaylistEntry movingDown = playlistView.getSelectionModel().getSelectedItem();
+
+		PlaylistEntry movingUp = playlistView.getItems().get(indexOfItemToMove + 1);
+
+		movingDown.setPositionInPlaylist(indexOfItemToMove);
+		movingUp.setPositionInPlaylist(indexOfItemToMove);
+
+		System.out.println("Moving Down: " + movingDown.getPositionInPlaylist() + "; " + movingDown.getVideo().getFileUNC());
+		System.out.println("Moving Up: " + movingUp.getPositionInPlaylist() + "; " + movingUp.getVideo().getFileUNC());
+	}
 
 
-	
+
 	// adapted from: http://stackoverflow.com/questions/16880115/javafx-2-2-how-to-force-a-redraw-update-of-a-listview
 	private void forceListRefreshOn(ListView lsv) {
-	    ObservableList items = lsv.getItems();
-	    lsv.setItems(lsv.getItems());
-	    lsv.setItems(items);
+		ObservableList items = lsv.getItems();
+		lsv.setItems(lsv.getItems());
+		lsv.setItems(items);
 	}
-	
-	
+
+
 
 }

@@ -1,6 +1,8 @@
 package runner;
 
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import view.ViewController;
 import controllers.MainScreenController;
@@ -14,6 +16,7 @@ import javafx.stage.Stage;
 public class JavaFXRunner extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
+		Logger.getGlobal().setLevel(Level.OFF);
 		stage.setTitle("MV-CODA");
 		//Parent root = FXMLLoader.load(getClass().getResource("../view/GUI.fxml"));	
 		FXMLLoader loader = new FXMLLoader();

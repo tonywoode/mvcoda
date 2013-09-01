@@ -35,11 +35,11 @@ public class Playlist {
 		playlistEntries.clear();
 	}*/
 
-	public void resetArray(ObservableList<PlaylistEntry> videosObservable) {
+	public void resetArray(ObservableList<PlaylistEntry> playlistObservable) {
 		//playlistEntries.clear();
 		//playlistEntries.addAll(videosObservable);
 		ArrayList<PlaylistEntry> temp = new ArrayList<>(); //because if we try to directly do this to playlistEntries we'll get the concurrentModificationError
-		temp.addAll(videosObservable);
+		temp.addAll(playlistObservable);
 		playlistEntries = temp;
 		playlistEntries = playlistEntries; //just so we can set the breakpoint here
 		//System.out.println(playlistEntries.get(4).getVideo().getFileUNC()); //yup it look like we really are deleting

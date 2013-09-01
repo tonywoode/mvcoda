@@ -58,7 +58,9 @@ public class DecodeAndPlayAudioAndVideo
    * The audio line we'll output sound to; it'll be the default audio device on your system if available
    */
   private static SourceDataLine mLine;
-
+  
+  IContainer container;
+  
   /**
    * The window we'll draw the video on.
    * 
@@ -86,7 +88,7 @@ public class DecodeAndPlayAudioAndVideo
       throw new RuntimeException("you must install the GPL version of Xuggler (with IVideoResampler support) for this demo to work");
     
     // Create a Xuggler container object
-    IContainer container = IContainer.make();
+    container = IContainer.make();
     
     // Open up the container
     if (container.open(filename, IContainer.Type.READ, null) < 0)
@@ -304,6 +306,7 @@ public class DecodeAndPlayAudioAndVideo
     }
     closeJavaSound();
     closeJavaVideo();
+    //container.close();
   }
 
   private static long millisecondsUntilTimeToDisplay(IVideoPicture picture)
@@ -358,7 +361,7 @@ public class DecodeAndPlayAudioAndVideo
    */
   private static void closeJavaVideo()
   {
-    System.exit(0);
+    mScreen.dispose();
   }
 
   private static void openJavaSound(IStreamCoder aAudioCoder) throws LineUnavailableException
