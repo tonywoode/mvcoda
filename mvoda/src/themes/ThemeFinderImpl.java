@@ -14,7 +14,31 @@ import java.util.regex.Pattern;
 
 public class ThemeFinderImpl implements ThemeFinder {
 
+	
 	@Override
+	public ArrayList<Theme> returnThemes() throws IOException, InterruptedException {
+		
+		Path rootDir = Theme.getRootDir();
+		
+		ArrayList<Path> pathArray = new ArrayList<>();
+		ArrayList<Theme> themeArray = new ArrayList<>();
+		
+		try {
+			pathArray = returnDirectories();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		for ( int i=0; i<pathArray.size(); i++) {
+			Path themeDir = pathArray.get(i);
+			XMLSerialisable themeAsSerialisable = XMLReader.readXML(themeDir, themeName);
+			Theme theme = (Theme) themeAsSerialisable;
+			theme.setIndex(i);
+		}
+	}
+	
+	/*@Override
 	public ArrayList<Theme> returnThemes() throws IOException, InterruptedException {
 		
 		Path rootDir = Theme.getRootDir();
@@ -46,9 +70,9 @@ public class ThemeFinderImpl implements ThemeFinder {
 		
 		return themeArray;
 		
-		
-		
-	}
+	}*/
+	
+	
 	
 	/**
 	 * I give you a string, you tell me what folder are in it
