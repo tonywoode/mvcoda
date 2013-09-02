@@ -12,10 +12,12 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.regex.Pattern;
 
+import util.FileUtil;
+
 public class ThemeFinderImpl implements ThemeFinder {
 
 	
-	@Override
+	//@Override
 	public ArrayList<Theme> returnThemes() throws IOException, InterruptedException {
 		
 		Path rootDir = Theme.getRootDir();
@@ -31,11 +33,15 @@ public class ThemeFinderImpl implements ThemeFinder {
 		}
 		
 		for ( int i=0; i<pathArray.size(); i++) {
-			Path themeDir = pathArray.get(i);
+			Path themePath = pathArray.get(i);
+			Path themeDir = themePath.getParent();
+			String themeNameWithFiletype = themePath.getFileName().toString(); //TODO: is this really necessary?
+			String themeName = FileUtil.removeFiletype(themeNameWithFiletype);//yes we need the name of the theme before we can load it, but do we have to get the filename to string and do all this?
 			XMLSerialisable themeAsSerialisable = XMLReader.readXML(themeDir, themeName);
 			Theme theme = (Theme) themeAsSerialisable;
-			theme.setIndex(i);
+			themeArray.add(theme);
 		}
+		return themeArray;
 	}
 	
 	/*@Override

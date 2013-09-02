@@ -93,6 +93,7 @@ public class EncoderXuggle implements Encoder {
 				themeCompositor.resetThemeElements();
 				//resetTheBits();
 				video = playlistEntry.getVideo(); 
+				//decoder = new DecoderXuggle(video); //TODO: Thought this might fix problem where you can only do one render, maybe we need a new encoder too?
 				decoder = video.getDecoder(); //make a new decoder at this point? Decoder temp = new Decoder(video)
 				renderNextVid(decoder, video);	
 				Number.setNumber(Number.getNumber() -1);
