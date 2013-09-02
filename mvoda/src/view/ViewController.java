@@ -26,6 +26,7 @@ import themes.ThemeFinder;
 import themes.ThemeFinderImpl;
 import themes.XMLReader;
 import themes.XMLSerialisable;
+import view.buttons.MoveButtons;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableIntegerValue;
@@ -69,14 +70,11 @@ public class ViewController implements Initializable {
 	@FXML ComboBox themeSelectBox;
 
 	@FXML ListView<PlaylistEntry> playlistView;
-
+	
+	private MoveButtons moveButtons;
+	
+	
 	public void sendPlaylistNodesToScreen(Playlist videos) {
-		playlistView.setCellFactory(new Callback<ListView<PlaylistEntry>, ListCell<PlaylistEntry>>() {
-			@Override public ListCell<PlaylistEntry> call(ListView<PlaylistEntry> list) {
-				return new PlaylistEntryListCell();
-			}
-		});
-
 		for (PlaylistEntry playlistEntry : videos.getPlaylistEntries())
 			playlistView.getItems().add(playlistEntry);
 	}
@@ -96,10 +94,6 @@ public class ViewController implements Initializable {
 
 	}
 
-	@FXML void playlistEntryEntered(ActionEvent e) {
-		String name = ""; // get from textbox
-		viewListener.onNewTrackAvailable(name);
-	}
 
 	@FXML void savePlaylist(ActionEvent e) {
 		final FileChooser fileChooser = new FileChooser();
@@ -115,9 +109,7 @@ public class ViewController implements Initializable {
 			} catch (IOException ex) { System.out.println("error saving the file"); } }
 	}
 
-	@FXML void newPlaylist(ActionEvent e) { //(MouseEvent e) {
-		makeAPlaylist();
-	}
+	@FXML void newPlaylist(ActionEvent e) { makeAPlaylist(); }
 
 
 	@FXML void render(ActionEvent e) {
@@ -149,12 +141,14 @@ public class ViewController implements Initializable {
 		if(file != null){ 
 				Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC);
 		}
-		
-		
+			
 		DecodeAndPlayAudioAndVideo player = new DecodeAndPlayAudioAndVideo(outFileUNC);
-		
 	}
-
+	
+	@FXML void playlistEntryEntered(ActionEvent e) {
+		String name = ""; // get from textbox
+		viewListener.onNewTrackAvailable(name);
+	}
 
 
 	@Override
@@ -176,11 +170,17 @@ public class ViewController implements Initializable {
 			String name = element.getItemName();
 			themename.add(name);
 		}
-
 		//themeSelectBox.setAll(themename);
 		//ObservableList<String> list = themeSelectBox.getItems();
 		System.out.println(themename);
 		themeSelectBox.setItems(themename);
+		moveButtons = new MoveButtons(playlistView); //instantiate the move buttons (we need to pass them a playlist)
+
+		playlistView.setCellFactory(new Callback<ListView<PlaylistEntry>, ListCell<PlaylistEntry>>() {
+			@Override public ListCell<PlaylistEntry> call(ListView<PlaylistEntry> list) {
+				return new PlaylistEntryListCell();
+			}
+		});
 
 		
 		playlistView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<PlaylistEntry>() {
@@ -188,8 +188,7 @@ public class ViewController implements Initializable {
 					PlaylistEntry old_val, PlaylistEntry new_val) {
 
 				// TODO: remove this
-				if (ov == null || ov.getValue() == null)
-					return;
+				if (ov == null || ov.getValue() == null) { return; }
 
 				//trackTextField.textProperty().bindBidirectional(new StringBeanProperty(ov.getValue(), "artistName"));
 
@@ -197,15 +196,13 @@ public class ViewController implements Initializable {
 				SimpleStringProperty sspArtist = new SimpleStringProperty(ov.getValue().getArtistName());
 
 				sspTrack.addListener(new ChangeListener<String>() {
-					public void changed(ObservableValue<? extends String> ovTrack, 
-							String old_val, String new_val) { 
+					public void changed(ObservableValue<? extends String> ovTrack, String old_val, String new_val) { 
 						ov.getValue().setTrackName(ovTrack.getValue().toString());
 					}
 				});
 
 				sspArtist.addListener(new ChangeListener<String>() {
-					public void changed(ObservableValue<? extends String> ovArtist, 
-							String old_val, String new_val) { 
+					public void changed(ObservableValue<? extends String> ovArtist, String old_val, String new_val) { 
 						ov.getValue().setArtistName(ovArtist.getValue().toString());
 					}
 				});		
@@ -213,8 +210,7 @@ public class ViewController implements Initializable {
 				trackTextField.textProperty().bindBidirectional(sspTrack);
 				artistTextField.textProperty().bindBidirectional(sspArtist); 
 
-				/*            	playlistObservable.addListener(new ListChangeListener<PlaylistEntry>() {
-
+				/*  playlistObservable.addListener(new ListChangeListener<PlaylistEntry>() {
             		@Override
             		public void onChanged(
             				javafx.collections.ListChangeListener.Change<? extends PlaylistEntry> c) {
@@ -285,7 +281,6 @@ public class ViewController implements Initializable {
 
 	}
 
-
 	public void deletePlaylistEntry(ActionEvent e) { //https://gist.github.com/jewelsea/5559262
 		PlaylistEntry toDelete = playlistView.getSelectionModel().getSelectedItem();
 		int indexOfItemToDelete = playlistView.getSelectionModel().getSelectedIndex();
@@ -295,6 +290,20 @@ public class ViewController implements Initializable {
 
 
 	public void moveUp(ActionEvent e) {
+		//MoveButtons moveUpButton = new MoveButtons(playlistView);
+		//moveUpButton.moveUp(e);	
+		moveButtons.moveUp(e);
+	}
+	
+	public void moveDown(ActionEvent e) {
+		moveButtons.moveDown(e);
+	}
+	
+	
+	
+	
+	
+	/*public void moveUp(ActionEvent e) {
 		int indexOfItemToMove = playlistView.getSelectionModel().getSelectedIndex();
 
 		if (indexOfItemToMove < 0) return; //don't attempt to move the top item
@@ -312,16 +321,16 @@ public class ViewController implements Initializable {
 		System.out.println("Moving Up: " + movingUp.getPositionInPlaylist() + "; " + movingUp.getVideo().getFileUNC());
 		System.out.println("Moving Down: " + movingDown.getPositionInPlaylist() + "; " + movingDown.getVideo().getFileUNC());
 
-		/*	forceListRefreshOn(playlistView);
+			forceListRefreshOn(playlistView);
 
 	playlistView.getSelectionModel().clearAndSelect(indexOfItemToMove - 1);	
 	playlistView.getFocusModel().focus(indexOfItemToMove - 1);	
 	playlistView.requestLayout();
-		 */	
+		 	
 
 	}
-
-	public void moveDown(ActionEvent e) {
+*/
+	/*public void moveDown(ActionEvent e) {
 		int indexOfItemToMove = playlistView.getSelectionModel().getSelectedIndex();
 		int lastIndex = playlistView.getItems().size() -1;
 
@@ -341,7 +350,7 @@ public class ViewController implements Initializable {
 		System.out.println("Moving Up: " + movingUp.getPositionInPlaylist() + "; " + movingUp.getVideo().getFileUNC());
 	}
 
-
+*/
 
 	// adapted from: http://stackoverflow.com/questions/16880115/javafx-2-2-how-to-force-a-redraw-update-of-a-listview
 	private void forceListRefreshOn(ListView lsv) {

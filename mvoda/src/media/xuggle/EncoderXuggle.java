@@ -9,8 +9,10 @@ import playlist.PlaylistEntry;
 import playlist.Number;
 import themes.Theme;
 
+import media.AudioSamples;
 import media.Decoder;
 import media.Encoder;
+import media.MediaWriter;
 import media.MusicVideo;
 
 import com.xuggle.mediatool.IMediaWriter;
@@ -36,7 +38,7 @@ public class EncoderXuggle implements Encoder {
 	private Decoder decoder;
 	private Theme theme;
 	
-	private IMediaWriter writer = null;
+	private MediaWriter writer = null;
 	
 	private long videoTimecode;
 	private long videoTimecodeFromLastVid;
@@ -122,11 +124,11 @@ public class EncoderXuggle implements Encoder {
 	    long nextVideoTimecode = 0;
 	    //long offset = 0;
 		while (decoder.hasNextPacket()) {
-			IAudioSamples audioSamples = decoder.getAudioSamples();
+			AudioSamples audioSamples = decoder.getAudioSamples();
 			if (audioSamples != null && decoder.getVideoTimeStamp() > 0) { //the second test ensures audio MP4 packets don't go out of sync
 				
 				long newAudioTimecode = decoder.getAudioTimeStamp() + offset;
-				nextAudioTimecode = decoder.getAudioSamples().getNextPts();
+				nextAudioTimecode = decoder.getAudioSamples().getNextPresentationTimestamp();
 				audioSamples.setTimeStamp(newAudioTimecode);
 				writer.encodeAudio(video.getAudioStreamIndex(), audioSamples);
 				
@@ -160,12 +162,12 @@ public class EncoderXuggle implements Encoder {
 	 * @param filename
 	 */
 	@Override
-	public IMediaWriter getWriter(String filename) {
+	public MediaWriter getWriter(String filename) {
 		IMediaWriter writer = ToolFactory.makeWriter(filename);
 		addVideoStreamTo(writer);
 		IStreamCoder audioCodec = video.getAudioCoder();
 		if (audioCodec != null) {addAudioStreamTo(writer, audioCodec);}
-		return writer;
+		return new MediaWriterXuggle(writer);
 	}
 
 	/**

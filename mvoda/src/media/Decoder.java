@@ -12,7 +12,7 @@ import com.xuggle.xuggler.IPacket;
  */
 public interface Decoder {
 
-	public abstract IAudioSamples getAudioSamples();
+	public abstract AudioSamples getAudioSamples();
 
 	public abstract BufferedImage getVideoFrame();
 

@@ -9,6 +9,7 @@ import themes.Theme;
 
 import media.Decoder;
 import media.Encoder;
+import media.MediaWriter;
 import media.MusicVideo;
 //import theme.Theme;
 
@@ -52,7 +53,7 @@ public class EncoderXuggleMultipleFixedDecoders implements Encoder {
 	private Decoder decoder10;
 	private Theme theme;
 	
-	private IMediaWriter writer = null;
+	private MediaWriter writer = null;
 	
 	private long timecode;
 	private long timecodeFromVideoOne;
@@ -159,9 +160,8 @@ public class EncoderXuggleMultipleFixedDecoders implements Encoder {
 		while (decoder.hasNextPacket()) {
 			if (decoder.getVideoFrame() != null) {frame++;} // don't increase counter if not a video frame
 			
-			IAudioSamples audioSamples = decoder.getAudioSamples();
-			if (audioSamples != null) {
-				writer.encodeAudio(video.getAudioStreamIndex(), audioSamples);
+			if (decoder.getAudioSamples() != null) {
+				writer.encodeAudio(video.getAudioStreamIndex(), decoder.getAudioSamples());
 			}
 			
 			BufferedImage videoFrame = decoder.getVideoFrame();						
@@ -386,12 +386,12 @@ public class EncoderXuggleMultipleFixedDecoders implements Encoder {
 	 * @param filename
 	 */
 	@Override
-	public IMediaWriter getWriter(String filename) {
+	public MediaWriter getWriter(String filename) {
 		IMediaWriter writer = ToolFactory.makeWriter(filename);
 		addVideoStreamTo(writer);
 		IStreamCoder audioCodec = video.getAudioCoder();
 		if (audioCodec != null) {addAudioStreamTo(writer, audioCodec);}
-		return writer;
+		return new MediaWriterXuggle(writer);
 	}
 
 	/**

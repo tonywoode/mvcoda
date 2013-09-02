@@ -6,6 +6,7 @@ package media.xuggle;
 import java.awt.image.BufferedImage;
 
 import lombok.Getter;
+import media.AudioSamples;
 import media.Decoder;
 import media.MusicVideo;
 
@@ -33,7 +34,7 @@ public class DecoderXuggle implements Decoder {
 	private BgrConverter converter;
 
 
-	@Getter private IAudioSamples audioSamples;
+	private IAudioSamples audioSamples;
 	@Getter private BufferedImage videoFrame;	
 	@Getter private long videoTimeStamp;
 	@Getter private String formattedVideoTimestamp;
@@ -46,6 +47,9 @@ public class DecoderXuggle implements Decoder {
 		this.video = video;
 	}
 	
+	public AudioSamples getAudioSamples() {
+		return audioSamples != null ? new AudioSamplesXuggle(audioSamples) : null;
+	}
 	
 	/**
 	 * Checks whether a packet passed to it is audio or video. If either is passed calls readVideo or readAudio respectively and returns true

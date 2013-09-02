@@ -9,7 +9,7 @@ public interface Encoder {
 	
 	public abstract void render(Playlist playlist);
 	
-	public abstract IMediaWriter getWriter(String filename);
+	public abstract MediaWriter getWriter(String filename);
 	
 	public abstract void addVideoStreamTo(IMediaWriter writer);
 
