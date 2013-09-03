@@ -3,12 +3,14 @@ package playlist;
 import java.util.ArrayList;
 import java.util.List;
 
+import themes.XMLSerialisable;
+
 import javafx.collections.ObservableList;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class Playlist {
+public class Playlist implements XMLSerialisable {
 
 	@Getter private static int playlistID; 
 	@Getter @Setter private ArrayList<PlaylistEntry> playlistEntries;
@@ -43,6 +45,11 @@ public class Playlist {
 		playlistEntries = temp;
 		playlistEntries = playlistEntries; //just so we can set the breakpoint here
 		//System.out.println(playlistEntries.get(4).getVideo().getFileUNC()); //yup it look like we really are deleting
+	}
+
+	@Override
+	public String getItemName() {
+		return (playlistName == null)? "Default Playlist Name" : playlistName; //TODO: is this really best? What to do about playlist name - this is for xml serialisable so should be the filename we set really
 	}
 
 }

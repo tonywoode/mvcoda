@@ -26,6 +26,7 @@ import themes.ThemeFinder;
 import themes.ThemeFinderImpl;
 import themes.XMLReader;
 import themes.XMLSerialisable;
+import themes.XMLWriter;
 import view.buttons.MoveButtons;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
@@ -97,18 +98,37 @@ public class ViewController implements Initializable {
 
 
 	@FXML void savePlaylist(ActionEvent e) {
+		playlist.resetArray(playlistObservable);
+		XMLSerialisable xmlSerialisable = playlist;
 		final FileChooser fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
 		fileChooser.getExtensionFilters().add(extFilter);
 		File file = fileChooser.showSaveDialog(null);
-		if(file != null){ 
+		String fileAsString = file.toString() + ".xml";
+		
+		
+		
+		Path path = Paths.get(fileAsString);
+		
+		
+		//Path pathPlusExt = Path(fileAsString);
+		XMLWriter.writePlaylistXML(true, path, xmlSerialisable);
+		
+}
+		
+		
+		/*if(file != null){ 
+			
+			
+			
+			
 			try {
 				FileWriter fileWriter = null;
 				fileWriter = new FileWriter(file);
-				fileWriter.write("some random text");
+				//fileWriter.write("some random text");
 				fileWriter.close();
-			} catch (IOException ex) { System.out.println("error saving the file"); } }
-	}
+			} catch (IOException ex) { System.out.println("error saving the XML playlist file"); } }
+	}*/
 
 	@FXML void newPlaylist(ActionEvent e) { makeAPlaylist(); }
 
