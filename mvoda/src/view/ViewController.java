@@ -21,7 +21,6 @@ import media.xuggle.EncoderXuggle;
 import media.xuggle.MusicVideoXuggle;
 import playlist.Playlist;
 import playlist.PlaylistEntry;
-import playlist.TextToScreen;
 import themes.Theme;
 import themes.ThemeFinder;
 import themes.ThemeFinderImpl;
@@ -56,9 +55,7 @@ public class ViewController implements Initializable {
 
 	public TextField trackTextField;
 	public TextField artistTextField;
-	SimpleStringProperty sspTrack = new SimpleStringProperty();
-	SimpleStringProperty sspArtist = new SimpleStringProperty();
-
+	
 
 	private ObservableList<PlaylistEntry> playlistObservable = FXCollections.observableArrayList(new ArrayList<PlaylistEntry>());
 
@@ -155,14 +152,7 @@ public class ViewController implements Initializable {
 		viewListener.onNewTrackAvailable(name);
 	}
 	
-	public void setTrackNameToScreen() {
-		TextToScreen.setTrack( sspTrack.getValue() );
-	}
 	
-	public void setArtistNameToScreen() {
-		TextToScreen.setArtist( sspArtist.getValue() );
-	}
-
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -205,8 +195,8 @@ public class ViewController implements Initializable {
 
 				//trackTextField.textProperty().bindBidirectional(new StringBeanProperty(ov.getValue(), "artistName"));
 
-				sspTrack.setValue( ov.getValue().getTrackName() );
-				sspArtist.setValue( ov.getValue().getArtistName() );
+				SimpleStringProperty sspTrack = new SimpleStringProperty( ov.getValue().getTrackName() );
+				SimpleStringProperty sspArtist = new SimpleStringProperty(ov.getValue().getArtistName() );
 
 				sspTrack.addListener(new ChangeListener<String>() {
 					public void changed(ObservableValue<? extends String> ovTrack, String old_val, String new_val) { 
