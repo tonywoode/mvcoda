@@ -302,7 +302,7 @@ public class ViewController implements Initializable {
 			PlaylistEntry entry = new PlaylistEntry( vid, "Track" + (playlist.getSize() + 1), "Artist" + (playlist.getSize() + 1) );
 			entry.setPositionInPlaylist(playlist.getSize() + 1);//no point in doing this really
 			playlist.setNextEntry(entry);
-			ObservableList<PlaylistEntry> playlistObservable = playlistView.getItems();
+			playlistObservable = playlistView.getItems();
 			playlistObservable.add(entry);
 			//sendPlaylistNodesToScreen(videos);	
 		}
