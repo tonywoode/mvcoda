@@ -85,7 +85,10 @@ public class ViewController implements Initializable {
 	@FXML void loadPlaylist(ActionEvent e) {
 		//playlist = new Playlist("more damn beats");
 		//playlist.resetArray(playlistObservable);
-		final FileChooser fileChooser = new FileChooser();
+		
+		
+		
+		/*final FileChooser fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
 		fileChooser.getExtensionFilters().add(extFilter);
 		File file = fileChooser.showOpenDialog(null);
@@ -97,6 +100,23 @@ public class ViewController implements Initializable {
 				
 				System.out.println(playlist.toString());
 				
+		}	
+				*/
+				
+				
+				
+
+				//playlistObservable = playlistView.getItems();
+				
+				/*ObservableList<PlaylistEntry> temp = FXCollections.observableArrayList(new ArrayList<PlaylistEntry>()); //because if we try to directly do this to playlistEntries we'll get the concurrentModificationError
+				temp.addAll(playlist.getPlaylistEntries());
+				playlistObservable = temp;
+				playlistObservable = playlistObservable;
+				
+				sendPlaylistNodesToScreen(playlist);*/
+				
+				
+				
 				/*playlistObservable.clear();
 				for (int l=0; l < playlist.getPlaylistEntries().size(); l++) {
 					playlistObservable.add(l, playlist.getPlaylistEntries().get(l));
@@ -107,7 +127,53 @@ public class ViewController implements Initializable {
 				//desktop.open(file); 
 			//} 
 			//catch (IOException ex) { System.out.println("oops cant open file"); }
+				
+				
+		final FileChooser fileChooser = new FileChooser();
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
+		fileChooser.getExtensionFilters().add(extFilter);
+		File file = fileChooser.showOpenDialog(null);
+		Playlist playlistTemp = new Playlist("hi");
+		if (file != null) {
+			//try { 
+				XMLSerialisable playlistAsSerialisable = XMLReader.readPlyalistXML(file.toPath());	
+				playlistTemp = (Playlist) playlistAsSerialisable;
+
 		}
+				
+		
+				/*vidFiles.add("../../../MVODAInputs/BrunoShort.mp4");
+				vidFiles.add("../../../MVODAInputs/FlorenceShort.mp4");
+				vidFiles.add("../../../MVODAInputs/GloriaShort.mp4");
+				vidFiles.add("../../../MVODAInputs/KateShort.mp4");
+				vidFiles.add("../../../MVODAInputs/LeonaShort.mp4");
+				vidFiles.add("../../../MVODAInputs/MaroonShort.mp4");
+				vidFiles.add("../../../MVODAInputs/NeyoShort.mp4");
+				vidFiles.add("../../../MVODAInputs/NickiShort.mp4");
+				vidFiles.add("../../../MVODAInputs/PinkShort.mp4");
+				vidFiles.add("../../../MVODAInputs/RihannaShort.mp4");*/
+
+			//TODO why do I need to instantiate the videos or else javafx will crash out the JVM, when appending to a pre-existing playlist will not make that happen
+				for (int i = 0; i < playlistTemp.getPlaylistEntries().size(); i++) {
+					PlaylistEntry entry = new PlaylistEntry( new MusicVideoXuggle( playlistTemp.getPlaylistEntries().get( i ).getVideo().getFileUNC() ),"Track" + (i + 1) , "Artist" + (i + 1 ) );
+					entry.setPositionInPlaylist(i + 1); //set the playlist entry number while we have a loop! may be a problem later.....
+					playlist.setNextEntry(entry);
+				}
+
+				/*videos.setNextEntry(new PlaylistEntry(new MusicVideoXuggle(fileUNC), "Track 1", "Artist 1"));
+						videos.setNextEntry(new PlaylistEntry(new MusicVideoXuggle(fileUNC2), "Track 2", "Artist 2"));
+				 */
+				sendPlaylistNodesToScreen(playlist);
+
+				playlistObservable = playlistView.getItems();
+				
+				
+				
+				
+				
+				
+				
+		
 
 	}
 
