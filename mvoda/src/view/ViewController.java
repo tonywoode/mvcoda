@@ -82,7 +82,9 @@ public class ViewController implements Initializable {
 	}
 
 
-	@FXML void loadPlaylist(ActionEvent e) {		
+	@FXML void loadPlaylist(ActionEvent e) {
+		//playlist = new Playlist("more damn beats");
+		//playlist.resetArray(playlistObservable);
 		final FileChooser fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
 		fileChooser.getExtensionFilters().add(extFilter);
@@ -92,7 +94,15 @@ public class ViewController implements Initializable {
 				XMLSerialisable playlistAsSerialisable = XMLReader.readPlyalistXML(file.toPath());
 				playlist = (Playlist) playlistAsSerialisable;
 				sendPlaylistNodesToScreen(playlist);
-
+				
+				System.out.println(playlist.toString());
+				
+				/*playlistObservable.clear();
+				for (int l=0; l < playlist.getPlaylistEntries().size(); l++) {
+					playlistObservable.add(l, playlist.getPlaylistEntries().get(l));
+				}*/
+				
+				//playlistObservable.playlistView.getItems();
 				
 				//desktop.open(file); 
 			//} 
@@ -139,6 +149,7 @@ public class ViewController implements Initializable {
 
 
 	@FXML void render(ActionEvent e) {
+		System.out.println(playlist.toString());
 		playlist.resetArray(playlistObservable);
 
 		for (int i=0;i < playlist.getPlaylistEntries().size();i++) {

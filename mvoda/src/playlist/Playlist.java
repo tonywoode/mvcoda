@@ -51,5 +51,15 @@ public class Playlist implements XMLSerialisable {
 	public String getItemName() {
 		return (playlistName == null)? "Default Playlist Name" : playlistName; //TODO: is this really best? What to do about playlist name - this is for xml serialisable so should be the filename we set really
 	}
+	
+	@Override
+	public String toString() {
+		String entry = "";
+		for (PlaylistEntry element : playlistEntries) {
+			entry = entry + "Playlist entry in the real playlist " + element.getVideo().getFileUNC() + "\n";
+			;
+		}
+		return entry;
+	}
 
 }
