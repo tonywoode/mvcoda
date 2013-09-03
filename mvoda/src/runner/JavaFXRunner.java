@@ -44,6 +44,7 @@ public class JavaFXRunner extends Application {
 		stage.show();
  */
 //testing
+	//testingstream
 	public static void main(String[] args) {
 		launch(args);
 	}
