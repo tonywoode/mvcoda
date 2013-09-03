@@ -90,7 +90,7 @@ public class EncoderXuggle implements Encoder {
 			//decoder2 = video2.getDecoder();		
 			for (PlaylistEntry playlistEntry : playlist.getPlaylistEntries()) {
 				
-				themeCompositor.makeThemeElements();
+				themeCompositor.makeThemeElements(playlistEntry);
 				//makeTheBitsClassic(); //if it's not in the loop you'll end up with the same number file being called each time round
 				themeCompositor.resetThemeElements();
 				//resetTheBits();

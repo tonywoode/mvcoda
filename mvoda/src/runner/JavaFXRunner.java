@@ -43,9 +43,7 @@ public class JavaFXRunner extends Application {
 		stage.setScene(new Scene(root));
 		stage.show();
  */
-//testing
-	//testingstream
-	//testing river
+
 	public static void main(String[] args) {
 		launch(args);
 	}

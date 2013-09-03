@@ -21,6 +21,7 @@ import media.xuggle.EncoderXuggle;
 import media.xuggle.MusicVideoXuggle;
 import playlist.Playlist;
 import playlist.PlaylistEntry;
+import playlist.TextToScreen;
 import themes.Theme;
 import themes.ThemeFinder;
 import themes.ThemeFinderImpl;
@@ -55,6 +56,9 @@ public class ViewController implements Initializable {
 
 	public TextField trackTextField;
 	public TextField artistTextField;
+	SimpleStringProperty sspTrack = new SimpleStringProperty();
+	SimpleStringProperty sspArtist = new SimpleStringProperty();
+
 
 	private ObservableList<PlaylistEntry> playlistObservable = FXCollections.observableArrayList(new ArrayList<PlaylistEntry>());
 
@@ -117,6 +121,7 @@ public class ViewController implements Initializable {
 
 		for (int i=0;i < playlist.getPlaylistEntries().size();i++) {
 			System.out.println("At postion: " + (i + 1) + " We have " + playlist.getPlaylistEntries().get(i).getVideo().getFileUNC() );
+			
 		}
 
 		//mock the theme
@@ -148,6 +153,14 @@ public class ViewController implements Initializable {
 	@FXML void playlistEntryEntered(ActionEvent e) {
 		String name = ""; // get from textbox
 		viewListener.onNewTrackAvailable(name);
+	}
+	
+	public void setTrackNameToScreen() {
+		TextToScreen.setTrack( sspTrack.getValue() );
+	}
+	
+	public void setArtistNameToScreen() {
+		TextToScreen.setArtist( sspArtist.getValue() );
 	}
 
 
@@ -192,8 +205,8 @@ public class ViewController implements Initializable {
 
 				//trackTextField.textProperty().bindBidirectional(new StringBeanProperty(ov.getValue(), "artistName"));
 
-				SimpleStringProperty sspTrack = new SimpleStringProperty(ov.getValue().getTrackName());
-				SimpleStringProperty sspArtist = new SimpleStringProperty(ov.getValue().getArtistName());
+				sspTrack.setValue( ov.getValue().getTrackName() );
+				sspArtist.setValue( ov.getValue().getArtistName() );
 
 				sspTrack.addListener(new ChangeListener<String>() {
 					public void changed(ObservableValue<? extends String> ovTrack, String old_val, String new_val) { 

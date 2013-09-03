@@ -8,6 +8,7 @@ import media.MusicVideo;
 import playlist.Number;
 import playlist.PlaylistEntry;
 import themes.Theme;
+import view.ViewController;
 
 
 public class ThemeCompositor {
@@ -24,6 +25,8 @@ public class ThemeCompositor {
 	private TextCompositor artistText;
 	private TextCompositor chartText;
 	private Theme theme;
+	
+	
 
 
 	public ThemeCompositor(Theme theme) {
@@ -33,27 +36,27 @@ public class ThemeCompositor {
 	}
 
 
-	public void makeThemeElements() {
+	public void makeThemeElements(PlaylistEntry playlistEntry) {
 		//System.out.println("INDEX NUMBER SHOULD BE 1 ITS ACTUALLY " + theme.getIndex());
 		//theme order = 0=classic 1=pop 2=urban
 		switch (theme.getIndex()) {
-		case 0:  makeTheBitsClassic();
+		case 0:  makeTheBitsClassic(playlistEntry);
 		break;
-		case 1:  makeTheBitsPop();
+		case 1:  makeTheBitsPop(playlistEntry);
 		break;
-		case 2:  makeTheBitsUrban();
+		case 2:  makeTheBitsUrban(playlistEntry);
 		break;
-		default: makeTheBitsDefault();
+		default: makeTheBitsDefault(playlistEntry);
 		break;
 		}
 
 	}
 
-	private void makeTheBitsDefault() {
+	private void makeTheBitsDefault(PlaylistEntry playlistEntry) {
 		//TODO default
 	}
 
-	private void makeTheBitsClassic() {
+	private void makeTheBitsClassic(PlaylistEntry playlistEntry) {
 		logoCompositor = new ImageCompositor(theme.getLogo());
 		strapCompositor = new ImageCompositor(theme.getStrap());
 		strapCompositor2 = new ImageCompositor(theme.getStrap());
@@ -63,26 +66,26 @@ public class ThemeCompositor {
 		//for the classic number holder, we need to slot the number more to the left if its two digits
 		if ((Number.getNumber()) >= 10) { numberText = new TextCompositor(Integer.toString( Number.getNumber() ), 67, 337); }
 		else { numberText = new TextCompositor(Integer.toString( Number.getNumber() ), 73, 337); }
-		numberText.setTextFont(new Font("Arial Narrow",1,30));
-		trackText = new TextCompositor("This is the track", 100, 380);
-		artistText = new TextCompositor("This is the artist", 100, 420);
+		numberText.setTextFont(new Font("Arial Narrow",1,30)); //TODO: the track and artist text are a per playlist entry thing, the others are PER PLAYLIST so don't need to run each time
+		trackText = new TextCompositor(playlistEntry.getTrackName(), 100, 380);
+		artistText = new TextCompositor(playlistEntry.getArtistName(), 100, 420);
 		chartText = new TextCompositor("Classics of the 80's", 515, 75);
 		chartText.setTextFont(new Font("Arial Narrow",1,18));		
 	}
 
-	private void makeTheBitsUrban() {
+	private void makeTheBitsUrban(PlaylistEntry playlistEntry) {
 		logoCompositor = new ImageCompositor(theme.getLogo());
 		strapCompositor = new ImageCompositor(theme.getStrap());
 		strapCompositor2 = new ImageCompositor(theme.getStrap());
 		chartCompositor = new ImageCompositor(theme.getChart());
 		transitionCompositor = new ImageCompositor(theme.getTransition());
 		numbersCompositor = new ImageCompositor(theme.getNumbers());
-		trackText = new TextCompositor("This is the track", 270, 485);
-		artistText = new TextCompositor("This is the artist", 300, 525);		
+		trackText = new TextCompositor(playlistEntry.getTrackName(), 270, 485);
+		artistText = new TextCompositor(playlistEntry.getArtistName(), 300, 525);		
 	}
 
 
-	private void makeTheBitsPop() {
+	private void makeTheBitsPop(PlaylistEntry playlistEntry) {
 		logoCompositor = new ImageCompositor(theme.getLogo());
 		strapCompositor = new ImageCompositor(theme.getStrap());
 		strapCompositor2 = new ImageCompositor(theme.getStrap());
@@ -90,8 +93,8 @@ public class ThemeCompositor {
 		numbersCompositor = new ImageCompositor(theme.getNumbers());
 		numberText = new TextCompositor(Integer.toString( Number.getNumber() ), 285, 490);
 		numberText.setTextFont(new Font("Arial Narrow",1,55));
-		trackText = new TextCompositor("This is the track", 390, 460);
-		artistText = new TextCompositor("This is the artist", 380, 500);
+		trackText = new TextCompositor(playlistEntry.getTrackName(), 390, 460);
+		artistText = new TextCompositor(playlistEntry.getArtistName(), 380, 500);
 		chartText = new TextCompositor("This Week's Fresh Music", 120, 75);
 		chartText.setTextFont(new Font("Arial Narrow", 1, 18));		
 	}
