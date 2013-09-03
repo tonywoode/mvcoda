@@ -152,10 +152,15 @@ public class ViewController implements Initializable {
 				vidFiles.add("../../../MVODAInputs/NickiShort.mp4");
 				vidFiles.add("../../../MVODAInputs/PinkShort.mp4");
 				vidFiles.add("../../../MVODAInputs/RihannaShort.mp4");*/
+		
 
 			//TODO why do I need to instantiate the videos or else javafx will crash out the JVM, when appending to a pre-existing playlist will not make that happen
 				for (int i = 0; i < playlistTemp.getPlaylistEntries().size(); i++) {
-					PlaylistEntry entry = new PlaylistEntry( new MusicVideoXuggle( playlistTemp.getPlaylistEntries().get( i ).getVideo().getFileUNC() ),"Track" + (i + 1) , "Artist" + (i + 1 ) );
+					PlaylistEntry entry = new PlaylistEntry( new MusicVideoXuggle( 
+							playlistTemp.getPlaylistEntries().get( i ).getVideo().getFileUNC() ),
+							playlistTemp.getPlaylistEntries().get( i ).getTrackName(), 
+							playlistTemp.getPlaylistEntries().get( i ).getArtistName()
+							);
 					entry.setPositionInPlaylist(i + 1); //set the playlist entry number while we have a loop! may be a problem later.....
 					playlist.setNextEntry(entry);
 				}
