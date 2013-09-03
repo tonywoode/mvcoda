@@ -88,10 +88,15 @@ public class ViewController implements Initializable {
 		fileChooser.getExtensionFilters().add(extFilter);
 		File file = fileChooser.showOpenDialog(null);
 		if (file != null) {
-			try { 
-				desktop.open(file); 
-			} 
-			catch (IOException ex) { System.out.println("oops cant open file"); }
+			//try { 
+				XMLSerialisable playlistAsSerialisable = XMLReader.readPlyalistXML(file.toPath());
+				playlist = (Playlist) playlistAsSerialisable;
+				sendPlaylistNodesToScreen(playlist);
+
+				
+				//desktop.open(file); 
+			//} 
+			//catch (IOException ex) { System.out.println("oops cant open file"); }
 		}
 
 	}
