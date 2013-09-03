@@ -47,7 +47,7 @@ public class DecoderXuggle implements Decoder {
 		this.video = video;
 	}
 	
-	public AudioSamples getAudioSamples() {
+	public AudioSamples getAudioSamples() { //we need to return null back to caller if the underlying IAudioSamples is intended to be set to null as in line 62 below
 		return audioSamples != null ? new AudioSamplesXuggle(audioSamples) : null;
 	}
 	
@@ -59,7 +59,7 @@ public class DecoderXuggle implements Decoder {
 	public boolean hasNextPacket() throws RuntimeException {
 
 		IPacket packet = IPacket.make();
-		audioSamples = null; //TODO: why do these need to be here? take them out you only get 7 seconds decode, they don't seem to need to be in the loop
+		audioSamples = null; //TODO: We don't know WHY these need to be here. What we do know is: take them out you only get 7 seconds decode
 		videoFrame = null;
 		while (video.getContainer().readNextPacket(packet) >= 0) {
 			int index = packet.getStreamIndex();

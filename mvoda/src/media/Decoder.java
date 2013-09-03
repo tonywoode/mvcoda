@@ -26,7 +26,7 @@ public interface Decoder {
 
 	public abstract void makeResampler(int outputWidth, int outputHeight);
 	
-	public abstract void readVideo(IPacket packet) throws RuntimeException;
+	public abstract void readVideo(IPacket packet) throws RuntimeException; //TODO need packet class - bit of an unfortunate Class name though....
 	
 	public abstract void readAudio(IPacket packet) throws RuntimeException;
 	

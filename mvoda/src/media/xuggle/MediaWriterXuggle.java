@@ -24,6 +24,7 @@ public class MediaWriterXuggle extends MediaWriter {
 
 	@Override
 	public void encodeAudio(int audioStreamIndex, AudioSamples audioSamples) {
+		//In the below call it was necessary to cast this and put this method in the decoder interface because we have to call a method in xuggle that needs IAudioSamples 
 		writer.encodeAudio(audioStreamIndex, (IAudioSamples)audioSamples.getInternalAudioSamples());
 	}
 

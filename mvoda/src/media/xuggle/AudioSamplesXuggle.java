@@ -23,5 +23,5 @@ public class AudioSamplesXuggle extends AudioSamples {
 	}
 
 	@Override
-	public Object getInternalAudioSamples() { return audioSamples; }
+	public Object getInternalAudioSamples() { return audioSamples; } //Necessary because we end with a call that needs IAudioSamples - see mediaWriterXuggle
 }
