@@ -89,6 +89,11 @@ public class ViewController implements Initializable {
 		fileChooser.getExtensionFilters().add(extFilter);
 		File file = fileChooser.showOpenDialog(null);
 		Playlist playlistTemp = new Playlist("hi");
+		
+		playlistObservable.clear(); //TDO: now we need to make sure we clear all 3 of the playlists! 
+		playlist.resetArray(playlistObservable);
+		
+		//System.out.println("in the playlist AT POINT 1 is /n" + playlist);
 		if (file != null) {
 			//try { 
 			XMLSerialisable playlistAsSerialisable = XMLReader.readPlyalistXML(file.toPath());	
@@ -96,7 +101,7 @@ public class ViewController implements Initializable {
 
 		}
 
-
+		
 		//TODO why do I need to instantiate the videos or else javafx will crash out the JVM, when appending to a pre-existing playlist will not make that happen
 		for (int i = 0; i < playlistTemp.getPlaylistEntries().size(); i++) {
 			PlaylistEntry entry = new PlaylistEntry( new MusicVideoXuggle( 
@@ -111,9 +116,12 @@ public class ViewController implements Initializable {
 		/*videos.setNextEntry(new PlaylistEntry(new MusicVideoXuggle(fileUNC), "Track 1", "Artist 1"));
 						videos.setNextEntry(new PlaylistEntry(new MusicVideoXuggle(fileUNC2), "Track 2", "Artist 2"));
 		 */
+		
+		playlistObservable = playlistView.getItems();
+		//System.out.println("in the playlist at point 2 is /n" + playlist);
 		sendPlaylistNodesToScreen(playlist);
 
-		playlistObservable = playlistView.getItems();
+		
 
 	}
 
