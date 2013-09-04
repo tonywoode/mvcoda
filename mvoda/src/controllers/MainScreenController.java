@@ -14,9 +14,9 @@ public class MainScreenController implements ViewControllerListener {
 	@Getter @Setter ViewController view;
 	
 	public void onNewTrackAvailable(String name) {
-		PlaylistEntry pe = new PlaylistEntry(null);
+		/*PlaylistEntry pe = new PlaylistEntry(null);
 		pe.setTrackName(name);
-		playlist.setNextEntry(pe);
+		playlist.setNextEntry(pe);*/
 		
 	}
 	

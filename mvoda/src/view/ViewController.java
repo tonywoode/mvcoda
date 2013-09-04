@@ -56,7 +56,7 @@ public class ViewController implements Initializable {
 
 	public TextField trackTextField;
 	public TextField artistTextField;
-	
+
 
 	private ObservableList<PlaylistEntry> playlistObservable = FXCollections.observableArrayList(new ArrayList<PlaylistEntry>());
 
@@ -72,10 +72,10 @@ public class ViewController implements Initializable {
 	@FXML ComboBox themeSelectBox;
 
 	@FXML ListView<PlaylistEntry> playlistView;
-	
+
 	private MoveButtons moveButtons;
-	
-	
+
+
 	public void sendPlaylistNodesToScreen(Playlist videos) {
 		for (PlaylistEntry playlistEntry : videos.getPlaylistEntries())
 			playlistView.getItems().add(playlistEntry);
@@ -83,52 +83,7 @@ public class ViewController implements Initializable {
 
 
 	@FXML void loadPlaylist(ActionEvent e) {
-		//playlist = new Playlist("more damn beats");
-		//playlist.resetArray(playlistObservable);
 		
-		
-		
-		/*final FileChooser fileChooser = new FileChooser();
-		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
-		fileChooser.getExtensionFilters().add(extFilter);
-		File file = fileChooser.showOpenDialog(null);
-		if (file != null) {
-			//try { 
-				XMLSerialisable playlistAsSerialisable = XMLReader.readPlyalistXML(file.toPath());
-				playlist = (Playlist) playlistAsSerialisable;
-				sendPlaylistNodesToScreen(playlist);
-				
-				System.out.println(playlist.toString());
-				
-		}	
-				*/
-				
-				
-				
-
-				//playlistObservable = playlistView.getItems();
-				
-				/*ObservableList<PlaylistEntry> temp = FXCollections.observableArrayList(new ArrayList<PlaylistEntry>()); //because if we try to directly do this to playlistEntries we'll get the concurrentModificationError
-				temp.addAll(playlist.getPlaylistEntries());
-				playlistObservable = temp;
-				playlistObservable = playlistObservable;
-				
-				sendPlaylistNodesToScreen(playlist);*/
-				
-				
-				
-				/*playlistObservable.clear();
-				for (int l=0; l < playlist.getPlaylistEntries().size(); l++) {
-					playlistObservable.add(l, playlist.getPlaylistEntries().get(l));
-				}*/
-				
-				//playlistObservable.playlistView.getItems();
-				
-				//desktop.open(file); 
-			//} 
-			//catch (IOException ex) { System.out.println("oops cant open file"); }
-				
-				
 		final FileChooser fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
 		fileChooser.getExtensionFilters().add(extFilter);
@@ -136,49 +91,29 @@ public class ViewController implements Initializable {
 		Playlist playlistTemp = new Playlist("hi");
 		if (file != null) {
 			//try { 
-				XMLSerialisable playlistAsSerialisable = XMLReader.readPlyalistXML(file.toPath());	
-				playlistTemp = (Playlist) playlistAsSerialisable;
+			XMLSerialisable playlistAsSerialisable = XMLReader.readPlyalistXML(file.toPath());	
+			playlistTemp = (Playlist) playlistAsSerialisable;
 
 		}
-				
-		
-				/*vidFiles.add("../../../MVODAInputs/BrunoShort.mp4");
-				vidFiles.add("../../../MVODAInputs/FlorenceShort.mp4");
-				vidFiles.add("../../../MVODAInputs/GloriaShort.mp4");
-				vidFiles.add("../../../MVODAInputs/KateShort.mp4");
-				vidFiles.add("../../../MVODAInputs/LeonaShort.mp4");
-				vidFiles.add("../../../MVODAInputs/MaroonShort.mp4");
-				vidFiles.add("../../../MVODAInputs/NeyoShort.mp4");
-				vidFiles.add("../../../MVODAInputs/NickiShort.mp4");
-				vidFiles.add("../../../MVODAInputs/PinkShort.mp4");
-				vidFiles.add("../../../MVODAInputs/RihannaShort.mp4");*/
-		
 
-			//TODO why do I need to instantiate the videos or else javafx will crash out the JVM, when appending to a pre-existing playlist will not make that happen
-				for (int i = 0; i < playlistTemp.getPlaylistEntries().size(); i++) {
-					PlaylistEntry entry = new PlaylistEntry( new MusicVideoXuggle( 
-							playlistTemp.getPlaylistEntries().get( i ).getVideo().getFileUNC() ),
-							playlistTemp.getPlaylistEntries().get( i ).getTrackName(), 
-							playlistTemp.getPlaylistEntries().get( i ).getArtistName()
-							);
-					entry.setPositionInPlaylist(i + 1); //set the playlist entry number while we have a loop! may be a problem later.....
-					playlist.setNextEntry(entry);
-				}
 
-				/*videos.setNextEntry(new PlaylistEntry(new MusicVideoXuggle(fileUNC), "Track 1", "Artist 1"));
+		//TODO why do I need to instantiate the videos or else javafx will crash out the JVM, when appending to a pre-existing playlist will not make that happen
+		for (int i = 0; i < playlistTemp.getPlaylistEntries().size(); i++) {
+			PlaylistEntry entry = new PlaylistEntry( new MusicVideoXuggle( 
+					playlistTemp.getPlaylistEntries().get( i ).getVideo().getFileUNC() ),
+					playlistTemp.getPlaylistEntries().get( i ).getTrackName(), 
+					playlistTemp.getPlaylistEntries().get( i ).getArtistName()
+					);
+			entry.setPositionInPlaylist(i + 1); //set the playlist entry number while we have a loop! may be a problem later.....
+			playlist.setNextEntry(entry);
+		}
+
+		/*videos.setNextEntry(new PlaylistEntry(new MusicVideoXuggle(fileUNC), "Track 1", "Artist 1"));
 						videos.setNextEntry(new PlaylistEntry(new MusicVideoXuggle(fileUNC2), "Track 2", "Artist 2"));
-				 */
-				sendPlaylistNodesToScreen(playlist);
+		 */
+		sendPlaylistNodesToScreen(playlist);
 
-				playlistObservable = playlistView.getItems();
-				
-				
-				
-				
-				
-				
-				
-		
+		playlistObservable = playlistView.getItems();
 
 	}
 
@@ -191,30 +126,14 @@ public class ViewController implements Initializable {
 		fileChooser.getExtensionFilters().add(extFilter);
 		File file = fileChooser.showSaveDialog(null);
 		String fileAsString = file.toString() + ".xml";
-		
-		
-		
+
 		Path path = Paths.get(fileAsString);
-		
-		
+
 		//Path pathPlusExt = Path(fileAsString);
 		XMLWriter.writePlaylistXML(true, path, xmlSerialisable);
-		
-}
-		
-		
-		/*if(file != null){ 
-			
-			
-			
-			
-			try {
-				FileWriter fileWriter = null;
-				fileWriter = new FileWriter(file);
-				//fileWriter.write("some random text");
-				fileWriter.close();
-			} catch (IOException ex) { System.out.println("error saving the XML playlist file"); } }
-	}*/
+
+	}
+
 
 	@FXML void newPlaylist(ActionEvent e) { makeAPlaylist(); }
 
@@ -225,7 +144,7 @@ public class ViewController implements Initializable {
 
 		for (int i=0;i < playlist.getPlaylistEntries().size();i++) {
 			System.out.println("At postion: " + (i + 1) + " We have " + playlist.getPlaylistEntries().get(i).getVideo().getFileUNC() );
-			
+
 		}
 
 		//mock the theme
@@ -236,9 +155,9 @@ public class ViewController implements Initializable {
 		Theme theme = (Theme) themeAsSerialisable;
 		theme.setIndex(themeSelectBox.getSelectionModel().getSelectedIndex()); //TODO; the lines above is effectively a new so any index setting before this has no effect
 		Path properDir = Paths.get( Theme.getRootDir().toString(), theme.getItemName() );
-		
+
 		//draw onto video
-	
+
 		//first we must ask where you want to save with a dialog
 		final FileChooser fileChooser = new FileChooser();
 		String filetype = playlist.getNextEntry(0).getVideo().getFiletype();
@@ -247,19 +166,17 @@ public class ViewController implements Initializable {
 		fileChooser.getExtensionFilters().add(extFilter);
 		File file = fileChooser.showSaveDialog(null);
 		String outFileUNC = file.toString() + filetype; //append filetype to the UNC the user chooses
-		if(file != null){ 
-				Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC);
-		}
-			
+		if( file != null ) { Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC); }
+
 		DecodeAndPlayAudioAndVideo player = new DecodeAndPlayAudioAndVideo(outFileUNC);
 	}
-	
-	@FXML void playlistEntryEntered(ActionEvent e) {
+
+	/*@FXML void playlistEntryEntered(ActionEvent e) {
 		String name = ""; // get from textbox
 		viewListener.onNewTrackAvailable(name);
-	}
-	
-	
+	}*/
+
+
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -292,7 +209,7 @@ public class ViewController implements Initializable {
 			}
 		});
 
-		
+
 		playlistView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<PlaylistEntry>() {
 			public void changed(final ObservableValue<? extends PlaylistEntry> ov, 
 					PlaylistEntry old_val, PlaylistEntry new_val) {
@@ -404,15 +321,15 @@ public class ViewController implements Initializable {
 		//moveUpButton.moveUp(e);	
 		moveButtons.moveUp(e);
 	}
-	
+
 	public void moveDown(ActionEvent e) {
 		moveButtons.moveDown(e);
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 	/*public void moveUp(ActionEvent e) {
 		int indexOfItemToMove = playlistView.getSelectionModel().getSelectedIndex();
 
@@ -436,10 +353,10 @@ public class ViewController implements Initializable {
 	playlistView.getSelectionModel().clearAndSelect(indexOfItemToMove - 1);	
 	playlistView.getFocusModel().focus(indexOfItemToMove - 1);	
 	playlistView.requestLayout();
-		 	
+
 
 	}
-*/
+	 */
 	/*public void moveDown(ActionEvent e) {
 		int indexOfItemToMove = playlistView.getSelectionModel().getSelectedIndex();
 		int lastIndex = playlistView.getItems().size() -1;
@@ -460,7 +377,7 @@ public class ViewController implements Initializable {
 		System.out.println("Moving Up: " + movingUp.getPositionInPlaylist() + "; " + movingUp.getVideo().getFileUNC());
 	}
 
-*/
+	 */
 
 	// adapted from: http://stackoverflow.com/questions/16880115/javafx-2-2-how-to-force-a-redraw-update-of-a-listview
 	private void forceListRefreshOn(ListView lsv) {

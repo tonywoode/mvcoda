@@ -1,9 +1,18 @@
 package util;
 
 import java.io.File;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.DirectoryStream.Filter;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.logging.Logger;
 
-public class FileUtil {
+import javax.swing.filechooser.FileFilter;
+
+public class FileUtil  {
 
 
 	public static String getFiletype(String fileUNC) {
@@ -43,6 +52,56 @@ public class FileUtil {
 	}
 	
 	
+	/*public static int countItemsInFolder(final Path path) throws IOException {
+		
+		
+		File file = new File("/path/to/directory");
+String[] directories = file.list(new FilenameFilter() {
+  @Override
+  public boolean accept(File current, String name) {
+    return new File(current, name).isDirectory();
+  }
+});
+System.out.println(Arrays.toString(directories));
+		
+		http://stackoverflow.com/questions/4218422/get-the-number-of-files-in-a-folder-omitting-subfolders
+		http://stackoverflow.com/questions/1034977/how-to-retrieve-a-list-of-directories-quickly-in-java
+		http://stackoverflow.com/questions/5125242/list-only-subdirectory-from-directory-not-files/5125258#5125258
+		
+		System.out.println(path.toString());
+		System.out.println(path.getNameCount());
+		
+		 final class MyFileFilter implements FilenameFilter {
+			  public boolean accept(File pathname) {
+			     return ! pathname.isDirectory();
+			  }
+
+			@Override
+			public String getDescription() {
+				return "Filters files not directories";
+			}
+		
+		int nFiles = new File(path.toString()).listFiles( new MyFileFilter() ).length();
+
+		@Override
+		public boolean accept(File dir, String name) {
+			public boolean accept(File pathname) {
+			     return ! pathname.isDirectory();
+			  }
+		}
+				
+				
+		 
+		}
+		
+		return 20;
+
+	}
+	
+	@Override
+    public boolean accept(Path entry) throws IOException {
+        return Files.isDirectory(entry);
+    }*/
 	
 }
 

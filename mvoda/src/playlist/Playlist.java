@@ -3,6 +3,9 @@ package playlist;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
 import themes.XMLSerialisable;
 
 import javafx.collections.ObservableList;
@@ -10,11 +13,12 @@ import javafx.collections.ObservableList;
 import lombok.Getter;
 import lombok.Setter;
 
+@XStreamAlias("Playlist")
 public class Playlist implements XMLSerialisable {
 
-	@Getter private static int playlistID; 
+	@XStreamOmitField @Getter private static int playlistID; 
 	@Getter @Setter private ArrayList<PlaylistEntry> playlistEntries;
-	@Getter @Setter String playlistName;
+	@XStreamOmitField @Getter @Setter String playlistName;
 
 	public Playlist(String playlistName) {
 		this.playlistName = playlistName;
