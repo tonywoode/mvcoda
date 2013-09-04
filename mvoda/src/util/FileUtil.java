@@ -8,9 +8,15 @@ import java.nio.file.DirectoryStream.Filter;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributeView;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileOwnerAttributeView;
 import java.util.logging.Logger;
 
 import javax.swing.filechooser.FileFilter;
+
+import themes.Theme;
 
 public class FileUtil  {
 
@@ -27,8 +33,8 @@ public class FileUtil  {
 		String filetype = new StringBuilder(filetypeReversed).reverse().toString(); //we reverse the filetype
 		return filetype;
 	}
-	
-	
+
+
 	public static String removeFiletype(String fileUNC) {
 		String reverse = reverseString(fileUNC);
 		int k=0;
@@ -37,7 +43,7 @@ public class FileUtil  {
 		String filetypeRemoved = new StringBuilder(filetypeRemovedReversed).reverse().toString();
 		return filetypeRemoved;
 	}
-	
+
 	private static String reverseString(String fileUNC) {
 		String i = fileUNC;
 		String path = i;
@@ -50,11 +56,11 @@ public class FileUtil  {
 		Logger.getGlobal().info("reversed relative filename is: " + reverse);
 		return reverse;
 	}
-	
-	
+
+
 	/*public static int countItemsInFolder(final Path path) throws IOException {
-		
-		
+
+
 		File file = new File("/path/to/directory");
 String[] directories = file.list(new FilenameFilter() {
   @Override
@@ -63,14 +69,14 @@ String[] directories = file.list(new FilenameFilter() {
   }
 });
 System.out.println(Arrays.toString(directories));
-		
+
 		http://stackoverflow.com/questions/4218422/get-the-number-of-files-in-a-folder-omitting-subfolders
 		http://stackoverflow.com/questions/1034977/how-to-retrieve-a-list-of-directories-quickly-in-java
 		http://stackoverflow.com/questions/5125242/list-only-subdirectory-from-directory-not-files/5125258#5125258
-		
+
 		System.out.println(path.toString());
 		System.out.println(path.getNameCount());
-		
+
 		 final class MyFileFilter implements FilenameFilter {
 			  public boolean accept(File pathname) {
 			     return ! pathname.isDirectory();
@@ -80,7 +86,7 @@ System.out.println(Arrays.toString(directories));
 			public String getDescription() {
 				return "Filters files not directories";
 			}
-		
+
 		int nFiles = new File(path.toString()).listFiles( new MyFileFilter() ).length();
 
 		@Override
@@ -89,19 +95,40 @@ System.out.println(Arrays.toString(directories));
 			     return ! pathname.isDirectory();
 			  }
 		}
-				
-				
-		 
+
+
+
 		}
-		
+
 		return 20;
 
 	}
-	
+
 	@Override
     public boolean accept(Path entry) throws IOException {
         return Files.isDirectory(entry);
     }*/
-	
+
+	public static int countItemsInFolder(Path path) {
+		//path = Paths.get(Theme.getRootDir().toString(), "Urban/Numbers");
+		System.out.println(path);
+
+		//first create a filter which will tell us if the file is a directory
+		DirectoryStream.Filter filter = new DirectoryStream.Filter() {
+		@Override public boolean accept(Object entry) throws IOException { return Files.isDirectory( (Path) entry); } 
+		};
+
+		//then iterate through the folders, incrementing the output number
+		int i = 0;
+		try (DirectoryStream<Path> ds =  Files.newDirectoryStream(path, filter ) ) {
+			for (Path p : ds) { 
+				System.out.println(p.getFileName()); 
+				i++;  }
+		} catch (IOException e) { e.printStackTrace(); }
+		return i;
+
+	}
+
+
 }
 
