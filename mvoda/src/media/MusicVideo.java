@@ -1,5 +1,6 @@
 package media;
 
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import com.xuggle.xuggler.ICodec;
 import com.xuggle.xuggler.IContainer;
 import com.xuggle.xuggler.IPixelFormat;

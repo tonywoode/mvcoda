@@ -5,6 +5,9 @@ import java.io.FileOutputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import media.MusicVideo;
+import media.xuggle.MusicVideoXuggle;
+
 import playlist.Playlist;
 import playlist.PlaylistEntry;
 
@@ -52,6 +55,8 @@ public static void writePlaylistXML(Boolean playlist, Path outputname, XMLSerial
 		xstream.processAnnotations(Theme.class);
 		xstream.processAnnotations(Playlist.class);
 		xstream.processAnnotations(PlaylistEntry.class);
+		xstream.processAnnotations(MusicVideo.class);
+		xstream.processAnnotations(MusicVideoXuggle.class);
 		//If we don't do this we get animate elements with "Class=AnimatedGFXElement" in the xml - see http://stackoverflow.com/questions/2008043/xstream-removing-class-attribute
 		//xstream.alias("AnimatedGFXElement", AnimatedGFXElement.class, GFXElement.class);
 		
