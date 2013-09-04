@@ -69,7 +69,7 @@ public class ViewController implements Initializable {
 	@Getter @Setter ViewControllerListener viewListener;
 
 	//@FXML ObservableList<String> themeSelectBox; 
-	@FXML ComboBox themeSelectBox;
+	@FXML ComboBox<String> themeSelectBox;
 
 	@FXML ListView<PlaylistEntry> playlistView;
 
@@ -112,21 +112,40 @@ public class ViewController implements Initializable {
 			entry.setPositionInPlaylist(i + 1); //set the playlist entry number while we have a loop! may be a problem later.....
 			playlist.setNextEntry(entry);
 		}
+		playlist.setThemeName(playlistTemp.getThemeName()); //we need to set the actual playlist to the temp playlists theme name. Outside of loop as not entry specific
 
 		/*videos.setNextEntry(new PlaylistEntry(new MusicVideoXuggle(fileUNC), "Track 1", "Artist 1"));
 						videos.setNextEntry(new PlaylistEntry(new MusicVideoXuggle(fileUNC2), "Track 2", "Artist 2"));
 		 */
-		
+		String themename = playlist.getThemeName();
 		playlistObservable = playlistView.getItems();
 		//System.out.println("in the playlist at point 2 is /n" + playlist);
 		sendPlaylistNodesToScreen(playlist);
-
+		if	( themeSelectBox.getItems().contains(playlist.getThemeName() ) ) { //if the theme name is actually one of our themes
+			
+			ObservableList<String> themeBoxItems = themeSelectBox.getItems(); //turn the theme box's list into an iterable list
+		    {
+		    	for (String itemName : themeBoxItems) { //iterate through it
+		        if (themename.equals(itemName)) //until we match the text strings
+		        {
+		        	//themeSelectBox.getSelectionModel().clearSelection();
+		        	//themeSelectBox.getSelectionModel().select(themename);
+		            themeSelectBox.setValue(themename); //and set that theme name as the active one in both the box and the list the box is generated from
+		        }
+		    }
+		}
 		
+			
+			
+			
+			
+		}
 
 	}
 
 
 	@FXML void savePlaylist(ActionEvent e) {
+		playlist.setThemeName(themeSelectBox.getSelectionModel().getSelectedItem().toString()); //Set theme name in the playlist xml
 		playlist.resetArray(playlistObservable);
 		XMLSerialisable xmlSerialisable = playlist;
 		final FileChooser fileChooser = new FileChooser();
@@ -157,12 +176,14 @@ public class ViewController implements Initializable {
 
 		//mock the theme
 		String themeName = themeSelectBox.getSelectionModel().getSelectedItem().toString();
+		
 		Path rootDir = Paths.get("Theme");
 		Path themeDir = Paths.get(rootDir.toString(),themeName);
 		XMLSerialisable themeAsSerialisable = XMLReader.readXML(themeDir, themeName);
 		Theme theme = (Theme) themeAsSerialisable;
 		theme.setIndex(themeSelectBox.getSelectionModel().getSelectedIndex()); //TODO; the lines above is effectively a new so any index setting before this has no effect
 		Path properDir = Paths.get( Theme.getRootDir().toString(), theme.getItemName() );
+		
 
 		//draw onto video
 
@@ -189,7 +210,7 @@ public class ViewController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		//themeSelectBox.add("Hello");
-		ThemeFinder themeFinder = new ThemeFinderImpl();
+		ThemeFinder themeFinder = new ThemeFinderImpl(); //we must instantiate the themeFinder because it implements an interface
 		ArrayList<Theme> themes = new ArrayList<>();
 		try {
 			themes = themeFinder.returnThemes();
@@ -199,7 +220,8 @@ public class ViewController implements Initializable {
 		} catch (InterruptedException e) { // TODO exception handling
 			e.printStackTrace();
 		}
-		ObservableList<String> themename = themeSelectBox.getItems(); //TODO: how to instantiate this without having to do that....
+		ObservableList<String> themename = FXCollections.observableArrayList(new ArrayList<String>());
+		//ObservableList<String> themename = themeSelectBox.getItems(); //TODO: how to instantiate this without having to do that....
 		themename.clear();
 		for (Theme element : themes) {
 			String name = element.getItemName();
@@ -207,6 +229,7 @@ public class ViewController implements Initializable {
 		}
 		//themeSelectBox.setAll(themename);
 		//ObservableList<String> list = themeSelectBox.getItems();
+		
 		System.out.println(themename);
 		themeSelectBox.setItems(themename);
 		moveButtons = new MoveButtons(playlistView); //instantiate the move buttons (we need to pass them a playlist)

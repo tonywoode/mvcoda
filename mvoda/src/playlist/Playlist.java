@@ -19,6 +19,7 @@ public class Playlist implements XMLSerialisable {
 	@Getter private static int playlistID; 
 	@Getter @Setter private ArrayList<PlaylistEntry> playlistEntries;
 	@Getter @Setter String playlistName;
+	@Getter @Setter String themeName;
 
 	public Playlist(String playlistName) {
 		this.playlistName = playlistName;
