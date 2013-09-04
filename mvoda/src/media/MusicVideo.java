@@ -9,7 +9,7 @@ import com.xuggle.xuggler.IStreamCoder;
 
 public interface MusicVideo {
 
-	public abstract IContainer getContainer();
+	public abstract IContainer getContainer(); //TODO: these are nearly ALL xuggler specific
 
 	public abstract IStreamCoder getAudioCoder();
 

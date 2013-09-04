@@ -83,16 +83,16 @@ public class ViewController implements Initializable {
 
 
 	@FXML void loadPlaylist(ActionEvent e) {
-		
+
 		final FileChooser fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
 		fileChooser.getExtensionFilters().add(extFilter);
 		File file = fileChooser.showOpenDialog(null);
 		Playlist playlistTemp = new Playlist("hi");
-		
+
 		playlistObservable.clear(); //TDO: now we need to make sure we clear all 3 of the playlists! 
 		playlist.resetArray(playlistObservable);
-		
+
 		//System.out.println("in the playlist AT POINT 1 is /n" + playlist);
 		if (file != null) {
 			//try { 
@@ -101,7 +101,7 @@ public class ViewController implements Initializable {
 
 		}
 
-		
+
 		//TODO why do I need to instantiate the videos or else javafx will crash out the JVM, when appending to a pre-existing playlist will not make that happen
 		for (int i = 0; i < playlistTemp.getPlaylistEntries().size(); i++) {
 			PlaylistEntry entry = new PlaylistEntry( new MusicVideoXuggle( 
@@ -121,32 +121,25 @@ public class ViewController implements Initializable {
 		playlistObservable = playlistView.getItems();
 		//System.out.println("in the playlist at point 2 is /n" + playlist);
 		sendPlaylistNodesToScreen(playlist);
-		if	( themeSelectBox.getItems().contains(playlist.getThemeName() ) ) { //if the theme name is actually one of our themes
-			
+		if	( themeSelectBox.getItems().contains(playlist.getThemeName() ) ) { //if the theme name is actually one of our themes	
 			ObservableList<String> themeBoxItems = themeSelectBox.getItems(); //turn the theme box's list into an iterable list
-		    {
-		    	for (String itemName : themeBoxItems) { //iterate through it
-		        if (themename.equals(itemName)) //until we match the text strings
-		        {
-		        	//themeSelectBox.getSelectionModel().clearSelection();
-		        	//themeSelectBox.getSelectionModel().select(themename);
-		            themeSelectBox.setValue(themename); //and set that theme name as the active one in both the box and the list the box is generated from
-		        }
-		    }
+				for (String itemName : themeBoxItems) { //iterate through it
+					if (themename.equals(itemName)) //until we match the text strings
+					{
+						//themeSelectBox.getSelectionModel().clearSelection();
+						//themeSelectBox.getSelectionModel().select(themename);
+						themeSelectBox.setValue(themename); //and set that theme name as the active one in both the box and the list the box is generated from
+					}
+				}
+						
 		}
-		
-			
-			
-			
-			
-		}
-
 	}
 
 
 	@FXML void savePlaylist(ActionEvent e) {
 		playlist.setThemeName(themeSelectBox.getSelectionModel().getSelectedItem().toString()); //Set theme name in the playlist xml
 		playlist.resetArray(playlistObservable);
+		setNumbersInPlaylist();
 		XMLSerialisable xmlSerialisable = playlist;
 		final FileChooser fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
@@ -162,6 +155,12 @@ public class ViewController implements Initializable {
 		XMLWriter.writePlaylistXML(true, path, xmlSerialisable);
 
 	}
+	
+	private void setNumbersInPlaylist() {
+		for (int t = 0; t < playlist.getPlaylistEntries().size(); t++) {
+			playlist.getPlaylistEntries().get(t).setPositionInPlaylist(t + 1); //set the playlist positions in the playlist to something sensible
+		}
+	}
 
 
 	@FXML void newPlaylist(ActionEvent e) { makeAPlaylist(); }
@@ -170,22 +169,21 @@ public class ViewController implements Initializable {
 	@FXML void render(ActionEvent e) {
 		System.out.println(playlist.toString());
 		playlist.resetArray(playlistObservable);
+		setNumbersInPlaylist();
 
-		for (int i=0;i < playlist.getPlaylistEntries().size();i++) {
+		for ( int i=0;i < playlist.getPlaylistEntries().size(); i++ ) {
 			System.out.println("At postion: " + (i + 1) + " We have " + playlist.getPlaylistEntries().get(i).getFileUNC() );
-
 		}
 
 		//mock the theme
 		String themeName = themeSelectBox.getSelectionModel().getSelectedItem().toString();
-		
+
 		Path rootDir = Paths.get("Theme");
 		Path themeDir = Paths.get(rootDir.toString(),themeName);
 		XMLSerialisable themeAsSerialisable = XMLReader.readXML(themeDir, themeName);
 		Theme theme = (Theme) themeAsSerialisable;
 		theme.setIndex(themeSelectBox.getSelectionModel().getSelectedIndex()); //TODO; the lines above is effectively a new so any index setting before this has no effect
 		Path properDir = Paths.get( Theme.getRootDir().toString(), theme.getItemName() );
-		
 
 		//draw onto video
 
@@ -199,8 +197,7 @@ public class ViewController implements Initializable {
 		String outFileUNC = "";
 		if(!file.getName().endsWith( filetype ) ) { 	outFileUNC = file.toString() + filetype; } //this check helps if the file is already existing
 		else { outFileUNC = file.toString(); } //else we will get "x.filetype.filetype //TODO: same code as in save playlist button
-		
-		
+
 		//String outFileUNC = file.toString() + filetype; //append filetype to the UNC the user chooses
 		if( file != null ) { Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC); }
 
@@ -219,14 +216,9 @@ public class ViewController implements Initializable {
 		//themeSelectBox.add("Hello");
 		ThemeFinder themeFinder = new ThemeFinderImpl(); //we must instantiate the themeFinder because it implements an interface
 		ArrayList<Theme> themes = new ArrayList<>();
-		try {
-			themes = themeFinder.returnThemes();
-		} catch (IOException e) { // TODO exception handling 
-			e.printStackTrace();
-
-		} catch (InterruptedException e) { // TODO exception handling
-			e.printStackTrace();
-		}
+		try { themes = themeFinder.returnThemes(); } 
+		catch (IOException e) {e.printStackTrace();}  // TODO exception handling 	
+		catch (InterruptedException e) { e.printStackTrace(); } // TODO exception handling
 		ObservableList<String> themename = FXCollections.observableArrayList(new ArrayList<String>());
 		//ObservableList<String> themename = themeSelectBox.getItems(); //TODO: how to instantiate this without having to do that....
 		themename.clear();
@@ -236,7 +228,7 @@ public class ViewController implements Initializable {
 		}
 		//themeSelectBox.setAll(themename);
 		//ObservableList<String> list = themeSelectBox.getItems();
-		
+
 		System.out.println(themename);
 		themeSelectBox.setItems(themename);
 		moveButtons = new MoveButtons(playlistView); //instantiate the move buttons (we need to pass them a playlist)
@@ -251,12 +243,11 @@ public class ViewController implements Initializable {
 		playlistView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<PlaylistEntry>() {
 			public void changed(final ObservableValue<? extends PlaylistEntry> ov, 
 					PlaylistEntry old_val, PlaylistEntry new_val) {
-
+				
 				// TODO: remove this
 				if (ov == null || ov.getValue() == null) { return; }
 
 				//trackTextField.textProperty().bindBidirectional(new StringBeanProperty(ov.getValue(), "artistName"));
-
 				SimpleStringProperty sspTrack = new SimpleStringProperty( ov.getValue().getTrackName() );
 				SimpleStringProperty sspArtist = new SimpleStringProperty(ov.getValue().getArtistName() );
 

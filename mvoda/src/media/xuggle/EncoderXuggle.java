@@ -2,6 +2,9 @@ package media.xuggle;
 
 import java.awt.Font;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
 import playlist.Playlist;
@@ -72,6 +75,14 @@ public class EncoderXuggle implements Encoder {
 		render(playlist);
 	}
 	
+	
+	
+	
+	public static ArrayList<PlaylistEntry> reverse(ArrayList<PlaylistEntry> arrayList) {
+	    Collections.reverse(arrayList);
+	    return arrayList;
+	}
+	
 
 	/**
 	 * Creates a new music video with input filename and a new writer that will write to output filename, iterates through the packets of the music video
@@ -81,6 +92,17 @@ public class EncoderXuggle implements Encoder {
 	@Override
 	public void render(Playlist playlist) {
 		
+		//remember this is a CHART, so we want the number one to render LAST
+		ArrayList<PlaylistEntry> reversedList = new ArrayList<PlaylistEntry>(playlist.getPlaylistEntries()); //copy array
+		Collections.reverse(reversedList);
+		
+		/*ArrayList<PlaylistEntry> listForReverse = new ArrayList<PlaylistEntry>();
+		listForReverse.addAll( playlist.getPlaylistEntries() );
+		
+		for (PlaylistEntry element : listForReverse) { System.out.println("normal" + element.getFileUNC() ); }
+		ArrayList<PlaylistEntry> reversedList = reverse(listForReverse); //we want the item at the TOP of the list to be number one
+		for (PlaylistEntry element : reversedList) { System.out.println("reversed" + element.getFileUNC() ); }*/
+		
 		video = playlist.getNextEntry(0).getVideo(); //TODO: bummer we have to first set a video becuase eg: line 361 below needs it to set properties
 		writer = getWriter(outFilename);
 		
@@ -88,7 +110,7 @@ public class EncoderXuggle implements Encoder {
 		
 		try {
 			//decoder2 = video2.getDecoder();		
-			for (PlaylistEntry playlistEntry : playlist.getPlaylistEntries()) {
+			for (PlaylistEntry playlistEntry : reversedList) {
 				
 				themeCompositor.makeThemeElements(playlistEntry);
 				//makeTheBitsClassic(); //if it's not in the loop you'll end up with the same number file being called each time round

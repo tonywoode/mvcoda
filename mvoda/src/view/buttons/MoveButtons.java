@@ -23,14 +23,15 @@ public class MoveButtons {
 		playlistView.getItems().set(indexOfItemToMove, playlistView.getItems().get(indexOfItemToMove - 1)); //set replaces the item: so move item below to selected index
 		playlistView.getItems().set(indexOfItemToMove - 1, temp); //now move 
 
-		PlaylistEntry movingUp = playlistView.getSelectionModel().getSelectedItem();
-		PlaylistEntry movingDown = playlistView.getItems().get(indexOfItemToMove - 1);
+		PlaylistEntry moveDown = playlistView.getSelectionModel().getSelectedItem();
+		PlaylistEntry moveUp = playlistView.getItems().get(indexOfItemToMove - 1);
 
-		movingUp.setPositionInPlaylist(indexOfItemToMove);
-		movingDown.setPositionInPlaylist(indexOfItemToMove + 1);
+		moveDown.setPositionInPlaylist(indexOfItemToMove);
+		moveUp.setPositionInPlaylist(indexOfItemToMove + 1);
 
-		System.out.println("Moving Up: " + movingUp.getPositionInPlaylist() + "; " + movingUp.getFileUNC());
-		System.out.println("Moving Down: " + movingDown.getPositionInPlaylist() + "; " + movingDown.getFileUNC());
+		System.out.println("Moving Up: " + moveUp.getPositionInPlaylist() + "; " + moveUp.getFileUNC());
+		System.out.println("Moving Down: " + moveDown.getPositionInPlaylist() + "; " + moveDown.getFileUNC());
+		
 
 		/*	forceListRefreshOn(playlistView);
 
@@ -52,14 +53,15 @@ public class MoveButtons {
 		playlistView.getItems().set(indexOfItemToMove, playlistView.getItems().get(indexOfItemToMove + 1));
 		playlistView.getItems().set(indexOfItemToMove + 1, temp);
 
-		PlaylistEntry movingDown = playlistView.getSelectionModel().getSelectedItem();
-		PlaylistEntry movingUp = playlistView.getItems().get(indexOfItemToMove + 1);
+		PlaylistEntry moveUp = playlistView.getSelectionModel().getSelectedItem();
+		PlaylistEntry moveDown = playlistView.getItems().get(indexOfItemToMove + 1);
 
-		movingDown.setPositionInPlaylist(indexOfItemToMove);
-		movingUp.setPositionInPlaylist(indexOfItemToMove);
+		moveUp.setPositionInPlaylist(indexOfItemToMove);
+		moveDown.setPositionInPlaylist(indexOfItemToMove);
 
-		System.out.println("Moving Down: " + movingDown.getPositionInPlaylist() + "; " + movingDown.getFileUNC());
-		System.out.println("Moving Up: " + movingUp.getPositionInPlaylist() + "; " + movingUp.getFileUNC());
+		
+		System.out.println("Moving Down: " + moveDown.getPositionInPlaylist() + "; " + moveDown.getFileUNC());
+		System.out.println("Moving Up: " + moveUp.getPositionInPlaylist() + "; " + moveUp.getFileUNC());
 	}
 	
 

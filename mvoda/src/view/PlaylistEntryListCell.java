@@ -18,6 +18,7 @@ public class PlaylistEntryListCell extends ListCell<PlaylistEntry> {
 //        	int pos = item.getPositionInPlaylist();
         	
         	System.out.println("PlaylistEntry Cell: " + "NUMBER: " + pos + "\t" + item.getFileUNC());
+        	item.setPositionInPlaylist(pos);//I don't think this does anything....
         	
             setText("NUMBER " + pos + "\t" + item.getFileUNC());
         }
