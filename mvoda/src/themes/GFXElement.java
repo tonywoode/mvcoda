@@ -46,6 +46,7 @@ public class GFXElement implements XMLSerialisable {
 		if (isNumbers()) return (Paths.get( Theme.getRootDir().toString(), themeName, elementName, Number.getNumber() +itemName ) );
 		return Paths.get(Theme.getRootDir().toString(), themeName, elementName, itemName );
 	}
+	
 
 	//have these getters so we don't have to call clasA.classB.getxoffset()
 	public int getXOffsetSD() {	return coOrd.getXOffsetSD(); }

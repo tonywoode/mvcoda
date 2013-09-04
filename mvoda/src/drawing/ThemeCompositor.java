@@ -64,8 +64,8 @@ public class ThemeCompositor {
 		transitionCompositor = new ImageCompositor(theme.getTransition());
 		numbersCompositor = new ImageCompositor(theme.getNumbers());
 		//for the classic number holder, we need to slot the number more to the left if its two digits
-		if ((Number.getNumber()) >= 10) { numberText = new TextCompositor(Integer.toString( Number.getNumber() ), 67, 337); }
-		else { numberText = new TextCompositor(Integer.toString( Number.getNumber() ), 73, 337); }
+		if (playlistEntry.getPositionInPlaylist() >= 10) { numberText = new TextCompositor(Integer.toString( playlistEntry.getPositionInPlaylist() ), 67, 337); }
+		else { numberText = new TextCompositor(Integer.toString( playlistEntry.getPositionInPlaylist() ), 73, 337); }
 		numberText.setTextFont(new Font("Arial Narrow",1,30)); //TODO: the track and artist text are a per playlist entry thing, the others are PER PLAYLIST so don't need to run each time
 		trackText = new TextCompositor(playlistEntry.getTrackName(), 100, 380);
 		artistText = new TextCompositor(playlistEntry.getArtistName(), 100, 420);
@@ -91,7 +91,7 @@ public class ThemeCompositor {
 		strapCompositor2 = new ImageCompositor(theme.getStrap());
 		chartCompositor = new ImageCompositor(theme.getChart());
 		numbersCompositor = new ImageCompositor(theme.getNumbers());
-		numberText = new TextCompositor(Integer.toString( Number.getNumber() ), 285, 490);
+		numberText = new TextCompositor(Integer.toString( playlistEntry.getPositionInPlaylist() ), 285, 490);
 		numberText.setTextFont(new Font("Arial Narrow",1,55));
 		trackText = new TextCompositor(playlistEntry.getTrackName(), 390, 460);
 		artistText = new TextCompositor(playlistEntry.getArtistName(), 380, 500);

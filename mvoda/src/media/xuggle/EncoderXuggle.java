@@ -76,13 +76,6 @@ public class EncoderXuggle implements Encoder {
 	}
 	
 	
-	
-	
-	public static ArrayList<PlaylistEntry> reverse(ArrayList<PlaylistEntry> arrayList) {
-	    Collections.reverse(arrayList);
-	    return arrayList;
-	}
-	
 
 	/**
 	 * Creates a new music video with input filename and a new writer that will write to output filename, iterates through the packets of the music video
@@ -96,17 +89,12 @@ public class EncoderXuggle implements Encoder {
 		ArrayList<PlaylistEntry> reversedList = new ArrayList<PlaylistEntry>(playlist.getPlaylistEntries()); //copy array
 		Collections.reverse(reversedList);
 		
-		/*ArrayList<PlaylistEntry> listForReverse = new ArrayList<PlaylistEntry>();
-		listForReverse.addAll( playlist.getPlaylistEntries() );
-		
-		for (PlaylistEntry element : listForReverse) { System.out.println("normal" + element.getFileUNC() ); }
-		ArrayList<PlaylistEntry> reversedList = reverse(listForReverse); //we want the item at the TOP of the list to be number one
-		for (PlaylistEntry element : reversedList) { System.out.println("reversed" + element.getFileUNC() ); }*/
-		
-		video = playlist.getNextEntry(0).getVideo(); //TODO: bummer we have to first set a video becuase eg: line 361 below needs it to set properties
+		video = playlist.getNextEntry(0).getVideo(); //TODO: we have to first set a video becuase eg: line 361 below needs it to set properties
+		//so we choose the number from chart entry number one
 		writer = getWriter(outFilename);
 		
-		Number.setNumber( playlist.getSize() );
+		//This is so that GFX element's can lookup a live number rather than be passed a playlist entry
+		Number.setNumber( playlist.getSize() ); //the number to start on is the number of items in the playlist, irrespective
 		
 		try {
 			//decoder2 = video2.getDecoder();		
@@ -120,7 +108,8 @@ public class EncoderXuggle implements Encoder {
 				//decoder = new DecoderXuggle(video); //TODO: Thought this might fix problem where you can only do one render, maybe we need a new encoder too?
 				decoder = video.getDecoder(); //make a new decoder at this point? Decoder temp = new Decoder(video)
 				renderNextVid(decoder, video);	
-				Number.setNumber(Number.getNumber() -1);
+				Number.setNumber(playlistEntry.getPositionInPlaylist() - 1); //This is so that GFX element's can lookup a live number for directory search rather than be passed a playlist entry
+				//change it back to Number.getNumber() -1 if you want....
 			}
 					
 		} catch (Exception ex) { //TODO: what ANY exception? Why aren't we saying we throw any then?
