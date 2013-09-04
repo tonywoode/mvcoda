@@ -152,7 +152,9 @@ public class ViewController implements Initializable {
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
 		fileChooser.getExtensionFilters().add(extFilter);
 		File file = fileChooser.showSaveDialog(null);
-		String fileAsString = file.toString() + ".xml";
+		String fileAsString = "";
+		if(!file.getName().contains(".xml")) { 	fileAsString = file.toString() + ".xml"; } //this check helps if the file is already existing as .xml
+		else { fileAsString = file.toString(); } //else we will get "x.xml.xml"
 
 		Path path = Paths.get(fileAsString);
 
