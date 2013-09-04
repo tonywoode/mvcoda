@@ -13,7 +13,7 @@ public class PlaylistEntry {
 	@Setter @Getter private int positionInPlaylist;
 	@Setter @Getter private String artistName;
 	@Setter @Getter private String trackName;
-	@XStreamOmitField @Setter @Getter private MusicVideo video;
+	@Setter @Getter private MusicVideo video;
 	@Setter @Getter String fileUNC;
 	
 	public PlaylistEntry(MusicVideo video) { this.video = video; }
