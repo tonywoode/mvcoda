@@ -29,8 +29,8 @@ public class MoveButtons {
 		movingUp.setPositionInPlaylist(indexOfItemToMove);
 		movingDown.setPositionInPlaylist(indexOfItemToMove + 1);
 
-		System.out.println("Moving Up: " + movingUp.getPositionInPlaylist() + "; " + movingUp.getVideo().getFileUNC());
-		System.out.println("Moving Down: " + movingDown.getPositionInPlaylist() + "; " + movingDown.getVideo().getFileUNC());
+		System.out.println("Moving Up: " + movingUp.getPositionInPlaylist() + "; " + movingUp.getFileUNC());
+		System.out.println("Moving Down: " + movingDown.getPositionInPlaylist() + "; " + movingDown.getFileUNC());
 
 		/*	forceListRefreshOn(playlistView);
 
@@ -58,8 +58,8 @@ public class MoveButtons {
 		movingDown.setPositionInPlaylist(indexOfItemToMove);
 		movingUp.setPositionInPlaylist(indexOfItemToMove);
 
-		System.out.println("Moving Down: " + movingDown.getPositionInPlaylist() + "; " + movingDown.getVideo().getFileUNC());
-		System.out.println("Moving Up: " + movingUp.getPositionInPlaylist() + "; " + movingUp.getVideo().getFileUNC());
+		System.out.println("Moving Down: " + movingDown.getPositionInPlaylist() + "; " + movingDown.getFileUNC());
+		System.out.println("Moving Up: " + movingUp.getPositionInPlaylist() + "; " + movingUp.getFileUNC());
 	}
 	
 

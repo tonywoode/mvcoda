@@ -49,7 +49,7 @@ public class Playlist implements XMLSerialisable {
 		temp.addAll(playlistObservable);
 		playlistEntries = temp;
 		playlistEntries = playlistEntries; //just so we can set the breakpoint here
-		//System.out.println(playlistEntries.get(4).getVideo().getFileUNC()); //yup it look like we really are deleting
+		//System.out.println(playlistEntries.get(4).getFileUNC()); //yup it look like we really are deleting
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class Playlist implements XMLSerialisable {
 	public String toString() {
 		String entry = "";
 		for (PlaylistEntry element : playlistEntries) {
-			entry = entry + "Playlist entry in the real playlist " + element.getVideo().getFileUNC() + "\n";
+			entry = entry + "Playlist entry in the real playlist " + element.getFileUNC() + "\n";
 			;
 		}
 		return entry;

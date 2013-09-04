@@ -105,7 +105,7 @@ public class ViewController implements Initializable {
 		//TODO why do I need to instantiate the videos or else javafx will crash out the JVM, when appending to a pre-existing playlist will not make that happen
 		for (int i = 0; i < playlistTemp.getPlaylistEntries().size(); i++) {
 			PlaylistEntry entry = new PlaylistEntry( new MusicVideoXuggle( 
-					playlistTemp.getPlaylistEntries().get( i ).getVideo().getFileUNC() ),
+					playlistTemp.getPlaylistEntries().get( i ).getFileUNC() ),
 					playlistTemp.getPlaylistEntries().get( i ).getTrackName(), 
 					playlistTemp.getPlaylistEntries().get( i ).getArtistName()
 					);
@@ -172,7 +172,7 @@ public class ViewController implements Initializable {
 		playlist.resetArray(playlistObservable);
 
 		for (int i=0;i < playlist.getPlaylistEntries().size();i++) {
-			System.out.println("At postion: " + (i + 1) + " We have " + playlist.getPlaylistEntries().get(i).getVideo().getFileUNC() );
+			System.out.println("At postion: " + (i + 1) + " We have " + playlist.getPlaylistEntries().get(i).getFileUNC() );
 
 		}
 
@@ -196,7 +196,12 @@ public class ViewController implements Initializable {
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(filetype + " files (*" + filetype + ")", "*" + filetype);
 		fileChooser.getExtensionFilters().add(extFilter);
 		File file = fileChooser.showSaveDialog(null);
-		String outFileUNC = file.toString() + filetype; //append filetype to the UNC the user chooses
+		String outFileUNC = "";
+		if(!file.getName().endsWith( filetype ) ) { 	outFileUNC = file.toString() + filetype; } //this check helps if the file is already existing
+		else { outFileUNC = file.toString(); } //else we will get "x.filetype.filetype //TODO: same code as in save playlist button
+		
+		
+		//String outFileUNC = file.toString() + filetype; //append filetype to the UNC the user chooses
 		if( file != null ) { Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC); }
 
 		DecodeAndPlayAudioAndVideo player = new DecodeAndPlayAudioAndVideo(outFileUNC);
@@ -378,8 +383,8 @@ public class ViewController implements Initializable {
 		movingUp.setPositionInPlaylist(indexOfItemToMove);
 		movingDown.setPositionInPlaylist(indexOfItemToMove + 1);
 
-		System.out.println("Moving Up: " + movingUp.getPositionInPlaylist() + "; " + movingUp.getVideo().getFileUNC());
-		System.out.println("Moving Down: " + movingDown.getPositionInPlaylist() + "; " + movingDown.getVideo().getFileUNC());
+		System.out.println("Moving Up: " + movingUp.getPositionInPlaylist() + "; " + movingUp.getFileUNC());
+		System.out.println("Moving Down: " + movingDown.getPositionInPlaylist() + "; " + movingDown.getFileUNC());
 
 			forceListRefreshOn(playlistView);
 
@@ -406,8 +411,8 @@ public class ViewController implements Initializable {
 		movingDown.setPositionInPlaylist(indexOfItemToMove);
 		movingUp.setPositionInPlaylist(indexOfItemToMove);
 
-		System.out.println("Moving Down: " + movingDown.getPositionInPlaylist() + "; " + movingDown.getVideo().getFileUNC());
-		System.out.println("Moving Up: " + movingUp.getPositionInPlaylist() + "; " + movingUp.getVideo().getFileUNC());
+		System.out.println("Moving Down: " + movingDown.getPositionInPlaylist() + "; " + movingDown.getFileUNC());
+		System.out.println("Moving Up: " + movingUp.getPositionInPlaylist() + "; " + movingUp.getFileUNC());
 	}
 
 	 */

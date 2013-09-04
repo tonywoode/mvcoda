@@ -94,7 +94,7 @@ public class EncoderXuggle implements Encoder {
 				//makeTheBitsClassic(); //if it's not in the loop you'll end up with the same number file being called each time round
 				themeCompositor.resetThemeElements();
 				//resetTheBits();
-				video = new MusicVideoXuggle( playlistEntry.getVideo().getFileUNC() ); //TODO: we have to new this up here else the GUI can't render more than once.....see decoderXuggle it crashes out at HasNextPacket()
+				video = new MusicVideoXuggle( playlistEntry.getFileUNC() ); //TODO: we have to new this up here else the GUI can't render more than once.....see decoderXuggle it crashes out at HasNextPacket()
 				//decoder = new DecoderXuggle(video); //TODO: Thought this might fix problem where you can only do one render, maybe we need a new encoder too?
 				decoder = video.getDecoder(); //make a new decoder at this point? Decoder temp = new Decoder(video)
 				renderNextVid(decoder, video);	
