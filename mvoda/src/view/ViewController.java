@@ -45,6 +45,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 public class ViewController implements Initializable {
@@ -53,6 +54,8 @@ public class ViewController implements Initializable {
 	//public Button loadPlaylistButton;
 	//public Button renderButton;
 	//public Button addPlaylistEntryButton;
+	
+	@Getter @Setter Stage stage;
 
 	public TextField trackTextField;
 	public TextField artistTextField;
@@ -87,7 +90,7 @@ public class ViewController implements Initializable {
 		final FileChooser fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
 		fileChooser.getExtensionFilters().add(extFilter);
-		File file = fileChooser.showOpenDialog(null);
+		File file = fileChooser.showOpenDialog(stage);
 		Playlist playlistTemp = new Playlist("hi");
 
 		playlistObservable.clear(); //TDO: now we need to make sure we clear all 3 of the playlists! 
@@ -144,7 +147,7 @@ public class ViewController implements Initializable {
 		final FileChooser fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
 		fileChooser.getExtensionFilters().add(extFilter);
-		File file = fileChooser.showSaveDialog(null);
+		File file = fileChooser.showSaveDialog(stage);
 		String fileAsString = "";
 		if(!file.getName().contains(".xml")) { 	fileAsString = file.toString() + ".xml"; } //this check helps if the file is already existing as .xml
 		else { fileAsString = file.toString(); } //else we will get "x.xml.xml"
@@ -193,7 +196,7 @@ public class ViewController implements Initializable {
 		//TODO: problem is we need to get the FIRST files' filetype....is there a better way of encapsulating this its not obvious it go through about 3 classes...
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(filetype + " files (*" + filetype + ")", "*" + filetype);
 		fileChooser.getExtensionFilters().add(extFilter);
-		File file = fileChooser.showSaveDialog(null);
+		File file = fileChooser.showSaveDialog(stage);
 		String outFileUNC = "";
 		if(!file.getName().endsWith( filetype ) ) { 	outFileUNC = file.toString() + filetype; } //this check helps if the file is already existing
 		else { outFileUNC = file.toString(); } //else we will get "x.filetype.filetype //TODO: same code as in save playlist button
@@ -323,7 +326,7 @@ public class ViewController implements Initializable {
 		final FileChooser fileChooser = new FileChooser();
 		//FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
 		//fileChooser.getExtensionFilters().add(extFilter);
-		File file = fileChooser.showOpenDialog(null);
+		File file = fileChooser.showOpenDialog(stage);
 		if (file != null) {
 			String fileUNC = file.getAbsolutePath();
 			MusicVideo vid = new MusicVideoXuggle(fileUNC);
