@@ -27,6 +27,7 @@ import themes.ThemeFinderImpl;
 import themes.XMLReader;
 import themes.XMLSerialisable;
 import themes.XMLWriter;
+import view.buttons.Dialog;
 import view.buttons.MoveButtons;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
@@ -38,6 +39,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
@@ -217,6 +219,9 @@ public class ViewController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		//themeSelectBox.add("Hello");
+		
+		
+		
 		ThemeFinder themeFinder = new ThemeFinderImpl(); //we must instantiate the themeFinder because it implements an interface
 		ArrayList<Theme> themes = new ArrayList<>();
 		try { themes = themeFinder.returnThemes(); } 
@@ -355,7 +360,17 @@ public class ViewController implements Initializable {
 	}
 
 	public void moveDown(ActionEvent e) {
-		moveButtons.moveDown(e);
+		
+		//Dialog dialog = new Dialog();
+		//Dialog.dialogBox(stage, "ehat");//, new Scene());
+			
+		try {
+			moveButtons.moveDown(e);
+		} catch (IndexOutOfBoundsException error) {
+			// TODO Auto-generated catch block
+			//Dialog.dialogBox(stage, "No playlist loaded. Please first create or load a playlist");//, new Scene());
+			error.printStackTrace();
+		}
 	}
 
 
