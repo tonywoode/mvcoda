@@ -89,48 +89,48 @@ public class GFXElement implements XMLSerialisable {
 		fileNumbers = new ArrayList<>();
 
 		for (int g = 0; g < files.length; g++) {
-			LOGGER.setLevel(Level.OFF); //set to Level.ALL to log this block
+													LOGGER.setLevel(Level.OFF); //set to Level.ALL to log this block
 
 			String i = files[g].toString();
-			LOGGER.info(i);
+													LOGGER.info(i);
 			String path = i;
 			String base = dir.toString();
 			//first we need to get the relative path - we do this by effectively masking
 			String relative = new File(base).toURI().relativize(new File(path).toURI()).getPath();
-			LOGGER.info("relative filename is: " + relative);
+													LOGGER.info("relative filename is: " + relative);
 			//we can't substring backwards in java and we can only rely on getting numbers from the filetype backwards (in case filename has a number in).
 			String reverse = new StringBuilder(relative).reverse().toString(); //so we reverse
-			LOGGER.info("reversed relative filename is: " + reverse);
+													LOGGER.info("reversed relative filename is: " + reverse);
 			int j = 0;
 			while (!(reverse.charAt(j) == '.')) { j++; }	//then we go back through our reversed string till we find a period. That's not going to work on unix then TODO: maybe "if system=windows"
-			LOGGER.info("The first digit is at position: " + j); 
+													LOGGER.info("The first digit is at position: " + j); 
 			String filetypeReversed = reverse.substring(0, j + 1);
 			//we digress here to save out the filetype
-			LOGGER.info("Here's the reversed filetype: " + filetypeReversed);
+													LOGGER.info("Here's the reversed filetype: " + filetypeReversed);
 			filetype = new StringBuilder(filetypeReversed).reverse().toString(); //we reverse the filetype
-			LOGGER.info("Filetype is: " + filetype);
+													LOGGER.info("Filetype is: " + filetype);
 			//carry on with getting the number
 			String filetypeRemoved = reverse.substring(j + 1);	//then we remove the characters up to the first digit
-			LOGGER.info("Chars removed up to first digit is : " + filetypeRemoved);	
+													LOGGER.info("Chars removed up to first digit is : " + filetypeRemoved);	
 			int k = 0;
 			while (Character.isDigit(filetypeRemoved.charAt(k))) { k++; }	//then we continue through the numbers left until we find the first character
-			LOGGER.info("The digits continue up to position:" + k);
+													LOGGER.info("The digits continue up to position:" + k);
 			//digress again to get the file prefix name ie: what's before the digit
 			String filePrefixReverse = filetypeRemoved.substring(k);
-			LOGGER.info("File Prefix in reverse is: " + filePrefixReverse);
+													LOGGER.info("File Prefix in reverse is: " + filePrefixReverse);
 			filePrefix = new StringBuilder(filePrefixReverse).reverse().toString();
-			LOGGER.info("So here's the file prefix:" + filePrefix);
+													LOGGER.info("So here's the file prefix:" + filePrefix);
 			String numberExtracted = filetypeRemoved.substring(0,k); //then we remove anything past the last number
-			LOGGER.info(numberExtracted);	
+													LOGGER.info(numberExtracted);	
 			String reverseBack = new StringBuilder(numberExtracted).reverse().toString(); //then we've got the digits out. We need to reverse the number back again
-			LOGGER.info(reverseBack);
+													LOGGER.info(reverseBack);
 			fileNumbers.add(reverseBack);				
 		}
 		//now let's use the comparator to sort the arrayList - we'll just write back to the same arraylist TODO: good idea?
 
 		Collections.sort(fileNumbers, new NumberedFileComparator());
 		for (int i = 0; i < fileNumbers.size(); i++) {
-			LOGGER.info(fileNumbers.get(i));
+													LOGGER.info(fileNumbers.get(i));
 		}
 
 

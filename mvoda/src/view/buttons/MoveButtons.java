@@ -17,8 +17,6 @@ public class MoveButtons {
 	//private final static Logger LOGGER = Logger.getLogger(MoveButtons.class.getName());
 	private final static Logger LOGGER = Logger.getLogger(MoveButtons.class.getName()); //setup a logger for this class
 	 
-	 
-
 	
 	public MoveButtons(ListView<PlaylistEntry> playlistView) {
 		this.playlistView = playlistView;
@@ -30,7 +28,7 @@ public class MoveButtons {
 		
 		int indexOfItemToMove = playlistView.getSelectionModel().getSelectedIndex();
 
-		//if (indexOfItemToMove < 0) return; //don't attempt to move the top item
+		if (indexOfItemToMove <= 0) { return; } //don't attempt to move the top item, or anything in an empty list
 
 		PlaylistEntry temp = playlistView.getSelectionModel().getSelectedItem(); //temp entry holds the entry we want to move
 		playlistView.getItems().set(indexOfItemToMove, playlistView.getItems().get(indexOfItemToMove - 1)); //set replaces the item: so move item below to selected index
@@ -42,8 +40,8 @@ public class MoveButtons {
 		moveDown.setPositionInPlaylist(indexOfItemToMove);
 		moveUp.setPositionInPlaylist(indexOfItemToMove + 1);
 
-		LOGGER.info("Moving Up: " + moveUp.getPositionInPlaylist() + "; " + moveUp.getFileUNC());
-		LOGGER.info("Moving Down: " + moveDown.getPositionInPlaylist() + "; " + moveDown.getFileUNC());
+						LOGGER.info("Moving Up: " + moveUp.getPositionInPlaylist() + "; " + moveUp.getFileUNC());
+						LOGGER.info("Moving Down: " + moveDown.getPositionInPlaylist() + "; " + moveDown.getFileUNC());
 		
 
 		/*	forceListRefreshOn(playlistView);
@@ -60,7 +58,7 @@ public class MoveButtons {
 		int indexOfItemToMove = playlistView.getSelectionModel().getSelectedIndex();
 		int lastIndex = playlistView.getItems().size() -1;
 
-		if (indexOfItemToMove > lastIndex) return; //TODO: still causing exception is it because i'm only catching the viewbox's error condition not the lists?
+		if (indexOfItemToMove == lastIndex) { return; } //JavaFX's view array returns -1 for empty list, hence we catch both moving off end of list AND empty list
 
 		PlaylistEntry temp = playlistView.getSelectionModel().getSelectedItem();
 		playlistView.getItems().set(indexOfItemToMove, playlistView.getItems().get(indexOfItemToMove + 1));
@@ -73,8 +71,8 @@ public class MoveButtons {
 		moveDown.setPositionInPlaylist(indexOfItemToMove);
 
 		
-		LOGGER.info("Moving Down: " + moveDown.getPositionInPlaylist() + "; " + moveDown.getFileUNC());
-		LOGGER.info("Moving Up: " + moveUp.getPositionInPlaylist() + "; " + moveUp.getFileUNC());
+						LOGGER.info("Moving Down: " + moveDown.getPositionInPlaylist() + "; " + moveDown.getFileUNC());
+						LOGGER.info("Moving Up: " + moveUp.getPositionInPlaylist() + "; " + moveUp.getFileUNC());
 	}
 	
 

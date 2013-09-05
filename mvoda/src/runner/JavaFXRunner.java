@@ -42,7 +42,7 @@ public class JavaFXRunner extends Application {
 	
 	public void handleLoggers() {
 		
-		Logger.getGlobal().setLevel(Level.OFF); //Turn all loggers off
+		Logger.getGlobal().setLevel(Level.ALL); //Turn all loggers off
 		
 		//logger.setLevel(Level.OFF);
 		//Logger.getLogger("themes.GFXElement");
