@@ -43,6 +43,8 @@ public class Theme implements XMLSerialisable {
 		return itemName;		
 	}
 	
+	
+	
 	/*public Theme(String itemName) { //TODO: this never gets called because the xml doesn't call new
 		
 		this.itemName = itemName;

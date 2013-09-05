@@ -2,20 +2,40 @@ package view;
 
 import java.awt.Desktop;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Logger;
 
+import org.hamcrest.core.IsNull;
+
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ListPropertyBase;
+import javafx.beans.property.Property;
+import javafx.beans.property.ReadOnlyBooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableBooleanValue;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.util.Callback;
 import lombok.Getter;
 import lombok.Setter;
 import media.Encoder;
-import media.MusicVideo;
 import media.xuggle.DecodeAndPlayAudioAndVideo;
 import media.xuggle.EncoderXuggle;
 import media.xuggle.MusicVideoXuggle;
@@ -27,28 +47,7 @@ import themes.ThemeFinderImpl;
 import themes.XMLReader;
 import themes.XMLSerialisable;
 import themes.XMLWriter;
-import view.buttons.Dialog;
 import view.buttons.MoveButtons;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableIntegerValue;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import javafx.util.Callback;
 
 public class ViewController implements Initializable {
 
@@ -56,6 +55,7 @@ public class ViewController implements Initializable {
 	//public Button loadPlaylistButton;
 	//public Button renderButton;
 	//public Button addPlaylistEntryButton;
+	public Button savePlaylistButton;
 	
 	@Getter @Setter Stage stage;
 
@@ -80,11 +80,29 @@ public class ViewController implements Initializable {
 
 	private MoveButtons moveButtons;
 	
+	//private ObservableBooleanValue emptyList = new SimpleBooleanProperty(playlistObservable.isEmpty());
+	
+	
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		//themeSelectBox.add("Hello");
 		
+		//Boolean isEmpty = playlistObservable.isEmpty();
+		playlistView.setDisable(true);
+		
+		savePlaylistButton.disableProperty().bind(playlistView.disabledProperty());
+		
+		//playlistObservable.addListener());
+		
+		
+		//emptyList.addListener()
+		
+		/*SimpleBooleanProperty tell = playlistView.getSelectionModel().isEmpty();
+		
+		
+		savePlaylistButton.disabledProperty().bind(
+				playlistObservable.addListener(*/
 		
 		
 		ThemeFinder themeFinder = new ThemeFinderImpl(); //we must instantiate the themeFinder because it implements an interface
@@ -180,12 +198,12 @@ public class ViewController implements Initializable {
 		playlist.resetArray(playlistObservable);
 
 		//System.out.println("in the playlist AT POINT 1 is /n" + playlist);
-		if (file != null) {
+		//if (file != null) {
 			//try { 
 			XMLSerialisable playlistAsSerialisable = XMLReader.readPlyalistXML(file.toPath());	
 			playlistTemp = (Playlist) playlistAsSerialisable;
 
-		}
+		//}
 
 		//TODO why do I need to instantiate the videos or else javafx will crash out the JVM, when appending to a pre-existing playlist will not make that happen
 		for (int i = 0; i < playlistTemp.getPlaylistEntries().size(); i++) {
@@ -211,12 +229,10 @@ public class ViewController implements Initializable {
 				for (String itemName : themeBoxItems) { //iterate through it
 					if (themename.equals(itemName)) //until we match the text strings
 					{
-						//themeSelectBox.getSelectionModel().clearSelection();
-						//themeSelectBox.getSelectionModel().select(themename);
 						themeSelectBox.setValue(themename); //and set that theme name as the active one in both the box and the list the box is generated from
 					}
 				}
-						
+				playlistView.setDisable(false);
 		}
 	}
 
@@ -243,26 +259,28 @@ public class ViewController implements Initializable {
 	}
 	
 	
-	public void addPlaylistEntry(ActionEvent e) throws IOException { //TOD: loading a music video exception please
+	@FXML void addPlaylistEntry(ActionEvent e) throws IOException { //TOD: loading a music video exception please
 		PlaylistEntry entry = moveButtons.addPlaylistEntry(e, stage);
 		playlistObservable.add(entry); //TODO we cannot pass the observable list outside of the view controller, so we return a playlist entry here
+		playlistView.setDisable(false);
 		}
 
 		
 	
 	
-	public void deletePlaylistEntry(ActionEvent e) { //https://gist.github.com/jewelsea/5559262
+	@FXML void deletePlaylistEntry(ActionEvent e) { //https://gist.github.com/jewelsea/5559262
 		moveButtons.deletePlaylistEntry(e);
+		if (playlistObservable.isEmpty()) { playlistView.setDisable(true); }
 	}
 
 
-	public void moveUp(ActionEvent e) {
+	@FXML void moveUp(ActionEvent e) {
 		//MoveButtons moveUpButton = new MoveButtons(playlistView);
 		//moveUpButton.moveUp(e);	
 		moveButtons.moveUp(e);
 	}
 
-	public void moveDown(ActionEvent e) {
+	@FXML void moveDown(ActionEvent e) {
 		
 		//Dialog dialog = new Dialog();
 		//Dialog.dialogBox(stage, "ehat");//, new Scene());
@@ -284,27 +302,25 @@ public class ViewController implements Initializable {
 		}
 	}
 	
-	
-	
 
 	@FXML void newPlaylist(ActionEvent e) { makeAPlaylist(); }
 	
-	
-	
-	
-
 
 	@FXML void render(ActionEvent e) {
-		System.out.println(playlist.toString());
+		
 		playlist.resetArray(playlistObservable);
 		setNumbersInPlaylist();
 
+		if (playlist.getPlaylistEntries().size() <= 0 ) { return; } //do nothing if theres no playlist
 		for ( int i=0;i < playlist.getPlaylistEntries().size(); i++ ) {
 			System.out.println("At postion: " + (i + 1) + " We have " + playlist.getPlaylistEntries().get(i).getFileUNC() );
 		}
+		
+		
 
 		//mock the theme
 		String themeName = themeSelectBox.getSelectionModel().getSelectedItem().toString();
+		
 
 		Path rootDir = Paths.get("Theme");
 		Path themeDir = Paths.get(rootDir.toString(),themeName);

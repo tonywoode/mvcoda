@@ -14,7 +14,6 @@ import javafx.scene.control.ListView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import playlist.PlaylistEntry;
-import themes.GFXElement;
 
 
 
@@ -33,19 +32,15 @@ public class MoveButtons {
 								LOGGER.setLevel(Level.ALL); //set the level of the logger
 	}
 	
-	
-	public PlaylistEntry addPlaylistEntry(ActionEvent e, Stage stage) throws IOException { //TOD: loading a music video exception please
+	public PlaylistEntry addPlaylistEntry(ActionEvent e, Stage stage) throws IOException { //TOD: loading a music video exception please //note we pass a stage so we can popup in the cirrect place
 		final FileChooser fileChooser = new FileChooser();
-		//FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
-		//fileChooser.getExtensionFilters().add(extFilter);
 		File file = fileChooser.showOpenDialog(stage);
 		//if (file != null) {
 			String fileUNC = file.getAbsolutePath();
 			MusicVideo vid = new MusicVideoXuggle(fileUNC);
 			PlaylistEntry entry = new PlaylistEntry( vid, "Track" + (playlistObservable.size() + 1), "Artist" + (playlistObservable.size() + 1) );
 			entry.setPositionInPlaylist(playlistObservable.size() + 1);//no point in doing this really
-			//playlist.setNextEntry(entry);
-			playlistObservable = playlistView.getItems();
+			playlistObservable = playlistView.getItems(); //we must update the array passed in to get the view to refresh, cleaner to do it here than back in viewcontroller
 			playlistObservable.add(entry);
 			
 		//}
@@ -53,11 +48,8 @@ public class MoveButtons {
 	}
 	
 	
-	public void deletePlaylistEntry(ActionEvent e) { //https://gist.github.com/jewelsea/5559262
-		//PlaylistEntry toDelete = playlistView.getSelectionModel().getSelectedItem();
+	public void deletePlaylistEntry(ActionEvent e) {
 		int indexOfItemToDelete = playlistView.getSelectionModel().getSelectedIndex();
-		//ObservableList<PlaylistEntry> playlistObservable = playlistView.getItems();
-
 		int indexSize = playlistView.getItems().size();
 		//TODO still doesn't solve the issue where you lose focus and stop being able to delete after 2 items - yes 2 ITEMS!
 		if (indexOfItemToDelete >= 0 && indexOfItemToDelete < indexSize ) { playlistView.getItems().remove(indexOfItemToDelete); }
