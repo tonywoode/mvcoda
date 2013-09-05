@@ -349,6 +349,7 @@ public class ViewController implements Initializable {
 		PlaylistEntry toDelete = playlistView.getSelectionModel().getSelectedItem();
 		int indexOfItemToDelete = playlistView.getSelectionModel().getSelectedIndex();
 		//ObservableList<PlaylistEntry> playlistObservable = playlistView.getItems();
+		//can i commit
 		playlistView.getItems().remove(indexOfItemToDelete);
 	}
 
