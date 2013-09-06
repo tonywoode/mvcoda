@@ -1,57 +1,33 @@
 package view;
 
-import java.awt.Desktop;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import org.hamcrest.core.IsNull;
-
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ListPropertyBase;
-import javafx.beans.property.Property;
-import javafx.beans.property.ReadOnlyBooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableBooleanValue;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import lombok.Getter;
 import lombok.Setter;
-import media.Encoder;
-import media.xuggle.DecodeAndPlayAudioAndVideo;
-import media.xuggle.EncoderXuggle;
-import media.xuggle.MusicVideoXuggle;
 import playlist.Playlist;
 import playlist.PlaylistEntry;
 import themes.Theme;
 import themes.ThemeFinder;
 import themes.ThemeFinderImpl;
-import themes.XMLReader;
-import themes.XMLSerialisable;
-import themes.XMLWriter;
 import view.buttons.Dialog;
-import view.buttons.MoveButtons;
 
 public class ViewController implements Initializable {
 
@@ -67,8 +43,8 @@ public class ViewController implements Initializable {
 
 	
 	//@Getter @Setter public Playlist playlist = new Playlist("Biggest Beats I've seen in a while"); //TODO: playlist name
-	@Getter @Setter private ObservableList<PlaylistEntry> playlistObservable = FXCollections.observableArrayList(new ArrayList<PlaylistEntry>());
-	public ArrayList<String> vidFiles = new ArrayList<>();
+	//@Getter @Setter private ObservableList<PlaylistEntry> playlistObservable = FXCollections.observableArrayList(new ArrayList<PlaylistEntry>());
+	//public ArrayList<String> vidFiles = new ArrayList<>();
 
 	@FXML @Getter @Setter ComboBox<String> themeSelectBox;
 	@FXML @Getter @Setter ListView<PlaylistEntry> playlistView;
@@ -161,44 +137,44 @@ public class ViewController implements Initializable {
             		}
             	});*/
 
-	public void sendPlaylistNodesToScreen(Playlist videos) {
-		for (PlaylistEntry playlistEntry : videos.getPlaylistEntries())
+	public void sendPlaylistNodesToScreen(Playlist playlist) {
+		for (PlaylistEntry playlistEntry : playlist.getPlaylistEntries())
 			playlistView.getItems().add(playlistEntry);
 	}
 
 	@FXML void loadPlaylist(ActionEvent e) {
-		viewListener.loadPlaylist(e);
+		viewListener.loadPlaylist();
 		playlistView.setDisable(false); //TODO only disable these if it goes well.....
 		
 	}
 
-	@FXML void savePlaylist(ActionEvent e) throws PopupException { viewListener.savePlaylist(e); }
+	@FXML void savePlaylist(ActionEvent e) throws PopupException { viewListener.savePlaylist(); }
 	
-	@FXML void newPlaylist(ActionEvent e) { viewListener.newPlaylist(e); }
+	@FXML void newPlaylist(ActionEvent e) { viewListener.newPlaylist(); }
 
 	@FXML void addPlaylistEntry(ActionEvent e) throws IOException { //TOD: loading a music video exception please
-		PlaylistEntry entry = viewListener.addPlaylistEntry(e, stage);
+		PlaylistEntry entry = viewListener.addPlaylistEntry();
 		//playlistObservable.add(entry); //TODO we cannot pass the observable list outside of the view controller, so we return a playlist entry here
 		//edit: and now it seems we can and it was adding twice
 		playlistView.setDisable(false);
 	}
 
 	@FXML void deletePlaylistEntry(ActionEvent e) {
-		viewListener.deletePlaylistEntry(e);
+		viewListener.deletePlaylistEntry();
 		//if (playlistObservable.isEmpty()) { playlistView.setDisable(true); }
 	}
 
 	@FXML void moveUp(ActionEvent e) {
 		//MoveButtons moveUpButton = new MoveButtons(playlistView);
 		//moveUpButton.moveUp(e);	
-		viewListener.moveUp(e);
+		viewListener.moveUp();
 	}
 
 	@FXML void moveDown(ActionEvent e) {
 		//Dialog dialog = new Dialog();
 		//Dialog.dialogBox(stage, "ehat");//, new Scene());
 		try {
-			viewListener.moveDown(e);
+			viewListener.moveDown();
 		} catch (IndexOutOfBoundsException error) {
 			// TODO Auto-generated catch block
 			//Dialog.dialogBox(stage, "No playlist loaded. Please first create or load a playlist");//, new Scene());
@@ -219,7 +195,7 @@ public class ViewController implements Initializable {
 
 
 	@FXML void render(ActionEvent e) {
-		viewListener.render(e);
+		viewListener.render();
 	}
 
 	/*@FXML void playlistEntryEntered(ActionEvent e) {

@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.stage.FileChooser;
@@ -32,6 +33,7 @@ public class MainScreenController implements ViewControllerListener {
 
 	//private Playlist playlist;
 	@Getter @Setter public Playlist playlist = new Playlist("Biggest Beats I've seen in a while"); //TODO: playlist name
+	@Getter @Setter private ObservableList<PlaylistEntry> observedEntries = FXCollections.observableArrayList(playlist.getPlaylistEntries());
 
 	@Getter @Setter ViewController view;
 	@Getter @Setter static Stage stage; //has to be static as instantiated in static JavaFX launch method in runner
@@ -45,26 +47,26 @@ public class MainScreenController implements ViewControllerListener {
 	}
 
 
-	@Override public void newPlaylist(ActionEvent e) { view.getPlaylistObservable().clear(); }
+	@Override public void newPlaylist() { observedEntries.clear(); }
 
 
-	@Override public PlaylistEntry addPlaylistEntry(ActionEvent e, Stage stage) throws IOException { //TOD: loading a music video exception please //note we pass a stage so we can popup in the cirrect place
+	@Override public PlaylistEntry addPlaylistEntry() throws IOException { //TOD: loading a music video exception please //note we pass a stage so we can popup in the cirrect place
 		final FileChooser fileChooser = new FileChooser();
 		File file = fileChooser.showOpenDialog(stage);
 		//if (file != null) {
 		String fileUNC = file.getAbsolutePath();
 		MusicVideo vid = new MusicVideoXuggle(fileUNC);
-		PlaylistEntry entry = new PlaylistEntry( vid, "Track" + (view.getPlaylistObservable().size() + 1), "Artist" + (view.getPlaylistObservable().size() + 1) );
-		entry.setPositionInPlaylist(view.getPlaylistObservable().size() + 1);//no point in doing this really
-		view.setPlaylistObservable(view.getPlaylistView().getItems() ); //we must update the array passed in to get the view to refresh, cleaner to do it here than back in viewcontroller
-		view.getPlaylistObservable().add(entry);
+		PlaylistEntry entry = new PlaylistEntry( vid, "Track" + (observedEntries.size() + 1), "Artist" + (observedEntries.size() + 1) );
+		entry.setPositionInPlaylist(observedEntries.size() + 1);//no point in doing this really
+		setObservedEntries(view.getPlaylistView().getItems() ); //we must update the array passed in to get the view to refresh, cleaner to do it here than back in viewcontroller
+		observedEntries.add(entry);
 
 		//}
 		return entry;
 	}
 
 
-	@Override public void deletePlaylistEntry(ActionEvent e) {
+	@Override public void deletePlaylistEntry() {
 		int indexOfItemToDelete = view.getPlaylistView().getSelectionModel().getSelectedIndex();
 		int indexSize = view.getPlaylistView().getItems().size();
 		//TODO still doesn't solve the issue where you lose focus and stop being able to delete after 2 items - yes 2 ITEMS!
@@ -72,7 +74,7 @@ public class MainScreenController implements ViewControllerListener {
 	}
 
 
-	@Override public void moveUp(ActionEvent e) {
+	@Override public void moveUp() {
 		int indexOfItemToMove = view.getPlaylistView().getSelectionModel().getSelectedIndex();
 		if (indexOfItemToMove <= 0) { return; } //don't attempt to move the top item, or anything in an empty list
 
@@ -91,7 +93,7 @@ public class MainScreenController implements ViewControllerListener {
 	}
 
 
-	@Override public void moveDown(ActionEvent e) {
+	@Override public void moveDown() {
 		int indexOfItemToMove = view.getPlaylistView().getSelectionModel().getSelectedIndex();
 		int lastIndex = view.getPlaylistView().getItems().size() -1;
 		if (indexOfItemToMove == lastIndex) { return; } //JavaFX's view array returns -1 for empty list, hence we catch both moving off end of list AND empty list
@@ -112,7 +114,7 @@ public class MainScreenController implements ViewControllerListener {
 	}
 
 
-	@Override public void loadPlaylist(ActionEvent e) {
+	@Override public void loadPlaylist() {
 
 		final FileChooser fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
@@ -120,8 +122,8 @@ public class MainScreenController implements ViewControllerListener {
 		File file = fileChooser.showOpenDialog(stage);
 		Playlist playlistTemp = new Playlist("hi");
 
-		view.getPlaylistObservable().clear(); //TDO: now we need to make sure we clear all 3 of the playlists! 
-		playlist.resetArray( view.getPlaylistObservable() );
+		observedEntries.clear(); //TDO: now we need to make sure we clear all 3 of the playlists! 
+		playlist.resetArray( observedEntries );
 
 		//if (file != null) {
 		//try { 
@@ -137,12 +139,12 @@ public class MainScreenController implements ViewControllerListener {
 					playlistTemp.getPlaylistEntries().get( i ).getArtistName()
 					);
 			entry.setPositionInPlaylist(i + 1); //set the playlist entry number while we have a loop! may be a problem later.....
-			view.setPlaylistObservable(view.getPlaylistView().getItems() ); //we must update the array passed in to get the view to refresh, cleaner to do it here than back in viewcontroller
-			view.getPlaylistObservable().add(entry);
+			setObservedEntries(view.getPlaylistView().getItems() ); //we must update the array passed in to get the view to refresh, cleaner to do it here than back in viewcontroller
+			observedEntries.add(entry);
 		}
 		playlist.setThemeName(playlistTemp.getThemeName()); //we need to set the actual playlist to the temp playlists theme name. Outside of loop as not entry specific
 		String themename = playlist.getThemeName();
-		view.setPlaylistObservable(view.getPlaylistView().getItems() );
+		setObservedEntries(view.getPlaylistView().getItems() );
 		view.sendPlaylistNodesToScreen(playlist);
 		if	( view.getThemeSelectBox().getItems().contains(playlist.getThemeName() ) ) { //if the theme name is actually one of our themes	
 			ObservableList<String> themeBoxItems = view.getThemeSelectBox().getItems(); //turn the theme box's list into an iterable list
@@ -153,9 +155,9 @@ public class MainScreenController implements ViewControllerListener {
 	}	
 
 
-	@Override public void savePlaylist(ActionEvent e) throws PopupException {
+	@Override public void savePlaylist() throws PopupException {
 
-		playlist.resetArray( view.getPlaylistObservable() );
+		playlist.resetArray( observedEntries );
 
 		try {
 			playlist.setThemeName( view.getThemeSelectBox().getSelectionModel().getSelectedItem().toString());
@@ -178,9 +180,9 @@ public class MainScreenController implements ViewControllerListener {
 	
 	
 	
-	@Override public void render(ActionEvent e) {
+	@Override public void render() {
 
-		playlist.resetArray( view.getPlaylistObservable() );
+		playlist.resetArray( observedEntries );
 		view.setNumbersInPlaylist();
 
 		if (playlist.getPlaylistEntries().size() <= 0 ) { return; } //do nothing if theres no playlist

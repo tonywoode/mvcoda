@@ -11,21 +11,21 @@ import playlist.PlaylistEntry;
 public interface ViewControllerListener {
 	void onNewTrackAvailable(String name);
 
-	PlaylistEntry addPlaylistEntry(ActionEvent e, Stage stage) throws IOException;
+	PlaylistEntry addPlaylistEntry() throws IOException;
 
-	void deletePlaylistEntry(ActionEvent e);
+	void deletePlaylistEntry();
 
-	void moveUp(ActionEvent e);
+	void moveUp();
 
-	void moveDown(ActionEvent e);
+	void moveDown();
 
-	void newPlaylist(ActionEvent e);
+	void newPlaylist();
 
-	void loadPlaylist(ActionEvent e);
+	void loadPlaylist();
 
-	void savePlaylist(ActionEvent e) throws PopupException;
+	void savePlaylist() throws PopupException;
 
-	void render(ActionEvent e);
+	void render();
 	
 	Playlist getPlaylist();
 
