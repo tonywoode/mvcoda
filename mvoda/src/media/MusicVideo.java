@@ -9,13 +9,13 @@ import com.xuggle.xuggler.IStreamCoder;
 
 public interface MusicVideo {
 
-	public abstract IContainer getContainer(); //TODO: these are nearly ALL xuggler specific
+	public abstract IContainer getContainer(); //TODO: nearly got this one but a static?
 
-	public abstract IStreamCoder getAudioCoder();
+	public abstract IStreamCoder getAudioCoder(); //didn't get too far there but not many
 
-	public abstract IStreamCoder getVideoCoder();
+	public abstract IStreamCoder getVideoCoder(); //do the above you got this one too
 
-	public abstract IPixelFormat.Type getPixFormat();
+	public abstract IPixelFormat.Type getPixFormat(); //appears to be some way to just go "type" right?
 
 	public abstract IRational getFramesPerSecond();
 
