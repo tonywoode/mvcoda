@@ -24,31 +24,31 @@ import com.xuggle.xuggler.IStreamCoder;
 
 public class MusicVideoXuggle implements MusicVideo {
 
-	 @Getter private IContainer container;
-	 @Getter private IStreamCoder audioCoder;
-	 @Getter private IStreamCoder videoCoder;
-	 @Getter private IPixelFormat.Type pixFormat;
+	@Getter private IContainer container;
+	@Getter private IStreamCoder audioCoder;
+	@Getter private IStreamCoder videoCoder;
+	@Getter private IPixelFormat.Type pixFormat;
 	@Getter private IRational framesPerSecond;
-	 @Getter private double framesPerSecondAsDouble;
-	 @Getter private ICodec.ID videoCodecID;
+	@Getter private double framesPerSecondAsDouble;
+	@Getter private ICodec.ID videoCodecID;
 
 
 	@Getter private String fileUNC;	
-	 @Getter private String filetype;
-	 @Getter private int width;
-	 @Getter private int height;
-	 @Getter private int numChannelsAudio;	
-	 @Getter private int audioStreamIndex = -1; //set to negative because 0 is a valid ID
-	 @Getter private int videoStreamIndex = -1; //set to negative because 0 is a valid ID
-	 @Getter private int audioStreamID = -1;
-	 @Getter private int videoStreamID = -1;
-	 @Getter private long containerDuration; //always in microseconds
-	 @Getter private long frameRateDivisor;
-	 @Getter private long vidStreamDuration;
-	 @Getter private long numVidFrames;
+	@Getter private String filetype;
+	@Getter private int width;
+	@Getter private int height;
+	@Getter private int numChannelsAudio;	
+	@Getter private int audioStreamIndex = -1; //set to negative because 0 is a valid ID
+	@Getter private int videoStreamIndex = -1; //set to negative because 0 is a valid ID
+	@Getter private int audioStreamID = -1;
+	@Getter private int videoStreamID = -1;
+	@Getter private long containerDuration; //always in microseconds
+	@Getter private long frameRateDivisor;
+	@Getter private long vidStreamDuration;
+	@Getter private long numVidFrames;
 	private int numStreams;
 
-	 @Getter private Decoder decoder;
+	@Getter private Decoder decoder;
 
 	/**
 	 * Constructor takes only a filename, if that filename is a video FFMpeg can read i.e.: has audio and/or video streams codecs that can decode

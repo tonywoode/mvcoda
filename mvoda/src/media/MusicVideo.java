@@ -17,11 +17,11 @@ public interface MusicVideo {
 
 	public abstract IPixelFormat.Type getPixFormat(); //appears to be some way to just go "type" right?
 
-	public abstract IRational getFramesPerSecond();
+	public abstract IRational getFramesPerSecond(); //JUST ONE CALL...but don't know how....
 
 	public abstract double getFramesPerSecondAsDouble();
 	
-	public abstract ICodec.ID getVideoCodecID();
+	public abstract ICodec.ID getVideoCodecID(); //just 3 references.....
 
 	public abstract String getFileUNC();
 	
