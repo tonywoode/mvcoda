@@ -11,6 +11,8 @@ import java.util.ResourceBundle;
 
 import org.hamcrest.core.IsNull;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ListPropertyBase;
 import javafx.beans.property.Property;
@@ -80,7 +82,7 @@ public class ViewController implements Initializable {
 
 	private MoveButtons moveButtons;
 	
-	//private ObservableBooleanValue emptyList = new SimpleBooleanProperty(playlistObservable.isEmpty());
+	private ObservableBooleanValue emptyList = new SimpleBooleanProperty(playlistObservable.isEmpty());
 	
 	
 	
@@ -88,11 +90,17 @@ public class ViewController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		//themeSelectBox.add("Hello");
 		
+		/*playlistObservable.addListener(new InvalidationListener() {	 
+	 		@Override public void invalidated(Observable o) {	System.out.println("The binding is now invalid."); 
+	 		if (!playlistObservable.isEmpty()) { playlistView.setDisable(true); }
+	 		}
+	    });*/
+		
 		//Boolean isEmpty = playlistObservable.isEmpty();
 		playlistView.setDisable(true);
 		
 		savePlaylistButton.disableProperty().bind(playlistView.disabledProperty());
-		
+		//savePlaylistButton.disableProperty().bind(emptyList);
 		//playlistObservable.addListener());
 		
 		
@@ -130,6 +138,15 @@ public class ViewController implements Initializable {
 			}
 		});
 
+		playlistView.getSelectionModel().selectedItemProperty().isNull().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable,
+					Boolean oldValue, Boolean newValue) {
+				System.out.println("it's null has changed");
+				playlistView.setDisable(true);
+				
+			}
+		});
 
 		playlistView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<PlaylistEntry>() {
 			public void changed(final ObservableValue<? extends PlaylistEntry> ov, 
@@ -270,7 +287,7 @@ public class ViewController implements Initializable {
 	
 	@FXML void deletePlaylistEntry(ActionEvent e) { //https://gist.github.com/jewelsea/5559262
 		moveButtons.deletePlaylistEntry(e);
-		if (playlistObservable.isEmpty()) { playlistView.setDisable(true); }
+		//if (playlistObservable.isEmpty()) { playlistView.setDisable(true); }
 	}
 
 
@@ -316,8 +333,7 @@ public class ViewController implements Initializable {
 			System.out.println("At postion: " + (i + 1) + " We have " + playlist.getPlaylistEntries().get(i).getFileUNC() );
 		}
 		
-		
-
+	
 		//mock the theme
 		String themeName = themeSelectBox.getSelectionModel().getSelectedItem().toString();
 		
@@ -353,9 +369,6 @@ public class ViewController implements Initializable {
 		viewListener.onNewTrackAvailable(name);
 	}*/
 
-
-
-	
 
 	/**
 	 * Makes an array of file unc paths to ten videos, then makes a new playlist, turns the UNC's into playlist entry music vids and adds them to the playlist,
