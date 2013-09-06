@@ -1,10 +1,10 @@
-package media.xuggle;
+package media.xuggle.types;
 
 import com.xuggle.xuggler.IAudioSamples;
 import com.xuggle.xuggler.IPacket;
 import com.xuggle.xuggler.IStreamCoder;
 
-import media.StreamCoder;
+import media.types.StreamCoder;
 
 public class StreamCoderXuggle extends StreamCoder {
 private IStreamCoder streamCoder;

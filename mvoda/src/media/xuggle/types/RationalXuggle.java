@@ -1,8 +1,8 @@
-package media.xuggle;
+package media.xuggle.types;
 
 import com.xuggle.xuggler.IRational;
 
-import media.Rational;
+import media.types.Rational;
 
 public class RationalXuggle extends Rational {
 	

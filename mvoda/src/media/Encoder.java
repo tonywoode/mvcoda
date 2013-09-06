@@ -1,5 +1,6 @@
 package media;
 
+import media.types.MediaWriter;
 import playlist.Playlist;
 
 import com.xuggle.mediatool.IMediaWriter;

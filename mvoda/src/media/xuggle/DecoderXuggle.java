@@ -6,9 +6,10 @@ package media.xuggle;
 import java.awt.image.BufferedImage;
 
 import lombok.Getter;
-import media.AudioSamples;
 import media.Decoder;
 import media.MusicVideo;
+import media.types.AudioSamples;
+import media.xuggle.types.AudioSamplesXuggle;
 
 import com.xuggle.xuggler.IAudioSamples;
 import com.xuggle.xuggler.IPacket;

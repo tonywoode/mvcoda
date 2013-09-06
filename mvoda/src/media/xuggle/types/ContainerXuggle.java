@@ -1,4 +1,4 @@
-package media.xuggle;
+package media.xuggle.types;
 
 import com.xuggle.xuggler.IContainer;
 import com.xuggle.xuggler.IContainer.Type;
@@ -6,7 +6,7 @@ import com.xuggle.xuggler.IContainerFormat;
 import com.xuggle.xuggler.IPacket;
 import com.xuggle.xuggler.IStream;
 
-import media.Container;
+import media.types.Container;
 
 public class ContainerXuggle extends Container {
 	private IContainer container;

@@ -1,8 +1,8 @@
-package media.xuggle;
+package media.xuggle.types;
 
 import com.xuggle.xuggler.ICodec;
 
-import media.CodecIdentifier;
+import media.types.CodecIdentifier;
 
 public class CodecIdentifierXuggle extends CodecIdentifier{
 	private ICodec.ID codecIdentifier;

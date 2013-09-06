@@ -9,8 +9,9 @@ import themes.Theme;
 
 import media.Decoder;
 import media.Encoder;
-import media.MediaWriter;
 import media.MusicVideo;
+import media.types.MediaWriter;
+import media.xuggle.types.MediaWriterXuggle;
 //import theme.Theme;
 
 import com.xuggle.mediatool.IMediaWriter;

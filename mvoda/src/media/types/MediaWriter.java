@@ -1,7 +1,8 @@
-package media;
+package media.types;
 
 import java.awt.image.BufferedImage;
 import java.util.concurrent.TimeUnit;
+
 
 public abstract class MediaWriter {
 

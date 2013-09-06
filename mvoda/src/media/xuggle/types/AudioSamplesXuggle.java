@@ -1,6 +1,6 @@
-package media.xuggle;
+package media.xuggle.types;
 
-import media.AudioSamples;
+import media.types.AudioSamples;
 
 import com.xuggle.xuggler.IAudioSamples;
 

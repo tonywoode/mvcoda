@@ -12,11 +12,12 @@ import playlist.PlaylistEntry;
 import playlist.Number;
 import themes.Theme;
 
-import media.AudioSamples;
 import media.Decoder;
 import media.Encoder;
-import media.MediaWriter;
 import media.MusicVideo;
+import media.types.AudioSamples;
+import media.types.MediaWriter;
+import media.xuggle.types.MediaWriterXuggle;
 
 import com.xuggle.mediatool.IMediaWriter;
 import com.xuggle.mediatool.ToolFactory;

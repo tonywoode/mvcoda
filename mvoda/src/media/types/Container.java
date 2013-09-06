@@ -1,6 +1,6 @@
-package media;
+package media.types;
 
-import media.xuggle.ContainerXuggle;
+import media.xuggle.types.ContainerXuggle;
 
 import com.xuggle.xuggler.IContainer;
 import com.xuggle.xuggler.IContainer.Type;

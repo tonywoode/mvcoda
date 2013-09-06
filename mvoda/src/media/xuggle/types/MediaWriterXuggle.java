@@ -1,4 +1,4 @@
-package media.xuggle;
+package media.xuggle.types;
 
 import java.awt.image.BufferedImage;
 import java.util.concurrent.TimeUnit;
@@ -6,8 +6,8 @@ import java.util.concurrent.TimeUnit;
 import com.xuggle.mediatool.IMediaWriter;
 import com.xuggle.xuggler.IAudioSamples;
 
-import media.AudioSamples;
-import media.MediaWriter;
+import media.types.AudioSamples;
+import media.types.MediaWriter;
 
 public class MediaWriterXuggle extends MediaWriter {
 

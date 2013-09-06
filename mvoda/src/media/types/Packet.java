@@ -1,4 +1,4 @@
-package media;
+package media.types;
 
 import com.xuggle.xuggler.IPacket;
 

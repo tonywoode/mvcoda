@@ -2,9 +2,9 @@ package media.xuggle;
 
 import util.FileUtil;
 import lombok.Getter;
-import media.Container;
 import media.Decoder;
 import media.MusicVideo;
+import media.types.Container;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;

@@ -2,6 +2,8 @@ package media;
 
 import java.awt.image.BufferedImage;
 
+import media.types.AudioSamples;
+
 import com.xuggle.xuggler.IAudioSamples;
 import com.xuggle.xuggler.IPacket;
 

@@ -1,4 +1,4 @@
-package media;
+package media.types;
 
 public abstract class CodecIdentifier {
 
