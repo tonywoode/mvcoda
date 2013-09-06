@@ -27,6 +27,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
@@ -49,6 +50,7 @@ import themes.ThemeFinderImpl;
 import themes.XMLReader;
 import themes.XMLSerialisable;
 import themes.XMLWriter;
+import view.buttons.Dialog;
 import view.buttons.MoveButtons;
 
 public class ViewController implements Initializable {
@@ -63,14 +65,15 @@ public class ViewController implements Initializable {
 	public TextField trackTextField;
 	public TextField artistTextField;
 
-	private ObservableList<PlaylistEntry> playlistObservable = FXCollections.observableArrayList(new ArrayList<PlaylistEntry>());
-	public Playlist playlist = new Playlist("Biggest Beats I've seen in a while"); //TODO: playlist name
+	
+	@Getter @Setter public Playlist playlist = new Playlist("Biggest Beats I've seen in a while"); //TODO: playlist name
+	@Getter @Setter private ObservableList<PlaylistEntry> playlistObservable = FXCollections.observableArrayList(playlist.getPlaylistEntries());
 	public ArrayList<String> vidFiles = new ArrayList<>();
 
-	@FXML ComboBox<String> themeSelectBox;
-	@FXML ListView<PlaylistEntry> playlistView;
+	@FXML @Getter @Setter ComboBox<String> themeSelectBox;
+	@FXML @Getter @Setter ListView<PlaylistEntry> playlistView;
 
-	private MoveButtons moveButtons;
+	//private MoveButtons moveButtons;
 
 	//private ObservableBooleanValue emptyList = new SimpleBooleanProperty(playlistObservable.isEmpty());
 	//private Desktop desktop = Desktop.getDesktop();
@@ -107,7 +110,7 @@ public class ViewController implements Initializable {
 		//themeSelectBox.setAll(themename);
 		System.out.println(themename);
 		themeSelectBox.setItems(themename);
-		moveButtons = new MoveButtons(playlistView, playlistObservable); //instantiate the move buttons (we need to pass them a playlist)
+		//moveButtons = new MoveButtons(playlistView, playlistObservable); //instantiate the move buttons (we need to pass them a playlist)
 		playlistView.setCellFactory(new Callback<ListView<PlaylistEntry>, ListCell<PlaylistEntry>>() {
 			@Override public ListCell<PlaylistEntry> call(ListView<PlaylistEntry> list) {
 				return new PlaylistEntryListCell();
@@ -165,7 +168,10 @@ public class ViewController implements Initializable {
 
 	@FXML void loadPlaylist(ActionEvent e) {
 
-		final FileChooser fileChooser = new FileChooser();
+		viewListener.loadPlaylist(e);
+		playlistView.setDisable(false); //TODO only disable these if it goes well.....
+		
+		/*final FileChooser fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
 		fileChooser.getExtensionFilters().add(extFilter);
 		File file = fileChooser.showOpenDialog(stage);
@@ -201,12 +207,13 @@ public class ViewController implements Initializable {
 				if ( themename.equals(itemName) ) {themeSelectBox.setValue(themename); }//and set that theme name as the active one in both the box and the list the box is generated from
 			}
 			playlistView.setDisable(false);
-		}
+		}*/
 	}
 
-	@FXML void savePlaylist(ActionEvent e) {
+	@FXML void savePlaylist(ActionEvent e) throws PopupException {
 
-		playlist.resetArray(playlistObservable);
+		viewListener.savePlaylist(e);
+		/*playlist.resetArray(playlistObservable);
 		playlist.setThemeName(themeSelectBox.getSelectionModel().getSelectedItem().toString()); //Set theme name in the playlist xml
 		setNumbersInPlaylist();
 		XMLSerialisable xmlSerialisable = playlist;
@@ -218,48 +225,54 @@ public class ViewController implements Initializable {
 		if(!file.getName().contains(".xml")) { 	fileAsString = file.toString() + ".xml"; } //this check helps if the file is already existing as .xml
 		else { fileAsString = file.toString(); } //else we will get "x.xml.xml"
 		Path path = Paths.get(fileAsString);
-		XMLWriter.writePlaylistXML(true, path, xmlSerialisable);
+		XMLWriter.writePlaylistXML(true, path, xmlSerialisable);*/
 	}
+	
 
+	@FXML void newPlaylist(ActionEvent e) { viewListener.newPlaylist(e); }
 
 	@FXML void addPlaylistEntry(ActionEvent e) throws IOException { //TOD: loading a music video exception please
-		PlaylistEntry entry = moveButtons.addPlaylistEntry(e, stage);
+		PlaylistEntry entry = viewListener.addPlaylistEntry(e, stage);
 		//playlistObservable.add(entry); //TODO we cannot pass the observable list outside of the view controller, so we return a playlist entry here
 		//edit: and now it seems we can and it was adding twice
 		playlistView.setDisable(false);
 	}
 
 	@FXML void deletePlaylistEntry(ActionEvent e) {
-		moveButtons.deletePlaylistEntry(e);
+		viewListener.deletePlaylistEntry(e);
 		//if (playlistObservable.isEmpty()) { playlistView.setDisable(true); }
 	}
 
 	@FXML void moveUp(ActionEvent e) {
 		//MoveButtons moveUpButton = new MoveButtons(playlistView);
 		//moveUpButton.moveUp(e);	
-		moveButtons.moveUp(e);
+		viewListener.moveUp(e);
 	}
 
 	@FXML void moveDown(ActionEvent e) {
 		//Dialog dialog = new Dialog();
 		//Dialog.dialogBox(stage, "ehat");//, new Scene());
 		try {
-			moveButtons.moveDown(e);
+			viewListener.moveDown(e);
 		} catch (IndexOutOfBoundsException error) {
 			// TODO Auto-generated catch block
 			//Dialog.dialogBox(stage, "No playlist loaded. Please first create or load a playlist");//, new Scene());
 			error.printStackTrace();
 		}
 	}
+	
+	public void popup(Stage stage, String text) {
+		Dialog.dialogBox(stage, text);
+	}
 
 
-	private void setNumbersInPlaylist() {
+	public void setNumbersInPlaylist() {
 		for (int t = 0; t < playlist.getPlaylistEntries().size(); t++) {
 			playlist.getPlaylistEntries().get(t).setPositionInPlaylist(t + 1); //set the playlist positions in the playlist to something sensible
 		}
 	}
 
-	@FXML void newPlaylist(ActionEvent e) { makeAPlaylist(); }
+
 
 	@FXML void render(ActionEvent e) {
 
@@ -303,8 +316,8 @@ public class ViewController implements Initializable {
 	 * Makes an array of file unc paths to ten videos, then makes a new playlist, turns the UNC's into playlist entry music vids and adds them to the playlist,
 	 */
 	public void makeAPlaylist() {
-
-		vidFiles.add("../../../MVODAInputs/BrunoShort.mp4");
+playlistObservable.clear();
+		/*vidFiles.add("../../../MVODAInputs/BrunoShort.mp4");
 		vidFiles.add("../../../MVODAInputs/FlorenceShort.mp4");
 		vidFiles.add("../../../MVODAInputs/GloriaShort.mp4");
 		vidFiles.add("../../../MVODAInputs/KateShort.mp4");
@@ -323,7 +336,7 @@ public class ViewController implements Initializable {
 		}
 
 		sendPlaylistNodesToScreen(playlist);
-		playlistObservable = playlistView.getItems();
+		playlistObservable = playlistView.getItems();*/
 	}
 }
 

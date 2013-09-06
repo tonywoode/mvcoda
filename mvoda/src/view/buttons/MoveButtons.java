@@ -25,7 +25,7 @@ public class MoveButtons {
 	private final static Logger LOGGER = Logger.getLogger(MoveButtons.class.getName()); //setup a logger for this class
 	 
 	
-	public MoveButtons(ListView<PlaylistEntry> playlistView, ObservableList<PlaylistEntry> playlistObservable) {
+	/*public MoveButtons(ListView<PlaylistEntry> playlistView, ObservableList<PlaylistEntry> playlistObservable) {
 		this.playlistView = playlistView;
 		this.playlistObservable = playlistObservable;
 		//this.stage = stage;
@@ -93,7 +93,7 @@ public class MoveButtons {
 		
 								LOGGER.info("Moving Down: " + moveDown.getPositionInPlaylist() + "; " + moveDown.getFileUNC());
 								LOGGER.info("Moving Up: " + moveUp.getPositionInPlaylist() + "; " + moveUp.getFileUNC());
-	}
+	}*/
 	
 	
 

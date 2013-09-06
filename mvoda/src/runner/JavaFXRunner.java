@@ -32,8 +32,10 @@ public class JavaFXRunner extends Application {
 		Parent root = (Parent) loader.load(location.openStream());
 		ViewController viewController = (ViewController)loader.getController();
 		MainScreenController controller = new MainScreenController();
+		MainScreenController.setStage(stage);
 		controller.setView(viewController);
 		viewController.setStage(stage); //pass the stage to the view controller, this is a field we have set for this purpose
+		
 		viewController.setViewListener(controller);
 		stage.setScene(new Scene(root));
 		stage.show();
