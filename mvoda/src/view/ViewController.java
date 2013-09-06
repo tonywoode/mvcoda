@@ -269,7 +269,7 @@ public class ViewController implements Initializable {
 		else { fileAsString = file.toString(); } //else we will get "x.xml.xml"
 
 		Path path = Paths.get(fileAsString);
-//commit check //comit check again //now from stream
+//commit check //comit check again //now from stream //riveragain
 		//Path pathPlusExt = Path(fileAsString);
 		XMLWriter.writePlaylistXML(true, path, xmlSerialisable);
 
