@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import playlist.Playlist;
 import playlist.PlaylistEntry;
 
 public interface ViewControllerListener {
@@ -23,6 +24,10 @@ public interface ViewControllerListener {
 	void loadPlaylist(ActionEvent e);
 
 	void savePlaylist(ActionEvent e) throws PopupException;
+
+	void render(ActionEvent e);
+	
+	Playlist getPlaylist();
 
 	
 	

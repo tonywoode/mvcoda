@@ -4,34 +4,34 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.Scene;
-import javafx.scene.control.ListView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import lombok.Setter;
 import lombok.Getter;
+import lombok.Setter;
+import media.Encoder;
 import media.MusicVideo;
+import media.xuggle.DecodeAndPlayAudioAndVideo;
+import media.xuggle.EncoderXuggle;
 import media.xuggle.MusicVideoXuggle;
 import playlist.Playlist;
 import playlist.PlaylistEntry;
+import themes.Theme;
 import themes.XMLReader;
 import themes.XMLSerialisable;
 import themes.XMLWriter;
 import view.PopupException;
-import view.ViewControllerListener;
 import view.ViewController;
+import view.ViewControllerListener;
 import view.buttons.Dialog;
-import view.buttons.MoveButtons;
 
 public class MainScreenController implements ViewControllerListener {
 
 	//private Playlist playlist;
+	@Getter @Setter public Playlist playlist = new Playlist("Biggest Beats I've seen in a while"); //TODO: playlist name
 
 	@Getter @Setter ViewController view;
 	@Getter @Setter static Stage stage; //has to be static as instantiated in static JavaFX launch method in runner
@@ -121,7 +121,7 @@ public class MainScreenController implements ViewControllerListener {
 		Playlist playlistTemp = new Playlist("hi");
 
 		view.getPlaylistObservable().clear(); //TDO: now we need to make sure we clear all 3 of the playlists! 
-		view.getPlaylist().resetArray( view.getPlaylistObservable() );
+		playlist.resetArray( view.getPlaylistObservable() );
 
 		//if (file != null) {
 		//try { 
@@ -140,11 +140,11 @@ public class MainScreenController implements ViewControllerListener {
 			view.setPlaylistObservable(view.getPlaylistView().getItems() ); //we must update the array passed in to get the view to refresh, cleaner to do it here than back in viewcontroller
 			view.getPlaylistObservable().add(entry);
 		}
-		view.getPlaylist().setThemeName(playlistTemp.getThemeName()); //we need to set the actual playlist to the temp playlists theme name. Outside of loop as not entry specific
-		String themename = view.getPlaylist().getThemeName();
+		playlist.setThemeName(playlistTemp.getThemeName()); //we need to set the actual playlist to the temp playlists theme name. Outside of loop as not entry specific
+		String themename = playlist.getThemeName();
 		view.setPlaylistObservable(view.getPlaylistView().getItems() );
-		view.sendPlaylistNodesToScreen(view.getPlaylist());
-		if	( view.getThemeSelectBox().getItems().contains(view.getPlaylist().getThemeName() ) ) { //if the theme name is actually one of our themes	
+		view.sendPlaylistNodesToScreen(playlist);
+		if	( view.getThemeSelectBox().getItems().contains(playlist.getThemeName() ) ) { //if the theme name is actually one of our themes	
 			ObservableList<String> themeBoxItems = view.getThemeSelectBox().getItems(); //turn the theme box's list into an iterable list
 			for ( String itemName : themeBoxItems ) { //iterate through it //until we match the text strings
 				if ( themename.equals(itemName) ) {view.getThemeSelectBox().setValue(themename); }//and set that theme name as the active one in both the box and the list the box is generated from
@@ -155,16 +155,16 @@ public class MainScreenController implements ViewControllerListener {
 
 	@Override public void savePlaylist(ActionEvent e) throws PopupException {
 
-		view.getPlaylist().resetArray( view.getPlaylistObservable() );
-		
+		playlist.resetArray( view.getPlaylistObservable() );
+
 		try {
-			view.getPlaylist().setThemeName( view.getThemeSelectBox().getSelectionModel().getSelectedItem().toString());
+			playlist.setThemeName( view.getThemeSelectBox().getSelectionModel().getSelectedItem().toString());
 		} catch (NullPointerException e1) {
 			throw new PopupException("Please Select A Theme Before Saving");
 		} //Set theme name in the playlist xml
-		
+
 		view.setNumbersInPlaylist();
-		XMLSerialisable xmlSerialisable = view.getPlaylist();
+		XMLSerialisable xmlSerialisable = playlist;
 		final FileChooser fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
 		fileChooser.getExtensionFilters().add(extFilter);
@@ -175,11 +175,45 @@ public class MainScreenController implements ViewControllerListener {
 		Path path = Paths.get(fileAsString);
 		XMLWriter.writePlaylistXML(true, path, xmlSerialisable);
 	}
+	
+	
+	
+	@Override public void render(ActionEvent e) {
 
+		playlist.resetArray( view.getPlaylistObservable() );
+		view.setNumbersInPlaylist();
 
-public static void popup(String text) {
-	Dialog.dialogBox(stage, text);
-}
+		if (playlist.getPlaylistEntries().size() <= 0 ) { return; } //do nothing if theres no playlist
+		for ( int i=0;i < playlist.getPlaylistEntries().size(); i++ ) {
+			System.out.println("At postion: " + (i + 1) + " We have " + playlist.getPlaylistEntries().get(i).getFileUNC() );
+		}
+
+		String themeName = view.getThemeSelectBox().getSelectionModel().getSelectedItem().toString();
+		Path rootDir = Paths.get("Theme");
+		Path themeDir = Paths.get(rootDir.toString(),themeName);
+		XMLSerialisable themeAsSerialisable = XMLReader.readXML(themeDir, themeName);
+		Theme theme = (Theme) themeAsSerialisable;
+		theme.setIndex( view.getThemeSelectBox().getSelectionModel().getSelectedIndex() ); //TODO; the lines above is effectively a new so any index setting before this has no effect
+		Path properDir = Paths.get( Theme.getRootDir().toString(), theme.getItemName() );
+
+		//first we must ask where you want to save with a dialog
+		final FileChooser fileChooser = new FileChooser();
+		String filetype = playlist.getNextEntry(0).getVideo().getFiletype();
+		//TODO: problem is we need to get the FIRST files' filetype....is there a better way of encapsulating this its not obvious it go through about 3 classes...
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(filetype + " files (*" + filetype + ")", "*" + filetype);
+		fileChooser.getExtensionFilters().add(extFilter);
+		File file = fileChooser.showSaveDialog(stage);
+		String outFileUNC = "";
+		if(!file.getName().endsWith( filetype ) ) { 	outFileUNC = file.toString() + filetype; } //this check helps if the file is already existing
+		else { outFileUNC = file.toString(); } //else we will get "x.filetype.filetype //TODO: same code as in save playlist button
+		if( file != null ) { Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC); }
+
+		DecodeAndPlayAudioAndVideo player = new DecodeAndPlayAudioAndVideo(outFileUNC);
+	}
+	
+	public static void popup(String text) {
+		Dialog.dialogBox(stage, text);
+	}
 
 
 }
