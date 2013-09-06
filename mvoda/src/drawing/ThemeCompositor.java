@@ -5,14 +5,11 @@ import java.awt.image.BufferedImage;
 
 import media.Decoder;
 import media.MusicVideo;
-import playlist.Number;
 import playlist.PlaylistEntry;
 import themes.Theme;
-import view.ViewController;
 
 
 public class ThemeCompositor {
-
 
 	private ImageCompositor logoCompositor;
 	private ImageCompositor strapCompositor;
@@ -26,13 +23,8 @@ public class ThemeCompositor {
 	private TextCompositor chartText;
 	private Theme theme;
 	
-	
-
-
 	public ThemeCompositor(Theme theme) {
 		this.theme = theme;
-		
-
 	}
 
 

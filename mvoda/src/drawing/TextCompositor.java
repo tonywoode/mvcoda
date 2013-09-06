@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import lombok.Setter;
 
@@ -14,23 +15,27 @@ public class TextCompositor {
 	@Setter private String text;
 	private int textXPos;
 	private int textYPos;
-	
+
+	private final static Logger LOGGER = Logger.getLogger(TextCompositor.class.getName()); //get a logger for this class
+
 
 	public TextCompositor(String text, int textXPos, int textYPos){
 		this.text = text;
 		this.textXPos = textXPos;
 		this.textYPos = textYPos;
-		
+	}
+
+	public void getLocalFonts() {
+		//see what fonts are available on local machine, for testing
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		String[] fontList = ge.getAvailableFontFamilyNames();
-		/*for (int i = 0; i < fontList.length; i++) {
-		System.out.println("Available font list on this machine: At index no.: " + i + " is: " + fontList[i]);
-		}*/
-		textFont = new Font(fontList[10],1,32);
+		for (int i = 0; i < fontList.length; i++) {
+			LOGGER.info("Available font list on this machine: At index no.: " + i + " is: " + fontList[i]);
+			textFont = new Font(fontList[10],1,32);
+		}
 	}
-	
-	
-	
+
+
 	public BufferedImage overlayNextFontFrame(boolean imOut, BufferedImage videoFrame)  throws IOException {
 		nextText(imOut, videoFrame);
 		BufferedImage composite = nextText(imOut, videoFrame );
@@ -42,26 +47,20 @@ public class TextCompositor {
 		Graphics2D g = image.createGraphics();
 		g.setFont(font);
 		g.drawString(text, x, y);
-		//g.dispose(); //TODO: investigate
 	}
 
 
 	public BufferedImage nextText(boolean imOut, BufferedImage videoFrame) {
-		if ( imOut == false) {
-			if (text != null) {
-			renderText(videoFrame, text, textFont, textXPos, textYPos);
-			}
-			
-		}
+		if ( imOut == false) { if (text != null) { renderText(videoFrame, text, textFont, textXPos, textYPos); } }
 		BufferedImage composite = videoFrame;
 		return composite;
 	}
-	
-	
+
+	//TODO: refactor with coord
 	public void setTextPos(int x, int y) {
 		textXPos = x;
 		textYPos = y;
 	}
-	
-	
+
+
 }

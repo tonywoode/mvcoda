@@ -9,7 +9,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.logging.Logger;
+
 import javax.imageio.ImageIO;
+
 import lombok.Getter;
 import themes.GFXElement;
 import util.FrameRate;
