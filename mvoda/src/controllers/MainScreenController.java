@@ -36,7 +36,7 @@ public class MainScreenController implements ViewControllerListener {
 	@Getter @Setter private ObservableList<PlaylistEntry> observedEntries = FXCollections.observableArrayList(playlist.getPlaylistEntries());
 
 	@Getter @Setter ViewController view;
-	@Getter @Setter static Stage stage; //has to be static as instantiated in static JavaFX launch method in runner
+	@Getter @Setter static Stage stage; //has to be static as instantiated in static JavaFX launch method in ImageCompositorTester
 
 	private final static Logger LOGGER = Logger.getLogger(MainScreenController.class.getName()); //get a logger for this class
 

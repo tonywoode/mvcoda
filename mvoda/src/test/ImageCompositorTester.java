@@ -1,4 +1,4 @@
-package drawing;
+package test;
 
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
@@ -14,9 +14,11 @@ import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
+import drawing.ShowImageInFrame;
 
 
-public class runner {
+
+public class ImageCompositorTester {
 
 
 	static String backFile = "../../../MVODAInputs/bru.png";
@@ -144,7 +146,7 @@ public class runner {
 
 		BufferedImage composite = overlayframes2.overlayImage(back, overlay);
 
-		//hmm nothing wrong with the image viewer I just made, so why doesn't the media runner show me a video frame eh? See:
+		//hmm nothing wrong with the image viewer I just made, so why doesn't the media ImageCompositorTester show me a video frame eh? See:
 		ShowImageInFrame gui = new ShowImageInFrame(composite);
 		//gui.createAndShowGui();
 	}*/
