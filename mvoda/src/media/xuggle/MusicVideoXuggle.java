@@ -5,8 +5,10 @@ import lombok.Getter;
 import media.Decoder;
 import media.MusicVideo;
 import media.types.Container;
+import media.types.Rational;
 import media.types.StreamCoder;
 import media.xuggle.types.ContainerXuggle;
+import media.xuggle.types.RationalXuggle;
 import media.xuggle.types.StreamCoderXuggle;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -31,7 +33,7 @@ public class MusicVideoXuggle implements MusicVideo {
 	private IStreamCoder audioCoder;
 	private IStreamCoder videoCoder;
 	@Getter private IPixelFormat.Type pixFormat;
-	@Getter private IRational framesPerSecond;
+	private IRational framesPerSecond;
 	@Getter private double framesPerSecondAsDouble;
 	@Getter private ICodec.ID videoCodecID;
 
@@ -47,6 +49,10 @@ public class MusicVideoXuggle implements MusicVideo {
 	
 	public StreamCoder getVideoCoder() {
 		return videoCoder != null ? new StreamCoderXuggle(videoCoder) : null;
+	}
+	
+	public Rational getFramesPerSecond() {
+		return framesPerSecond != null ? new RationalXuggle(framesPerSecond) : null;
 	}
 
 	@Getter private String fileUNC;	

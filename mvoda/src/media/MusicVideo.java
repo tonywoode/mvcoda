@@ -1,6 +1,7 @@
 package media;
 
 import media.types.Container;
+import media.types.Rational;
 import media.types.StreamCoder;
 
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
@@ -20,7 +21,7 @@ public interface MusicVideo {
 
 	public abstract IPixelFormat.Type getPixFormat(); //appears to be some way to just go "type" right?
 
-	public abstract IRational getFramesPerSecond(); //JUST ONE CALL...but don't know how....
+	public abstract Rational getFramesPerSecond(); //JUST ONE CALL...but don't know how....
 
 	public abstract double getFramesPerSecondAsDouble();
 	
