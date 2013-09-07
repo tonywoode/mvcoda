@@ -25,8 +25,8 @@ import lombok.Setter;
 import playlist.Playlist;
 import playlist.PlaylistEntry;
 import themes.Theme;
-import themes.ThemeFinder;
-import themes.ThemeFinderImpl;
+import util.ThemeFinder;
+import util.ThemeFinderImpl;
 import view.buttons.Dialog;
 
 public class ViewController implements Initializable {

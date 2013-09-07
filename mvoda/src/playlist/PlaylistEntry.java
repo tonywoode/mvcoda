@@ -16,7 +16,10 @@ public class PlaylistEntry {
 	@XStreamOmitField @Setter @Getter private MusicVideo video;
 	@Setter @Getter String fileUNC;
 	
-	public PlaylistEntry(MusicVideo video) { this.video = video; }
+	public PlaylistEntry(MusicVideo video) { 
+		this.video = video; 
+		fileUNC = video.getFileUNC();	
+	}
 	
 	public PlaylistEntry(MusicVideo video, String trackName, String artistName) { 
 		this.video = video; 

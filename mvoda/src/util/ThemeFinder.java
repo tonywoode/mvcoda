@@ -1,10 +1,12 @@
 /**
  * 
  */
-package themes;
+package util;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+import themes.Theme;
 
 /**
  * We will use this interface to return themes. The interface decouples the imp due to the fact

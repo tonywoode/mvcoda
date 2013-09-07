@@ -1,4 +1,4 @@
-package themes;
+package util;
 
 import java.io.IOException;
 import java.nio.file.FileVisitOption;
@@ -15,7 +15,9 @@ import java.util.regex.Pattern;
 
 import controllers.MainScreenController;
 
-import util.FileUtil;
+import themes.Theme;
+import themes.XMLReader;
+import themes.XMLSerialisable;
 
 /**
  * Finds Theme XML's for MV-CoDA and deserialises them into Themes

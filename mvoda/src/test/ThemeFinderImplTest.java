@@ -9,9 +9,9 @@ import java.util.Iterator;
 import org.junit.Test;
 
 import themes.Theme;
-import themes.ThemeFinder;
-import themes.ThemeFinderImpl;
 import util.FileUtil;
+import util.ThemeFinder;
+import util.ThemeFinderImpl;
 
 /**
  * This test is for the default 3 themes included with MV-CoDA - 0=classic 1=Pop 2=Urban
