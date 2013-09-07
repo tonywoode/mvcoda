@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
@@ -78,6 +79,7 @@ public class ImageCompositor {
 		x = gfxElement.getXOffsetSD();
 		y = gfxElement.getYOffsetSD();
 
+		LOGGER.setLevel(Level.OFF);
 		LOGGER.info(gfxElement.getDirectory() + " inDuration is " + gfxElement.getInDuration());
 		LOGGER.info("inDuration is :" + gfxElement.getInDuration());
 		LOGGER.info("outDuration is :" + gfxElement.getOutDuration());
