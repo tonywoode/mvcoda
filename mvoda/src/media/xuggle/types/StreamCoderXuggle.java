@@ -1,6 +1,7 @@
 package media.xuggle.types;
 
 import com.xuggle.xuggler.IAudioSamples;
+import com.xuggle.xuggler.ICodec.ID;
 import com.xuggle.xuggler.IPacket;
 import com.xuggle.xuggler.IStreamCoder;
 import com.xuggle.xuggler.IVideoPicture;
@@ -36,6 +37,21 @@ public class StreamCoderXuggle extends StreamCoder {
 	@Override
 	public Object getInternalCoder() {
 		return streamCoder;
+	}
+
+	@Override
+	public int getChannels() {
+		return streamCoder.getChannels();
+	}
+
+	@Override
+	public int getSampleRate() {
+		return streamCoder.getSampleRate();
+	}
+
+	@Override
+	public ID getCodecID() {
+		return streamCoder.getCodecID();
 	}
 
 }

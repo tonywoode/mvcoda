@@ -17,6 +17,7 @@ import media.Encoder;
 import media.MusicVideo;
 import media.types.AudioSamples;
 import media.types.MediaWriter;
+import media.types.StreamCoder;
 import media.xuggle.types.MediaWriterXuggle;
 
 import com.xuggle.mediatool.IMediaWriter;
@@ -177,8 +178,8 @@ public class EncoderXuggle implements Encoder {
 	public MediaWriter getWriter(String filename) {
 		MediaWriter writer = new MediaWriterXuggle(ToolFactory.makeWriter(filename));
 		addVideoStreamTo(writer);
-		IStreamCoder audioCodec = (IStreamCoder)video.getAudioCoder().getInternalCoder();
-		if (audioCodec != null) {addAudioStreamTo(writer, audioCodec);}
+		StreamCoder audioCodec = video.getAudioCoder();
+		if (audioCodec != null) { addAudioStreamTo(writer, audioCodec); }
 		return writer;
 	}
 
@@ -202,7 +203,7 @@ public class EncoderXuggle implements Encoder {
 	 * @param audioCodec
 	 */
 	@Override
-	public void addAudioStreamTo(MediaWriter writer, IStreamCoder audioCodec) {//TODO: what's the point of passing the codec in but having the other things fields?
+	public void addAudioStreamTo(MediaWriter writer, StreamCoder audioCodec) {//TODO: what's the point of passing the codec in but having the other things fields?
 		int numAudioChannels = audioCodec.getChannels();
 		int audioSampleRate = audioCodec.getSampleRate();
 		ICodec.ID codecId = audioCodec.getCodecID();

@@ -1,6 +1,7 @@
 package media;
 
 import media.types.MediaWriter;
+import media.types.StreamCoder;
 import playlist.Playlist;
 
 import com.xuggle.mediatool.IMediaWriter;
@@ -15,6 +16,6 @@ public interface Encoder {
 	public abstract void addVideoStreamTo(MediaWriter writer);
 
 	public abstract void addAudioStreamTo(MediaWriter writer,
-			IStreamCoder audioCodec);
+			StreamCoder audioCodec);
 
 }
