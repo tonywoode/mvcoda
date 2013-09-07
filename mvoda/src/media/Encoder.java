@@ -12,9 +12,9 @@ public interface Encoder {
 	
 	public abstract MediaWriter getWriter(String filename);
 	
-	public abstract void addVideoStreamTo(IMediaWriter writer);
+	public abstract void addVideoStreamTo(MediaWriter writer);
 
-	public abstract void addAudioStreamTo(IMediaWriter writer,
+	public abstract void addAudioStreamTo(MediaWriter writer,
 			IStreamCoder audioCodec);
 
 }

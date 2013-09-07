@@ -5,6 +5,8 @@ import java.util.concurrent.TimeUnit;
 
 import com.xuggle.mediatool.IMediaWriter;
 import com.xuggle.xuggler.IAudioSamples;
+import com.xuggle.xuggler.ICodec.ID;
+import com.xuggle.xuggler.IRational;
 
 import media.types.AudioSamples;
 import media.types.MediaWriter;
@@ -31,6 +33,24 @@ public class MediaWriterXuggle extends MediaWriter {
 	@Override
 	public void encodeVideo(int i, BufferedImage videoFrame, long newVideoTimecode, TimeUnit microseconds) {
 		writer.encodeVideo(i, videoFrame, newVideoTimecode, microseconds);
+	}
+
+	@Override
+	public void addVideoStream(int videoStreamIndex, int videoStreamID,
+			ID videoCodecID, IRational frameRate, int outputWidth,
+			int outputHeight) {
+		writer.addVideoStream(videoStreamIndex, videoStreamID,
+				videoCodecID, frameRate, outputWidth,
+				outputHeight);
+		
+	}
+
+	@Override
+	public void addAudioStream(int audioStreamIndex, int audioStreamID,
+			ID codecId, int numAudioChannels, int audioSampleRate) {
+		writer.addAudioStream(audioStreamIndex, audioStreamID,
+				codecId, numAudioChannels, audioSampleRate);
+		
 	}
 	
 	

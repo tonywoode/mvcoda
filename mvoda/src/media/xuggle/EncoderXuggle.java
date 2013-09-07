@@ -175,11 +175,11 @@ public class EncoderXuggle implements Encoder {
 	 */
 	@Override
 	public MediaWriter getWriter(String filename) {
-		IMediaWriter writer = ToolFactory.makeWriter(filename);
+		MediaWriter writer = new MediaWriterXuggle(ToolFactory.makeWriter(filename));
 		addVideoStreamTo(writer);
 		IStreamCoder audioCodec = (IStreamCoder)video.getAudioCoder().getInternalCoder();
 		if (audioCodec != null) {addAudioStreamTo(writer, audioCodec);}
-		return new MediaWriterXuggle(writer);
+		return writer;
 	}
 
 	/**
@@ -188,7 +188,7 @@ public class EncoderXuggle implements Encoder {
 	 * @param writer
 	 */
 	@Override
-	public void addVideoStreamTo(IMediaWriter writer) {
+	public void addVideoStreamTo(MediaWriter writer) {
 		IRational frameRate = IRational.make(video.getFramesPerSecondAsDouble());
 		int outputWidth = video.getWidth();
 		int outputHeight = video.getHeight();
@@ -202,7 +202,7 @@ public class EncoderXuggle implements Encoder {
 	 * @param audioCodec
 	 */
 	@Override
-	public void addAudioStreamTo(IMediaWriter writer, IStreamCoder audioCodec) {//TODO: what's the point of passing the codec in but having the other things fields?
+	public void addAudioStreamTo(MediaWriter writer, IStreamCoder audioCodec) {//TODO: what's the point of passing the codec in but having the other things fields?
 		int numAudioChannels = audioCodec.getChannels();
 		int audioSampleRate = audioCodec.getSampleRate();
 		ICodec.ID codecId = audioCodec.getCodecID();
