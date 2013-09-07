@@ -10,6 +10,7 @@ import com.xuggle.xuggler.IRational;
 
 import media.types.AudioSamples;
 import media.types.MediaWriter;
+import media.types.Rational;
 
 public class MediaWriterXuggle extends MediaWriter {
 
@@ -37,10 +38,10 @@ public class MediaWriterXuggle extends MediaWriter {
 
 	@Override
 	public void addVideoStream(int videoStreamIndex, int videoStreamID,
-			ID videoCodecID, IRational frameRate, int outputWidth,
+			ID videoCodecID, Rational frameRate, int outputWidth,
 			int outputHeight) {
 		writer.addVideoStream(videoStreamIndex, videoStreamID,
-				videoCodecID, frameRate, outputWidth,
+				videoCodecID, outputWidth,
 				outputHeight);
 		
 	}

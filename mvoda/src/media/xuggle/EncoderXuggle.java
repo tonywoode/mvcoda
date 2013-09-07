@@ -17,8 +17,10 @@ import media.Encoder;
 import media.MusicVideo;
 import media.types.AudioSamples;
 import media.types.MediaWriter;
+import media.types.Rational;
 import media.types.StreamCoder;
 import media.xuggle.types.MediaWriterXuggle;
+import media.xuggle.types.RationalXuggle;
 
 import com.xuggle.mediatool.IMediaWriter;
 import com.xuggle.mediatool.ToolFactory;
@@ -190,7 +192,7 @@ public class EncoderXuggle implements Encoder {
 	 */
 	@Override
 	public void addVideoStreamTo(MediaWriter writer) {
-		IRational frameRate = IRational.make(video.getFramesPerSecondAsDouble());
+		Rational frameRate =  new RationalXuggle(IRational.make(video.getFramesPerSecondAsDouble()));
 		int outputWidth = video.getWidth();
 		int outputHeight = video.getHeight();
 		writer.addVideoStream(video.getVideoStreamIndex(),video.getVideoStreamID(),video.getVideoCodecID(),frameRate,outputWidth,outputHeight);
