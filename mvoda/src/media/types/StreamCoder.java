@@ -1,13 +1,10 @@
 package media.types;
 
-import com.xuggle.xuggler.IAudioSamples;
-import com.xuggle.xuggler.IPacket;
-
 public abstract class StreamCoder {
 
-public abstract int decodeAudio(IAudioSamples audioSamples, IPacket packet,
-			int offset);
-		
+  public abstract int decodeAudio(AudioSamples audioSamples, Packet packet, int offset);
 
+  public abstract int decodeVideo(VideoPicture picture, Packet packet, int offset);
 
+  public abstract Object getInternalCoder();
 }

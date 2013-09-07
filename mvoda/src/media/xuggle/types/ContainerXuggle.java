@@ -1,12 +1,14 @@
 package media.xuggle.types;
 
 import com.xuggle.xuggler.IContainer;
-import com.xuggle.xuggler.IContainer.Type;
 import com.xuggle.xuggler.IContainerFormat;
 import com.xuggle.xuggler.IPacket;
-import com.xuggle.xuggler.IStream;
 
 import media.types.Container;
+import media.types.ContainerFormat;
+import media.types.ContainerType;
+import media.types.Packet;
+import media.types.Stream;
 
 public class ContainerXuggle extends Container {
 	private IContainer container;
@@ -16,8 +18,8 @@ public class ContainerXuggle extends Container {
 	}
 
 	@Override
-	public int readNextPacket(IPacket packet) {
-		return container.readNextPacket(packet);
+	public int readNextPacket(Packet packet) {
+		return container.readNextPacket((IPacket)packet.getInternalPacket());
 	}
 
 	
@@ -26,13 +28,13 @@ public class ContainerXuggle extends Container {
 	}
 
 	@Override
-	public int open(String fileUNC, IContainer.Type read, IContainerFormat format) {
-		return container.open(fileUNC, read, format);
+	public int open(String fileUNC, ContainerType read, ContainerFormat format) {
+		return container.open(fileUNC, (IContainer.Type)read.getContainerType(), (IContainerFormat)format.getInternalFormat());
 	}
 
 	@Override
-	public IStream getStream(int i) {
-		return container.getStream(i);
+	public Stream getStream(int i) {
+		return new StreamXuggle(container.getStream(i));
 	}
 
 	@Override

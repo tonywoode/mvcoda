@@ -3,9 +3,7 @@ package media;
 import java.awt.image.BufferedImage;
 
 import media.types.AudioSamples;
-
-import com.xuggle.xuggler.IAudioSamples;
-import com.xuggle.xuggler.IPacket;
+import media.types.Packet;
 
 /**
  * Interface for media decoder. The decoder should open a music video container to read packets and timestamps
@@ -28,9 +26,9 @@ public interface Decoder {
 
 	public abstract void makeResampler(int outputWidth, int outputHeight);
 	
-	public abstract void readVideo(IPacket packet) throws RuntimeException; //TODO need packet class - bit of an unfortunate Class name though....
+	public abstract void readVideo(Packet packet) throws RuntimeException;
 	
-	public abstract void readAudio(IPacket packet) throws RuntimeException;
+	public abstract void readAudio(Packet packet) throws RuntimeException;
 	
 	public abstract boolean hasNextPacket() throws RuntimeException;
 

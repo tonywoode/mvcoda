@@ -17,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -33,12 +34,13 @@ public class ViewController implements Initializable {
 
 	//TODO: you've given these fx:id's but why? you don't do anything with the button but onClick...., so why do they need to be here
 	//public Button loadPlaylistButton;
-	
+
 
 	@Getter @Setter ViewControllerListener viewListener;	
 	@Getter @Setter Stage stage;
 	@FXML @Getter @Setter ComboBox<String> themeSelectBox;
 	@FXML @Getter @Setter ListView<PlaylistEntry> playlistView;
+	@FXML TextArea mediaInfoArea;
 
 	public Button savePlaylistButton;
 	public TextField trackTextField;
@@ -100,6 +102,8 @@ public class ViewController implements Initializable {
 
 				trackTextField.textProperty().bindBidirectional(sspTrack);
 				artistTextField.textProperty().bindBidirectional(sspArtist); 
+				
+				mediaInfoArea.setText(ov.getValue().getVideo().toString()); //write media info to screen for this entry
 			}
 		});
 	}
@@ -116,7 +120,7 @@ public class ViewController implements Initializable {
             			//playlistView.getFocusModel().focus(indexOfItemToMove - 1);	
             		}
             	});*/
-	
+
 	public void initThemeSelectBox() {
 		ThemeFinder themeFinder = new ThemeFinderImpl(); //we must instantiate the themeFinder because it implements an interface
 		ArrayList<Theme> themes = new ArrayList<>();
@@ -141,11 +145,15 @@ public class ViewController implements Initializable {
 	@FXML void loadPlaylist(ActionEvent e) {
 		viewListener.loadPlaylist();
 		playlistView.setDisable(false); //TODO only disable these if it goes well.....
-		
+
 	}
 
-	@FXML void savePlaylist(ActionEvent e) throws PopupException { viewListener.savePlaylist(); }
-	
+	@FXML void savePlaylist(ActionEvent e) { 
+		try {
+			viewListener.savePlaylist();
+		} catch (PopupException e1) { popup("hello"); } //TODO: ok we make the popup but we don't catch the exception..., so this stops it progressing
+	}
+
 	@FXML void newPlaylist(ActionEvent e) { viewListener.newPlaylist(); }
 
 	@FXML void addPlaylistEntry(ActionEvent e) throws IOException { //TOD: loading a music video exception please
@@ -177,8 +185,8 @@ public class ViewController implements Initializable {
 			error.printStackTrace();
 		}
 	}
-	
-	public void popup(Stage stage, String text) {
+
+	public void popup(String text) {
 		Dialog.dialogBox(stage, text);
 	}
 
@@ -198,7 +206,7 @@ public class ViewController implements Initializable {
 		viewListener.onNewTrackAvailable(name);
 	}*/
 
-	
+
 }
 
 /*	// adapted from: http://stackoverflow.com/questions/16880115/javafx-2-2-how-to-force-a-redraw-update-of-a-listview
@@ -208,6 +216,6 @@ public class ViewController implements Initializable {
 		lsv.setItems(items);
 	}
 
-*/
+ */
 
 

@@ -14,7 +14,7 @@
     <GridPane id="GridPane" GridPane.columnIndex="1" GridPane.rowIndex="1">
       <children>
         <Button fx:id="renderButton" contentDisplay="LEFT" mnemonicParsing="false" onAction="#render" prefHeight="46.0" prefWidth="256.0" text="Render" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
-        <TextArea prefHeight="106.0" prefWidth="307.0" text="Media Info will go here" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <TextArea fx:id="mediaInfoArea" prefHeight="106.0" prefWidth="307.0" text="Media Info will go here" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="2" />
         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Image Goes Here" GridPane.columnIndex="0" GridPane.rowIndex="1" />
       </children>

@@ -177,7 +177,7 @@ public class EncoderXuggle implements Encoder {
 	public MediaWriter getWriter(String filename) {
 		IMediaWriter writer = ToolFactory.makeWriter(filename);
 		addVideoStreamTo(writer);
-		IStreamCoder audioCodec = video.getAudioCoder();
+		IStreamCoder audioCodec = (IStreamCoder)video.getAudioCoder().getInternalCoder();
 		if (audioCodec != null) {addAudioStreamTo(writer, audioCodec);}
 		return new MediaWriterXuggle(writer);
 	}

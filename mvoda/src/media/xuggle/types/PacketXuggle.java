@@ -12,5 +12,18 @@ public class PacketXuggle extends Packet {
 		//assert(packet != null);
 	}
 
+	@Override
+	public int getSize() {
+		return packet.getSize();
+	}
 
+	@Override
+	public int getStreamIndex() {
+		return packet.getStreamIndex();
+	}
+
+	@Override
+	public Object getInternalPacket() {
+		return packet;
+	}
 }

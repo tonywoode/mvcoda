@@ -1,25 +1,12 @@
 package media.types;
 
-import media.xuggle.types.ContainerXuggle;
-
-import com.xuggle.xuggler.IContainer;
-import com.xuggle.xuggler.IContainer.Type;
-import com.xuggle.xuggler.IContainerFormat;
-import com.xuggle.xuggler.IPacket;
-import com.xuggle.xuggler.IStream;
-
 public abstract class Container {
 
-	public abstract int readNextPacket(IPacket packet);
+	public abstract int readNextPacket(Packet packet);
 
- public static IContainer make() { return ContainerXuggle.make(); }
+	public abstract int open(String fileUNC, ContainerType read, ContainerFormat format);
 
-	public int open(String fileUNC, Type read, IContainerFormat format) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public abstract IStream getStream(int i);
+	public abstract Stream getStream(int i);
 
 	public abstract int getNumStreams();
 
@@ -32,8 +19,6 @@ public abstract class Container {
 	public abstract int getBitRate();
 
 	public abstract long getStartTime();
-
-
 }
 	
 	

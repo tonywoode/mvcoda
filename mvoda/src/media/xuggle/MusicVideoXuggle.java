@@ -5,6 +5,9 @@ import lombok.Getter;
 import media.Decoder;
 import media.MusicVideo;
 import media.types.Container;
+import media.types.StreamCoder;
+import media.xuggle.types.ContainerXuggle;
+import media.xuggle.types.StreamCoderXuggle;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
@@ -24,14 +27,27 @@ import com.xuggle.xuggler.IStreamCoder;
 
 public class MusicVideoXuggle implements MusicVideo {
 
-	@Getter private IContainer container;
-	@Getter private IStreamCoder audioCoder;
-	@Getter private IStreamCoder videoCoder;
+	private IContainer container;
+	private IStreamCoder audioCoder;
+	private IStreamCoder videoCoder;
 	@Getter private IPixelFormat.Type pixFormat;
 	@Getter private IRational framesPerSecond;
 	@Getter private double framesPerSecondAsDouble;
 	@Getter private ICodec.ID videoCodecID;
 
+	// implemention needs to use Xuggle's IContainer internally, so
+	// we only return the abstract interface for clients
+	public Container getContainer() {
+		return container != null ? new ContainerXuggle(container) : null;
+	}
+	
+	public StreamCoder getAudioCoder() {
+		return audioCoder != null ? new StreamCoderXuggle(audioCoder) : null;
+	}
+	
+	public StreamCoder getVideoCoder() {
+		return videoCoder != null ? new StreamCoderXuggle(videoCoder) : null;
+	}
 
 	@Getter private String fileUNC;	
 	@Getter private String filetype;
@@ -58,7 +74,7 @@ public class MusicVideoXuggle implements MusicVideo {
 	public MusicVideoXuggle(String fileUNC) {
 		this.fileUNC = fileUNC;
 		this.decoder = new DecoderXuggle(this); //how do we get rid of this? It can get called here so it doesn't NEED any properties at this point...
-		container = Container.make(); //create a new container object
+		container = IContainer.make(); //create a new container object
 		if (container.open(fileUNC, IContainer.Type.READ, null) <0) { //populate with the UNC you passed in
 			throw new RuntimeException(fileUNC + ": failed to open");  
 		}

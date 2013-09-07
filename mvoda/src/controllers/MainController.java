@@ -162,7 +162,7 @@ public class MainController implements ViewControllerListener {
 		} catch (NullPointerException e1) {
 			throw new PopupException("Please Select A Theme Before Saving");
 		} //Set theme name in the playlist xml
-
+				
 		view.setNumbersInPlaylist();
 		XMLSerialisable xmlSerialisable = playlist;
 		final FileChooser fileChooser = new FileChooser();
@@ -214,6 +214,5 @@ public class MainController implements ViewControllerListener {
 	public static void popup(String text) {
 		Dialog.dialogBox(stage, text);
 	}
-
 
 }
