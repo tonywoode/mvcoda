@@ -13,7 +13,7 @@ import java.util.EnumSet;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
-import controllers.MainScreenController;
+import controllers.MainController;
 
 import themes.Theme;
 import themes.XMLReader;

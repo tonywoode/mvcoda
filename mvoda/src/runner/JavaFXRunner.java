@@ -1,23 +1,19 @@
 package runner;
 
 import java.net.URL;
-import java.util.Enumeration;
-import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
-import themes.GFXElement;
-import util.ThemeFinderImpl;
-import view.ViewController;
-import controllers.MainScreenController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import util.ThemeFinderImpl;
+import view.ViewController;
+import controllers.MainController;
 
 public class JavaFXRunner extends Application {
 
@@ -34,8 +30,8 @@ public class JavaFXRunner extends Application {
 		loader.setBuilderFactory(new JavaFXBuilderFactory());
 		Parent root = (Parent) loader.load(location.openStream());
 		ViewController viewController = (ViewController)loader.getController();
-		MainScreenController controller = new MainScreenController();
-		MainScreenController.setStage(stage);
+		MainController controller = new MainController();
+		MainController.setStage(stage);
 		controller.setView(viewController);
 		viewController.setStage(stage); //pass the stage to the view controller, this is a field we have set for this purpose
 

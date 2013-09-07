@@ -1,14 +1,14 @@
 package view;
 
 import javafx.stage.Stage;
-import controllers.MainScreenController;
+import controllers.MainController;
 
 public class PopupException extends Exception {
 
 	public PopupException() {}
 
 	public PopupException(String text) {
-		MainScreenController.popup(text);
+		MainController.popup(text);
 	}
 
 	public PopupException(Throwable cause)

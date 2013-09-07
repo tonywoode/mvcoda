@@ -28,7 +28,7 @@ import view.ViewController;
 import view.ViewControllerListener;
 import view.buttons.Dialog;
 
-public class MainScreenController implements ViewControllerListener {
+public class MainController implements ViewControllerListener {
 
 	//private Playlist playlist;
 	@Getter @Setter public Playlist playlist = new Playlist("Biggest Beats I've seen in a while"); //TODO: playlist name
@@ -37,7 +37,7 @@ public class MainScreenController implements ViewControllerListener {
 	@Getter @Setter ViewController view;
 	@Getter @Setter static Stage stage; //has to be static as instantiated in static JavaFX launch method in ImageCompositorTester
 
-	private final static Logger LOGGER = Logger.getLogger(MainScreenController.class.getName()); //get a logger for this class
+	private final static Logger LOGGER = Logger.getLogger(MainController.class.getName()); //get a logger for this class
 
 	public void onNewTrackAvailable(String name) {
 		/*PlaylistEntry pe = new PlaylistEntry(null);

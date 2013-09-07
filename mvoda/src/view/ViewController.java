@@ -64,24 +64,8 @@ public class ViewController implements Initializable {
 		savePlaylistButton.disabledProperty().bind(
 				playlistObservable.addListener(*/
 
+		initThemeSelectBox();
 
-		ThemeFinder themeFinder = new ThemeFinderImpl(); //we must instantiate the themeFinder because it implements an interface
-		ArrayList<Theme> themes = new ArrayList<>();
-		try { themes = themeFinder.returnThemes(); } 
-		catch (IOException e) {e.printStackTrace();}  // TODO exception handling 	
-		catch (InterruptedException e) { e.printStackTrace(); } // TODO exception handling
-		ObservableList<String> themename = FXCollections.observableArrayList(new ArrayList<String>());
-		themename.clear();
-		for (Theme element : themes) {
-			String name = element.getItemName();
-			themename.add(name);
-		}
-		System.out.println(themename);
-		themeSelectBox.setItems(themename);
-		
-		
-		
-		
 		//moveButtons = new MoveButtons(playlistView, playlistObservable); //instantiate the move buttons (we need to pass them a playlist)
 		playlistView.setCellFactory(new Callback<ListView<PlaylistEntry>, ListCell<PlaylistEntry>>() {
 			@Override public ListCell<PlaylistEntry> call(ListView<PlaylistEntry> list) {
@@ -132,6 +116,22 @@ public class ViewController implements Initializable {
             			//playlistView.getFocusModel().focus(indexOfItemToMove - 1);	
             		}
             	});*/
+	
+	public void initThemeSelectBox() {
+		ThemeFinder themeFinder = new ThemeFinderImpl(); //we must instantiate the themeFinder because it implements an interface
+		ArrayList<Theme> themes = new ArrayList<>();
+		try { themes = themeFinder.returnThemes(); } 
+		catch (IOException e) {e.printStackTrace();}  // TODO exception handling 	
+		catch (InterruptedException e) { e.printStackTrace(); } // TODO exception handling
+		ObservableList<String> themename = FXCollections.observableArrayList(new ArrayList<String>());
+		themename.clear();
+		for (Theme element : themes) {
+			String name = element.getItemName();
+			themename.add(name);
+		}
+		System.out.println(themename);
+		themeSelectBox.setItems(themename);
+	}
 
 	public void sendPlaylistNodesToScreen(Playlist playlist) {
 		for (PlaylistEntry playlistEntry : playlist.getPlaylistEntries())
@@ -188,7 +188,6 @@ public class ViewController implements Initializable {
 			viewListener.getPlaylist().getPlaylistEntries().get(t).setPositionInPlaylist(t + 1); //set the playlist positions in the playlist to something sensible
 		}
 	}
-
 
 	@FXML void render(ActionEvent e) {
 		viewListener.render();
