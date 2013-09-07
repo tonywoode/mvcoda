@@ -7,8 +7,6 @@ import themes.Theme;
 import themes.XMLReader;
 import themes.XMLSerialisable;
 
-import com.thoughtworks.xstream.XStream;
-
 public class XStreamTester {
 
 	/**
@@ -16,16 +14,15 @@ public class XStreamTester {
 	 */
 	public static void main(String[] args) {
 
-		//XStream xstream = new XStream();
 		String themeName = "Classic";
 		Path rootDir = Paths.get("Theme");
 		Path themeDir = Paths.get(rootDir.toString(),themeName);
 
-
 		XMLSerialisable themeAsSerialisable = XMLReader.readXML(themeDir, themeName);
 		Theme theme = (Theme) themeAsSerialisable;
+		
+		
 		System.out.println(theme.getLogo().getXOffsetSD()); //TODO:classic case for JUnit this should be 65
-
 
 
 		/*GFXElement urbanChart = new GFXElement();

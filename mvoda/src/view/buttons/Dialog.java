@@ -19,7 +19,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-
+/**
+ * 
+ * Modal Dialog box used to display any popup messages required - based on the following: https://gist.github.com/jewelsea/1887631
+ *
+ */
 public class Dialog {
 	
 		

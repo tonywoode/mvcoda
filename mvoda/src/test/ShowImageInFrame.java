@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- * Just a test gui that displays an image passed to it
+ * Just a test frame that displays an image passed to it
  * @author Tony
  *
  */
@@ -64,7 +64,7 @@ public class ShowImageInFrame extends JPanel {
     * @throws IOException
     */
    public void createAndShowGui() throws IOException {
-      JFrame frame = new JFrame("Your Image, Sire...");
+      JFrame frame = new JFrame("The image passed in is this");
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       frame.getContentPane().add(this);
       frame.pack();

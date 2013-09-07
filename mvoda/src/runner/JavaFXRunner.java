@@ -11,6 +11,7 @@ import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import util.FileUtil;
 import util.ThemeFinderImpl;
 import view.ViewController;
 import controllers.MainController;
@@ -45,16 +46,19 @@ public class JavaFXRunner extends Application {
 
 		Logger topLogger = java.util.logging.Logger.getLogger(""); // Handler for console (reuse it if it already exists)
 		Handler consoleHandler = topLogger.getHandlers()[0]; //root's handler will be first in returned list - we have provided no way to make other handlers. 
-		/*
-		 * Here we set the Global Logging level
-		 */
 		consoleHandler.setLevel(Level.ALL);
+		topLogger.setLevel(Level.ALL);
 		
-		Logger themeFinder = ThemeFinderImpl.LOGGER;
+		//now we have an opportunity to set levels on the pacakage or class level, we do this by having public static loggers in the classes
 		
+		MainController.LOGGER.setLevel(Level.ALL);
+		
+		ThemeFinderImpl.LOGGER.setLevel(Level.ALL);
 		//ThemeFinderImpl theme = new ThemeFinderImpl();
-		themeFinder = Logger.getLogger("util.ThemeFinderImpl");
-		themeFinder.setLevel(Level.OFF);
+		//themeFinder = Logger.getLogger("util.ThemeFinderImpl");
+		//themeFinder.setLevel(Level.OFF);
+		
+		FileUtil.LOGGER.setLevel(Level.ALL);
 		//System.out.println("My Name is " + themeFinder.getName());
 		//Handler ch = new ConsoleHandler();
         //themeFinder.addHandler(ch);

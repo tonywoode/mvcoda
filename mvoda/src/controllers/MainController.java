@@ -37,7 +37,7 @@ public class MainController implements ViewControllerListener {
 	@Getter @Setter ViewController view;
 	@Getter @Setter static Stage stage; //has to be static as instantiated in static JavaFX launch method in ImageCompositorTester
 
-	private final static Logger LOGGER = Logger.getLogger(MainController.class.getName()); //get a logger for this class
+	public final static Logger LOGGER = Logger.getLogger(MainController.class.getName()); //get a logger for this class
 
 	public void onNewTrackAvailable(String name) {
 		/*PlaylistEntry pe = new PlaylistEntry(null);
@@ -59,7 +59,6 @@ public class MainController implements ViewControllerListener {
 		entry.setPositionInPlaylist(observedEntries.size() + 1);//no point in doing this really
 		setObservedEntries(view.getPlaylistView().getItems() ); //we must update the array passed in to get the view to refresh, cleaner to do it here than back in viewcontroller
 		observedEntries.add(entry);
-
 		//}
 		return entry;
 	}

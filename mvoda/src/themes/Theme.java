@@ -16,7 +16,7 @@ public class Theme implements XMLSerialisable {
 	//This is the root directory for all the XML's. It is not expected to change or be alterable
 	@XStreamOmitField @Getter private static final Path rootDir = Paths.get("Theme");
 	
-	@Getter @Setter private String itemName;
+	@Getter private String itemName;
 	
 	//TODO: well the below didn't work very well now did it.....I think it can be removed atm
 	@XStreamOmitField @Getter private Path themeDir;// = Paths.get(rootDir.toString(),getItemName());
@@ -38,10 +38,9 @@ public class Theme implements XMLSerialisable {
 	
 	@XStreamOmitField @Getter @Setter public int index; //TODO: omit means set this only after instantiating with a read
 	
-	@Override
-	public String toString() {
-		return itemName;		
-	}
+	public Theme(String itemName) { this.itemName = itemName; }
+	
+	@Override public String toString() { return itemName; }
 	
 	
 	

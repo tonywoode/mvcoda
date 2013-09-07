@@ -22,9 +22,9 @@ public class FileUtilTest {
 	}
 	
 	@Test
-	public final void testCountItemsInFolder() {
+	public final void testCountFoldersInFolder() {
 		Path path = Paths.get(Theme.getRootDir().toString(), "Urban/Numbers");
-		assertEquals("Testing numbers in folder - there are 20 numbers in Urban Numbers folder", 20, FileUtil.countItemsInFolder(path));
+		assertEquals("Testing numbers in folder - there are 20 numbers in Urban Numbers folder", 20, FileUtil.countFoldersInFolder(path));
 	}
 
 }
