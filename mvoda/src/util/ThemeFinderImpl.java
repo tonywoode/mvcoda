@@ -32,7 +32,7 @@ public class ThemeFinderImpl implements ThemeFinder {
 	 */
 	private static final Path rootDir = Theme.getRootDir();
 
-	private final static Logger LOGGER = Logger.getLogger(ThemeFinderImpl.class.getName()); //get a logger for this class
+	public final static Logger LOGGER = Logger.getLogger(ThemeFinderImpl.class.getName()); //get a logger for this class
 	
 	/**
 	 * 
@@ -43,6 +43,8 @@ public class ThemeFinderImpl implements ThemeFinder {
 	 * @throws Exception
 	 */
 	public ArrayList<Theme> returnThemes() throws IOException, InterruptedException { //TODO: interrupted exception?
+		
+		
 		
 		ArrayList<Path> pathArray = new ArrayList<>();
 		ArrayList<Theme> themeArray = new ArrayList<>();
@@ -76,6 +78,7 @@ public class ThemeFinderImpl implements ThemeFinder {
 	 * @throws Exception //TODO
 	 */
 	public static ArrayList<Path> returnDirectories(Path rootdir, final String filetype, int numLevels) throws Exception { //TODO exception
+		
 		
 		final ArrayList<Path> pathArray = new ArrayList<>();
 		

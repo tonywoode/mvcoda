@@ -33,23 +33,16 @@ public class ViewController implements Initializable {
 
 	//TODO: you've given these fx:id's but why? you don't do anything with the button but onClick...., so why do they need to be here
 	//public Button loadPlaylistButton;
-	public Button savePlaylistButton;
+	
 
 	@Getter @Setter ViewControllerListener viewListener;	
 	@Getter @Setter Stage stage;
-
-	public TextField trackTextField;
-	public TextField artistTextField;
-
-	
-	//@Getter @Setter public Playlist playlist = new Playlist("Biggest Beats I've seen in a while"); //TODO: playlist name
-	//@Getter @Setter private ObservableList<PlaylistEntry> playlistObservable = FXCollections.observableArrayList(new ArrayList<PlaylistEntry>());
-	//public ArrayList<String> vidFiles = new ArrayList<>();
-
 	@FXML @Getter @Setter ComboBox<String> themeSelectBox;
 	@FXML @Getter @Setter ListView<PlaylistEntry> playlistView;
 
-	//private MoveButtons moveButtons;
+	public Button savePlaylistButton;
+	public TextField trackTextField;
+	public TextField artistTextField;
 
 	//private ObservableBooleanValue emptyList = new SimpleBooleanProperty(playlistObservable.isEmpty());
 	//private Desktop desktop = Desktop.getDesktop();
@@ -83,9 +76,12 @@ public class ViewController implements Initializable {
 			String name = element.getItemName();
 			themename.add(name);
 		}
-		//themeSelectBox.setAll(themename);
 		System.out.println(themename);
 		themeSelectBox.setItems(themename);
+		
+		
+		
+		
 		//moveButtons = new MoveButtons(playlistView, playlistObservable); //instantiate the move buttons (we need to pass them a playlist)
 		playlistView.setCellFactory(new Callback<ListView<PlaylistEntry>, ListCell<PlaylistEntry>>() {
 			@Override public ListCell<PlaylistEntry> call(ListView<PlaylistEntry> list) {
