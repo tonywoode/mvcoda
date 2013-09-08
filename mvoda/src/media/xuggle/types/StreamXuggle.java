@@ -7,14 +7,9 @@ import media.types.Stream;
 public class StreamXuggle extends Stream {
 	private IStream stream;
 	
-	public StreamXuggle(IStream stream) {
-		this.stream = stream;		
-	}
+	public StreamXuggle(IStream stream) { this.stream = stream;	}
 	
-	@Override
-	public Object getInternalStream() {
-		return stream;
-	}
+	@Override public Object getInternalStream() { return stream; }
 	
 	
 }

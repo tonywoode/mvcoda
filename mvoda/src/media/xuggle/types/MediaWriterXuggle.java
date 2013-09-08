@@ -3,27 +3,21 @@ package media.xuggle.types;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.TimeUnit;
 
+import media.types.AudioSamples;
+import media.types.MediaWriter;
+
 import com.xuggle.mediatool.IMediaWriter;
 import com.xuggle.xuggler.IAudioSamples;
 import com.xuggle.xuggler.ICodec.ID;
 import com.xuggle.xuggler.IRational;
 
-import media.types.AudioSamples;
-import media.types.MediaWriter;
-import media.types.Rational;
-
 public class MediaWriterXuggle extends MediaWriter {
 
 	private IMediaWriter writer;
 	
-	public MediaWriterXuggle(IMediaWriter writer) {
-		this.writer = writer;
-	}
+	public MediaWriterXuggle(IMediaWriter writer) {	this.writer = writer; }
 
-	@Override
-	public void close() {
-		writer.close();
-	}
+	@Override public void close() {	writer.close();	}
 
 	@Override
 	public void encodeAudio(int audioStreamIndex, AudioSamples audioSamples) {
@@ -31,26 +25,18 @@ public class MediaWriterXuggle extends MediaWriter {
 		writer.encodeAudio(audioStreamIndex, (IAudioSamples)audioSamples.getInternalAudioSamples());
 	}
 
-	@Override
-	public void encodeVideo(int i, BufferedImage videoFrame, long newVideoTimecode, TimeUnit microseconds) {
+	@Override public void encodeVideo(int i, BufferedImage videoFrame, long newVideoTimecode, TimeUnit microseconds) {
 		writer.encodeVideo(i, videoFrame, newVideoTimecode, microseconds);
 	}
 
-	@Override
-	public void addVideoStream(int videoStreamIndex, int videoStreamID,
-			ID videoCodecID, double frameRateAsDouble, int outputWidth,
-			int outputHeight) {
+	@Override public void addVideoStream(int videoStreamIndex, int videoStreamID, ID videoCodecID, double frameRateAsDouble, int outputWidth, int outputHeight) {
 		IRational frameRate = IRational.make(frameRateAsDouble); //we need to keep hold of the rational or avi gets choppy. So call changed to instantiating the rational from IRational Interface here
 		writer.addVideoStream(videoStreamIndex, videoStreamID, videoCodecID, frameRate, outputWidth, outputHeight);
 		
 	}
 
-	@Override
-	public void addAudioStream(int audioStreamIndex, int audioStreamID,
-			ID codecId, int numAudioChannels, int audioSampleRate) {
-		writer.addAudioStream(audioStreamIndex, audioStreamID,
-				codecId, numAudioChannels, audioSampleRate);
-		
+	@Override public void addAudioStream(int audioStreamIndex, int audioStreamID, ID codecId, int numAudioChannels, int audioSampleRate) {
+		writer.addAudioStream(audioStreamIndex, audioStreamID, codecId, numAudioChannels, audioSampleRate);	
 	}
 	
 	

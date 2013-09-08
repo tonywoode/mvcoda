@@ -23,14 +23,15 @@ import com.xuggle.xuggler.IVideoResampler;
 import com.xuggle.xuggler.video.BgrConverter;
 
 /**
+ * Main decoder Imp for MV-CoDA. Takes Music videos and uses their information to decode contents
  * @author Tony
  *
  */
 public class DecoderXuggle implements Decoder {
 
-	public static final int CONVERT_MICRO_TO_MILLISEC = 1000;
-	public static final Type XUGGLER_PIX_TYPE = IPixelFormat.Type.BGR24; //Xuggler can only work with BGR24 pixel type as a fundamental limitation //TODO: throw this dependency up but bypass interface?
-	public static final int SIZE_AUDIO_BUFFER = 1024; //TODO: why is this hard coded? Could I just remove it?
+	public static final int CONVERT_MICRO_TO_MILLISEC = 1000; //TODO hardcoded
+	public static final Type XUGGLER_PIX_TYPE = IPixelFormat.Type.BGR24; //Xuggler can only work with BGR24 pixel type as a fundamental limitation
+	public static final int SIZE_AUDIO_BUFFER = 1024; //TDOO hardcoded
 
 	private int outputWidth;
 	private int outputHeight;
@@ -49,17 +50,16 @@ public class DecoderXuggle implements Decoder {
 	public DecoderXuggle(MusicVideo video) {
 		this.video = video;
 	}
-	
+
 	public AudioSamples getAudioSamples() { //we need to return null back to caller if the underlying IAudioSamples is intended to be set to null as in line 62 below
-		return audioSamples; // != null ? new AudioSamplesXuggle(audioSamples) : null;
+		return audioSamples;
 	}
-	
+
 	/**
 	 * Checks whether a packet passed to it is audio or video. If either is passed calls readVideo or readAudio respectively and returns true
 	 * @throws RuntimeException
 	 */
-	@Override
-	public boolean hasNextPacket() throws RuntimeException {
+	@Override public boolean hasNextPacket() throws RuntimeException {
 
 		Packet packet = new PacketXuggle(IPacket.make());
 		audioSamples = null; //TODO: We don't know WHY these need to be here. What we do know is: take them out you only get 7 seconds decode
@@ -78,16 +78,15 @@ public class DecoderXuggle implements Decoder {
 		}
 		return false; //return false if none of the remaining packets are either audio or video
 	}
-	
-	
+
+
 	/**
 	 * If the video codec of the video is not in pix format BGR24 we make it so, otherwise we aren't going to get a picture out of it
 	 * TODO: investigate and really this should be capable of converting back to YUV420 surely?
 	 * @param outputWidth
 	 * @param outputHeight
 	 */
-	@Override
-	public void makeResampler(int outputWidth, int outputHeight) {
+	@Override public void makeResampler(int outputWidth, int outputHeight) {
 
 		this.outputWidth = outputWidth;
 		this.outputHeight = outputHeight;
@@ -105,9 +104,9 @@ public class DecoderXuggle implements Decoder {
 	 * @param packet
 	 * @throws RuntimeException
 	 */
-	@Override
-	public void readVideo(Packet packet) throws RuntimeException {
+	@Override public void readVideo(Packet packet) throws RuntimeException {
 
+		//for adaptation
 		VideoPictureXuggle picture = new VideoPictureXuggle(IVideoPicture.make( video.getPixFormat(), video.getWidth(), video.getHeight()));
 
 		int offset = 0;
@@ -118,8 +117,7 @@ public class DecoderXuggle implements Decoder {
 			offset += bytesDecoded;
 			if (picture.isComplete()) {
 				/*we DIVIDE BY 1000 TO GET TIMESTAMP IN MILLI FROM MICROSECONDS*/
-				videoTimeStamp = picture.getTimeStamp();// / CONVERT_MICRO_TO_MILLISEC; //We get a timestamp for the picture for the re-encode
-				//videoTimeStampInMicros = picture.getTimeStamp();
+				videoTimeStamp = picture.getTimeStamp();//We get a timestamp for the picture for the re-encode
 				formattedVideoTimestamp = picture.getFormattedTimeStamp(); //we also get a human readable timestamp for troubleshooting
 				IVideoPicture resampled = (IVideoPicture)picture.getInternalVideoPicture();
 				if (picture.getPixelType() != XUGGLER_PIX_TYPE) {
@@ -128,7 +126,6 @@ public class DecoderXuggle implements Decoder {
 					if (resampler.resample(resampled, (IVideoPicture)picture.getInternalVideoPicture()) < 0) { throw new RuntimeException("Problem resampling video"); }
 				}
 				videoFrame = converter.toImage(resampled);
-				//break; //TODO: delete?
 			}
 		}
 	}
@@ -138,22 +135,19 @@ public class DecoderXuggle implements Decoder {
 	 * @param packet
 	 * @throws RuntimeException
 	 */
-	@Override
-	public void readAudio(Packet packet) throws RuntimeException {
+	@Override public void readAudio(Packet packet) throws RuntimeException {
 
+		//for adaptation
 		audioSamples = new AudioSamplesXuggle(IAudioSamples.make(SIZE_AUDIO_BUFFER, video.getNumChannelsAudio()));
-		
+
 		int offset = 0;
 		while (offset < packet.getSize()) {
 			int numBytesDecoded = video.getAudioCoder().decodeAudio(audioSamples, packet, offset);
 			if (numBytesDecoded < 0) {throw new RuntimeException("Problem decoding audio samples");}
 			offset += numBytesDecoded;
-			
-			
-			//if (audioSamples.isComplete()) { break;	} //TODO: delete?
 			if (audioSamples.isComplete()) {
-			audioTimeStamp = audioSamples.getTimeStamp();// / CONVERT_MICRO_TO_MILLISEC;
-			formattedAudioTimestamp = audioSamples.getFormattedTimeStamp();
+				audioTimeStamp = audioSamples.getTimeStamp();
+				formattedAudioTimestamp = audioSamples.getFormattedTimeStamp();
 			}
 		}
 	}

@@ -7,21 +7,27 @@ import media.types.StreamCoder;
 import com.xuggle.xuggler.ICodec;
 import com.xuggle.xuggler.IPixelFormat;
 
+/**
+ * Interface for the music video class which represent a video to MV-CoDA. A video should be able to quote a number of its properties
+ * The interface decouples and types have been made generic, using the adapter pattern, for use in other frameworks
+ * @author tony
+ *
+ */
 public interface MusicVideo {
 
-	public abstract Container getContainer(); //TODO: nearly got this one but a static?
+	public abstract Container getContainer();
 
-	public abstract StreamCoder getAudioCoder(); //didn't get too far there but not many
+	public abstract StreamCoder getAudioCoder();
 
-	public abstract StreamCoder getVideoCoder(); //do the above you got this one too
+	public abstract StreamCoder getVideoCoder(); 
 
-	public abstract IPixelFormat.Type getPixFormat(); //appears to be some way to just go "type" right?
+	public abstract IPixelFormat.Type getPixFormat(); //we choose to keep the type safety instead of adapt with Strings
 
-	public abstract Rational getFramesPerSecond(); //JUST ONE CALL...but don't know how....
+	public abstract Rational getFramesPerSecond(); //
 
 	public abstract double getFramesPerSecondAsDouble();
 	
-	public abstract ICodec.ID getVideoCodecID(); //just 3 references.....
+	public abstract ICodec.ID getVideoCodecID(); //we choose to keep the type safety instead of adapt with Strings
 
 	public abstract String getFileUNC();
 	

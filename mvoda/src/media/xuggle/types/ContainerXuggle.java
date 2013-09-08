@@ -13,58 +13,29 @@ import media.types.Stream;
 public class ContainerXuggle extends Container {
 	private IContainer container;
 
-	public ContainerXuggle(IContainer container) {
-		this.container = container;
-	}
+	public ContainerXuggle(IContainer container) { this.container = container; }
 
-	@Override
-	public int readNextPacket(Packet packet) {
-		return container.readNextPacket((IPacket)packet.getInternalPacket());
-	}
+	@Override public int readNextPacket(Packet packet) { return container.readNextPacket((IPacket)packet.getInternalPacket()); }
 
 	
-	public static IContainer make() {
-		return IContainer.make();
-	}
+	public static IContainer make() { return IContainer.make(); }
 
-	@Override
-	public int open(String fileUNC, ContainerType read, ContainerFormat format) {
+	@Override public int open(String fileUNC, ContainerType read, ContainerFormat format) {
 		return container.open(fileUNC, (IContainer.Type)read.getContainerType(), (IContainerFormat)format.getInternalFormat());
 	}
 
-	@Override
-	public Stream getStream(int i) {
-		return new StreamXuggle(container.getStream(i));
-	}
+	@Override public Stream getStream(int i) { return new StreamXuggle(container.getStream(i));	}
 
-	@Override
-	public int getNumStreams() {
-		return container.getNumStreams();
-	}
+	@Override public int getNumStreams() { return container.getNumStreams(); }
 
-	@Override
-	public long getDuration() {
-		return container.getDuration();
-	}
+	@Override public long getDuration() { return container.getDuration(); }
 
-	@Override
-	public void close() {
-		container.close();
-	}
+	@Override public void close() { container.close(); }
 
-	@Override
-	public long getFileSize() {
-		return container.getFileSize();
-	}
+	@Override public long getFileSize() { return container.getFileSize(); }
 
-	@Override
-	public int getBitRate() {
-		return container.getBitRate();
-	}
+	@Override public int getBitRate() { return container.getBitRate(); }
 
-	@Override
-	public long getStartTime() {
-		return container.getStartTime();
-	}
+	@Override public long getStartTime() { return container.getStartTime();	}
 
 }

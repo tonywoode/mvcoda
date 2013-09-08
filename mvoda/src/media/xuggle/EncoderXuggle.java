@@ -1,33 +1,24 @@
 package media.xuggle;
 
-import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.concurrent.TimeUnit;
-
-import playlist.Playlist;
-import playlist.PlaylistEntry;
-import playlist.Number;
-import themes.Theme;
 
 import media.Decoder;
 import media.Encoder;
 import media.MusicVideo;
 import media.types.AudioSamples;
 import media.types.MediaWriter;
-import media.types.Rational;
 import media.types.StreamCoder;
 import media.xuggle.types.MediaWriterXuggle;
-import media.xuggle.types.RationalXuggle;
+import playlist.Number;
+import playlist.Playlist;
+import playlist.PlaylistEntry;
+import themes.Theme;
 
-import com.xuggle.mediatool.IMediaWriter;
 import com.xuggle.mediatool.ToolFactory;
-import com.xuggle.xuggler.IAudioSamples;
 import com.xuggle.xuggler.ICodec;
-import com.xuggle.xuggler.IRational;
-import com.xuggle.xuggler.IStreamCoder;
 
 import drawing.ImageCompositor;
 import drawing.TextCompositor;

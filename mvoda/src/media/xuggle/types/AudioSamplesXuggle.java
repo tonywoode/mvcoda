@@ -5,6 +5,7 @@ import media.types.AudioSamples;
 import com.xuggle.xuggler.IAudioSamples;
 
 public class AudioSamplesXuggle extends AudioSamples {
+	
 	private IAudioSamples audioSamples;
 	
 	public AudioSamplesXuggle(IAudioSamples audioSamples) {
@@ -12,31 +13,15 @@ public class AudioSamplesXuggle extends AudioSamples {
 		assert(audioSamples != null);
 	}
 
-	@Override
-	public long getNextPresentationTimestamp() {
-		return audioSamples.getNextPts();
-	}
+	@Override public long getNextPresentationTimestamp() { return audioSamples.getNextPts(); }
 
-	@Override
-	public void setTimeStamp(long timecode) {
-		audioSamples.setTimeStamp(timecode);
-	}
+	@Override public void setTimeStamp(long timecode) { audioSamples.setTimeStamp(timecode); }
 
-	@Override
-	public Object getInternalAudioSamples() { return audioSamples; } //Necessary because we end with a call that needs IAudioSamples - see mediaWriterXuggle
+	@Override public Object getInternalAudioSamples() { return audioSamples; } //Necessary because we end with a call that needs IAudioSamples - see mediaWriterXuggle
 
-	@Override
-	public boolean isComplete() {
-		return audioSamples.isComplete();
-	}
+	@Override public boolean isComplete() {	return audioSamples.isComplete(); }
 
-	@Override
-	public long getTimeStamp() {
-		return audioSamples.getTimeStamp();
-	}
+	@Override public long getTimeStamp() { return audioSamples.getTimeStamp(); }
 
-	@Override
-	public String getFormattedTimeStamp() {
-		return audioSamples.getFormattedTimeStamp();
-	}
+	@Override public String getFormattedTimeStamp() { return audioSamples.getFormattedTimeStamp(); }
 }

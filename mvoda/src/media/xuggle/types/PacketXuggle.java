@@ -7,23 +7,11 @@ import media.types.Packet;
 public class PacketXuggle extends Packet {
 	private IPacket packet;
 	
-	public PacketXuggle(IPacket packet) {
-		this.packet = packet;
-		//assert(packet != null);
-	}
+	public PacketXuggle(IPacket packet) { this.packet = packet;	assert(packet != null);	} //TODO: check
 
-	@Override
-	public int getSize() {
-		return packet.getSize();
-	}
+	@Override public int getSize() { return packet.getSize(); }
 
-	@Override
-	public int getStreamIndex() {
-		return packet.getStreamIndex();
-	}
+	@Override public int getStreamIndex() {	return packet.getStreamIndex();	}
 
-	@Override
-	public Object getInternalPacket() {
-		return packet;
-	}
+	@Override public Object getInternalPacket() { return packet; }
 }

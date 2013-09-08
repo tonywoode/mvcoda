@@ -13,25 +13,14 @@ public class VideoPictureXuggle extends VideoPicture {
 		this.picture = picture;
 	}
 	
-	@Override
-	public Object getInternalVideoPicture() {
-		return picture;
-	}
+	@Override public Object getInternalVideoPicture() {	return picture; }
 
-	public boolean isComplete() {
-		return picture.isComplete();
-	}
+	public boolean isComplete() { return picture.isComplete(); }
 
-	public long getTimeStamp() {
-		return picture.getTimeStamp();		
-	}
+	public long getTimeStamp() { return picture.getTimeStamp();	}
 
-	public String getFormattedTimeStamp() {
-		return picture.getFormattedTimeStamp();
-	}
+	public String getFormattedTimeStamp() {	return picture.getFormattedTimeStamp();	}
 
-	public Type getPixelType() {
-		return picture.getPixelType();
-	}
+	public Type getPixelType() { return picture.getPixelType();	}
 
 }
