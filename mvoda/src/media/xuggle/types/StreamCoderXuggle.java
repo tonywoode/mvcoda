@@ -11,6 +11,11 @@ import media.types.Packet;
 import media.types.StreamCoder;
 import media.types.VideoPicture;
 
+/**
+ * Types for the decoupling adapter for the media framework of MV-CoDA
+ * @author tony
+ *
+ */
 public class StreamCoderXuggle extends StreamCoder {
 	private IStreamCoder streamCoder;
 	

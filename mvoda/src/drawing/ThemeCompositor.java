@@ -8,7 +8,11 @@ import media.MusicVideo;
 import playlist.PlaylistEntry;
 import themes.Theme;
 
-
+/**
+ * Arranges which elements in a theme go where on screen
+ * @author tony
+ *
+ */
 public class ThemeCompositor {
 
 	private ImageCompositor logoCompositor;
@@ -22,24 +26,27 @@ public class ThemeCompositor {
 	private TextCompositor artistText;
 	private TextCompositor chartText;
 	private Theme theme;
-	
+
+	/**
+	 * Must take a theme
+	 * @param theme the theme to arrange
+	 *
+	 */
 	public ThemeCompositor(Theme theme) {
 		this.theme = theme;
 	}
 
-
+	/**
+	 * Deals with compsiting the three included themes and the possibility of a default render
+	 * @param playlistEntry
+	 */
 	public void makeThemeElements(PlaylistEntry playlistEntry) {
-		//System.out.println("INDEX NUMBER SHOULD BE 1 ITS ACTUALLY " + theme.getIndex());
 		//theme order = 0=classic 1=pop 2=urban
 		switch (theme.getIndex()) {
-		case 0:  makeTheBitsClassic(playlistEntry);
-		break;
-		case 1:  makeTheBitsPop(playlistEntry);
-		break;
-		case 2:  makeTheBitsUrban(playlistEntry);
-		break;
-		default: makeTheBitsDefault(playlistEntry);
-		break;
+		case 0:  makeTheBitsClassic(playlistEntry); break;
+		case 1:  makeTheBitsPop(playlistEntry); break;
+		case 2:  makeTheBitsUrban(playlistEntry); break;
+		default: makeTheBitsDefault(playlistEntry);	break;
 		}
 
 	}
@@ -92,7 +99,7 @@ public class ThemeCompositor {
 	}
 
 
-	public void renderThemeElements(BufferedImage videoFrame, Decoder decoder, MusicVideo video) throws Exception {
+	public void renderThemeElements(BufferedImage videoFrame, Decoder decoder, MusicVideo video) throws Exception { //TODO: exception
 		//theme order = 0=classic 1=pop 2=urban
 		switch (theme.getIndex()) {
 		case 0:  putTheBitsOnClassic(videoFrame, decoder, video);
@@ -106,97 +113,87 @@ public class ThemeCompositor {
 		}
 	}
 
-		private void putTheBitsOnDefault() {
-			//TODO default
+	private void putTheBitsOnDefault() {
+		//TODO default
+	}
+
+	private void putTheBitsOnClassic(BufferedImage videoFrame, Decoder decoder, MusicVideo video) throws Exception{//TODO: exception
+
+		videoFrame = logoCompositor.overlayNextImage(decoder.getVideoTimeStamp(),theme.getLogo().getInDuration(),video.getVidStreamDuration() - theme.getLogo().getInDuration() - theme.getLogo().getOutDuration(), videoFrame);	
+		videoFrame = strapCompositor.overlayNextImage(decoder.getVideoTimeStamp(),5000000, 3000000, videoFrame);
+		videoFrame = strapCompositor2.overlayNextImage(decoder.getVideoTimeStamp(),14000000, 3000000, videoFrame);
+		videoFrame = chartCompositor.overlayNextImage(decoder.getVideoTimeStamp(),theme.getChart().getInDuration() + 1000000, 10000000, videoFrame);
+		videoFrame = transitionCompositor.overlayNextImage(decoder.getVideoTimeStamp(),0, 4000000, videoFrame);
+		videoFrame = numbersCompositor.overlayNextImage(decoder.getVideoTimeStamp(),5000000, 8000000, videoFrame);
+		videoFrame = numberText.overlayNextFontFrame(numbersCompositor.isImOut(), videoFrame);
+		videoFrame = trackText.overlayNextFontFrame(strapCompositor.isImOut(), videoFrame);
+		videoFrame = artistText.overlayNextFontFrame(strapCompositor.isImOut(), videoFrame);
+		videoFrame = chartText.overlayNextFontFrame(chartCompositor.isImOut(), videoFrame);
+		videoFrame = trackText.overlayNextFontFrame(strapCompositor2.isImOut(), videoFrame);
+		videoFrame = artistText.overlayNextFontFrame(strapCompositor2.isImOut(), videoFrame);
+	}
+
+	private void putTheBitsOnUrban(BufferedImage videoFrame, Decoder decoder, MusicVideo video) throws Exception{//TODO: exception
+
+		videoFrame = logoCompositor.overlayNextImage(decoder.getVideoTimeStamp(),theme.getLogo().getInDuration(),video.getVidStreamDuration() - theme.getLogo().getInDuration() - theme.getLogo().getOutDuration(), videoFrame);	
+		videoFrame = strapCompositor.overlayNextImage(decoder.getVideoTimeStamp(),2000000, 10000000, videoFrame);
+		videoFrame = strapCompositor2.overlayNextImage(decoder.getVideoTimeStamp(),15000000, 2000000, videoFrame);
+		videoFrame = chartCompositor.overlayNextImage(decoder.getVideoTimeStamp(), 2000000, 10000000, videoFrame);
+		videoFrame = transitionCompositor.overlayNextImage(decoder.getVideoTimeStamp(),2000, theme.getTransition().getDuration(25), videoFrame);
+		videoFrame = numbersCompositor.overlayNextImage(decoder.getVideoTimeStamp(),2000000, 7000000, videoFrame);
+		videoFrame = trackText.overlayNextFontFrame(strapCompositor.isImOut(), videoFrame);
+		videoFrame = artistText.overlayNextFontFrame(strapCompositor.isImOut(), videoFrame);
+		videoFrame = trackText.overlayNextFontFrame(strapCompositor2.isImOut(), videoFrame);
+		videoFrame = artistText.overlayNextFontFrame(strapCompositor2.isImOut(), videoFrame);
+	}
+
+
+	private void putTheBitsOnPop(BufferedImage videoFrame, Decoder decoder, MusicVideo video) throws Exception{//TODO: exception
+
+		videoFrame = logoCompositor.overlayNextImage(decoder.getVideoTimeStamp(),theme.getLogo().getInDuration(),video.getVidStreamDuration() - theme.getLogo().getInDuration() - theme.getLogo().getOutDuration(), videoFrame);
+		videoFrame = strapCompositor.overlayNextImage(decoder.getVideoTimeStamp(),3000000, 5000000, videoFrame);
+		videoFrame = strapCompositor2.overlayNextImage(decoder.getVideoTimeStamp(),14000000, 2000000, videoFrame);
+		videoFrame = chartCompositor.overlayNextImage(decoder.getVideoTimeStamp(),2000000, 2000000, videoFrame);
+		videoFrame = numbersCompositor.overlayNextImage(decoder.getVideoTimeStamp(),10000000, 2000000, videoFrame);
+		videoFrame = numberText.overlayNextFontFrame(strapCompositor.isImOut(), videoFrame); //THIS number is tied to strap NOT number
+		videoFrame = trackText.overlayNextFontFrame(strapCompositor.isImOut(), videoFrame);
+		videoFrame = artistText.overlayNextFontFrame(strapCompositor.isImOut(), videoFrame);
+		videoFrame = chartText.overlayNextFontFrame(chartCompositor.isImOut(), videoFrame);
+		videoFrame = numberText.overlayNextFontFrame(strapCompositor2.isImOut(), videoFrame);
+		videoFrame = trackText.overlayNextFontFrame(strapCompositor2.isImOut(), videoFrame);
+		videoFrame = artistText.overlayNextFontFrame(strapCompositor2.isImOut(), videoFrame);
+		videoFrame = chartText.overlayNextFontFrame(logoCompositor.isImOut(), videoFrame);
+	}
+
+
+	public void resetThemeElements() {
+		//theme order = 0=classic 1=pop 2=urban
+		switch (theme.getIndex()) {
+		case 0:  resetTheBits(); break;
+		case 1:  resetTheBitsPop(); break; //TODO: numbers has no transition - should be a null condition. Also elements should reset themselves
+		case 2:  resetTheBits(); break;
+		default: resetTheBits(); break;
 		}
-
-		private void putTheBitsOnClassic(BufferedImage videoFrame, Decoder decoder, MusicVideo video) throws Exception{
-			
-			//MusicVideo video = playlistEntry.getVideo();
-			
-			videoFrame = logoCompositor.overlayNextImage(decoder.getVideoTimeStamp(),theme.getLogo().getInDuration(),video.getVidStreamDuration() - theme.getLogo().getInDuration() - theme.getLogo().getOutDuration(), videoFrame);	
-			videoFrame = strapCompositor.overlayNextImage(decoder.getVideoTimeStamp(),5000000, 3000000, videoFrame);
-			videoFrame = strapCompositor2.overlayNextImage(decoder.getVideoTimeStamp(),14000000, 3000000, videoFrame);
-			videoFrame = chartCompositor.overlayNextImage(decoder.getVideoTimeStamp(),theme.getChart().getInDuration() + 1000000, 10000000, videoFrame);
-			videoFrame = transitionCompositor.overlayNextImage(decoder.getVideoTimeStamp(),0, 4000000, videoFrame);
-			videoFrame = numbersCompositor.overlayNextImage(decoder.getVideoTimeStamp(),5000000, 8000000, videoFrame);
-			videoFrame = numberText.overlayNextFontFrame(numbersCompositor.isImOut(), videoFrame);
-			videoFrame = trackText.overlayNextFontFrame(strapCompositor.isImOut(), videoFrame);
-			videoFrame = artistText.overlayNextFontFrame(strapCompositor.isImOut(), videoFrame);
-			videoFrame = chartText.overlayNextFontFrame(chartCompositor.isImOut(), videoFrame);
-			videoFrame = trackText.overlayNextFontFrame(strapCompositor2.isImOut(), videoFrame);
-			videoFrame = artistText.overlayNextFontFrame(strapCompositor2.isImOut(), videoFrame);
-		}
-
-		private void putTheBitsOnUrban(BufferedImage videoFrame, Decoder decoder, MusicVideo video) throws Exception{
-
-			//MusicVideo video = playlistEntry.getVideo();
-			
-			videoFrame = logoCompositor.overlayNextImage(decoder.getVideoTimeStamp(),theme.getLogo().getInDuration(),video.getVidStreamDuration() - theme.getLogo().getInDuration() - theme.getLogo().getOutDuration(), videoFrame);	
-			videoFrame = strapCompositor.overlayNextImage(decoder.getVideoTimeStamp(),2000000, 10000000, videoFrame);
-			videoFrame = strapCompositor2.overlayNextImage(decoder.getVideoTimeStamp(),15000000, 2000000, videoFrame);
-			videoFrame = chartCompositor.overlayNextImage(decoder.getVideoTimeStamp(), 2000000, 10000000, videoFrame);
-			videoFrame = transitionCompositor.overlayNextImage(decoder.getVideoTimeStamp(),2000, theme.getTransition().getDuration(25), videoFrame);
-			videoFrame = numbersCompositor.overlayNextImage(decoder.getVideoTimeStamp(),2000000, 7000000, videoFrame);
-			videoFrame = trackText.overlayNextFontFrame(strapCompositor.isImOut(), videoFrame);
-			videoFrame = artistText.overlayNextFontFrame(strapCompositor.isImOut(), videoFrame);
-			videoFrame = trackText.overlayNextFontFrame(strapCompositor2.isImOut(), videoFrame);
-			videoFrame = artistText.overlayNextFontFrame(strapCompositor2.isImOut(), videoFrame);
-		}
-
-
-		private void putTheBitsOnPop(BufferedImage videoFrame, Decoder decoder, MusicVideo video) throws Exception{
-
-			//MusicVideo video = playlistEntry.getVideo();
-			
-			videoFrame = logoCompositor.overlayNextImage(decoder.getVideoTimeStamp(),theme.getLogo().getInDuration(),video.getVidStreamDuration() - theme.getLogo().getInDuration() - theme.getLogo().getOutDuration(), videoFrame);
-			videoFrame = strapCompositor.overlayNextImage(decoder.getVideoTimeStamp(),3000000, 5000000, videoFrame);
-			videoFrame = strapCompositor2.overlayNextImage(decoder.getVideoTimeStamp(),14000000, 2000000, videoFrame);
-			videoFrame = chartCompositor.overlayNextImage(decoder.getVideoTimeStamp(),2000000, 2000000, videoFrame);
-			videoFrame = numbersCompositor.overlayNextImage(decoder.getVideoTimeStamp(),10000000, 2000000, videoFrame);
-			videoFrame = numberText.overlayNextFontFrame(strapCompositor.isImOut(), videoFrame); //THIS number is tied to strap NOT number
-			videoFrame = trackText.overlayNextFontFrame(strapCompositor.isImOut(), videoFrame);
-			videoFrame = artistText.overlayNextFontFrame(strapCompositor.isImOut(), videoFrame);
-			videoFrame = chartText.overlayNextFontFrame(chartCompositor.isImOut(), videoFrame);
-			videoFrame = numberText.overlayNextFontFrame(strapCompositor2.isImOut(), videoFrame);
-			videoFrame = trackText.overlayNextFontFrame(strapCompositor2.isImOut(), videoFrame);
-			videoFrame = artistText.overlayNextFontFrame(strapCompositor2.isImOut(), videoFrame);
-			videoFrame = chartText.overlayNextFontFrame(logoCompositor.isImOut(), videoFrame);
-		}
-		
-		
-		public void resetThemeElements() {
-			//theme order = 0=classic 1=pop 2=urban
-			switch (theme.getIndex()) {
-			case 0:  resetTheBits();
-			break;
-			case 1:  resetTheBitsPop(); //TODO: numbers has no transition - should be a null condition not this!!! Also elements should reset themselves
-			break;
-			case 2:  resetTheBits();
-			break;
-			default: resetTheBits();
-			break;
-			}
-
-		}
-
-		private void resetTheBits() {
-			logoCompositor.resetFileUNC();
-			strapCompositor.resetFileUNC();
-			strapCompositor2.resetFileUNC();
-			chartCompositor.resetFileUNC();
-			transitionCompositor.resetFileUNC();
-			numbersCompositor.resetFileUNC();
-		}
-
-		private void resetTheBitsPop() {
-			logoCompositor.resetFileUNC();
-			strapCompositor.resetFileUNC();
-			strapCompositor2.resetFileUNC();
-			chartCompositor.resetFileUNC();
-			numbersCompositor.resetFileUNC();
-
-		}
-
 
 	}
+
+	private void resetTheBits() {
+		logoCompositor.resetFileUNC();
+		strapCompositor.resetFileUNC();
+		strapCompositor2.resetFileUNC();
+		chartCompositor.resetFileUNC();
+		transitionCompositor.resetFileUNC();
+		numbersCompositor.resetFileUNC();
+	}
+
+	private void resetTheBitsPop() {
+		logoCompositor.resetFileUNC();
+		strapCompositor.resetFileUNC();
+		strapCompositor2.resetFileUNC();
+		chartCompositor.resetFileUNC();
+		numbersCompositor.resetFileUNC();
+
+	}
+
+
+}

@@ -2,6 +2,7 @@ package test;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -17,7 +18,11 @@ import javax.swing.JPanel;
  *
  */
 public class ShowImageInFrame extends JPanel {
-   private BufferedImage image;
+   private BufferedImage image;  
+   static String backFile = "src/test/bru.png";
+
+	
+
    
 /**
  * Either we allow a BufferedImage to be displayed
@@ -27,7 +32,7 @@ public class ShowImageInFrame extends JPanel {
    public ShowImageInFrame(BufferedImage image) throws IOException {
       
     this.image = image;
-    createAndShowGui();
+    createAndShowImageInFrame();
       
    }
    
@@ -39,7 +44,7 @@ public class ShowImageInFrame extends JPanel {
    public ShowImageInFrame(String fileUNC) throws IOException {
 	   Image back = ImageIO.read(new File(fileUNC));
 	      image = (BufferedImage) back;
-	     createAndShowGui();
+	     createAndShowImageInFrame();
    }
 
 /**
@@ -63,7 +68,7 @@ public class ShowImageInFrame extends JPanel {
     * Dislpays the image
     * @throws IOException
     */
-   public void createAndShowGui() throws IOException {
+   public void createAndShowImageInFrame() throws IOException {
       JFrame frame = new JFrame("The image passed in is this");
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       frame.getContentPane().add(this);
@@ -71,5 +76,17 @@ public class ShowImageInFrame extends JPanel {
       frame.setLocationRelativeTo(null);
       frame.setVisible(true);
    }
+   
+   /**
+	 * Tests an image in a frame. Image is included in test folder
+	 * @param args
+	 * @throws IOException  //TODO: exception
+	 */
+	public static void main(String[] args) throws IOException {
+		Image bk = ImageIO.read(new File(backFile));
+		BufferedImage back = (BufferedImage) bk; 
+		new ShowImageInFrame(back);
+
+	}	
 
 }

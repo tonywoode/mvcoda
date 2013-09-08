@@ -5,8 +5,11 @@ import java.util.concurrent.TimeUnit;
 
 import com.xuggle.xuggler.ICodec.ID;
 
-
-
+/**
+ * Types for the decoupling adapter for the media framework of MV-CoDA
+ * @author tony
+ *
+ */
 public abstract class MediaWriter {
 
 	public abstract void close();

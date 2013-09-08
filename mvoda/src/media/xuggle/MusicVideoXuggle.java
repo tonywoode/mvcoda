@@ -1,6 +1,7 @@
 package media.xuggle;
 
-import util.FileUtil;
+import java.util.logging.Logger;
+
 import lombok.Getter;
 import media.Decoder;
 import media.MusicVideo;
@@ -10,9 +11,8 @@ import media.types.StreamCoder;
 import media.xuggle.types.ContainerXuggle;
 import media.xuggle.types.RationalXuggle;
 import media.xuggle.types.StreamCoderXuggle;
+import util.FileUtil;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import com.xuggle.xuggler.Global;
 import com.xuggle.xuggler.ICodec;
 import com.xuggle.xuggler.IContainer;
@@ -26,9 +26,10 @@ import com.xuggle.xuggler.IStreamCoder;
  * @author tony
  *
  */
-
 public class MusicVideoXuggle implements MusicVideo {
 
+	public final static Logger LOGGER = Logger.getLogger(MusicVideoXuggle.class.getName()); //get a logger for this class
+	
 	private IContainer container;
 	private IStreamCoder audioCoder;
 	private IStreamCoder videoCoder;
@@ -37,23 +38,15 @@ public class MusicVideoXuggle implements MusicVideo {
 	@Getter private double framesPerSecondAsDouble;
 	@Getter private ICodec.ID videoCodecID;
 
-	// implemention needs to use Xuggle's IContainer internally, so
-	// we only return the abstract interface for clients
-	public Container getContainer() {
-		return container != null ? new ContainerXuggle(container) : null;
-	}
+	/* The following methods are for adaptation, we need to use Xuggler's imp internally, 
+	so we only return the abstract interface for clients. We return null to caller if necessary */
+	public Container getContainer() { return container != null ? new ContainerXuggle(container) : null;	}
 	
-	public StreamCoder getAudioCoder() {
-		return audioCoder != null ? new StreamCoderXuggle(audioCoder) : null;
-	}
+	public StreamCoder getAudioCoder() { return audioCoder != null ? new StreamCoderXuggle(audioCoder) : null; }
 	
-	public StreamCoder getVideoCoder() {
-		return videoCoder != null ? new StreamCoderXuggle(videoCoder) : null;
-	}
-	
-	public Rational getFramesPerSecond() {
-		return framesPerSecond != null ? new RationalXuggle(framesPerSecond) : null;
-	}
+	public StreamCoder getVideoCoder() { return videoCoder != null ? new StreamCoderXuggle(videoCoder) : null; }
+		
+	public Rational getFramesPerSecond() { return framesPerSecond != null ? new RationalXuggle(framesPerSecond) : null;	}
 
 	@Getter private String fileUNC;	
 	@Getter private String filetype;
@@ -75,16 +68,16 @@ public class MusicVideoXuggle implements MusicVideo {
 	/**
 	 * Constructor takes only a filename, if that filename is a video FFMpeg can read i.e.: has audio and/or video streams codecs that can decode
 	 * we will set the stream ID's and return an open container as the music video, with its properties available to inspect
-	 * @param fileUNC
+	 * @param fileUNC the path to the music video
 	 */
 	public MusicVideoXuggle(String fileUNC) {
 		this.fileUNC = fileUNC;
-		this.decoder = new DecoderXuggle(this); //how do we get rid of this? It can get called here so it doesn't NEED any properties at this point...
+		this.decoder = new DecoderXuggle(this); //make sure we hold a reference to a specific decoder
 		container = IContainer.make(); //create a new container object
 		if (container.open(fileUNC, IContainer.Type.READ, null) <0) { //populate with the UNC you passed in
-			throw new RuntimeException(fileUNC + ": failed to open");  
+			throw new RuntimeException(fileUNC + ": failed to open");   //TODO: excpetion handling
 		}
-		filetype = FileUtil.getFiletype(fileUNC);
+		filetype = FileUtil.getFiletype(fileUNC); //we may use the filetype later
 
 		//then iterate through the container trying to find the video and audio streams
 		numStreams = container.getNumStreams();  
@@ -108,14 +101,14 @@ public class MusicVideoXuggle implements MusicVideo {
 				frameRateDivisor = stream.getTimeBase().getNumerator() * stream.getTimeBase().getDenominator();
 				//Xugglers stream duration is in whatever time units the format uses, so we'll use time base denominator and numerator and convert micro to millis
 				vidStreamDuration = stream.getDuration() / frameRateDivisor * 1000000; //microsenconds
-				//System.out.println("numerator is " + stream.getTimeBase().getNumerator());
-				//System.out.println("denomiator is " + stream.getTimeBase().getDenominator());
-				//System.out.println( "real time is therefore: " + vidStreamDuration);/// (stream.getTimeBase().getNumerator() * stream.getTimeBase().getDenominator() ) * 1000 );
+										LOGGER.info("numerator is " + stream.getTimeBase().getNumerator());
+										LOGGER.info("denomiator is " + stream.getTimeBase().getDenominator());
+										LOGGER.info( "real time is therefore: " + vidStreamDuration);
 				videoCodecID = coder.getCodecID();
 			}
 		}
 
-		//error if we haven't found any streams
+		//error if we haven't found any streams //TODo: exceptions
 		if ( videoStreamIndex < 0 && audioStreamIndex < 0 ) { throw new RuntimeException( fileUNC + " Doesn't contain audio or video streams" );}
 		if ( audioCoder != null && ( audioCoder.open(null, null) < 0 ) ) { throw new RuntimeException(fileUNC + ": audio can't be opened");}
 		if ( videoCoder != null && ( videoCoder.open(null, null) < 0 ) ) { throw new RuntimeException(fileUNC + ": video can't be opened");}
@@ -124,6 +117,7 @@ public class MusicVideoXuggle implements MusicVideo {
 		width = videoCoder.getWidth();
 		height = videoCoder.getHeight();
 		pixFormat = videoCoder.getPixelType();
+		
 		//now we have width and height, lets convert to BGR24
 		decoder.makeResampler(width, height);
 		numChannelsAudio = audioCoder.getChannels();
@@ -136,31 +130,17 @@ public class MusicVideoXuggle implements MusicVideo {
 	/**
 	 * Closes the container that represents the music video
 	 */
-	@Override
-	public void close() {
-		if (videoCoder != null)
-		{
-			videoCoder.close();
-			videoCoder = null;
-		}
-		if (audioCoder != null)
-		{
-			audioCoder.close();
-			audioCoder = null;
-		}
-		if (container !=null)
-		{
-			container.close();
-			container = null;
-		}
+	@Override public void close() { 
+		if (videoCoder != null) { videoCoder.close(); videoCoder = null; }
+		if (audioCoder != null)	{ audioCoder.close(); audioCoder = null; }
+		if (container !=null) { container.close(); container = null; }
 	}
 
 
 	/**
 	 * Prints out formatted information about the media file
 	 */
-	@Override
-	public String toString() {
+	@Override public String toString() {
 		String str = "";
 		str += String.format("File path: %s", fileUNC);
 		str += String.format("\nFile Size (bytes): %d", container.getFileSize() );

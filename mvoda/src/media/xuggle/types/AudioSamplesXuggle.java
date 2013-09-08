@@ -4,6 +4,11 @@ import media.types.AudioSamples;
 
 import com.xuggle.xuggler.IAudioSamples;
 
+/**
+ * Types for the decoupling adapter for the media framework of MV-CoDA
+ * @author tony
+ *
+ */
 public class AudioSamplesXuggle extends AudioSamples {
 	
 	private IAudioSamples audioSamples;

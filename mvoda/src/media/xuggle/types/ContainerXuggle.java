@@ -10,6 +10,11 @@ import media.types.ContainerType;
 import media.types.Packet;
 import media.types.Stream;
 
+/**
+ * Types for the decoupling adapter for the media framework of MV-CoDA
+ * @author tony
+ *
+ */
 public class ContainerXuggle extends Container {
 	private IContainer container;
 

@@ -46,7 +46,7 @@ public class ImageCompositor {
 	private BufferedImage videoFrame;
 	private BufferedImage overlay;
 
-	private final static Logger LOGGER = Logger.getLogger(ImageCompositor.class.getName()); //get a logger for this class
+	public final static Logger LOGGER = Logger.getLogger(ImageCompositor.class.getName()); //get a logger for this class
 
 	/**
 	 * Takes a theme name and arranges to overlay the sequence of images set as logo
@@ -66,9 +66,9 @@ public class ImageCompositor {
 	 * @param desiredDuration GFX element's specified duration
 	 * @param videoFrame the image to overlay
 	 * @return the composited image
-	 * @throws IOException
+	 * @throws IOException //TODO: exception
 	 */
-	public BufferedImage overlayNextImage(long vidTimeStamp, long inTime, long desiredDuration, BufferedImage videoFrame) throws IOException {
+	public BufferedImage overlayNextImage(long vidTimeStamp, long inTime, long desiredDuration, BufferedImage videoFrame) throws IOException { //TODO expection
 		this.desiredDuration = desiredDuration;
 		this.videoFrame = videoFrame;
 		this.vidTimeStamp = vidTimeStamp;
@@ -79,7 +79,6 @@ public class ImageCompositor {
 		x = gfxElement.getXOffsetSD();
 		y = gfxElement.getYOffsetSD();
 
-		LOGGER.setLevel(Level.OFF);
 		LOGGER.info(gfxElement.getDirectory() + " inDuration is " + gfxElement.getInDuration());
 		LOGGER.info("inDuration is :" + gfxElement.getInDuration());
 		LOGGER.info("outDuration is :" + gfxElement.getOutDuration());
@@ -107,7 +106,7 @@ public class ImageCompositor {
 		else { imOut = true; return videoFrame; }
 	}
 
-	
+
 	/**
 	 * Computes what GFX to overlay over the current videoframe by passing in the times and desired times. From these we alter the index of the current position
 	 * in the GFX Element's sequence (a field in this class)
@@ -142,15 +141,20 @@ public class ImageCompositor {
 	}
 
 
-	public void nextFileUNCForReverseOut() {
+	/**
+	 * Iterator for GFXElements that have no out-animation. We reverse out. This gets called by nextFileUNC
+	 */
+	private void nextFileUNCForReverseOut() {
 		if (fileIndex > 0 && vidTimeStamp >= outTime) { //otherwise so long as we are above the sequence start frame, and past the out time
 			if (fileIndex - gfxElement.getSpeed() >= 0) { fileIndex = fileIndex - gfxElement.getSpeed(); }//iterate backwards through the animation at the specified time factor
 		}
 		else if (fileIndex < gfxFiles.size() -1 && fileIndex < gfxElement.getFirstHoldFrame() ) { fileIndex++; } //animate
 	}
 
-	
-	public void nextFileUNCForLoop() {
+	/**
+	 * Iterator for GFXElements that have a looping hold section. This gets called by nextFileUNC
+	 */
+	private void nextFileUNCForLoop() {
 		if (vidTimeStamp > inTimeWithHandles ) {
 			if (fileIndex == gfxElement.getLastHoldFrame() ) {
 				fileIndex = gfxElement.getFirstHoldFrame() -1;
@@ -167,14 +171,20 @@ public class ImageCompositor {
 		}
 	}
 
-
+	/**
+	 * resets any counters used by this class when finished with a whole music video
+	 */
 	public void resetFileUNC() {
 		fileIndex = 0;
 		outOffset = 0;
 	}
 
-
-	public BufferedImage overlayImage() throws IOException {
+	/**
+	 * Overlays an image on the overlay this class holds currently. Intended for alpha-channel images
+	 * @return the composited image
+	 * @throws IOException //TODO: Exception
+	 */
+	private BufferedImage overlayImage() throws IOException { //TOD: exception
 		Graphics2D g = videoFrame.createGraphics();
 		g.drawImage(overlay, x, y, null);
 		//TODO - need a map of rendering hints: g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
@@ -182,6 +192,11 @@ public class ImageCompositor {
 	}
 
 
+	/**
+	 * Fades an image onto the overlay this class holds currently. Intended for static images eg: logos
+	 * @return the composited image
+	 * @throws IOException //TODO: exception
+	 */
 	public BufferedImage fadeImage() throws IOException {//http://www.java2s.com/Code/Java/2D-Graphics-GUI/Fadeoutanimageimagegraduallygetmoretransparentuntilitiscompletelyinvisible.htm
 
 		float alphaFactor = 0.06f;
@@ -202,6 +217,11 @@ public class ImageCompositor {
 	}
 
 
+	/**
+	 * Wipes an image onto the overlay this class holds currently. Intended for static images eg: logos
+	 * @return the composited image
+	 * @throws IOException //TODO: exception
+	 */
 	public BufferedImage wipeImage() throws IOException {
 
 		if (vidTimeStamp > inTimeWithHandles && vidTimeStamp <= outTimeWithHandles ) {

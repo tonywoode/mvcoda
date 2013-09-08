@@ -9,6 +9,11 @@ import java.util.logging.Logger;
 
 import lombok.Setter;
 
+/**
+ * Arranages to composite standard text fonts onto BufferedImages for MV-CoDA
+ * @author tony
+ *
+ */
 public class TextCompositor {
 
 	@Setter private Font textFont;
@@ -16,7 +21,7 @@ public class TextCompositor {
 	private int textXPos;
 	private int textYPos;
 
-	private final static Logger LOGGER = Logger.getLogger(TextCompositor.class.getName()); //get a logger for this class
+	public final static Logger LOGGER = Logger.getLogger(TextCompositor.class.getName()); //get a logger for this class
 
 
 	public TextCompositor(String text, int textXPos, int textYPos){
@@ -25,6 +30,9 @@ public class TextCompositor {
 		this.textYPos = textYPos;
 	}
 
+	/**
+	 * For testing purposes we can get the fonts available on the local machine and choose one to use for the render
+	 */
 	public void getLocalFonts() {
 		//see what fonts are available on local machine, for testing
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -35,26 +43,44 @@ public class TextCompositor {
 		}
 	}
 
-
+	/**
+	 * Checks to see if an overlay is required onto an image, and arranges overlay if so
+	 * @param imOut does the current iteration require an overlay
+	 * @param videoFrame the image to overlay onto
+	 * @return the composited image
+	 * @throws IOException //TODO: exception
+	 */
 	public BufferedImage overlayNextFontFrame(boolean imOut, BufferedImage videoFrame)  throws IOException {
-		nextText(imOut, videoFrame);
 		BufferedImage composite = nextText(imOut, videoFrame );
 		return composite;
 	}
 
-
-	protected void renderText(BufferedImage image, String text, Font font, int x, int y){
+	/**
+	 * controls the composition of the text overlay
+	 * @param imOut does the current interation require an overlay
+	 * @param videoFrame image to overlay onto
+	 * @return the composited image
+	 */
+	private BufferedImage nextText(boolean imOut, BufferedImage videoFrame) {
+		if ( imOut == false) { if (text != null) { renderText(videoFrame, text, textFont, textXPos, textYPos); } }
+		BufferedImage composite = videoFrame;
+		return composite;
+	}
+	
+	/**
+	 * Renders text to image
+	 * @param image image to write onto
+	 * @param text characters to print
+	 * @param font font to print in
+	 * @param x at x coord in image
+	 * @param y at y coord in image
+	 */
+	private void renderText(BufferedImage image, String text, Font font, int x, int y){
 		Graphics2D g = image.createGraphics();
 		g.setFont(font);
 		g.drawString(text, x, y);
 	}
 
-
-	public BufferedImage nextText(boolean imOut, BufferedImage videoFrame) {
-		if ( imOut == false) { if (text != null) { renderText(videoFrame, text, textFont, textXPos, textYPos); } }
-		BufferedImage composite = videoFrame;
-		return composite;
-	}
 
 	//TODO: refactor with coord
 	public void setTextPos(int x, int y) {

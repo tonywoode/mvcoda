@@ -11,6 +11,11 @@ import com.xuggle.xuggler.IAudioSamples;
 import com.xuggle.xuggler.ICodec.ID;
 import com.xuggle.xuggler.IRational;
 
+/**
+ * Types for the decoupling adapter for the media framework of MV-CoDA
+ * @author tony
+ *
+ */
 public class MediaWriterXuggle extends MediaWriter {
 
 	private IMediaWriter writer;

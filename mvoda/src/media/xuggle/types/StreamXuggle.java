@@ -4,6 +4,11 @@ import com.xuggle.xuggler.IStream;
 
 import media.types.Stream;
 
+/**
+ * Types for the decoupling adapter for the media framework of MV-CoDA
+ * @author tony
+ *
+ */
 public class StreamXuggle extends Stream {
 	private IStream stream;
 	

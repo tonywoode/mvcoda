@@ -18,7 +18,6 @@ public interface Encoder {
 	
 	public abstract void addVideoStreamTo(MediaWriter writer);
 
-	public abstract void addAudioStreamTo(MediaWriter writer,
-			StreamCoder audioCodec);
+	public abstract void addAudioStreamTo(MediaWriter writer, StreamCoder audioCodec);
 
 }
