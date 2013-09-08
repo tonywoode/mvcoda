@@ -21,18 +21,17 @@ import util.ThemeFinderImpl;
  */
 public class ThemeFinderImplTest {
 
-	@Test
-	public final void testReturnThemes() {
+	@Test public final void testReturnThemes() {
 		
 		ThemeFinder themeFinder = new ThemeFinderImpl();	
 		ArrayList<Theme> themeArray = new ArrayList<>();
 				
 		try {
 			themeArray = themeFinder.returnThemes();
-		} catch (IOException e) {
+		} catch (IOException e) { //TODO: exception
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (InterruptedException e) {
+		} catch (InterruptedException e) { //TODO:exception
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
