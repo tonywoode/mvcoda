@@ -4,12 +4,8 @@ import media.types.Container;
 import media.types.Rational;
 import media.types.StreamCoder;
 
-import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import com.xuggle.xuggler.ICodec;
-import com.xuggle.xuggler.IContainer;
 import com.xuggle.xuggler.IPixelFormat;
-import com.xuggle.xuggler.IRational;
-import com.xuggle.xuggler.IStreamCoder;
 
 public interface MusicVideo {
 

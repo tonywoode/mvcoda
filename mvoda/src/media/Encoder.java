@@ -4,9 +4,6 @@ import media.types.MediaWriter;
 import media.types.StreamCoder;
 import playlist.Playlist;
 
-import com.xuggle.mediatool.IMediaWriter;
-import com.xuggle.xuggler.IStreamCoder;
-
 public interface Encoder {
 	
 	public abstract void render(Playlist playlist);
