@@ -4,6 +4,7 @@
 package util;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 import themes.Theme;
@@ -17,4 +18,6 @@ import themes.Theme;
 public interface ThemeFinder {
 
 	public abstract ArrayList<Theme> returnThemes() throws IOException, InterruptedException;
+
+	public abstract ArrayList<Path> returnDirectories(Path rootDir, String string, int i) throws Exception;
 }

@@ -1,21 +1,19 @@
 package playlist;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamOmitField;
-
-import themes.XMLSerialisable;
 
 import javafx.collections.ObservableList;
-
 import lombok.Getter;
 import lombok.Setter;
+import themes.XMLReader;
+import themes.XMLSerialisable;
+import themes.XMLWriter;
+
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 /**
  * A playlist determines which tracks form a chart, which position each is in, and acoompanying text and GFX to display
- * Playlist is serialisable to and from disk
+ * Playlist is serialisable to and from disk - see {@link XMLReader} {@link XMLWriter}
  * @author tony
  *
  */

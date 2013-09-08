@@ -1,26 +1,37 @@
 package themes;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import lombok.Getter;
 import lombok.Setter;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
-@XStreamAlias("Theme")
-public class Theme implements XMLSerialisable {
+/**
+ * A theme collects a series of GFXElements that were intended to be displayed together i.e.: for a particular chart.
+ * The element types held are described in {@link GFXElement}
+ * In addition the theme itself has a name, and a root directory which are held in this class
+ * Themes are serialisable so end up with the theme elements on disk
+ * @author tony
+ *
+ */
+@XStreamAlias("Theme") public class Theme implements XMLSerialisable {
 	
-	
-	//This is the root directory for all the XML's. It is not expected to change or be alterable
+	/*
+	 * 
+	 * This is the root directory for all the XML's. It is not expected to change or be alterable
+	 */
 	@XStreamOmitField @Getter private static final Path rootDir = Paths.get("Theme");
 	
+	
+	
+	@XStreamOmitField @Getter private Path themeDir;
+	
+	@XStreamOmitField @Getter @Setter public int index; //TODO: omit means set this only after instantiating with a read
+	
 	@Getter private String itemName;
-	
-	//TODO: well the below didn't work very well now did it.....I think it can be removed atm
-	@XStreamOmitField @Getter private Path themeDir;// = Paths.get(rootDir.toString(),getItemName());
-	
 	
 	@Getter @Setter private String directory;
 
@@ -36,26 +47,10 @@ public class Theme implements XMLSerialisable {
 	
 	@Getter @Setter public GFXElement transition;
 	
-	@XStreamOmitField @Getter @Setter public int index; //TODO: omit means set this only after instantiating with a read
 	
 	public Theme(String itemName) { this.itemName = itemName; }
 	
 	@Override public String toString() { return itemName; }
 	
-	
-	
-	/*public Theme(String itemName) { //TODO: this never gets called because the xml doesn't call new
-		
-		this.itemName = itemName;
-		this.themeDir = Paths.get(rootDir.toString(),itemName);
-		System.out.println("Right now rootDir is " + rootDir + " and themeDir is " + themeDir);
-		XMLSerialisable themeAsSerialisable = XMLReader.readXML(getThemeDir(), getItemName());
-		Theme theme = (Theme) themeAsSerialisable;
-		this.Logo = theme.getLogo();
-		this.Chart = theme.getChart();
-		this.Strap = theme.getStrap();
-		this.Numbers = theme.getNumbers();
-		this.Transition = theme.getTransition();
-	}*/
 
 }

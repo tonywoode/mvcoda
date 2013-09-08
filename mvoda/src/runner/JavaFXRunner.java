@@ -1,11 +1,6 @@
 package runner;
 
 import java.net.URL;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import media.xuggle.MusicVideoXuggle;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -13,12 +8,8 @@ import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import util.FileUtil;
-import util.ThemeFinderImpl;
 import view.ViewController;
 import controllers.MainController;
-import drawing.ImageCompositor;
-import drawing.TextCompositor;
 
 public class JavaFXRunner extends Application {
 

@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package media.xuggle;
 
 import java.awt.image.BufferedImage;

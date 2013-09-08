@@ -5,6 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import media.xuggle.MusicVideoXuggle;
+import themes.GFXElement;
 import util.FileUtil;
 import util.ThemeFinderImpl;
 import controllers.MainController;
@@ -30,6 +31,7 @@ public class HandleLoggers {
 		ImageCompositor.LOGGER.setLevel(Level.ALL);
 		FileUtil.LOGGER.setLevel(Level.ALL);
 		TextCompositor.LOGGER.setLevel(Level.ALL);
+		GFXElement.LOGGER.setLevel(Level.ALL);
 		
 		
 		//ThemeFinderImpl theme = new ThemeFinderImpl();

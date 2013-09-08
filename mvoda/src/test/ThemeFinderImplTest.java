@@ -1,15 +1,14 @@
 package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import org.junit.Test;
 
 import themes.Theme;
-import util.FileUtil;
 import util.ThemeFinder;
 import util.ThemeFinderImpl;
 
@@ -41,5 +40,18 @@ public class ThemeFinderImplTest {
 		assertEquals( "Testing Urban", "Urban", themeArray.get(2).getItemName() );
 		
 	}
+	
+	
+	
+	@Test public final void testReturnDirectories() throws Exception { //todo: exception
+		ThemeFinder themeFinder = new ThemeFinderImpl();
+		ArrayList<Path> foundPaths = new ArrayList<>();
+		foundPaths = themeFinder.returnDirectories(Theme.getRootDir(), "xml", 2);
+		//System.out.println(thePathsItFound);
+		
+		assertEquals( "Path number two in standard build should be Theme\\Pop\\Pop.xml", "Theme\\Pop\\Pop.xml", foundPaths.get(1).toString() );
+		
+	}
+	
 
 }

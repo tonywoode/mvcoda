@@ -5,20 +5,30 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import lombok.Getter;
+import lombok.Setter;
 import playlist.Number;
+import util.FrameRate;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
-
-import lombok.Getter;
-import lombok.Setter;
-
-@XStreamAlias("GFXElement")
-public class GFXElement implements XMLSerialisable {
+/**
+ * GFXElement is the base class for all GFXElements in MV-Coda. It describes basic properties that both static (i.e.: just a single image) and animated elements share
+ * This is mostly text data, and co-ordinates onscreen. The text data also includes "element name" which describes the element TYPE, which can be:
+ * 1) a logo
+ * 2) a strap for holding text
+ * 3) a chart name
+ * 4) numbers that show chart position
+ * 5) a transition
+ * 6) any other type for special use
+ * the class is serialisable and so the details end up in the XML that is included with theme elements - see {@link XMLReader} {@link XMLWriter}
+ * @author tony
+ *
+ */
+@XStreamAlias("GFXElement") public class GFXElement implements XMLSerialisable {
 
 	//annotations because we'd like to omit some of these fields from the XML, they are calculated fields only for the class to use
 	@XStreamOmitField private String filetype = "";
@@ -33,8 +43,17 @@ public class GFXElement implements XMLSerialisable {
 	@Getter @Setter private String version;
 	@Getter @Setter public CoOrd coOrd;
 	
-	private final static Logger LOGGER = Logger.getLogger(GFXElement.class.getName()); //setup a logger for this class
+	public final static Logger LOGGER = Logger.getLogger(GFXElement.class.getName()); //setup a logger for this class
 
+	/**
+	 * The basic consituents that describe a GFX element are
+	 * @param themeName which Theme it belongs to
+	 * @param itemName what name we wish to give this element
+	 * @param elementName the type of element we have
+	 * @param author
+	 * @param version
+	 * @param coOrd the onscreen adjustment that needs making for the element to fit a video picture
+	 */
 	public GFXElement(String themeName, String itemName, String elementName, String author, String version, CoOrd coOrd) {
 		this.themeName = themeName;
 		this.itemName = itemName;
@@ -55,44 +74,38 @@ public class GFXElement implements XMLSerialisable {
 	public int getXOffsetSD() {	return coOrd.getXOffsetSD(); }
 	public int getYOffsetSD() {	return coOrd.getYOffsetSD(); }
 
-
-	public long getDuration(long frameRateDivisor) { //TODO: this is just the duration of the media, that ok? what about the out and in durations?
-		duration = convertFrameToTime( fileNumbers.size() );
-		return duration;
-	}
+	//this is just the duration of the whole pice of media
+	public long getDuration(long frameRateDivisor) { duration = FrameRate.convertFrameToTime( fileNumbers.size() );	return duration; }
 
 	//we need these so that we can call an AnimatedGFXElement as a GFXElement
 	public long getInDuration() { return 0;	}
 	public long getOutDuration() { return 0; }
 
-	//an animatedGFXElement has none of these things //TODO: I wish we could get this stuff out of here then
+	//passer methods - an animatedGFXElement has none of these things TODO//refactor these out
 	public boolean isReverse() { return false; }
 	public boolean isLoop() { return false; }
 	public boolean isNumbers() { return false; }
-	public int getSpeed() { return 1; } //TODO: is 1x speed correct for a static element?
+	public int getSpeed() { return 1; } //1 is the default for a static GFX Element
 	public int getFirstHoldFrame() { return -1; }
 	public int getLastHoldFrame() { return -1; }
 	public int getNumberOfFrames() { return 1; }
 
 
-	public static long convertFrameToTime(long frames) {
-		//TODO: if we divide by zero, throw an exception
-		long result = frames * 1000000; //the time basis
-		result = result / 25; //the frame rate //TODO: magic numbers....
-		return result;
-	}
-
-
+	/**
+	 * When passed a path containing a GFXElement, we will make an ordered array of the file sequence of the element
+	 * The process of so-doing also gives us the filtype.
+	 * We allow for elements to have zero padding //TODO
+	 * @param dir path to the file sequence
+	 * @return ordered array of the file sequence according to the numbering system they were saved using ie: the number postfix on the filename
+	 */
 	public ArrayList<String> getOverlayFileNames(Path dir) {
 		File file = new File(dir.toString());  
 		File[] files = file.listFiles();
 		fileNumbers = new ArrayList<>();
 
 		for (int g = 0; g < files.length; g++) {
-													LOGGER.setLevel(Level.OFF); //set to Level.ALL to log this block
-
 			String i = files[g].toString();
-													LOGGER.info(i);
+													LOGGER.info("Inspecting file" + i);
 			String path = i;
 			String base = dir.toString();
 			//first we need to get the relative path - we do this by effectively masking
@@ -126,26 +139,20 @@ public class GFXElement implements XMLSerialisable {
 													LOGGER.info(reverseBack);
 			fileNumbers.add(reverseBack);				
 		}
-		//now let's use the comparator to sort the arrayList - we'll just write back to the same arraylist TODO: good idea?
-
+		//now let's use the comparator to sort the arrayList
 		Collections.sort(fileNumbers, new NumberedFileComparator());
 		for (int i = 0; i < fileNumbers.size(); i++) {
 													LOGGER.info(fileNumbers.get(i));
 		}
 
-
 		//now we can reconstitute the file list IN ORDER
-
 		for (int l = 0; l < fileNumbers.size(); l++) {
 			fileNumbers.set(l, dir + "/" + filePrefix + fileNumbers.get(l) + filetype);
 		}
-
 		return fileNumbers;
+		
 	}
 
-
-
-	//TODO: one of these I ended up not using either here or in theme
 	@Override public String toString() { return itemName; }
 
 

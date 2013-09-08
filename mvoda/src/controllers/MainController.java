@@ -125,7 +125,7 @@ public class MainController implements ViewControllerListener {
 
 		//if (file != null) {
 		//try { 
-		XMLSerialisable playlistAsSerialisable = XMLReader.readPlyalistXML(file.toPath());	
+		XMLSerialisable playlistAsSerialisable = XMLReader.readPlaylistXML(file.toPath());	
 		playlistTemp = (Playlist) playlistAsSerialisable;
 		//}
 

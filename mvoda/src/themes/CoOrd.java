@@ -3,6 +3,11 @@ package themes;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Means of simplifying specifying coordinates
+ * @author tony
+ *
+ */
 public class CoOrd {
 	
 	@Getter @Setter public int xOffsetSD;

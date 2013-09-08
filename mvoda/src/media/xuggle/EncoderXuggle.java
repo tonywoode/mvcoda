@@ -16,6 +16,7 @@ import playlist.Number;
 import playlist.Playlist;
 import playlist.PlaylistEntry;
 import themes.Theme;
+import util.FrameRate;
 
 import com.xuggle.mediatool.ToolFactory;
 import com.xuggle.xuggler.ICodec;
@@ -61,8 +62,12 @@ public class EncoderXuggle implements Encoder {
 		ArrayList<PlaylistEntry> reversedList = new ArrayList<PlaylistEntry>(playlist.getPlaylistEntries()); //copy array
 		Collections.reverse(reversedList);
 		
-		video = playlist.getNextEntry(0).getVideo(); //TODO: we have to first set a video becuase eg: line 361 below needs it to set properties
-		//so we choose the number from chart entry number one
+		video = playlist.getNextEntry(0).getVideo(); //we have to first set a video because e.g.: line 361 below needs to set properties
+													//so we choose the number from chart entry number one
+		
+		FrameRate.setFrameRate(video.getFramesPerSecondAsDouble()); //we also use chart entry number one to set the frame rate
+		
+		
 		writer = getWriter(outFilename);
 		
 		//This is so that GFX element's can lookup a live number rather than be passed a playlist entry
