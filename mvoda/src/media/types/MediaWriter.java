@@ -16,8 +16,9 @@ public abstract class MediaWriter {
 	public abstract void encodeVideo(int i, BufferedImage videoFrame, long newVideoTimecode, TimeUnit microseconds);
 
 	public abstract void addVideoStream(int videoStreamIndex, int videoStreamID,
-			ID videoCodecID, Rational frameRate, int outputWidth,
+			ID videoCodecID, double frameRateAsDouble, int outputWidth, //note here IRational has become double - caller may need to convert
 			int outputHeight);
+
 
 	public abstract void addAudioStream(int audioStreamIndex, int audioStreamID,
 			ID codecId, int numAudioChannels, int audioSampleRate);

@@ -192,12 +192,13 @@ public class EncoderXuggle implements Encoder {
 	 */
 	@Override
 	public void addVideoStreamTo(MediaWriter writer) {
-		Rational frameRate =  new RationalXuggle(IRational.make(video.getFramesPerSecondAsDouble()));
-		int outputWidth = video.getWidth();
-		int outputHeight = video.getHeight();
-		writer.addVideoStream(video.getVideoStreamIndex(),video.getVideoStreamID(),video.getVideoCodecID(),frameRate,outputWidth,outputHeight);
+	
+			//IRational frameRate = IRational.make(video.getFramesPerSecondAsDouble()); - see Adapter
+			int outputWidth = video.getWidth();
+			int outputHeight = video.getHeight();
+			writer.addVideoStream(video.getVideoStreamIndex(),video.getVideoStreamID(),video.getVideoCodecID(),video.getFramesPerSecondAsDouble(),outputWidth,outputHeight);
+	
 	}
-
 	/**
 	 * This is called by getWriter(). It adds the audio stream to the MediWriter you pass in i.e.: so its ready for writing out 
 	 * using the codec that get's passed to it. At the time rate and using the codec the class specifies

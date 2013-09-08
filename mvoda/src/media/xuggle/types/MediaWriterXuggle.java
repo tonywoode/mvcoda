@@ -38,11 +38,10 @@ public class MediaWriterXuggle extends MediaWriter {
 
 	@Override
 	public void addVideoStream(int videoStreamIndex, int videoStreamID,
-			ID videoCodecID, Rational frameRate, int outputWidth,
+			ID videoCodecID, double frameRateAsDouble, int outputWidth,
 			int outputHeight) {
-		writer.addVideoStream(videoStreamIndex, videoStreamID,
-				videoCodecID, outputWidth,
-				outputHeight);
+		IRational frameRate = IRational.make(frameRateAsDouble); //we need to keep hold of the rational or avi gets choppy. So call changed to instantiating the rational from IRational Interface here
+		writer.addVideoStream(videoStreamIndex, videoStreamID, videoCodecID, frameRate, outputWidth, outputHeight);
 		
 	}
 
