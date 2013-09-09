@@ -4,6 +4,7 @@ import playlist.PlaylistEntry;
 import media.MusicVideo;
 import javafx.event.EventHandler;
 import javafx.scene.control.ListCell;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.input.MouseEvent;
 
 public class PlaylistEntryListCell extends ListCell<PlaylistEntry> {
@@ -26,7 +27,7 @@ public class PlaylistEntryListCell extends ListCell<PlaylistEntry> {
             
             final String itemname = item.getFileUNC();
             
-            
+            if (this.getItem().getFileUNC().equals("Not Found") ) { this.setBlendMode(BlendMode.GREEN); }
             
            addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
                 @Override

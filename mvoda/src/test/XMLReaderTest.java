@@ -2,6 +2,7 @@ package test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -15,9 +16,10 @@ public class XMLReaderTest {
 
 	/**
 	 * Test reading XML for the standar Classic theme. We check the X axis on the logo is obtainable
+	 * @throws FileNotFoundException 
 	 */
 
-	@Test public final void testClassicXML() {
+	@Test public final void testClassicXML() throws FileNotFoundException {
 		
 		String themeName = "Classic";
 		Path rootDir = Paths.get("Theme");

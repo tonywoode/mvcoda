@@ -152,7 +152,7 @@ public class ViewController implements Initializable {
 		} 
 		catch (NullPointerException e1) { popup(e1.getMessage()); }
 		catch (XMLParseException e2) { popup("Error: not a valid MV-CoDA XML file"); }	
-		catch (FileNotFoundException e3) { popup("Error: Could not access the XML file"); }
+		catch (FileNotFoundException e3) { popup(e3.getMessage() ); }
 		catch (IOException e4) { popup("Error: Could not close the input file"); }
 	}
 

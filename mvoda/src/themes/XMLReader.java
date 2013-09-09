@@ -24,7 +24,7 @@ import com.thoughtworks.xstream.mapper.CannotResolveClassException;
  */
 public class XMLReader {
 
-	public static XMLSerialisable readXML(Path themeDir, String itemName) {
+	public static XMLSerialisable readXML(Path themeDir, String itemName) throws FileNotFoundException {
 
 		XStream xstream = new XStream();
 		XMLSerialisable xml = null;
@@ -44,7 +44,7 @@ public class XMLReader {
 
 			xml = (XMLSerialisable) xstream.fromXML(fs);
 		} 
-		catch (FileNotFoundException e) {	e.printStackTrace(); } //TODO: Exception
+		catch (FileNotFoundException e) { throw new FileNotFoundException("Could not access the XML file" );  }
 		return xml;
 	}
 
