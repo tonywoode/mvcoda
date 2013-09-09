@@ -154,6 +154,7 @@ public class ViewController implements Initializable {
 		catch (XMLParseException e2) { popup("Error: not a valid MV-CoDA XML file"); }	
 		catch (FileNotFoundException e3) { popup(e3.getMessage() ); }
 		catch (IOException e4) { popup("Error: Could not close the input file"); }
+		catch (MediaOpenException e5) { popup(e5.getMessage()); }
 	}
 
 	@FXML void savePlaylist(ActionEvent e) { 
@@ -166,7 +167,11 @@ public class ViewController implements Initializable {
 	@FXML void newPlaylist(ActionEvent e) { viewListener.newPlaylist(); }
 
 	@FXML void addPlaylistEntry(ActionEvent e) throws IOException { //TOD: loading a music video exception please
-		PlaylistEntry entry = viewListener.addPlaylistEntry();
+		try {
+			PlaylistEntry entry = viewListener.addPlaylistEntry();
+			
+		}
+		catch (MediaOpenException e5) { popup(e5.getMessage()); }
 		//playlistObservable.add(entry); //TODO we cannot pass the observable list outside of the view controller, so we return a playlist entry here
 		//edit: and now it seems we can and it was adding twice
 		playlistView.setDisable(false);

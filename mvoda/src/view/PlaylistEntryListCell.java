@@ -28,6 +28,7 @@ public class PlaylistEntryListCell extends ListCell<PlaylistEntry> {
             final String itemname = item.getFileUNC();
             
             if (this.getItem().getFileUNC().equals("Not Found") ) { this.setBlendMode(BlendMode.GREEN); }
+            if (this.getItem().getVideo() == null ) { this.setBlendMode(BlendMode.GREEN); }
             
            addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
                 @Override

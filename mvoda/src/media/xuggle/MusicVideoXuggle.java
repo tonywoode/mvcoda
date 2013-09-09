@@ -12,6 +12,7 @@ import media.xuggle.types.ContainerXuggle;
 import media.xuggle.types.RationalXuggle;
 import media.xuggle.types.StreamCoderXuggle;
 import util.FileUtil;
+import view.MediaOpenException;
 
 import com.xuggle.xuggler.Global;
 import com.xuggle.xuggler.ICodec;
@@ -69,13 +70,14 @@ public class MusicVideoXuggle implements MusicVideo {
 	 * Constructor takes only a filename, if that filename is a video FFMpeg can read i.e.: has audio and/or video streams codecs that can decode
 	 * we will set the stream ID's and return an open container as the music video, with its properties available to inspect
 	 * @param fileUNC the path to the music video
+	 * @throws MediaOpenException 
 	 */
-	public MusicVideoXuggle(String fileUNC) {
+	public MusicVideoXuggle(String fileUNC) throws MediaOpenException {
 		this.fileUNC = fileUNC;
 		this.decoder = new DecoderXuggle(this); //make sure we hold a reference to a specific decoder
 		container = IContainer.make(); //create a new container object
 		if (container.open(fileUNC, IContainer.Type.READ, null) <0) { //populate with the UNC you passed in
-			throw new RuntimeException(fileUNC + ": failed to open");   //TODO: excpetion handling
+			throw new MediaOpenException(fileUNC + ": failed to open");   //TODO: excpetion handling
 		}
 		filetype = FileUtil.getFiletype(fileUNC); //we may use the filetype later
 

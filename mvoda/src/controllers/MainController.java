@@ -1,6 +1,5 @@
 package controllers;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -8,12 +7,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.logging.Logger;
 
-import javax.management.modelmbean.XMLParseException;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import javax.management.modelmbean.XMLParseException;
+
 import lombok.Getter;
 import lombok.Setter;
 import media.Encoder;
@@ -27,10 +27,9 @@ import themes.Theme;
 import themes.XMLReader;
 import themes.XMLSerialisable;
 import themes.XMLWriter;
-import view.PopupException;
+import view.MediaOpenException;
 import view.ViewController;
 import view.ViewControllerListener;
-import view.buttons.Dialog;
 
 public class MainController implements ViewControllerListener {
 
@@ -48,12 +47,12 @@ public class MainController implements ViewControllerListener {
 		pe.setTrackName(name);
 		playlist.setNextEntry(pe);*/
 	}
-	
+
 
 	@Override public void newPlaylist() { observedEntries.clear(); }
 
 
-	@Override public PlaylistEntry addPlaylistEntry() throws IOException { //TOD: loading a music video exception please //note we pass a stage so we can popup in the cirrect place
+	@Override public PlaylistEntry addPlaylistEntry() throws IOException, MediaOpenException { //TOD: loading a music video exception please //note we pass a stage so we can popup in the cirrect place
 		final FileChooser fileChooser = new FileChooser();
 		File file = fileChooser.showOpenDialog(stage);
 		//if (file != null) {
@@ -116,37 +115,27 @@ public class MainController implements ViewControllerListener {
 	}
 
 
-	@Override public void loadPlaylist() throws FileNotFoundException, IOException, XMLParseException {
+	@Override public void loadPlaylist() throws FileNotFoundException, IOException, XMLParseException, MediaOpenException {
 
 		final FileChooser fileChooser = ViewController.getFileChooser(".xml");
-		
+
 		//read XML (exceptions thrown to view)
 		File file;
 		XMLSerialisable playlistAsSerialisable;
 		file = fileChooser.showOpenDialog(stage);
 		playlistAsSerialisable = XMLReader.readPlaylistXML(file.toPath());
-		
-		
+
+
 		//set XML contents as playlist to work on
 		playlist = (Playlist) playlistAsSerialisable;
-		
+		boolean found = playlist.validatePlaylist(playlist);
 		observedEntries.clear(); //clear the gui list
-		boolean found = false;
-		for (int i = 0; i < playlist.getPlaylistEntries().size(); i++) {
-			PlaylistEntry entry = playlist.getPlaylistEntries().get( i );
-			//the playlist XML does not contain music video details, so now we have an opportunity, whilst repopulating it, to validate the files
-			validatePlaylistEntry(entry);
-			entry.setPositionInPlaylist(i + 1); //defensively re-set the playlist entry number while we have a loop
-			if ( entry.getFileUNC().equals("Not Found") ) { found = false; }
-		}
+
 		setObservedEntries(view.getPlaylistView().getItems() );//we must update the array passed in to get the view to refresh, cleaner to do it here than back in viewcontroller
 		view.sendPlaylistNodesToScreen(playlist);
-		if (!found ) { 
-			view.popup("Some files not found, double click to refind files");
-		//view.getPlaylistView().getSelectionModel().getSelectedIndex(i).
+		if (!found ) { 	view.popup("Problem with opening highlighted files, double click them to refind files");
 		}
-		
-				
+
 		//select the XML's theme as the theme in theme select box
 		String themename = playlist.getThemeName();
 		if	( view.getThemeSelectBox().getItems().contains(playlist.getThemeName() ) ) { //if the theme name is actually one of our themes	
@@ -160,16 +149,9 @@ public class MainController implements ViewControllerListener {
 			throw new NullPointerException("The Theme in the XML cannot be found in your themes folder");
 		} 
 	}	
+
+
 	
-	
-	public void validatePlaylistEntry(PlaylistEntry entry) {
-		File videoFile = new File(entry.getFileUNC());
-		if (videoFile.exists() ) { 
-			MusicVideo video = new MusicVideoXuggle(entry.getFileUNC() ) ;
-			entry.setVideo(video);
-		}
-		else { entry.setFileUNC("Not Found"); }
-	}
 
 
 	@Override public void savePlaylist() throws FileNotFoundException, IOException {
@@ -178,37 +160,37 @@ public class MainController implements ViewControllerListener {
 
 		try { playlist.setThemeName( view.getThemeSelectBox().getSelectionModel().getSelectedItem().toString()); } 
 		catch (NullPointerException e) { throw new NullPointerException("Please select a theme before saving"); } 
-		
-				
+
+
 		setNumbersInPlaylist();
 		XMLSerialisable xmlSerialisable = playlist;
-		
+
 		final FileChooser fileChooser = ViewController.getFileChooser(".xml");
-		
+
 		File file;
 		String fileAsString = "";
-		
-		 
+
+
 		try { 
 			file = fileChooser.showSaveDialog(stage);	 	
 			if(!file.getName().contains(".xml")) { 	fileAsString = file.toString() + ".xml"; } //this check helps if the file is already existing as .xml
 			else { fileAsString = file.toString(); } //else we will get "x.xml.xml"
-			}
-			catch (NullPointerException e) { throw new NullPointerException("Please select a file to save to");	}
-			Path path = Paths.get(fileAsString);
-		
+		}
+		catch (NullPointerException e) { throw new NullPointerException("Please select a file to save to");	}
+		Path path = Paths.get(fileAsString);
+
 		XMLWriter.writePlaylistXML(true, path, xmlSerialisable);	
-		
+
 	}
-	
-	
+
+
 	@Override public void render() {
 
 		//playlist gets whatever is in the gui windows for its entries array
 		playlist.resetArray( observedEntries );
 		setNumbersInPlaylist();
 
-		
+
 		if (playlist.getPlaylistEntries().size() <= 0 ) { return; } //do nothing if theres no playlist
 		for ( int i=0;i < playlist.getPlaylistEntries().size(); i++ ) {
 			System.out.println("At postion: " + (i + 1) + " We have " + playlist.getPlaylistEntries().get(i).getFileUNC() );
@@ -231,7 +213,7 @@ public class MainController implements ViewControllerListener {
 
 		//TODO: problem is we need to get the FIRST files' filetype....is there a better way of encapsulating this its not obvious it go through about 3 classes...
 		String filetype = playlist.getNextEntry(0).getVideo().getFiletype();
-		
+
 		//first we must ask where you want to save with a dialog
 		final FileChooser fileChooser = ViewController.getFileChooser(filetype);
 		File file = fileChooser.showSaveDialog(stage);
@@ -242,14 +224,14 @@ public class MainController implements ViewControllerListener {
 
 		DecodeAndPlayAudioAndVideo player = new DecodeAndPlayAudioAndVideo(outFileUNC);
 	}
-	
-	
+
+
 	public void setNumbersInPlaylist() {
 		for (int t = 0; t < playlist.getPlaylistEntries().size(); t++) {
 			playlist.getPlaylistEntries().get(t).setPositionInPlaylist(t + 1); //set the playlist positions in the playlist to something sensible
 		}
 	}
-	
-	
-	
+
+
+
 }

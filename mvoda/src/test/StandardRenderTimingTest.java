@@ -23,6 +23,7 @@ import runner.HandleLoggers;
 import themes.Theme;
 import themes.XMLReader;
 import themes.XMLSerialisable;
+import view.MediaOpenException;
 
 public class StandardRenderTimingTest {
 
@@ -30,8 +31,9 @@ public class StandardRenderTimingTest {
 	 * Tests time taken to compose standard render
 	 * @param args
 	 * @throws IOException 
+	 * @throws MediaOpenException 
 	 */
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, MediaOpenException {
 
 		HandleLoggers.allLoggers();
 		long start = System.currentTimeMillis(); //get rough start time

@@ -1,13 +1,17 @@
 package playlist;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import javafx.collections.ObservableList;
 import lombok.Getter;
 import lombok.Setter;
+import media.MusicVideo;
+import media.xuggle.MusicVideoXuggle;
 import themes.XMLReader;
 import themes.XMLSerialisable;
 import themes.XMLWriter;
+import view.MediaOpenException;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
@@ -50,6 +54,38 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 	@Override public String getItemName() {	return (playlistName == null)? "Default Playlist Name" : playlistName; //TODO: is this really best? What to do about playlist name - this is for xml serialisable so should be the filename we set really
 	}
+	
+	
+	/**
+	 * Will validate the items in a playlist for if file exists or if they will load. For use by other classes
+	 * @param playlist a playlist
+	 * @return boolean indicating that at least one file was not found
+	 * 
+	 */
+	public boolean validatePlaylist(Playlist playlist) {
+
+		boolean found = true;
+		for (int i = 0; i < playlist.getPlaylistEntries().size(); i++) {
+			PlaylistEntry entry = playlist.getPlaylistEntries().get( i );
+			//the playlist XML does not contain music video details, so now we have an opportunity, whilst repopulating it, to validate the files
+			File videoFile = new File(entry.getFileUNC());
+			if (videoFile.exists() ) { 
+				MusicVideo video = null;
+				try {
+					video = new MusicVideoXuggle(entry.getFileUNC() );
+				} catch (MediaOpenException e) { //We wish to catch this here so we can carry on validating. The playlist cell will highlight any null video files for the user
+					found = false;
+					System.out.println(e.getMessage());
+				}
+				entry.setVideo(video);
+			}
+			else { entry.setFileUNC("Not Found"); found = false; }
+			entry.setPositionInPlaylist(i + 1); //defensively re-set the playlist entry number while we have a loop	
+		}
+		return found;
+	}
+	
+	
 
 	@Override public String toString() { 
 		String entry = ""; //TODO: are you going to have a playlist name or not? if yes that's what should return from tostring....
