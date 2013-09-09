@@ -196,7 +196,6 @@ public class ViewController implements Initializable {
 	}
 
 
-
 	@FXML void render(ActionEvent e) {
 		viewListener.render();
 	}
@@ -205,10 +204,8 @@ public class ViewController implements Initializable {
 		Dialog.dialogBox(stage, text);
 	}
 	
-	public void setNumbersInPlaylist() {
-		for (int t = 0; t < viewListener.getPlaylist().getPlaylistEntries().size(); t++) {
-			viewListener.getPlaylist().getPlaylistEntries().get(t).setPositionInPlaylist(t + 1); //set the playlist positions in the playlist to something sensible
-		}
+	@FXML void reFindVideoInPlaylistView() {
+		System.out.println("heelo");
 	}
 	
 	public static FileChooser getFileChooser(String filetype) {

@@ -9,12 +9,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
 
-<GridPane prefHeight="523.0" prefWidth="615.0" style="-fx-background-color:gainsboro;&#10;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="view.ViewController">
+<GridPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color:gainsboro;&#10;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="view.ViewController">
   <children>
     <GridPane id="GridPane" GridPane.columnIndex="1" GridPane.rowIndex="1">
       <children>
         <Button fx:id="renderButton" contentDisplay="LEFT" mnemonicParsing="false" onAction="#render" prefHeight="46.0" prefWidth="256.0" text="Render" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
-        <TextArea fx:id="mediaInfoArea" prefHeight="106.0" prefWidth="307.0" text="Media Info will go here" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <TextArea fx:id="mediaInfoArea" prefHeight="150.0" prefWidth="400.0" text="Media Info will go here" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="2" />
         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Image Goes Here" GridPane.columnIndex="0" GridPane.rowIndex="1" />
       </children>
@@ -29,14 +29,17 @@
     </GridPane>
     <VBox id="VBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
       <children>
-        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="260.5" prefWidth="306.0">
+        <AnchorPane id="Content" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" snapToPixel="true" VBox.vgrow="ALWAYS">
           <children>
-            <ListView fx:id="playlistView" layoutX="0.0" layoutY="0.0" prefHeight="238.0" prefWidth="306.9998779296875" />
+            <ListView fx:id="playlistView" editable="false" maxHeight="-1.0" maxWidth="-1.0" orientation="VERTICAL" prefHeight="276.0" prefWidth="400.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
           </children>
+          <VBox.margin>
+            <Insets fx:id="x2" />
+          </VBox.margin>
         </AnchorPane>
-        <HBox prefHeight="33.0" prefWidth="307.0">
+        <HBox alignment="BOTTOM_CENTER" fillHeight="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="-1.0" prefWidth="-1.0">
           <children>
-            <Button fx:id="addPlaylistEntryButton" alignment="CENTER" mnemonicParsing="false" onAction="#addPlaylistEntry" prefHeight="32.0" prefWidth="91.423828125" rotate="0.0" text="Add Playlist Entry" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true">
+            <Button fx:id="addPlaylistEntryButton" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addPlaylistEntry" prefHeight="-1.0" prefWidth="-1.0" rotate="0.0" text="Add Playlist Entry" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true" HBox.hgrow="ALWAYS">
               <font>
                 <Font size="10.0" fx:id="x3" />
               </font>
@@ -44,9 +47,9 @@
                 <Insets fx:id="x2" />
               </HBox.margin>
             </Button>
-            <Button fx:id="deletePlaylistEntryButton" font="$x3" mnemonicParsing="false" onAction="#deletePlaylistEntry" prefHeight="32.0" prefWidth="82.0" text="Delete Playlist Entry" textAlignment="CENTER" wrapText="true" HBox.margin="$x2" />
-            <Button fx:id="moveUpButton" font="$x3" mnemonicParsing="false" onAction="#moveUp" prefHeight="32.0" prefWidth="78.0" text="Move Up" HBox.margin="$x2" />
-            <Button fx:id="moveDownButton" font="$x3" mnemonicParsing="false" onAction="#moveDown" prefHeight="32.0" prefWidth="83.0" text="Move Down" />
+            <Button fx:id="deletePlaylistEntryButton" font="$x3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#deletePlaylistEntry" prefHeight="-1.0" prefWidth="-1.0" text="Delete Playlist Entry" textAlignment="CENTER" wrapText="true" HBox.hgrow="ALWAYS" HBox.margin="$x2" />
+            <Button fx:id="moveUpButton" font="$x3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#moveUp" prefHeight="-1.0" prefWidth="-1.0" text="Move Up" HBox.hgrow="ALWAYS" HBox.margin="$x2" />
+            <Button fx:id="moveDownButton" font="$x3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#moveDown" prefHeight="-1.0" prefWidth="-1.0" text="Move Down" HBox.hgrow="ALWAYS" />
           </children>
         </HBox>
       </children>
@@ -60,7 +63,7 @@
         <Text scaleX="2.9424741308437063" scaleY="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="TOP" />
         <Text scaleX="3.9581012955042327" scaleY="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
         <Text scaleX="4.8849479762762025" scaleY="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
-        <ComboBox fx:id="themeSelectBox" prefHeight="21.0" prefWidth="307.0" promptText="Select Theme" GridPane.columnIndex="0" GridPane.rowIndex="1">
+        <ComboBox fx:id="themeSelectBox" maxWidth="1.7976931348623157E308" prefHeight="21.0" prefWidth="307.0" promptText="Select Theme" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
           <items>
             <FXCollections fx:factory="observableArrayList">
               <String fx:value="Item 1" />

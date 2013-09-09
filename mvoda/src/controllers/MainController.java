@@ -47,7 +47,7 @@ public class MainController implements ViewControllerListener {
 		pe.setTrackName(name);
 		playlist.setNextEntry(pe);*/
 	}
-
+	
 
 	@Override public void newPlaylist() { observedEntries.clear(); }
 
@@ -137,7 +137,7 @@ public class MainController implements ViewControllerListener {
 		setObservedEntries(view.getPlaylistView().getItems() );//we must update the array passed in to get the view to refresh, cleaner to do it here than back in viewcontroller
 		view.sendPlaylistNodesToScreen(playlist);
 		
-		//select the XML's theme as the theme in theme select box - if the theme doesn't exist, it doesn't select anything
+		//select the XML's theme as the theme in theme select box
 		String themename = playlist.getThemeName();
 		if	( view.getThemeSelectBox().getItems().contains(playlist.getThemeName() ) ) { //if the theme name is actually one of our themes	
 			ObservableList<String> themeBoxItems = view.getThemeSelectBox().getItems(); //turn the theme box's list into an iterable list
@@ -145,10 +145,10 @@ public class MainController implements ViewControllerListener {
 				if ( themename.equals(itemName) ) {view.getThemeSelectBox().setValue(themename); }//and set that theme name as the active one in both the box and the list the box is generated from
 			}			
 		}
-		else { 
+		else { //if a theme name match isn't found, we must clear any previous theme selection, and throw an exception
 			view.getThemeSelectBox().getSelectionModel().clearSelection();
-			view.popup("The Theme in the XML cannot be found in your themes folder");
-		} //if a theme name match isn't found, we must clear any previous theme selection
+			throw new NullPointerException("The Theme in the XML cannot be found in your themes folder");
+		} 
 	}	
 
 
@@ -160,7 +160,7 @@ public class MainController implements ViewControllerListener {
 		catch (NullPointerException e) { throw new NullPointerException("Please select a theme before saving"); } 
 		
 				
-		view.setNumbersInPlaylist();
+		setNumbersInPlaylist();
 		XMLSerialisable xmlSerialisable = playlist;
 		
 		final FileChooser fileChooser = ViewController.getFileChooser(".xml");
@@ -184,9 +184,11 @@ public class MainController implements ViewControllerListener {
 	
 	@Override public void render() {
 
+		//playlist gets whatever is in the gui windows for its entries array
 		playlist.resetArray( observedEntries );
-		view.setNumbersInPlaylist();
+		setNumbersInPlaylist();
 
+		
 		if (playlist.getPlaylistEntries().size() <= 0 ) { return; } //do nothing if theres no playlist
 		for ( int i=0;i < playlist.getPlaylistEntries().size(); i++ ) {
 			System.out.println("At postion: " + (i + 1) + " We have " + playlist.getPlaylistEntries().get(i).getFileUNC() );
@@ -212,6 +214,13 @@ public class MainController implements ViewControllerListener {
 		if( file != null ) { Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC); }
 
 		DecodeAndPlayAudioAndVideo player = new DecodeAndPlayAudioAndVideo(outFileUNC);
+	}
+	
+	
+	public void setNumbersInPlaylist() {
+		for (int t = 0; t < playlist.getPlaylistEntries().size(); t++) {
+			playlist.getPlaylistEntries().get(t).setPositionInPlaylist(t + 1); //set the playlist positions in the playlist to something sensible
+		}
 	}
 	
 	

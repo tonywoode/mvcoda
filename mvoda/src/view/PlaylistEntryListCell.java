@@ -2,7 +2,9 @@ package view;
 
 import playlist.PlaylistEntry;
 import media.MusicVideo;
+import javafx.event.EventHandler;
 import javafx.scene.control.ListCell;
+import javafx.scene.input.MouseEvent;
 
 public class PlaylistEntryListCell extends ListCell<PlaylistEntry> {
 	
@@ -21,6 +23,23 @@ public class PlaylistEntryListCell extends ListCell<PlaylistEntry> {
         	item.setPositionInPlaylist(pos);//I don't think this does anything....
         	
             setText("NUMBER " + pos + "\t" + item.getFileUNC());
+            
+            final String itemname = item.getFileUNC();
+            
+            
+            
+           addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    if (event.getClickCount() > 1) {
+                        System.out.println("double clicked! on " + itemname);
+                        //TableCell c = (TableCell) event.getSource();
+                       // System.out.println("Cell text: " + c.getText());
+                    }
+                }
+            });
+            
+            
         }
     }
 	
