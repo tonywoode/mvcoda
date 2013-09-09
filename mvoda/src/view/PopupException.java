@@ -8,7 +8,7 @@ public class PopupException extends Exception {
 	public PopupException() {}
 
 	public PopupException(String text) {
-		MainController.popup(text);
+		//ViewController.popup(text);
 	}
 
 	public PopupException(Throwable cause)

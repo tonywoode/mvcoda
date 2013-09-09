@@ -41,7 +41,7 @@ public static void dialogBox(final Stage primaryStage, String msg){ //, Scene sc
 									ButtonBuilder.create().text("Ok, got it").defaultButton(true).onAction(new EventHandler<ActionEvent>() {
 										@Override public void handle(ActionEvent actionEvent) {
 											// take action and close the dialog.
-											System.out.println("Liked: ");//" + webView.getEngine().getTitle());
+											//System.out.println("Liked: ");//" + webView.getEngine().getTitle());
 											primaryStage.getScene().getRoot().setEffect(null);
 											dialog.close();
 										}
@@ -81,6 +81,8 @@ public static void dialogBox(final Stage primaryStage, String msg){ //, Scene sc
 			});
 			
 			primaryStage.getScene().getRoot().setEffect(new BoxBlur());
+			 //dialog.setX(primaryStage.getX() + primaryStage.getWidth() / 2  - dialog.getWidth() / 2 ); sounded right: http://stackoverflow.com/questions/13702191/center-location-of-stage
+		    // dialog.setY(primaryStage.getY() + primaryStage.getHeight() / 2 - dialog.getHeight() / 2);
 			dialog.show();
 
 			// show the confirmation dialog each time a new page is loaded.

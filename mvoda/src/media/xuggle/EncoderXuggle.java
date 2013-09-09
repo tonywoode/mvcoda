@@ -41,7 +41,7 @@ public class EncoderXuggle implements Encoder {
 
 	/**
 	 * By passing two UNCpaths to the constructor we specify and input and an output filename
-	 * @param filename
+	 * @param playlist the playlist to encode
 	 * @param outFilename
 	 */
 	public EncoderXuggle(Playlist playlist, Theme theme,String outFilename) {
@@ -54,7 +54,7 @@ public class EncoderXuggle implements Encoder {
 	/**
 	 * Creates a new music video with input filename and a new writer that will write to output filename, iterates through the packets of the music video
 	 * encoding both, but allowing something to happen to the buffered images before the encode
-	 * @param filename
+	 * @param playlist the playlist to render
 	 */
 	@Override public void render(Playlist playlist) {
 		

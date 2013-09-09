@@ -1,9 +1,12 @@
 package view;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import javax.management.modelmbean.XMLParseException;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
@@ -19,6 +22,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import lombok.Getter;
@@ -143,15 +147,20 @@ public class ViewController implements Initializable {
 	}
 
 	@FXML void loadPlaylist(ActionEvent e) {
-		viewListener.loadPlaylist();
+		try { viewListener.loadPlaylist(); 
 		playlistView.setDisable(false); //TODO only disable these if it goes well.....
-
+		} 
+		catch (NullPointerException e1) { popup(e1.getMessage()); }
+		catch (XMLParseException e2) { popup("Error: not a valid MV-CoDA XML file"); }	
+		catch (FileNotFoundException e3) { popup("Error: Could not access the XML file"); }
+		catch (IOException e4) { popup("Error: Could not close the input file"); }
 	}
 
 	@FXML void savePlaylist(ActionEvent e) { 
-		try {
-			viewListener.savePlaylist();
-		} catch (PopupException e1) { popup("hello"); } //TODO: ok we make the popup but we don't catch the exception..., so this stops it progressing
+		try { viewListener.savePlaylist(); } 
+		catch (NullPointerException e1) { popup(e1.getMessage()); }
+		catch (FileNotFoundException e2) { popup("Error: Could not access the ouptut file"); }
+		catch (IOException e3) { popup("Error: Could not close the ouptut file"); }
 	}
 
 	@FXML void newPlaylist(ActionEvent e) { viewListener.newPlaylist(); }
@@ -186,20 +195,30 @@ public class ViewController implements Initializable {
 		}
 	}
 
+
+
+	@FXML void render(ActionEvent e) {
+		viewListener.render();
+	}
+	
 	public void popup(String text) {
 		Dialog.dialogBox(stage, text);
 	}
-
-
+	
 	public void setNumbersInPlaylist() {
 		for (int t = 0; t < viewListener.getPlaylist().getPlaylistEntries().size(); t++) {
 			viewListener.getPlaylist().getPlaylistEntries().get(t).setPositionInPlaylist(t + 1); //set the playlist positions in the playlist to something sensible
 		}
 	}
-
-	@FXML void render(ActionEvent e) {
-		viewListener.render();
+	
+	public static FileChooser getFileChooser(String filetype) {
+		final FileChooser fileChooser = new FileChooser();
+		//below we receive a full filetype i.e: .mp4 and convert to the word MP4 for the filetype notification
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(filetype.substring(1).toUpperCase() + " files (*" + filetype + ")", "*" + filetype);
+		fileChooser.getExtensionFilters().add(extFilter);
+		return fileChooser;
 	}
+
 
 	/*@FXML void playlistEntryEntered(ActionEvent e) {
 		String name = ""; // get from textbox

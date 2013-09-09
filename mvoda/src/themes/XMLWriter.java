@@ -2,6 +2,7 @@ package themes;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -49,7 +50,7 @@ public class XMLWriter {
 
 
 
-	public static void writePlaylistXML(Boolean playlist, Path outputname, XMLSerialisable xmlserialisable) {
+	public static void writePlaylistXML(Boolean playlist, Path path, XMLSerialisable xmlserialisable) throws FileNotFoundException, IOException {
 
 		XStream xstream = new XStream();
 
@@ -59,18 +60,20 @@ public class XMLWriter {
 		xstream.processAnnotations(Playlist.class);
 		xstream.processAnnotations(PlaylistEntry.class);
 
-		try {	
 
-			String xml = xstream.toXML(xmlserialisable);
-			System.out.println("\n ***********Generating playlist xml " + xmlserialisable.getItemName() + "************\n");
-			System.out.println(xml);
+		String xml = xstream.toXML(xmlserialisable);
+		System.out.println("\n ***********Generating playlist xml " + xmlserialisable.getItemName() + "************\n");
 
-			Path elementFileName = outputname;
-			FileOutputStream fs = new FileOutputStream(elementFileName.toString());
 
+		FileOutputStream fs = new FileOutputStream(path.toString());
+		try {
 			xstream.toXML(xmlserialisable, fs);
-		} 
-		catch (FileNotFoundException e) {	e.printStackTrace(); } //TODO: Exception
+		} finally {
+			if (fs != null) {fs.close();}
+		}
+		System.out.println(xml);
+
+
 	}
 
 }

@@ -1,10 +1,10 @@
 package view;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import javafx.event.ActionEvent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import javax.management.modelmbean.XMLParseException;
+
 import playlist.Playlist;
 import playlist.PlaylistEntry;
 
@@ -21,9 +21,9 @@ public interface ViewControllerListener {
 
 	void newPlaylist();
 
-	void loadPlaylist();
+	void loadPlaylist() throws FileNotFoundException, IOException, XMLParseException;
 
-	void savePlaylist() throws PopupException;
+	void savePlaylist() throws FileNotFoundException, IOException;
 
 	void render();
 	

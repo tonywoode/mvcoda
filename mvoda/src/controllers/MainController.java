@@ -1,10 +1,13 @@
 package controllers;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.logging.Logger;
+
+import javax.management.modelmbean.XMLParseException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -112,70 +115,71 @@ public class MainController implements ViewControllerListener {
 	}
 
 
-	@Override public void loadPlaylist() {
+	@Override public void loadPlaylist() throws FileNotFoundException, IOException, XMLParseException {
 
-		final FileChooser fileChooser = new FileChooser();
-		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
-		fileChooser.getExtensionFilters().add(extFilter);
-		File file = fileChooser.showOpenDialog(stage);
-		Playlist playlistTemp = new Playlist("hi");
-
-		observedEntries.clear(); //TDO: now we need to make sure we clear all 3 of the playlists! 
-		playlist.resetArray( observedEntries );
-
-		//if (file != null) {
-		//try { 
-		XMLSerialisable playlistAsSerialisable = XMLReader.readPlaylistXML(file.toPath());	
-		playlistTemp = (Playlist) playlistAsSerialisable;
-		//}
-
-		//TODO why do I need to instantiate the videos or else javafx will crash out the JVM, when appending to a pre-existing playlist will not make that happen
-		for (int i = 0; i < playlistTemp.getPlaylistEntries().size(); i++) {
-			PlaylistEntry entry = new PlaylistEntry( new MusicVideoXuggle( 
-					playlistTemp.getPlaylistEntries().get( i ).getFileUNC() ),
-					playlistTemp.getPlaylistEntries().get( i ).getTrackName(), 
-					playlistTemp.getPlaylistEntries().get( i ).getArtistName()
-					);
-			entry.setPositionInPlaylist(i + 1); //set the playlist entry number while we have a loop! may be a problem later.....
-			setObservedEntries(view.getPlaylistView().getItems() ); //we must update the array passed in to get the view to refresh, cleaner to do it here than back in viewcontroller
-			observedEntries.add(entry);
+		final FileChooser fileChooser = ViewController.getFileChooser(".xml");
+		
+		//read XML (exceptions thrown to view)
+		File file;
+		XMLSerialisable playlistAsSerialisable;
+		file = fileChooser.showOpenDialog(stage);
+		playlistAsSerialisable = XMLReader.readPlaylistXML(file.toPath());	
+		
+		//set XML contents as playlist to work on
+		playlist = (Playlist) playlistAsSerialisable;
+		observedEntries.clear(); //clear the gui list
+		for (int i = 0; i < playlist.getPlaylistEntries().size(); i++) {
+			PlaylistEntry entry = playlist.getPlaylistEntries().get( i );
+			//the playlist XML does not contain music video details, so now we have an opportunity, whilst repopulating it, to validate the files
+			entry.setVideo(	new MusicVideoXuggle(playlist.getPlaylistEntries().get( i ).getFileUNC()) );
+			entry.setPositionInPlaylist(i + 1); //defensively re-set the playlist entry number while we have a loop
 		}
-		playlist.setThemeName(playlistTemp.getThemeName()); //we need to set the actual playlist to the temp playlists theme name. Outside of loop as not entry specific
-		String themename = playlist.getThemeName();
-		setObservedEntries(view.getPlaylistView().getItems() );
+		setObservedEntries(view.getPlaylistView().getItems() );//we must update the array passed in to get the view to refresh, cleaner to do it here than back in viewcontroller
 		view.sendPlaylistNodesToScreen(playlist);
+		
+		//select the XML's theme as the theme in theme select box - if the theme doesn't exist, it doesn't select anything
+		String themename = playlist.getThemeName();
 		if	( view.getThemeSelectBox().getItems().contains(playlist.getThemeName() ) ) { //if the theme name is actually one of our themes	
 			ObservableList<String> themeBoxItems = view.getThemeSelectBox().getItems(); //turn the theme box's list into an iterable list
 			for ( String itemName : themeBoxItems ) { //iterate through it //until we match the text strings
 				if ( themename.equals(itemName) ) {view.getThemeSelectBox().setValue(themename); }//and set that theme name as the active one in both the box and the list the box is generated from
 			}			
 		}
+		else { 
+			view.getThemeSelectBox().getSelectionModel().clearSelection();
+			view.popup("The Theme in the XML cannot be found in your themes folder");
+		} //if a theme name match isn't found, we must clear any previous theme selection
 	}	
 
 
-	@Override public void savePlaylist() throws PopupException {
+	@Override public void savePlaylist() throws FileNotFoundException, IOException {
 
 		playlist.resetArray( observedEntries );
 
-		try {
-			playlist.setThemeName( view.getThemeSelectBox().getSelectionModel().getSelectedItem().toString());
-		} catch (NullPointerException e1) {
-			throw new PopupException("Please Select A Theme Before Saving");
-		} //Set theme name in the playlist xml
+		try { playlist.setThemeName( view.getThemeSelectBox().getSelectionModel().getSelectedItem().toString()); } 
+		catch (NullPointerException e) { throw new NullPointerException("Please select a theme before saving"); } 
+		
 				
 		view.setNumbersInPlaylist();
 		XMLSerialisable xmlSerialisable = playlist;
-		final FileChooser fileChooser = new FileChooser();
-		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
-		fileChooser.getExtensionFilters().add(extFilter);
-		File file = fileChooser.showSaveDialog(stage);
+		
+		final FileChooser fileChooser = ViewController.getFileChooser(".xml");
+		
+		File file;
 		String fileAsString = "";
-		if(!file.getName().contains(".xml")) { 	fileAsString = file.toString() + ".xml"; } //this check helps if the file is already existing as .xml
-		else { fileAsString = file.toString(); } //else we will get "x.xml.xml"
-		Path path = Paths.get(fileAsString);
-		XMLWriter.writePlaylistXML(true, path, xmlSerialisable);
+		
+		 
+		try { 
+			file = fileChooser.showSaveDialog(stage);	 	
+			if(!file.getName().contains(".xml")) { 	fileAsString = file.toString() + ".xml"; } //this check helps if the file is already existing as .xml
+			else { fileAsString = file.toString(); } //else we will get "x.xml.xml"
+			}
+			catch (NullPointerException e) { throw new NullPointerException("Please select a file to save to");	}
+			Path path = Paths.get(fileAsString);
+		
+		XMLWriter.writePlaylistXML(true, path, xmlSerialisable);	
+		
 	}
-	
 	
 	
 	@Override public void render() {
@@ -196,12 +200,11 @@ public class MainController implements ViewControllerListener {
 		theme.setIndex( view.getThemeSelectBox().getSelectionModel().getSelectedIndex() ); //TODO; the lines above is effectively a new so any index setting before this has no effect
 		Path properDir = Paths.get( Theme.getRootDir().toString(), theme.getItemName() );
 
-		//first we must ask where you want to save with a dialog
-		final FileChooser fileChooser = new FileChooser();
-		String filetype = playlist.getNextEntry(0).getVideo().getFiletype();
 		//TODO: problem is we need to get the FIRST files' filetype....is there a better way of encapsulating this its not obvious it go through about 3 classes...
-		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(filetype + " files (*" + filetype + ")", "*" + filetype);
-		fileChooser.getExtensionFilters().add(extFilter);
+		String filetype = playlist.getNextEntry(0).getVideo().getFiletype();
+		
+		//first we must ask where you want to save with a dialog
+		final FileChooser fileChooser = ViewController.getFileChooser(filetype);
 		File file = fileChooser.showSaveDialog(stage);
 		String outFileUNC = "";
 		if(!file.getName().endsWith( filetype ) ) { 	outFileUNC = file.toString() + filetype; } //this check helps if the file is already existing
@@ -211,8 +214,6 @@ public class MainController implements ViewControllerListener {
 		DecodeAndPlayAudioAndVideo player = new DecodeAndPlayAudioAndVideo(outFileUNC);
 	}
 	
-	public static void popup(String text) {
-		Dialog.dialogBox(stage, text);
-	}
-
+	
+	
 }
