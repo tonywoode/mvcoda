@@ -1,7 +1,6 @@
 package view;
 
 import playlist.PlaylistEntry;
-import media.MusicVideo;
 import javafx.event.EventHandler;
 import javafx.scene.control.ListCell;
 import javafx.scene.effect.BlendMode;
@@ -17,13 +16,13 @@ public class PlaylistEntryListCell extends ListCell<PlaylistEntry> {
         	 //setText("NUMBER: " + number + item.getFileUNC());
         	//number++;
         	
-        	int pos = this.getIndex() + 1;
-//        	int pos = item.getPositionInPlaylist();
+        	final int pos = this.getIndex();
         	
-        	System.out.println("PlaylistEntry Cell: " + "NUMBER: " + pos + "\t" + item.getFileUNC());
+ 
+        	System.out.println("PlaylistEntry Cell: " + "NUMBER: " + (pos + 1) + "\t" + item.getFileUNC());
         	item.setPositionInPlaylist(pos);//I don't think this does anything....
         	
-            setText("NUMBER " + pos + "\t" + item.getFileUNC());
+            setText("NUMBER " + (pos + 1) + "\t" + item.getFileUNC());
             
             final String itemname = item.getFileUNC();
             
@@ -35,6 +34,8 @@ public class PlaylistEntryListCell extends ListCell<PlaylistEntry> {
                 public void handle(MouseEvent event) {
                     if (event.getClickCount() > 1) {
                         System.out.println("double clicked! on " + itemname);
+                       
+                        ViewController.reFindPlaylistEntry(pos);
                         //TableCell c = (TableCell) event.getSource();
                        // System.out.println("Cell text: " + c.getText());
                     }

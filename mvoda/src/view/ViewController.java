@@ -40,8 +40,8 @@ public class ViewController implements Initializable {
 	//public Button loadPlaylistButton;
 
 
-	@Getter @Setter ViewControllerListener viewListener;	
-	@Getter @Setter Stage stage;
+	@Getter @Setter	static ViewControllerListener viewListener;	
+	@Getter @Setter	static Stage stage;
 	@FXML @Getter @Setter ComboBox<Theme> themeSelectBox;
 	@FXML @Getter @Setter ListView<PlaylistEntry> playlistView;
 	@FXML TextArea mediaInfoArea;
@@ -177,7 +177,7 @@ public class ViewController implements Initializable {
 		}
 	}
 
-	public void popup(String text) {
+	public static void popup(String text) {
 		Dialog.dialogBox(stage, text);
 	}
 
@@ -189,6 +189,16 @@ public class ViewController implements Initializable {
 		fileChooser.getExtensionFilters().add(extFilter);
 		return fileChooser;
 	}
+	
+	public static void reFindPlaylistEntry(int pos) {
+		try {
+			viewListener.reFindPlaylistEntry(pos);
+		} catch (MediaOpenException e) {
+			popup(e.getMessage() );
+			//e.printStackTrace();
+		}
+	}
+	
 
 }
 

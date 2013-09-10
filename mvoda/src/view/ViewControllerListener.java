@@ -28,6 +28,8 @@ public interface ViewControllerListener {
 	
 	Playlist getPlaylist();
 
+	void reFindPlaylistEntry(int pos) throws MediaOpenException;
+
 	
 	
 

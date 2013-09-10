@@ -35,7 +35,6 @@ import view.ViewControllerListener;
 
 public class MainController implements ViewControllerListener {
 
-	//private Playlist playlist;
 	@Getter @Setter public Playlist playlist = new Playlist("Biggest Beats I've seen in a while"); //TODO: playlist name
 	@Getter @Setter private ObservableList<PlaylistEntry> observedEntries = FXCollections.observableArrayList(playlist.getPlaylistEntries());
 
@@ -45,8 +44,7 @@ public class MainController implements ViewControllerListener {
 	public final static Logger LOGGER = Logger.getLogger(MainController.class.getName()); //get a logger for this class
 
 	@Override public void newPlaylist() { observedEntries.clear(); }
-
-
+	
 	@Override public PlaylistEntry addPlaylistEntry() throws IOException, MediaOpenException { //TOD: loading a music video exception please //note we pass a stage so we can popup in the cirrect place
 		final FileChooser fileChooser = new FileChooser();
 		File file = fileChooser.showOpenDialog(stage);
@@ -180,7 +178,6 @@ public class MainController implements ViewControllerListener {
 		playlist.resetArray( observedEntries );
 		setNumbersInPlaylist();
 
-
 		if (playlist.getPlaylistEntries().size() <= 0 ) { return; } //do nothing if theres no playlist
 
 		//LOG the entries
@@ -223,6 +220,33 @@ public class MainController implements ViewControllerListener {
 		for (int t = 0; t < playlist.getPlaylistEntries().size(); t++) {
 			playlist.getPlaylistEntries().get(t).setPositionInPlaylist(t + 1); //set the playlist positions in the playlist to something sensible
 		}
+	}
+
+	@Override
+	public void reFindPlaylistEntry(int pos) throws MediaOpenException {
+		final FileChooser fileChooser = new FileChooser();
+		File file = fileChooser.showOpenDialog(stage);
+		String fileUNC = file.getAbsolutePath();
+		PlaylistEntry entry = observedEntries.get(pos);
+		entry.setFileUNC(fileUNC);
+		entry = entry.validatePlaylistEntry(entry);
+		if (entry != null) {
+			playlist.getPlaylistEntries().set(pos, entry);
+			view.getPlaylistView().getItems().set(pos, entry);
+			//view.getPlaylistView().getSelectionModel().
+			//view.sendPlaylistNodesToScreen(playlist);
+			//setObservedEntries(view.getPlaylistView().getItems() );
+		}
+		else { throw new MediaOpenException("The file is not valid, try again"); }
+		
+		/*MusicVideo vid = new MusicVideoXuggle(fileUNC);
+		PlaylistEntry entry = new PlaylistEntry( vid, "Track" + (observedEntries.size() + 1), "Artist" + (observedEntries.size() + 1) );
+		entry.setPositionInPlaylist(observedEntries.size() + 1);//no point in doing this really
+		setObservedEntries(view.getPlaylistView().getItems() ); //we must update the array passed in to get the view to refresh, cleaner to do it here than back in viewcontroller
+		observedEntries.add(entry);*/
+		//}
+		//return entry;
+		
 	}
 
 
