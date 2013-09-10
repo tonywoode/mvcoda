@@ -6,13 +6,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import javax.management.modelmbean.XMLParseException;
-
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -25,6 +22,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+
+import javax.management.modelmbean.XMLParseException;
+
 import lombok.Getter;
 import lombok.Setter;
 import playlist.Playlist;
@@ -42,7 +42,7 @@ public class ViewController implements Initializable {
 
 	@Getter @Setter ViewControllerListener viewListener;	
 	@Getter @Setter Stage stage;
-	@FXML @Getter @Setter ComboBox<String> themeSelectBox;
+	@FXML @Getter @Setter ComboBox<Theme> themeSelectBox;
 	@FXML @Getter @Setter ListView<PlaylistEntry> playlistView;
 	@FXML TextArea mediaInfoArea;
 
@@ -50,29 +50,13 @@ public class ViewController implements Initializable {
 	public TextField trackTextField;
 	public TextField artistTextField;
 
-	//private ObservableBooleanValue emptyList = new SimpleBooleanProperty(playlistObservable.isEmpty());
-	//private Desktop desktop = Desktop.getDesktop();
-
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {		
-		/*playlistObservable.addListener(new InvalidationListener() {	 
-	 		@Override public void invalidated(Observable o) {	System.out.println("The binding is now invalid."); 
-	 		if (!playlistObservable.isEmpty()) { playlistView.setDisable(true); }
-	 		}
-	    });*/
-		//Boolean isEmpty = playlistObservable.isEmpty();
-		playlistView.setDisable(true);
-		savePlaylistButton.disableProperty().bind(playlistView.disabledProperty());
-		//savePlaylistButton.disableProperty().bind(emptyList);
-		//playlistObservable.addListener());
-		//emptyList.addListener()
-		/*SimpleBooleanProperty tell = playlistView.getSelectionModel().isEmpty();		
-		savePlaylistButton.disabledProperty().bind(
-				playlistObservable.addListener(*/
+		playlistView.setDisable(true); //we will enable the playlistview when it populates with items
+		savePlaylistButton.disableProperty().bind(playlistView.disabledProperty()); //the save playlist button will follow the playlistview buttons enable status
 
-		initThemeSelectBox();
+		initThemeSelectBox(); //reads themes 
 
-		//moveButtons = new MoveButtons(playlistView, playlistObservable); //instantiate the move buttons (we need to pass them a playlist)
 		playlistView.setCellFactory(new Callback<ListView<PlaylistEntry>, ListCell<PlaylistEntry>>() {
 			@Override public ListCell<PlaylistEntry> call(ListView<PlaylistEntry> list) {
 				return new PlaylistEntryListCell();
@@ -125,20 +109,16 @@ public class ViewController implements Initializable {
             		}
             	});*/
 
+	/**
+	 * Initialises the combobox that holds themes - these are held directly as Themes in the box and their toString() methods provide the text in the box
+	 */
 	public void initThemeSelectBox() {
-		ThemeFinder themeFinder = new ThemeFinderImpl(); //we must instantiate the themeFinder because it implements an interface
-		ArrayList<Theme> themes = new ArrayList<>();
-		try { themes = themeFinder.returnThemes(); } 
+		ThemeFinder themeFinder = new ThemeFinderImpl(); //we must instantiate the themeFinder because it implements an interface - could use a factory instead
+		ArrayList<Theme> themeTemp = new ArrayList<>(); //we don't want the themeFinder to be tied to JavaFX's observable list imp
+		try { themeTemp = themeFinder.returnThemes(); } 
 		catch (IOException e) {e.printStackTrace();}  // TODO exception handling 	
 		catch (InterruptedException e) { e.printStackTrace(); } // TODO exception handling
-		ObservableList<String> themename = FXCollections.observableArrayList(new ArrayList<String>());
-		themename.clear();
-		for (Theme element : themes) {
-			String name = element.getItemName();
-			themename.add(name);
-		}
-		System.out.println(themename);
-		themeSelectBox.setItems(themename);
+		themeSelectBox.setItems(FXCollections.observableList(themeTemp) ); //NOW we make an observable list from our array list when we set it as the box's list
 	}
 
 	public void sendPlaylistNodesToScreen(Playlist playlist) {
@@ -146,7 +126,7 @@ public class ViewController implements Initializable {
 			playlistView.getItems().add(playlistEntry);
 	}
 
-	@FXML void loadPlaylist(ActionEvent e) {
+	@FXML void loadPlaylist(ActionEvent e) throws InterruptedException {
 		try { viewListener.loadPlaylist(); 
 		playlistView.setDisable(false); //TODO only disable these if it goes well.....
 		} 
@@ -202,7 +182,15 @@ public class ViewController implements Initializable {
 
 
 	@FXML void render(ActionEvent e) {
-		viewListener.render();
+		try {
+			viewListener.render();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (XMLParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 	
 	public void popup(String text) {

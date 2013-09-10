@@ -50,7 +50,7 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 	
 	public Theme(String itemName) { this.itemName = itemName; }
 	
-	@Override public String toString() { return itemName; }
+	@Override public String toString() { return itemName; } //this will get used by the Theme select combo box in the JavaFX GUI
 	
 
 }

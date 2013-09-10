@@ -21,11 +21,11 @@ public interface ViewControllerListener {
 
 	void newPlaylist();
 
-	void loadPlaylist() throws FileNotFoundException, IOException, XMLParseException, MediaOpenException;
+	void loadPlaylist() throws FileNotFoundException, IOException, XMLParseException, MediaOpenException, InterruptedException;
 
 	void savePlaylist() throws FileNotFoundException, IOException;
 
-	void render();
+	void render() throws IOException, XMLParseException;
 	
 	Playlist getPlaylist();
 

@@ -63,8 +63,13 @@ public class XMLReader {
 
 		System.out.println("\n ***********Reading xml playlist " + path + "************\n");
 
+		//defensively we will check the path has xml appended. If not we will add it.
+		String pathAsString = path.toString(); //http://stackoverflow.com/questions/10471396/appending-the-file-type-to-a-file-in-java-using-jfilechooser
+		if (!pathAsString.matches("(?i).*\\.xml")) { //the ?i will ignore case on what follows, we can also do things like ("(?i).*\\.(jpg|jpeg)")
+		    pathAsString += pathAsString.substring(0, pathAsString.lastIndexOf(".")).concat(".xml");
+		}
 
-		FileInputStream fs = new FileInputStream(path.toString());
+		FileInputStream fs = new FileInputStream(pathAsString);
 		try {
 			try { xml = (XMLSerialisable) xstream.fromXML(fs); }
 			finally { if (fs != null) {fs.close();}

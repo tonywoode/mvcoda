@@ -34,6 +34,23 @@ public class ThemeFinderImpl implements ThemeFinder {
 
 	public final static Logger LOGGER = Logger.getLogger(ThemeFinderImpl.class.getName()); //get a logger for this class
 
+	
+	@Override public Theme returnTheme(String theme) throws IOException, InterruptedException {
+		//boolean found = false;
+		ArrayList<Theme> themeArray = returnThemes();
+		for (Theme thisTheme : themeArray) {
+			if (thisTheme.getItemName().compareTo(theme) == 1) {
+			//found = true;
+			return thisTheme;
+			}	
+		}
+		return null;
+	}
+	
+	
+	
+	
+	
 	/**
 	 * 
 	 * Walks the directory tree rooted at the root directory specified in Theme looking for .xml files representing Themes, 
@@ -42,7 +59,7 @@ public class ThemeFinderImpl implements ThemeFinder {
 	 * @return an array list of the paths to the found xml files
 	 * @throws Exception
 	 */
-	public ArrayList<Theme> returnThemes() throws IOException, InterruptedException { //TODO: exception - and what is interrupted exeption?
+	@Override public ArrayList<Theme> returnThemes() throws IOException, InterruptedException { //TODO: exception - and what is interrupted exeption?
 
 		ArrayList<Path> pathArray = new ArrayList<>();
 		ArrayList<Theme> themeArray = new ArrayList<>();
@@ -75,7 +92,7 @@ public class ThemeFinderImpl implements ThemeFinder {
 	 * @return arraylist of paths representing the found instances of files containing the filetype
 	 * @throws Exception //TODO
 	 */
-	public ArrayList<Path> returnDirectories(Path rootdir, final String filetype, int numLevels) throws Exception { //TODO exception
+	@Override public ArrayList<Path> returnDirectories(Path rootdir, final String filetype, int numLevels) throws Exception { //TODO exception
 
 
 		final ArrayList<Path> pathArray = new ArrayList<>();

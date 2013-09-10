@@ -16,6 +16,8 @@ import themes.Theme;
  *
  */
 public interface ThemeFinder {
+	
+	public abstract Theme returnTheme(String Theme) throws IOException, InterruptedException;
 
 	public abstract ArrayList<Theme> returnThemes() throws IOException, InterruptedException;
 
