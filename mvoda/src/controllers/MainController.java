@@ -122,8 +122,10 @@ public class MainController implements ViewControllerListener {
 		//read XML (exceptions thrown to view)
 		File file;
 		XMLSerialisable playlistAsSerialisable;
-		file = fileChooser.showOpenDialog(stage);
-		playlistAsSerialisable = XMLReader.readPlaylistXML(file.toPath());
+		try { file = fileChooser.showOpenDialog(stage);
+		playlistAsSerialisable = XMLReader.readPlaylistXML(file.toPath());	
+		} 
+		catch (NullPointerException e) { throw new NullPointerException("Please select a file to load from to");	}
 
 
 		//set XML contents as playlist to work on
