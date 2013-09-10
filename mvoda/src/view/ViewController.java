@@ -197,9 +197,10 @@ public class ViewController implements Initializable {
 	}
 
 	@FXML void render(ActionEvent e) {
-		try {
-			viewListener.render();
-		} catch (IOException e1) {
+		try { viewListener.render();} 
+		catch (NullPointerException e1) { popup(e1.getMessage()); }	
+		catch (MediaOpenException e2) { popup(e2.getMessage()); }	
+		catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (XMLParseException e1) {

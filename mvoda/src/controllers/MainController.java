@@ -27,6 +27,7 @@ import themes.Theme;
 import themes.XMLReader;
 import themes.XMLSerialisable;
 import themes.XMLWriter;
+import util.FileUtil;
 import util.ThemeFinder;
 import util.ThemeFinderImpl;
 import view.MediaOpenException;
@@ -44,7 +45,7 @@ public class MainController implements ViewControllerListener {
 	public final static Logger LOGGER = Logger.getLogger(MainController.class.getName()); //get a logger for this class
 
 	@Override public void clearPlaylist() { observedEntries.clear(); }
-	
+
 	@Override public void addPlaylistEntry() throws IOException, MediaOpenException { //TOD: loading a music video exception please //note we pass a stage so we can popup in the cirrect place
 		final FileChooser fileChooser = new FileChooser();
 		File file = fileChooser.showOpenDialog(stage);
@@ -174,7 +175,7 @@ public class MainController implements ViewControllerListener {
 	}
 
 
-	@Override public void render() throws IOException, XMLParseException {
+	@Override public void render() throws IOException, XMLParseException, MediaOpenException, NullPointerException {
 
 		//playlist array gets whatever is in the gui at this moment for its entries array
 		playlist.resetArray( observedEntries );
@@ -182,38 +183,48 @@ public class MainController implements ViewControllerListener {
 
 		if (playlist.getPlaylistEntries().size() <= 0 ) { return; } //do nothing if theres no playlist
 
+		Theme theme;
+		try {
+			theme = view.getThemeSelectBox().getSelectionModel().getSelectedItem();
+			theme.setIndex( view.getThemeSelectBox().getSelectionModel().getSelectedIndex() ); //TODO; the lines above is effectively a new so any index setting before this has no effect
+		} 
+		catch (NullPointerException e) { throw new NullPointerException("Please select a Theme"); }
+
 		//LOG the entries
 		for ( int i=0;i < playlist.getPlaylistEntries().size(); i++ ) {
 			LOGGER.info("Rendering begun - At index postion: " + i + " The UNC path is " + playlist.getPlaylistEntries().get(i).getFileUNC() );
 		}
 
-		Path themeName = Paths.get(view.getThemeSelectBox().getSelectionModel().getSelectedItem().toString() );
-		Path rootDir = Theme.getRootDir();
-		Path themeDir = rootDir.resolve(themeName); //append the latter as child of former's path
-		LOGGER.info("ThemeDir is set as " + themeDir.toString());
-		Theme theme = new Theme("Not set"); //todo: tidy this up
-		XMLSerialisable themeAsSerialisable;
-		try {
-			themeAsSerialisable = XMLReader.readXML(themeDir, themeName.toString()); //actually reading theme XML TODO
-			theme = (Theme) themeAsSerialisable;
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		theme.setIndex( view.getThemeSelectBox().getSelectionModel().getSelectedIndex() ); //TODO; the lines above is effectively a new so any index setting before this has no effect
-		Path properDir = Paths.get( Theme.getRootDir().toString(), theme.getItemName() );
+		boolean ok = playlist.validatePlaylist(playlist);
+		if (!ok) { throw new MediaOpenException("There are still problems with the playlist. Cannot render"); }
+		//ok that will tell us if the files validate, but it won't tell us if all the files are the same. We do that next
 
 		//TODO: problem is we need to get the FIRST files' filetype....is there a better way of encapsulating this its not obvious it go through about 3 classes...
 		String filetype = playlist.getNextEntry(0).getVideo().getFiletype();
 
+		for (PlaylistEntry entry : playlist.getPlaylistEntries()) {
+			if ( !FileUtil.getFiletype(entry.getVideo().getFiletype() ).equalsIgnoreCase(filetype) ) {
+				throw new MediaOpenException("All the files need to be the same type or I cannot render them");
+			}
+		}
+
+
 		//first we must ask where you want to save with a dialog
-		final FileChooser fileChooser = ViewController.getFileChooser(filetype);
-		File file = fileChooser.showSaveDialog(stage);
-		String outFileUNC = "";
-		if(!file.getName().endsWith( filetype ) ) { 	outFileUNC = file.toString() + filetype; } //this check helps if the file is already existing
-		else { outFileUNC = file.toString(); } //else we will get "x.filetype.filetype //TODO: same code as in save playlist button
+		File file;
+		String outFileUNC;
+		try {
+			final FileChooser fileChooser = ViewController.getFileChooser(filetype);
+			file = fileChooser.showSaveDialog(stage);
+			outFileUNC = "";
+			if(!file.getName().endsWith( filetype ) ) { 	outFileUNC = file.toString() + filetype; } //this check helps if the file is already existing
+			else { outFileUNC = file.toString(); } //else we will get "x.filetype.filetype //TODO: same code as in save playlist button
+		}
+		catch (NullPointerException e) { throw new NullPointerException("Please select a file to save to");	}
+		
+		//then finally render it
 		if( file != null ) { Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC); }
 
+		//lastly display it in the swing window
 		DecodeAndPlayAudioAndVideo player = new DecodeAndPlayAudioAndVideo(outFileUNC);
 	}
 
@@ -237,9 +248,9 @@ public class MainController implements ViewControllerListener {
 			view.getPlaylistView().getItems().add(pos, entry);
 		}
 		else { throw new MediaOpenException("The file is not valid, try again"); }
-		
-		
-		
+
+
+
 	}
 
 

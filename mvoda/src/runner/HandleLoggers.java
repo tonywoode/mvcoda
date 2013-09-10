@@ -20,18 +20,18 @@ public class HandleLoggers {
 		Logger topLogger = java.util.logging.Logger.getLogger(""); //root logger
 		Handler consoleHandler = topLogger.getHandlers()[0]; //root's handler will be first in returned list - we have provided no way to make other handlers. 
 		topLogger.setLevel(Level.OFF); //we don't want JAVAFX's logging
-		consoleHandler.setLevel(Level.OFF);
+		consoleHandler.setLevel(Level.ALL);
 		
 		
 		//now we have an opportunity to set levels on the pacakage or class level, we do this by having public static loggers in the classes
 		
 		MainController.LOGGER.setLevel(Level.ALL);
 		ThemeFinderImpl.LOGGER.setLevel(Level.ALL);
-		MusicVideoXuggle.LOGGER.setLevel(Level.ALL);
-		ImageCompositor.LOGGER.setLevel(Level.ALL);
-		FileUtil.LOGGER.setLevel(Level.ALL);
-		TextCompositor.LOGGER.setLevel(Level.ALL);
-		GFXElement.LOGGER.setLevel(Level.ALL);
+		MusicVideoXuggle.LOGGER.setLevel(Level.OFF);
+		ImageCompositor.LOGGER.setLevel(Level.OFF);
+		FileUtil.LOGGER.setLevel(Level.OFF);
+		TextCompositor.LOGGER.setLevel(Level.OFF);
+		GFXElement.LOGGER.setLevel(Level.OFF);
 		
 		
 		//ThemeFinderImpl theme = new ThemeFinderImpl();

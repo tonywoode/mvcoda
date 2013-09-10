@@ -24,7 +24,7 @@ public interface ViewControllerListener {
 
 	void savePlaylist() throws FileNotFoundException, IOException;
 
-	void render() throws IOException, XMLParseException;
+	void render() throws IOException, XMLParseException, MediaOpenException, NullPointerException;
 	
 	Playlist getPlaylist();
 
