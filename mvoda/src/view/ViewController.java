@@ -57,19 +57,14 @@ public class ViewController implements Initializable {
 
 		initThemeSelectBox(); //reads themes 
 
+		//custom cell factory for the playlist entries
 		playlistView.setCellFactory(new Callback<ListView<PlaylistEntry>, ListCell<PlaylistEntry>>() {
 			@Override public ListCell<PlaylistEntry> call(ListView<PlaylistEntry> list) {
 				return new PlaylistEntryListCell();
 			}
 		});
 
-		playlistView.getSelectionModel().selectedItemProperty().isNull().addListener(new ChangeListener<Boolean>() {
-			@Override public void changed( ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue ) {
-				System.out.println("it's null has changed");
-				playlistView.setDisable(true);	
-			}
-		});
-
+		//tie the track and artist and media select boxes to the currently selected playlist entry
 		playlistView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<PlaylistEntry>() {
 			public void changed( final ObservableValue<? extends PlaylistEntry> ov, PlaylistEntry old_val, PlaylistEntry new_val ) {
 				if (ov == null || ov.getValue() == null) { return; } // TODO: remove this
@@ -90,8 +85,13 @@ public class ViewController implements Initializable {
 
 				trackTextField.textProperty().bindBidirectional(sspTrack);
 				artistTextField.textProperty().bindBidirectional(sspArtist); 
-				
-				mediaInfoArea.setText(ov.getValue().getVideo().toString()); //write media info to screen for this entry
+
+				if (ov == null || ov.getValue().getVideo() == null) {
+					mediaInfoArea.setText("File Not Found");
+				}
+				else {
+					mediaInfoArea.setText(ov.getValue().getVideo().toString());//write media info to screen for this entry
+				}
 			}
 		});
 	}
@@ -136,7 +136,7 @@ public class ViewController implements Initializable {
 	@FXML void addPlaylistEntry(ActionEvent e) throws IOException { //TOD: loading a music video exception please
 		try {
 			PlaylistEntry entry = viewListener.addPlaylistEntry();
-			
+
 		}
 		catch (MediaOpenException e5) { popup(e5.getMessage()); }
 		playlistView.setDisable(false);
@@ -176,12 +176,12 @@ public class ViewController implements Initializable {
 			e1.printStackTrace();
 		}
 	}
-	
+
 	public void popup(String text) {
 		Dialog.dialogBox(stage, text);
 	}
-	
-	
+
+
 	public static FileChooser getFileChooser(String filetype) {
 		final FileChooser fileChooser = new FileChooser();
 		//below we receive a full filetype i.e: .mp4 and convert to the word MP4 for the filetype notification
