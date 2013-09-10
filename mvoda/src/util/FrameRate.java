@@ -12,7 +12,7 @@ import lombok.Setter;
 public class FrameRate {
 	
 	@Getter @Setter public static double frameRate;
-	private static long timeBasis = 1000000; //we will be working in microseconds
+	@Getter @Setter public static long timeBasis = 1000000; //we will be working in microseconds
 
 
 	/**

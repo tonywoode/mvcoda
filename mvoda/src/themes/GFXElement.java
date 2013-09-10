@@ -75,7 +75,7 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 	public int getYOffsetSD() {	return coOrd.getYOffsetSD(); }
 
 	//this is just the duration of the whole pice of media
-	public long getDuration(long frameRateDivisor) { duration = FrameRate.convertFrameToTime( fileNumbers.size() );	return duration; }
+	public long getDuration() { duration = FrameRate.convertFrameToTime( fileNumbers.size() );	return duration; }
 
 	//we need these so that we can call an AnimatedGFXElement as a GFXElement
 	public long getInDuration() { return 0;	}

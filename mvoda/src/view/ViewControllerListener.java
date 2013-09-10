@@ -18,7 +18,7 @@ public interface ViewControllerListener {
 
 	void moveDown();
 
-	void newPlaylist();
+	void clearPlaylist();
 
 	void loadPlaylist() throws FileNotFoundException, IOException, XMLParseException, MediaOpenException, InterruptedException;
 
@@ -29,6 +29,8 @@ public interface ViewControllerListener {
 	Playlist getPlaylist();
 
 	void reFindPlaylistEntry(int pos) throws MediaOpenException;
+
+	
 
 	
 	

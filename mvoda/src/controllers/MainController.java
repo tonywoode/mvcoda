@@ -43,12 +43,17 @@ public class MainController implements ViewControllerListener {
 
 	public final static Logger LOGGER = Logger.getLogger(MainController.class.getName()); //get a logger for this class
 
-	@Override public void newPlaylist() { observedEntries.clear(); }
+	@Override public void clearPlaylist() { observedEntries.clear(); }
 	
 	@Override public void addPlaylistEntry() throws IOException, MediaOpenException { //TOD: loading a music video exception please //note we pass a stage so we can popup in the cirrect place
 		final FileChooser fileChooser = new FileChooser();
 		File file = fileChooser.showOpenDialog(stage);
-		String fileUNC = file.getAbsolutePath();
+		String fileUNC;
+		try {
+			fileUNC = file.getAbsolutePath();
+		} catch (NullPointerException e) {
+			throw new NullPointerException("Please choose a valid file");	
+		}
 		MusicVideo vid = new MusicVideoXuggle(fileUNC);
 		PlaylistEntry entry = new PlaylistEntry( vid, "Track" + (observedEntries.size() + 1), "Artist" + (observedEntries.size() + 1) );
 		entry.setPositionInPlaylist(observedEntries.size() + 1);//no point in doing this really

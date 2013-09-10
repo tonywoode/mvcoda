@@ -46,7 +46,13 @@ public class ViewController implements Initializable {
 	@FXML @Getter @Setter ListView<PlaylistEntry> playlistView;
 	@FXML TextArea mediaInfoArea;
 
+	public Button clearPlaylistButton;
 	public Button savePlaylistButton;
+	public Button deletePlaylistEntryButton;
+	public Button moveUpButton;
+	public Button moveDownButton;
+	public Button renderButton;
+	
 	public TextField trackTextField;
 	public TextField artistTextField;
 
@@ -54,7 +60,12 @@ public class ViewController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {		
 		playlistView.setDisable(true); //we will enable the playlistview when it populates with items
 		savePlaylistButton.disableProperty().bind(playlistView.disabledProperty()); //the save playlist button will follow the playlistview buttons enable status
-
+		deletePlaylistEntryButton.disableProperty().bind(playlistView.disabledProperty());
+		clearPlaylistButton.disableProperty().bind(playlistView.disabledProperty());
+		renderButton.disableProperty().bind(playlistView.disabledProperty());
+		moveUpButton.setDisable(true); //whereas these two buttons must be disabled if one or less entries are in the list
+		moveDownButton.setDisable(true); //so we handle these in checkMoveButtons() (you cannot both bind and set in javaFX)
+		
 		initThemeSelectBox(); //reads themes 
 
 		//custom cell factory for the playlist entries
@@ -121,14 +132,13 @@ public class ViewController implements Initializable {
 	}
 
 	@FXML void loadPlaylist(ActionEvent e) throws InterruptedException {
-		try { viewListener.loadPlaylist(); 
-		playlistView.setDisable(false); //TODO only disable these if it goes well.....
-		} 
+		try { viewListener.loadPlaylist(); playlistView.setDisable(false); } 
 		catch (NullPointerException e1) { popup(e1.getMessage()); }
 		catch (XMLParseException e2) { popup("Error: not a valid MV-CoDA XML file"); }	
 		catch (FileNotFoundException e3) { popup(e3.getMessage() ); }
 		catch (IOException e4) { popup("Error: Could not close the input file"); }
 		catch (MediaOpenException e5) { popup(e5.getMessage()); }
+		checkMoveButtons();
 	}
 
 	@FXML void savePlaylist(ActionEvent e) { 
@@ -138,17 +148,34 @@ public class ViewController implements Initializable {
 		catch (IOException e3) { popup("Error: Could not close the ouptut file"); }
 	}
 
-	@FXML void newPlaylist(ActionEvent e) { viewListener.newPlaylist(); themeSelectBox.getSelectionModel().clearSelection(); }
-
-	@FXML void addPlaylistEntry(ActionEvent e) throws IOException {
-		try { viewListener.addPlaylistEntry(); }
-		catch (MediaOpenException e5) { popup(e5.getMessage()); }
-		playlistView.setDisable(false);
+	@FXML void clearPlaylist(ActionEvent e) { 
+		viewListener.clearPlaylist(); 
+		//themeSelectBox.getSelectionModel().clearSelection();
+		//initThemeSelectBox();
+		checkMoveButtons(); 
+		themeSelectBox.getSelectionModel().clearSelection();
+		playlistView.setDisable(true);
 	}
 
+	@FXML void addPlaylistEntry(ActionEvent e) throws IOException {
+		try { 
+			viewListener.addPlaylistEntry(); 
+			if (playlistView.isDisable()) {	playlistView.setDisable(false); }
+		}
+		catch (MediaOpenException e1) { popup(e1.getMessage()); }
+		catch (NullPointerException e2) { popup(e2.getMessage()); }
+		checkMoveButtons();
+	}
+
+	private void checkMoveButtons() {
+		if (playlistView.getItems().size() <= 1 ) { moveUpButton.setDisable(true); moveDownButton.setDisable(true);  }
+		else { moveUpButton.setDisable(false); moveDownButton.setDisable(false); }
+	}
+	
 	@FXML void deletePlaylistEntry(ActionEvent e) {
 		viewListener.deletePlaylistEntry();
-		//if (playlistObservable.isEmpty()) { playlistView.setDisable(true); }
+		checkMoveButtons();	
+		if (playlistView.getItems().isEmpty()) { playlistView.setDisable(true); }
 	}
 
 	@FXML void moveUp(ActionEvent e) {
@@ -195,12 +222,9 @@ public class ViewController implements Initializable {
 	}
 	
 	public static void reFindPlaylistEntry(int pos) {
-		try {
-			viewListener.reFindPlaylistEntry(pos);
-		} catch (MediaOpenException e) {
-			popup(e.getMessage() );
-			//e.printStackTrace();
-		}
+		try { viewListener.reFindPlaylistEntry(pos); } 
+		catch (MediaOpenException e) { popup(e.getMessage() ); }
+		catch (NullPointerException e1) { popup("Please select a file to load from to");	}
 	}
 	
 

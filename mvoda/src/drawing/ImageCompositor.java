@@ -84,7 +84,7 @@ public class ImageCompositor {
 		LOGGER.info(" in time with handles is " + inTimeWithHandles);
 		LOGGER.info(" duration is " + desiredDuration);
 		LOGGER.info(" out time with handles is " + outTimeWithHandles);
-		LOGGER.info("duration of element is " + gfxElement.getDuration(25));
+		LOGGER.info("duration of element is " + gfxElement.getDuration() );
 		LOGGER.info("Reverse for logo is " + gfxElement.isReverse());
 
 

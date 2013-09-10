@@ -12,6 +12,7 @@ import media.xuggle.types.ContainerXuggle;
 import media.xuggle.types.RationalXuggle;
 import media.xuggle.types.StreamCoderXuggle;
 import util.FileUtil;
+import util.FrameRate;
 import view.MediaOpenException;
 
 import com.xuggle.xuggler.Global;
@@ -76,9 +77,8 @@ public class MusicVideoXuggle implements MusicVideo {
 		this.fileUNC = fileUNC;
 		this.decoder = new DecoderXuggle(this); //make sure we hold a reference to a specific decoder
 		container = IContainer.make(); //create a new container object
-		if (container.open(fileUNC, IContainer.Type.READ, null) <0) { //populate with the UNC you passed in
-			throw new MediaOpenException(fileUNC + ": failed to open");   //TODO: excpetion handling
-		}
+		//populate with the UNC you passed in
+		if (container.open(fileUNC, IContainer.Type.READ, null) <0) { throw new MediaOpenException(fileUNC + ": failed to open"); }
 		filetype = FileUtil.getFiletype(fileUNC); //we may use the filetype later
 
 		//then iterate through the container trying to find the video and audio streams
@@ -102,7 +102,7 @@ public class MusicVideoXuggle implements MusicVideo {
 				numVidFrames = stream.getNumFrames();
 				frameRateDivisor = stream.getTimeBase().getNumerator() * stream.getTimeBase().getDenominator();
 				//Xugglers stream duration is in whatever time units the format uses, so we'll use time base denominator and numerator and convert micro to millis
-				vidStreamDuration = stream.getDuration() / frameRateDivisor * 1000000; //microsenconds
+				vidStreamDuration = stream.getDuration() / frameRateDivisor * FrameRate.getTimeBasis(); //microsenconds
 										LOGGER.info("numerator is " + stream.getTimeBase().getNumerator());
 										LOGGER.info("denomiator is " + stream.getTimeBase().getDenominator());
 										LOGGER.info( "real time is therefore: " + vidStreamDuration);
@@ -110,17 +110,17 @@ public class MusicVideoXuggle implements MusicVideo {
 			}
 		}
 
-		//error if we haven't found any streams //TODo: exceptions
-		if ( videoStreamIndex < 0 && audioStreamIndex < 0 ) { throw new RuntimeException( fileUNC + " Doesn't contain audio or video streams" );}
-		if ( audioCoder != null && ( audioCoder.open(null, null) < 0 ) ) { throw new RuntimeException(fileUNC + ": audio can't be opened");}
-		if ( videoCoder != null && ( videoCoder.open(null, null) < 0 ) ) { throw new RuntimeException(fileUNC + ": video can't be opened");}
+		//error if we haven't found any streams
+		if ( videoStreamIndex < 0 && audioStreamIndex < 0 ) { throw new  MediaOpenException( fileUNC + " Doesn't contain audio or video streams" );}
+		if ( audioCoder != null && ( audioCoder.open(null, null) < 0 ) ) { throw new  MediaOpenException(fileUNC + ": audio can't be opened");}
+		if ( videoCoder != null && ( videoCoder.open(null, null) < 0 ) ) { throw new  MediaOpenException(fileUNC + ": video can't be opened");}
 
 		//get some properties of the coders now that we have them
 		width = videoCoder.getWidth();
 		height = videoCoder.getHeight();
 		pixFormat = videoCoder.getPixelType();
 		
-		//now we have width and height, lets convert to BGR24
+		//now we have width and height, we convert to BGR24
 		decoder.makeResampler(width, height);
 		numChannelsAudio = audioCoder.getChannels();
 		framesPerSecond = videoCoder.getFrameRate();

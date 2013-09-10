@@ -6,14 +6,11 @@ import java.nio.file.FileVisitResult;
 import java.nio.file.FileVisitor;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
-
-import controllers.MainController;
 
 import themes.Theme;
 import themes.XMLReader;
@@ -45,11 +42,7 @@ public class ThemeFinderImpl implements ThemeFinder {
 			}	
 		}
 		return null;
-	}
-	
-	
-	
-	
+	}	
 	
 	/**
 	 * 

@@ -139,7 +139,7 @@ public class ThemeCompositor {
 		videoFrame = strapCompositor.overlayNextImage(decoder.getVideoTimeStamp(),2000000, 10000000, videoFrame);
 		videoFrame = strapCompositor2.overlayNextImage(decoder.getVideoTimeStamp(),15000000, 2000000, videoFrame);
 		videoFrame = chartCompositor.overlayNextImage(decoder.getVideoTimeStamp(), 2000000, 10000000, videoFrame);
-		videoFrame = transitionCompositor.overlayNextImage(decoder.getVideoTimeStamp(),2000, theme.getTransition().getDuration(25), videoFrame);
+		videoFrame = transitionCompositor.overlayNextImage(decoder.getVideoTimeStamp(),2000, theme.getTransition().getDuration(), videoFrame);
 		videoFrame = numbersCompositor.overlayNextImage(decoder.getVideoTimeStamp(),2000000, 7000000, videoFrame);
 		videoFrame = trackText.overlayNextFontFrame(strapCompositor.isImOut(), videoFrame);
 		videoFrame = artistText.overlayNextFontFrame(strapCompositor.isImOut(), videoFrame);
