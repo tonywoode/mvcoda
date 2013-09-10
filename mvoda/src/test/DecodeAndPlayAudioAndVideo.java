@@ -17,7 +17,7 @@
  * along with Xuggle-Xuggler-Main.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
 
-package media.xuggle;
+package test;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;

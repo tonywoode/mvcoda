@@ -14,7 +14,6 @@ import java.util.TimeZone;
 
 import media.Encoder;
 import media.MusicVideo;
-import media.xuggle.DecodeAndPlayAudioAndVideo;
 import media.xuggle.EncoderXuggle;
 import media.xuggle.MusicVideoXuggle;
 import playlist.Playlist;
