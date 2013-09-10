@@ -44,13 +44,6 @@ public class MainController implements ViewControllerListener {
 
 	public final static Logger LOGGER = Logger.getLogger(MainController.class.getName()); //get a logger for this class
 
-	public void onNewTrackAvailable(String name) {
-		/*PlaylistEntry pe = new PlaylistEntry(null);
-		pe.setTrackName(name);
-		playlist.setNextEntry(pe);*/
-	}
-
-
 	@Override public void newPlaylist() { observedEntries.clear(); }
 
 
@@ -129,7 +122,6 @@ public class MainController implements ViewControllerListener {
 		} 
 		catch (NullPointerException e) { throw new NullPointerException("Please select a file to load from to");	}
 
-
 		//set XML contents as playlist to work on
 		playlist = (Playlist) playlistAsSerialisable;
 		boolean found = playlist.validatePlaylist(playlist);
@@ -140,110 +132,98 @@ public class MainController implements ViewControllerListener {
 		if (!found ) { 	view.popup("Problem with opening highlighted files, double click them to refind files");
 		}
 
-		//select the XML's theme as the theme in theme select box
+		//select the XML's theme as the theme in theme select box, or clear it if not found
 		String themename = playlist.getThemeName();
-		ThemeFinder finder = new ThemeFinderImpl();
-		Theme theme = finder.returnTheme(themename);
-
-		//System.out.println(view.getThemeSelectBox().getItems().toString());
-
-		//if	( view.getThemeSelectBox().getItems().toString().contains(playlist.getThemeName() ) ) { //if the theme name is actually one of our themes	
 		ObservableList<Theme> themeBoxItems = view.getThemeSelectBox().getItems(); //turn the theme box's list into an iterable list
 		boolean themeFound = false;
-		for ( Theme itemName : themeBoxItems ) { //iterate through it //until we match the text strings
-			if ( themename.equals(itemName.toString()) ) {view.getThemeSelectBox().setValue(itemName); themeFound=true; }//and set that theme name as the active one in both the box and the list the box is generated from
+		for ( Theme theme : themeBoxItems ) {
+			if ( themename.equals(theme.toString()) ) {view.getThemeSelectBox().setValue(theme); themeFound=true; }//and set that theme name as the active one in both the box and the list the box is generated from
 		}			
-	
-	if (!themeFound) { //if a theme name match isn't found, we must clear any previous theme selection, and throw an exception
-		view.getThemeSelectBox().getSelectionModel().clearSelection();
-		throw new NullPointerException("The Theme in the XML cannot be found in your themes folder");
-	} 
-}	
+		if (!themeFound) { //if a theme name match isn't found, we must clear any previous theme selection, and throw an exception
+			view.getThemeSelectBox().getSelectionModel().clearSelection();
+			throw new NullPointerException("The Theme in the XML cannot be found in your themes folder");
+		} 
+	}	
+
+	@Override public void savePlaylist() throws FileNotFoundException, IOException {
+
+		playlist.resetArray( observedEntries );
+
+		try { playlist.setThemeName( view.getThemeSelectBox().getSelectionModel().getSelectedItem().toString()); } 
+		catch (NullPointerException e) { throw new NullPointerException("Please select a theme before saving"); } 
 
 
+		setNumbersInPlaylist();
+		XMLSerialisable xmlSerialisable = playlist;
 
+		final FileChooser fileChooser = ViewController.getFileChooser(".xml");
 
+		File file;
+		String fileAsString = "";
 
-@Override public void savePlaylist() throws FileNotFoundException, IOException {
+		try { 
+			file = fileChooser.showSaveDialog(stage);	 	
+			if(!file.getName().contains(".xml")) { 	fileAsString = file.toString() + ".xml"; } //this check helps if the file is already existing as .xml
+			else { fileAsString = file.toString(); } //else we will get "x.xml.xml"
+		}
+		catch (NullPointerException e) { throw new NullPointerException("Please select a file to save to");	}
+		Path path = Paths.get(fileAsString);
 
-	playlist.resetArray( observedEntries );
+		XMLWriter.writePlaylistXML(true, path, xmlSerialisable);	
 
-	try { playlist.setThemeName( view.getThemeSelectBox().getSelectionModel().getSelectedItem().toString()); } 
-	catch (NullPointerException e) { throw new NullPointerException("Please select a theme before saving"); } 
-
-
-	setNumbersInPlaylist();
-	XMLSerialisable xmlSerialisable = playlist;
-
-	final FileChooser fileChooser = ViewController.getFileChooser(".xml");
-
-	File file;
-	String fileAsString = "";
-
-
-	try { 
-		file = fileChooser.showSaveDialog(stage);	 	
-		if(!file.getName().contains(".xml")) { 	fileAsString = file.toString() + ".xml"; } //this check helps if the file is already existing as .xml
-		else { fileAsString = file.toString(); } //else we will get "x.xml.xml"
-	}
-	catch (NullPointerException e) { throw new NullPointerException("Please select a file to save to");	}
-	Path path = Paths.get(fileAsString);
-
-	XMLWriter.writePlaylistXML(true, path, xmlSerialisable);	
-
-}
-
-
-@Override public void render() throws IOException, XMLParseException {
-
-	//playlist array gets whatever is in the gui at this moment for its entries array
-	playlist.resetArray( observedEntries );
-	setNumbersInPlaylist();
-
-
-	if (playlist.getPlaylistEntries().size() <= 0 ) { return; } //do nothing if theres no playlist
-
-	//LOG the entries
-	for ( int i=0;i < playlist.getPlaylistEntries().size(); i++ ) {
-		LOGGER.info("Rendering begun - At index postion: " + i + " The UNC path is " + playlist.getPlaylistEntries().get(i).getFileUNC() );
 	}
 
-	Path themeName = Paths.get(view.getThemeSelectBox().getSelectionModel().getSelectedItem().toString() );
-	Path rootDir = Theme.getRootDir();
-	Path themeDir = rootDir.resolve(themeName); //append the latter as child of former's path
-	LOGGER.info("ThemeDir is set as " + themeDir.toString());
-	Theme theme = new Theme("Not set"); //todo: tidy this up
-	XMLSerialisable themeAsSerialisable;
-	try {
-		themeAsSerialisable = XMLReader.readXML(themeDir, themeName.toString()); //actually reading theme XML TODO
-		theme = (Theme) themeAsSerialisable;
-	} catch (FileNotFoundException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+
+	@Override public void render() throws IOException, XMLParseException {
+
+		//playlist array gets whatever is in the gui at this moment for its entries array
+		playlist.resetArray( observedEntries );
+		setNumbersInPlaylist();
+
+
+		if (playlist.getPlaylistEntries().size() <= 0 ) { return; } //do nothing if theres no playlist
+
+		//LOG the entries
+		for ( int i=0;i < playlist.getPlaylistEntries().size(); i++ ) {
+			LOGGER.info("Rendering begun - At index postion: " + i + " The UNC path is " + playlist.getPlaylistEntries().get(i).getFileUNC() );
+		}
+
+		Path themeName = Paths.get(view.getThemeSelectBox().getSelectionModel().getSelectedItem().toString() );
+		Path rootDir = Theme.getRootDir();
+		Path themeDir = rootDir.resolve(themeName); //append the latter as child of former's path
+		LOGGER.info("ThemeDir is set as " + themeDir.toString());
+		Theme theme = new Theme("Not set"); //todo: tidy this up
+		XMLSerialisable themeAsSerialisable;
+		try {
+			themeAsSerialisable = XMLReader.readXML(themeDir, themeName.toString()); //actually reading theme XML TODO
+			theme = (Theme) themeAsSerialisable;
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		theme.setIndex( view.getThemeSelectBox().getSelectionModel().getSelectedIndex() ); //TODO; the lines above is effectively a new so any index setting before this has no effect
+		Path properDir = Paths.get( Theme.getRootDir().toString(), theme.getItemName() );
+
+		//TODO: problem is we need to get the FIRST files' filetype....is there a better way of encapsulating this its not obvious it go through about 3 classes...
+		String filetype = playlist.getNextEntry(0).getVideo().getFiletype();
+
+		//first we must ask where you want to save with a dialog
+		final FileChooser fileChooser = ViewController.getFileChooser(filetype);
+		File file = fileChooser.showSaveDialog(stage);
+		String outFileUNC = "";
+		if(!file.getName().endsWith( filetype ) ) { 	outFileUNC = file.toString() + filetype; } //this check helps if the file is already existing
+		else { outFileUNC = file.toString(); } //else we will get "x.filetype.filetype //TODO: same code as in save playlist button
+		if( file != null ) { Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC); }
+
+		DecodeAndPlayAudioAndVideo player = new DecodeAndPlayAudioAndVideo(outFileUNC);
 	}
-	theme.setIndex( view.getThemeSelectBox().getSelectionModel().getSelectedIndex() ); //TODO; the lines above is effectively a new so any index setting before this has no effect
-	Path properDir = Paths.get( Theme.getRootDir().toString(), theme.getItemName() );
-
-	//TODO: problem is we need to get the FIRST files' filetype....is there a better way of encapsulating this its not obvious it go through about 3 classes...
-	String filetype = playlist.getNextEntry(0).getVideo().getFiletype();
-
-	//first we must ask where you want to save with a dialog
-	final FileChooser fileChooser = ViewController.getFileChooser(filetype);
-	File file = fileChooser.showSaveDialog(stage);
-	String outFileUNC = "";
-	if(!file.getName().endsWith( filetype ) ) { 	outFileUNC = file.toString() + filetype; } //this check helps if the file is already existing
-	else { outFileUNC = file.toString(); } //else we will get "x.filetype.filetype //TODO: same code as in save playlist button
-	if( file != null ) { Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC); }
-
-	DecodeAndPlayAudioAndVideo player = new DecodeAndPlayAudioAndVideo(outFileUNC);
-}
 
 
-public void setNumbersInPlaylist() {
-	for (int t = 0; t < playlist.getPlaylistEntries().size(); t++) {
-		playlist.getPlaylistEntries().get(t).setPositionInPlaylist(t + 1); //set the playlist positions in the playlist to something sensible
+	public void setNumbersInPlaylist() {
+		for (int t = 0; t < playlist.getPlaylistEntries().size(); t++) {
+			playlist.getPlaylistEntries().get(t).setPositionInPlaylist(t + 1); //set the playlist positions in the playlist to something sensible
+		}
 	}
-}
 
 
 

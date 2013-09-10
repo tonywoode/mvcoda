@@ -9,7 +9,6 @@ import playlist.Playlist;
 import playlist.PlaylistEntry;
 
 public interface ViewControllerListener {
-	void onNewTrackAvailable(String name);
 
 	PlaylistEntry addPlaylistEntry() throws IOException, MediaOpenException;
 

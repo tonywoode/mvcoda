@@ -95,19 +95,6 @@ public class ViewController implements Initializable {
 			}
 		});
 	}
-	/*  playlistObservable.addListener(new ListChangeListener<PlaylistEntry>() {
-            		@Override public void onChanged( javafx.collections.ListChangeListener.Change<? extends PlaylistEntry> c ) {
-            			//videos.resetArray(playlistObservable);
-            			//for (int j = 0; j < playlistObservable.size(); j++) {
-            			//	playlistObservable.get(j).setPositionInPlaylist(j + 1);
-            			//	videos.getPlaylistEntries().get(j).setPositionInPlaylist(j + 1);	
-            			}
-            			//sendPlaylistNodesToScreen(videos);
-            			//forceListRefreshOn(playlistView);
-            			//playlistView.getSelectionModel().clearAndSelect(indexOfItemToMove - 1);	
-            			//playlistView.getFocusModel().focus(indexOfItemToMove - 1);	
-            		}
-            	});*/
 
 	/**
 	 * Initialises the combobox that holds themes - these are held directly as Themes in the box and their toString() methods provide the text in the box
@@ -144,7 +131,7 @@ public class ViewController implements Initializable {
 		catch (IOException e3) { popup("Error: Could not close the ouptut file"); }
 	}
 
-	@FXML void newPlaylist(ActionEvent e) { viewListener.newPlaylist(); }
+	@FXML void newPlaylist(ActionEvent e) { viewListener.newPlaylist(); themeSelectBox.getSelectionModel().clearSelection(); }
 
 	@FXML void addPlaylistEntry(ActionEvent e) throws IOException { //TOD: loading a music video exception please
 		try {
@@ -152,8 +139,6 @@ public class ViewController implements Initializable {
 			
 		}
 		catch (MediaOpenException e5) { popup(e5.getMessage()); }
-		//playlistObservable.add(entry); //TODO we cannot pass the observable list outside of the view controller, so we return a playlist entry here
-		//edit: and now it seems we can and it was adding twice
 		playlistView.setDisable(false);
 	}
 
@@ -180,7 +165,6 @@ public class ViewController implements Initializable {
 		}
 	}
 
-
 	@FXML void render(ActionEvent e) {
 		try {
 			viewListener.render();
@@ -197,9 +181,6 @@ public class ViewController implements Initializable {
 		Dialog.dialogBox(stage, text);
 	}
 	
-	@FXML void reFindVideoInPlaylistView() {
-		System.out.println("heelo");
-	}
 	
 	public static FileChooser getFileChooser(String filetype) {
 		final FileChooser fileChooser = new FileChooser();
@@ -209,22 +190,8 @@ public class ViewController implements Initializable {
 		return fileChooser;
 	}
 
-
-	/*@FXML void playlistEntryEntered(ActionEvent e) {
-		String name = ""; // get from textbox
-		viewListener.onNewTrackAvailable(name);
-	}*/
-
-
 }
 
-/*	// adapted from: http://stackoverflow.com/questions/16880115/javafx-2-2-how-to-force-a-redraw-update-of-a-listview
-	private void forceListRefreshOn(ListView lsv) {
-		ObservableList items = lsv.getItems();
-		lsv.setItems(lsv.getItems());
-		lsv.setItems(items);
-	}
 
- */
 
 
