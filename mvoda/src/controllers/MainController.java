@@ -227,15 +227,22 @@ public class MainController implements ViewControllerListener {
 		final FileChooser fileChooser = new FileChooser();
 		File file = fileChooser.showOpenDialog(stage);
 		String fileUNC = file.getAbsolutePath();
-		PlaylistEntry entry = observedEntries.get(pos);
+		PlaylistEntry entry =  view.getPlaylistView().getItems().get(pos);
 		entry.setFileUNC(fileUNC);
 		entry = entry.validatePlaylistEntry(entry);
 		if (entry != null) {
-			playlist.getPlaylistEntries().set(pos, entry);
-			view.getPlaylistView().getItems().set(pos, entry);
-			//view.getPlaylistView().getSelectionModel().
-			//view.sendPlaylistNodesToScreen(playlist);
-			//setObservedEntries(view.getPlaylistView().getItems() );
+			//playlist.getPlaylistEntries().set(pos, entry);
+			//view.getPlaylistView().getItems().set(pos, entry);
+			
+			//entry.setPositionInPlaylist(pos + 1);//no point in doing this really
+			//setObservedEntries(view.getPlaylistView().getItems() ); //we must update the array passed in to get the view to refresh, cleaner to do it here than back in viewcontroller
+			//observedEntries.set(pos, entry);
+			
+			
+			view.getPlaylistView().getItems().remove(pos);
+			view.getPlaylistView().getItems().add(pos, entry);
+			
+			
 		}
 		else { throw new MediaOpenException("The file is not valid, try again"); }
 		

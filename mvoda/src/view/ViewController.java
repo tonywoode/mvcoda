@@ -112,6 +112,13 @@ public class ViewController implements Initializable {
 		for (PlaylistEntry playlistEntry : playlist.getPlaylistEntries())
 			playlistView.getItems().add(playlistEntry);
 	}
+	
+	public void replacePlaylistNodesToScreen(Playlist playlist) {
+		for (int i = 0; i < playlist.getPlaylistEntries().size(); i++) {
+			PlaylistEntry playlistEntry = playlist.getPlaylistEntries().get(i);
+			playlistView.getItems().set(i, playlistEntry);
+		}
+	}
 
 	@FXML void loadPlaylist(ActionEvent e) throws InterruptedException {
 		try { viewListener.loadPlaylist(); 

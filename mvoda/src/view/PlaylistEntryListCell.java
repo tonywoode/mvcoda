@@ -20,14 +20,15 @@ public class PlaylistEntryListCell extends ListCell<PlaylistEntry> {
         	
  
         	System.out.println("PlaylistEntry Cell: " + "NUMBER: " + (pos + 1) + "\t" + item.getFileUNC());
-        	item.setPositionInPlaylist(pos);//I don't think this does anything....
+        	//item.setPositionInPlaylist(pos);//I don't think this does anything....
         	
             setText("NUMBER " + (pos + 1) + "\t" + item.getFileUNC());
             
             final String itemname = item.getFileUNC();
             
-            if (this.getItem().getFileUNC().equals("Not Found") ) { this.setBlendMode(BlendMode.GREEN); }
+            //if (this.getItem().getFileUNC().equals("Not Found") ) { this.setBlendMode(BlendMode.GREEN); }
             if (this.getItem().getVideo() == null ) { this.setBlendMode(BlendMode.GREEN); }
+            if (this.getItem().getVideo() != null ) { this.setBlendMode(null); }
             
            addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
                 @Override
