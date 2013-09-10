@@ -140,11 +140,8 @@ public class ViewController implements Initializable {
 
 	@FXML void newPlaylist(ActionEvent e) { viewListener.newPlaylist(); themeSelectBox.getSelectionModel().clearSelection(); }
 
-	@FXML void addPlaylistEntry(ActionEvent e) throws IOException { //TOD: loading a music video exception please
-		try {
-			PlaylistEntry entry = viewListener.addPlaylistEntry();
-
-		}
+	@FXML void addPlaylistEntry(ActionEvent e) throws IOException {
+		try { viewListener.addPlaylistEntry(); }
 		catch (MediaOpenException e5) { popup(e5.getMessage()); }
 		playlistView.setDisable(false);
 	}

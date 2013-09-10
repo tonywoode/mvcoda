@@ -39,16 +39,14 @@ import media.xuggle.MusicVideoXuggle;
 	 * If we cannot source the video associated with this entry, we will call on the entry to validate itself
 	 * @param entry
 	 * @return null if the file pointed to is not valid, else returns the new playlist entry
+	 * @throws MediaOpenException 
 	 */
-	public PlaylistEntry validatePlaylistEntry(PlaylistEntry entry) {
+	public PlaylistEntry validatePlaylistEntry(PlaylistEntry entry) throws MediaOpenException {
 		File videoFile = new File(entry.getFileUNC());
 		if (videoFile.exists() ) { 
 			MusicVideo video = null;
-			try {
 				video = new MusicVideoXuggle(entry.getFileUNC() );
-			} catch (MediaOpenException e) { //We wish to catch this here so we can carry on validating. The playlist cell will highlight any null video files for the user
-				System.out.println(e.getMessage());
-			}
+			
 			entry.setVideo(video);
 			entry.setFileUNC(video.getFileUNC());
 			return entry;

@@ -67,7 +67,12 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 		boolean found = true;
 		for (int i = 0; i < playlist.getPlaylistEntries().size(); i++) {
 			PlaylistEntry entry = playlist.getPlaylistEntries().get( i );
-			entry = entry.validatePlaylistEntry(entry);
+			try {
+				entry = entry.validatePlaylistEntry(entry);
+			} catch (MediaOpenException e) { //We wish to catch this here so we can carry on validating. The playlist cell will highlight any null video files for the user
+				System.out.println(e.getMessage());
+			}
+			
 			if (entry == null) {
 				found = false;
 			}

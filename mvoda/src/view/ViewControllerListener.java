@@ -10,7 +10,7 @@ import playlist.PlaylistEntry;
 
 public interface ViewControllerListener {
 
-	PlaylistEntry addPlaylistEntry() throws IOException, MediaOpenException;
+	void addPlaylistEntry() throws IOException, MediaOpenException;
 
 	void deletePlaylistEntry();
 

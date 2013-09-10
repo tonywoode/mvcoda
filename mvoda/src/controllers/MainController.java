@@ -45,18 +45,15 @@ public class MainController implements ViewControllerListener {
 
 	@Override public void newPlaylist() { observedEntries.clear(); }
 	
-	@Override public PlaylistEntry addPlaylistEntry() throws IOException, MediaOpenException { //TOD: loading a music video exception please //note we pass a stage so we can popup in the cirrect place
+	@Override public void addPlaylistEntry() throws IOException, MediaOpenException { //TOD: loading a music video exception please //note we pass a stage so we can popup in the cirrect place
 		final FileChooser fileChooser = new FileChooser();
 		File file = fileChooser.showOpenDialog(stage);
-		//if (file != null) {
 		String fileUNC = file.getAbsolutePath();
 		MusicVideo vid = new MusicVideoXuggle(fileUNC);
 		PlaylistEntry entry = new PlaylistEntry( vid, "Track" + (observedEntries.size() + 1), "Artist" + (observedEntries.size() + 1) );
 		entry.setPositionInPlaylist(observedEntries.size() + 1);//no point in doing this really
 		setObservedEntries(view.getPlaylistView().getItems() ); //we must update the array passed in to get the view to refresh, cleaner to do it here than back in viewcontroller
 		observedEntries.add(entry);
-		//}
-		return entry;
 	}
 
 
@@ -230,29 +227,13 @@ public class MainController implements ViewControllerListener {
 		PlaylistEntry entry =  view.getPlaylistView().getItems().get(pos);
 		entry.setFileUNC(fileUNC);
 		entry = entry.validatePlaylistEntry(entry);
-		if (entry != null) {
-			//playlist.getPlaylistEntries().set(pos, entry);
-			//view.getPlaylistView().getItems().set(pos, entry);
-			
-			//entry.setPositionInPlaylist(pos + 1);//no point in doing this really
-			//setObservedEntries(view.getPlaylistView().getItems() ); //we must update the array passed in to get the view to refresh, cleaner to do it here than back in viewcontroller
-			//observedEntries.set(pos, entry);
-			
-			
+		if (entry != null) {			
 			view.getPlaylistView().getItems().remove(pos);
 			view.getPlaylistView().getItems().add(pos, entry);
-			
-			
 		}
 		else { throw new MediaOpenException("The file is not valid, try again"); }
 		
-		/*MusicVideo vid = new MusicVideoXuggle(fileUNC);
-		PlaylistEntry entry = new PlaylistEntry( vid, "Track" + (observedEntries.size() + 1), "Artist" + (observedEntries.size() + 1) );
-		entry.setPositionInPlaylist(observedEntries.size() + 1);//no point in doing this really
-		setObservedEntries(view.getPlaylistView().getItems() ); //we must update the array passed in to get the view to refresh, cleaner to do it here than back in viewcontroller
-		observedEntries.add(entry);*/
-		//}
-		//return entry;
+		
 		
 	}
 
