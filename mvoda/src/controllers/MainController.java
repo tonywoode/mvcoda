@@ -21,7 +21,6 @@ import media.Encoder;
 import media.MusicVideo;
 import media.xuggle.EncoderXuggle;
 import media.xuggle.MusicVideoXuggle;
-import moduleExamples.javafx2.BackgroundProcesses;
 import playlist.Playlist;
 import playlist.PlaylistEntry;
 import test.DecodeAndPlayAudioAndVideo;
@@ -30,8 +29,6 @@ import themes.XMLReader;
 import themes.XMLSerialisable;
 import themes.XMLWriter;
 import util.FileUtil;
-import util.ThemeFinder;
-import util.ThemeFinderImpl;
 import view.MediaOpenException;
 import view.ViewController;
 import view.ViewControllerListener;
@@ -44,7 +41,7 @@ public class MainController implements ViewControllerListener {
 	@Getter @Setter ViewController view;
 	@Getter @Setter static Stage stage; //has to be static as instantiated in static JavaFX launch method in ImageCompositorTester
 	
-	static Task renderWorker;
+	static Task<?> renderWorker;
 
 	public final static Logger LOGGER = Logger.getLogger(MainController.class.getName()); //get a logger for this class
 
