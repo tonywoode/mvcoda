@@ -15,9 +15,9 @@ import com.xuggle.xuggler.Global;
 
 public class ThumbnailGrabberXuggle {
 
-	public static final double SECONDS_BETWEEN_FRAMES = 1;
-	private static int videoStreamIndex = -1;
-	private static long lastPtsWrite = 1;
+	//public static final double SECONDS_BETWEEN_FRAMES = 0;
+	//private static int videoStreamIndex = -1;
+	//private static long lastPtsWrite = 1;
 	//public static final long MICRO_SECONDS_BETWEEN_FRAMES = 
 			//(long)(Global.DEFAULT_PTS_PER_SECOND * SECONDS_BETWEEN_FRAMES);
 	
@@ -35,17 +35,10 @@ public class ThumbnailGrabberXuggle {
 	private class ImageSnapListener extends MediaListenerAdapter {
 
 		public void onVideoPicture(IVideoPictureEvent event) {
-			 if (event.getStreamIndex() != videoStreamIndex) {
-	                if (videoStreamIndex == -1)
-	                    videoStreamIndex = event.getStreamIndex();
-	                // no need to show frames from this video stream
-	                else
-	                    return;
-	            }
 			 
 			 // if uninitialized, back date mLastPtsWrite to get the very first frame
 	            //if (lastPtsWrite == Global.NO_PTS)
-	                lastPtsWrite = 1000;
+	               // lastPtsWrite = 1;
 	            
 	            
 	            
@@ -55,7 +48,7 @@ public class ThumbnailGrabberXuggle {
 	            	
 	            thumb = event.getImage(); 
 	            
-	            lastPtsWrite = 1000;
+	            //lastPtsWrite = 1;
 	            
 	           // }
 	            
