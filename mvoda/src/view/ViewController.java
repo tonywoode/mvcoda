@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -25,6 +26,8 @@ import javafx.util.Callback;
 
 import javax.management.modelmbean.XMLParseException;
 
+import drawing.TextCompositor;
+
 import lombok.Getter;
 import lombok.Setter;
 import playlist.Playlist;
@@ -33,16 +36,18 @@ import themes.Theme;
 import util.ThemeFinder;
 import util.ThemeFinderImpl;
 import view.buttons.Dialog;
+import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 
 public class ViewController implements Initializable {
 
-	//TODO: you've given these fx:id's but why? you don't do anything with the button but onClick...., so why do they need to be here
-	//public Button loadPlaylistButton;
+	
 
 
 	@Getter @Setter	static ViewControllerListener viewListener;	
 	@Getter @Setter	static Stage stage;
 	@FXML @Getter @Setter ComboBox<Theme> themeSelectBox;
+	@FXML @Getter @Setter ComboBox<String> fontSelectBox;
 	@FXML @Getter @Setter ListView<PlaylistEntry> playlistView;
 	@FXML TextArea mediaInfoArea;
 
@@ -67,6 +72,7 @@ public class ViewController implements Initializable {
 		moveDownButton.setDisable(true); //so we handle these in checkMoveButtons() (you cannot both bind and set in javaFX)
 		
 		initThemeSelectBox(); //reads themes 
+		initFontSelectBox(); //font list to GUI
 
 		//custom cell factory for the playlist entries
 		playlistView.setCellFactory(new Callback<ListView<PlaylistEntry>, ListCell<PlaylistEntry>>() {
@@ -117,6 +123,28 @@ public class ViewController implements Initializable {
 		catch (IOException e) {e.printStackTrace();}  // TODO exception handling 	
 		catch (InterruptedException e) { e.printStackTrace(); } // TODO exception handling
 		themeSelectBox.setItems(FXCollections.observableList(themeTemp) ); //NOW we make an observable list from our array list when we set it as the box's list
+	}
+	
+	
+	public void initFontSelectBox() {
+		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		String[] fontListArray = ge.getAvailableFontFamilyNames();
+		ArrayList<String> fontList = new ArrayList<String>( Arrays.asList(fontListArray) );
+		System.out.println(fontList);
+		fontSelectBox.setItems(FXCollections.observableList(fontList));
+		fontSelectBox.getSelectionModel().select(10);
+		fontSelectBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+						@Override
+			public void changed(ObservableValue<? extends String> observable,
+					String oldValue, String newValue) {
+				TextCompositor.setFontName(newValue);
+						}	
+			});
+		
+		
+			//LOGGER.info("Available font list on this machine: At index no.: " + i + " is: " + fontList[i]);
+			//textFont = new Font(fontList[10],1,32);
+		
 	}
 
 	public void sendPlaylistNodesToScreen(Playlist playlist) {

@@ -17,6 +17,7 @@ import lombok.Setter;
 public class TextCompositor {
 
 	@Setter private Font textFont;
+	@Setter static String fontName;
 	@Setter private String text;
 	private int textXPos;
 	private int textYPos;
@@ -62,6 +63,7 @@ public class TextCompositor {
 	 * @return the composited image
 	 */
 	private BufferedImage nextText(boolean imOut, BufferedImage videoFrame) {
+		textFont = new Font(fontName, 1, 32);
 		if ( imOut == false) { if (text != null) { renderText(videoFrame, text, textFont, textXPos, textYPos); } }
 		BufferedImage composite = videoFrame;
 		return composite;
