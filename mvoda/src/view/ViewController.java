@@ -51,6 +51,7 @@ public class ViewController implements Initializable {
 	@Getter @Setter	static Stage stage;
 	@FXML @Getter @Setter ComboBox<Theme> themeSelectBox;
 	@FXML @Getter @Setter ComboBox<String> fontSelectBox;
+	@FXML @Getter @Setter ComboBox<Number> fontSizeBox;
 	@FXML @Getter @Setter ListView<PlaylistEntry> playlistView;
 	@FXML TextArea mediaInfoArea;
 
@@ -76,6 +77,7 @@ public class ViewController implements Initializable {
 		
 		initThemeSelectBox(); //reads themes 
 		initFontSelectBox(); //font list to GUI
+		initFontSizeBox(); //font list to GUI
 
 		//custom cell factory for the playlist entries
 		playlistView.setCellFactory(new Callback<ListView<PlaylistEntry>, ListCell<PlaylistEntry>>() {
@@ -135,12 +137,28 @@ public class ViewController implements Initializable {
 		ArrayList<String> fontList = new ArrayList<String>( Arrays.asList(fontListArray) );
 		LOGGER.info("FontSelectBox sees Available font list on this machine: " + fontList);
 		fontSelectBox.setItems(FXCollections.observableList(fontList));
-		fontSelectBox.getSelectionModel().select(10);
+		fontSelectBox.getSelectionModel().select(10); //displays but doesn't select - seems to be another javafx bug, we will set the same in text compositor
 		fontSelectBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 						@Override
 			public void changed(ObservableValue<? extends String> observable,
 					String oldValue, String newValue) {
 				TextCompositor.setFontName(newValue);
+						}	
+			});		
+	}
+	
+	
+	public void initFontSizeBox() {
+		ArrayList<Number> fontSizeList = new ArrayList<Number>();
+		fontSizeList.add(16); fontSizeList.add(20); fontSizeList.add(24); fontSizeList.add(28); fontSizeList.add(32); fontSizeList.add(36); fontSizeList.add(40);
+		LOGGER.info("FontSizeBox has these choices: " + fontSizeList);
+		fontSizeBox.setItems(FXCollections.observableList(fontSizeList));
+		fontSizeBox.getSelectionModel().select(2); //int method for index - also set as default in text compositor
+		fontSizeBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Number>() {
+						@Override
+			public void changed(ObservableValue<? extends Number> observable,
+					Number oldValue, Number newValue) {
+				TextCompositor.setFontSize(newValue.intValue());
 						}	
 			});
 		
@@ -149,6 +167,8 @@ public class ViewController implements Initializable {
 			//textFont = new Font(fontList[10],1,32);
 		
 	}
+	
+	
 
 	public void sendPlaylistNodesToScreen(Playlist playlist) {
 		for (PlaylistEntry playlistEntry : playlist.getPlaylistEntries())
@@ -183,6 +203,8 @@ public class ViewController implements Initializable {
 		viewListener.clearPlaylist(); 
 		checkMoveButtons(); 
 		themeSelectBox.getSelectionModel().clearSelection();
+		fontSelectBox.getSelectionModel().select(10);
+		fontSizeBox.getSelectionModel().select(2);
 		playlistView.setDisable(true);
 	}
 

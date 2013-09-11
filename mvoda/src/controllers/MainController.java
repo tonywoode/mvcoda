@@ -142,11 +142,14 @@ public class MainController implements ViewControllerListener {
 		ObservableList<Theme> themeBoxItems = view.getThemeSelectBox().getItems(); //turn the theme box's list into an iterable list
 		boolean themeFound = false;
 		for ( Theme theme : themeBoxItems ) {
-			if ( themeName.equals(theme.toString()) ) {view.getThemeSelectBox().setValue(theme); themeFound=true; }//and set that theme name as the active one in both the box and the list the box is generated from
+			if ( themeName.equals(theme.toString()) ) {
+				view.getThemeSelectBox().setValue(theme); 
+				view.getThemeSelectBox().getSelectionModel().select(theme); //currently a bug with javaFX we cannot fix see: http://stackoverflow.com/questions/12142518/combobox-clearing-value-issue
+				themeFound=true; }//and set that theme name as the active one in both the box and the list the box is generated from
 		}			
 		if (!themeFound) { //if a theme name match isn't found, we must clear any previous theme selection, and throw an exception
 			view.getThemeSelectBox().getSelectionModel().clearSelection();
-			view.getThemeSelectBox().getButtonCell().setText(themeName); //currently a bug with javaFX requiring this see: http://stackoverflow.com/questions/12142518/combobox-clearing-value-issue
+			
 			throw new NullPointerException("The Theme in the XML cannot be found in your themes folder");
 		} 
 		LOGGER.info("themeName from playlist on load is : " + themeName);
@@ -159,15 +162,37 @@ public class MainController implements ViewControllerListener {
 		ObservableList<String> fontBoxItems = view.getFontSelectBox().getItems();
 		boolean fontFound = false;
 		for ( String string : fontBoxItems ) {
-			if ( string.equals(fontName) ) {view.getFontSelectBox().getSelectionModel().select(fontName); fontFound=true; }
+			if ( string.equals(fontName) ) {
+				view.getFontSelectBox().getSelectionModel().select(fontName); 
+				view.getFontSelectBox().getSelectionModel().select(string);
+				fontFound=true; }
 		}			
 		if (!fontFound) {
 			view.getFontSelectBox().getSelectionModel().clearSelection();
-			view.getFontSelectBox().getButtonCell().setText(fontName);
 			throw new NullPointerException("The Font in the XML cannot be found on your computer");
 		} 
 			LOGGER.info("fontName from playlist on load is : " + fontName);
 			LOGGER.info("Font select box has this selected on load playlist " + view.getFontSelectBox().getSelectionModel().getSelectedItem());
+			
+			
+			
+		//and again with the FontSize box
+			int fontSize = playlist.getFontSize();
+			ObservableList<Number> fontBoxSizes = view.getFontSizeBox().getItems();
+			boolean fontSizeFound = false;
+			for ( Number num : fontBoxSizes ) {
+				if ( num.intValue() == fontSize ) {
+					view.getFontSizeBox().getSelectionModel().select(fontSize);  //known JavaFX bug http://stackoverflow.com/questions/12142518/combobox-clearing-value-issue
+					view.getFontSizeBox().getSelectionModel().select(num);
+					//view.getFontSizeBox().getButtonCell().setText( Integer.toString(fontSize) );
+					fontSizeFound=true; }
+			}			
+			if (!fontSizeFound) {
+				view.getFontSizeBox().getSelectionModel().clearSelection();
+				throw new NullPointerException("The FontSize in the XML cannot be set on your computer");
+			} 
+				LOGGER.info("fontSize from playlist on load is : " + fontSize);
+				LOGGER.info("Font size box has this selected on load playlist " + view.getFontSizeBox().getSelectionModel().getSelectedItem());
 		
 	}	
 
@@ -175,7 +200,8 @@ public class MainController implements ViewControllerListener {
 
 		playlist.resetArray( observedEntries );
 		playlist.setFontName(TextCompositor.getFontName()); //set the fontname in the playlist before saving, GUI default writes here so no other checks apply
-
+		playlist.setFontSize(TextCompositor.getFontSize());
+		
 		try { playlist.setThemeName( view.getThemeSelectBox().getSelectionModel().getSelectedItem().toString()); } 
 		catch (NullPointerException e) { throw new NullPointerException("Please select a theme before saving"); } 
 

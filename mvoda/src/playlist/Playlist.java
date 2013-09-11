@@ -30,6 +30,7 @@ import drawing.TextCompositor;
 	@Getter @Setter String playlistName;
 	@Getter @Setter String themeName;
 	@Getter @Setter String fontName;
+	@Getter @Setter int fontSize;
 
 	/**
 	 * A playlist must have a name //TODO: name for playlist?
