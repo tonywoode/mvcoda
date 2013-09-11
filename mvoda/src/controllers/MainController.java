@@ -23,6 +23,7 @@ import media.xuggle.EncoderXuggle;
 import media.xuggle.MusicVideoXuggle;
 import playlist.Playlist;
 import playlist.PlaylistEntry;
+import test.BackgroundProcesses;
 import test.DecodeAndPlayAudioAndVideo;
 import themes.Theme;
 import themes.XMLReader;
@@ -227,6 +228,10 @@ public class MainController implements ViewControllerListener {
 		//then finally render it
 		if( file != null ) { Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC); }
 
+		//BackgroundProcesses progress = new BackgroundProcesses();
+		//progress.start(stage);
+		
+		
 		//lastly display it in the swing window
 		copyWorker = createWorker(outFileUNC);
 		new Thread(copyWorker).start();
@@ -241,7 +246,8 @@ public class MainController implements ViewControllerListener {
 				DecodeAndPlayAudioAndVideo player = new DecodeAndPlayAudioAndVideo(outFileUNC);
 				return true;
 			}
-		};
+			};
+		
 	}
 
 

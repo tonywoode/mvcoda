@@ -27,6 +27,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -63,6 +64,13 @@ public class SwingVideoWindow extends JFrame
     getContentPane().add(mOnscreenPicture);
     this.setVisible(true);
     this.pack();
+    
+    
+    
+  
+    
+    
+    
   }
   
   public void setImage(final BufferedImage aImage)

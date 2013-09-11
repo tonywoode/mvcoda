@@ -24,6 +24,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
+import javax.swing.JOptionPane;
 
 
 import com.xuggle.xuggler.Global;
@@ -82,6 +83,9 @@ public class DecodeAndPlayAudioAndVideo
   public DecodeAndPlayAudioAndVideo(String fileUNC)
   {
 	  String filename = fileUNC;
+	  
+	  
+	 
     
     // Let's make sure that we can actually convert video pixel formats.
     if (!IVideoResampler.isSupported(IVideoResampler.Feature.FEATURE_COLORSPACECONVERSION))
@@ -243,6 +247,7 @@ public class DecodeAndPlayAudioAndVideo
          * We also pass in a buffer size (1024 in our example), although Xuggler
          * will probably allocate more space than just the 1024 (it's not important why).
          */
+    	  //if (mScreen.) { closeJavaSound(); return;}
         IAudioSamples samples = IAudioSamples.make(1024, audioCoder.getChannels());
         
         /*
@@ -353,6 +358,20 @@ public class DecodeAndPlayAudioAndVideo
   private static void openJavaVideo()
   {
     mScreen = new SwingVideoWindow();
+    
+    //http://stackoverflow.com/questions/9093448/do-something-when-the-close-button-is-clicked-on-a-jframe
+    mScreen.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+            if (JOptionPane.showConfirmDialog(mScreen, 
+                "Are you sure to close this window?", "Really Closing?", 
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+               closeJavaSound();
+               closeJavaVideo();
+            }
+        }
+    });
   }
 
   /**
@@ -392,12 +411,14 @@ public class DecodeAndPlayAudioAndVideo
      */
     byte[] rawBytes = aSamples.getData().getByteArray(0, aSamples.getSize());
     mLine.write(rawBytes, 0, aSamples.getSize());
+  
   }
 
+  //we want the playback to close ASAP on closing the windows, so have removed the null check
   private static void closeJavaSound()
   {
-    if (mLine != null)
-    {
+   // if (mLine != null)
+   // {
       /*
        * Wait for the line to finish playing
        */
@@ -407,6 +428,6 @@ public class DecodeAndPlayAudioAndVideo
        */
       mLine.close();
       mLine=null;
-    }
+   // }
   }
 }
