@@ -12,6 +12,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,6 +22,8 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -35,12 +38,15 @@ import lombok.Getter;
 import lombok.Setter;
 import playlist.Playlist;
 import playlist.PlaylistEntry;
+import test.ShowImageInFrame;
 import themes.Theme;
 import util.ThemeFinder;
 import util.ThemeFinderImpl;
+import util.ThumbnailGrabberXuggle;
 import view.buttons.Dialog;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
+import java.awt.image.BufferedImage;
 
 public class ViewController implements Initializable {
 
@@ -54,6 +60,7 @@ public class ViewController implements Initializable {
 	@FXML @Getter @Setter ComboBox<Number> fontSizeBox;
 	@FXML @Getter @Setter ListView<PlaylistEntry> playlistView;
 	@FXML TextArea mediaInfoArea;
+	@FXML ImageView imageThumb;
 
 	public Button clearPlaylistButton;
 	public Button savePlaylistButton;
@@ -113,6 +120,16 @@ public class ViewController implements Initializable {
 				}
 				else {
 					mediaInfoArea.setText(ov.getValue().getVideo().toString());//write media info to screen for this entry
+				}
+				
+				if (ov != null) {
+				ThumbnailGrabberXuggle thu = new ThumbnailGrabberXuggle();
+				thu.grabThumbs(ov.getValue().getFileUNC());
+				//BufferedImage thisThumb;
+				//thisThumb = thu.getThumb();
+				Image fxImage = thu.getFxImage();
+				//imageThumb.setImage(null);
+				imageThumb.setImage( fxImage );
 				}
 			}
 		});
