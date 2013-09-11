@@ -8,6 +8,7 @@ import media.xuggle.MusicVideoXuggle;
 import themes.GFXElement;
 import util.FileUtil;
 import util.ThemeFinderImpl;
+import view.ViewController;
 import controllers.MainController;
 import drawing.ImageCompositor;
 import drawing.TextCompositor;
@@ -26,6 +27,7 @@ public class HandleLoggers {
 		//now we have an opportunity to set levels on the pacakage or class level, we do this by having public static loggers in the classes
 		
 		MainController.LOGGER.setLevel(Level.ALL);
+		ViewController.LOGGER.setLevel(Level.ALL);
 		ThemeFinderImpl.LOGGER.setLevel(Level.ALL);
 		MusicVideoXuggle.LOGGER.setLevel(Level.OFF);
 		ImageCompositor.LOGGER.setLevel(Level.OFF);

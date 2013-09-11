@@ -15,6 +15,8 @@ import javafx.stage.Stage;
 
 import javax.management.modelmbean.XMLParseException;
 
+import drawing.TextCompositor;
+
 import lombok.Getter;
 import lombok.Setter;
 import media.Encoder;
@@ -134,22 +136,45 @@ public class MainController implements ViewControllerListener {
 		if (!found ) { 	view.popup("Problem with opening highlighted files, double click them to refind files");
 		}
 
+
 		//select the XML's theme as the theme in theme select box, or clear it if not found
-		String themename = playlist.getThemeName();
+		String themeName = playlist.getThemeName();
 		ObservableList<Theme> themeBoxItems = view.getThemeSelectBox().getItems(); //turn the theme box's list into an iterable list
 		boolean themeFound = false;
 		for ( Theme theme : themeBoxItems ) {
-			if ( themename.equals(theme.toString()) ) {view.getThemeSelectBox().setValue(theme); themeFound=true; }//and set that theme name as the active one in both the box and the list the box is generated from
+			if ( themeName.equals(theme.toString()) ) {view.getThemeSelectBox().setValue(theme); themeFound=true; }//and set that theme name as the active one in both the box and the list the box is generated from
 		}			
 		if (!themeFound) { //if a theme name match isn't found, we must clear any previous theme selection, and throw an exception
 			view.getThemeSelectBox().getSelectionModel().clearSelection();
+			view.getThemeSelectBox().getButtonCell().setText(themeName); //currently a bug with javaFX requiring this see: http://stackoverflow.com/questions/12142518/combobox-clearing-value-issue
 			throw new NullPointerException("The Theme in the XML cannot be found in your themes folder");
 		} 
+		LOGGER.info("themeName from playlist on load is : " + themeName);
+		LOGGER.info("Font select box has this selected on load playlist " + view.getFontSelectBox().getSelectionModel().getSelectedItem());
+		
+		
+		//now similar (but with subtle differences) with the font
+		String fontName = playlist.getFontName();
+		
+		ObservableList<String> fontBoxItems = view.getFontSelectBox().getItems();
+		boolean fontFound = false;
+		for ( String string : fontBoxItems ) {
+			if ( string.equals(fontName) ) {view.getFontSelectBox().getSelectionModel().select(fontName); fontFound=true; }
+		}			
+		if (!fontFound) {
+			view.getFontSelectBox().getSelectionModel().clearSelection();
+			view.getFontSelectBox().getButtonCell().setText(fontName);
+			throw new NullPointerException("The Font in the XML cannot be found on your computer");
+		} 
+			LOGGER.info("fontName from playlist on load is : " + fontName);
+			LOGGER.info("Font select box has this selected on load playlist " + view.getFontSelectBox().getSelectionModel().getSelectedItem());
+		
 	}	
 
 	@Override public void savePlaylist() throws FileNotFoundException, IOException {
 
 		playlist.resetArray( observedEntries );
+		playlist.setFontName(TextCompositor.getFontName()); //set the fontname in the playlist before saving, GUI default writes here so no other checks apply
 
 		try { playlist.setThemeName( view.getThemeSelectBox().getSelectionModel().getSelectedItem().toString()); } 
 		catch (NullPointerException e) { throw new NullPointerException("Please select a theme before saving"); } 

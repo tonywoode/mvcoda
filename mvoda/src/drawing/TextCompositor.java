@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.logging.Logger;
 
+import lombok.Getter;
 import lombok.Setter;
 
 /**
@@ -17,7 +18,7 @@ import lombok.Setter;
 public class TextCompositor {
 
 	@Setter private Font textFont;
-	@Setter static String fontName;
+	@Getter @Setter static String fontName;
 	@Setter private String text;
 	private int textXPos;
 	private int textYPos;

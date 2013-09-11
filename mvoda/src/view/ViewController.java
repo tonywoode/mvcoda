@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
@@ -26,6 +27,8 @@ import javafx.util.Callback;
 
 import javax.management.modelmbean.XMLParseException;
 
+import controllers.MainController;
+
 import drawing.TextCompositor;
 
 import lombok.Getter;
@@ -42,7 +45,7 @@ import java.awt.GraphicsEnvironment;
 public class ViewController implements Initializable {
 
 	
-
+	public final static Logger LOGGER = Logger.getLogger(ViewController.class.getName()); //get a logger for this class
 
 	@Getter @Setter	static ViewControllerListener viewListener;	
 	@Getter @Setter	static Stage stage;
@@ -130,7 +133,7 @@ public class ViewController implements Initializable {
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		String[] fontListArray = ge.getAvailableFontFamilyNames();
 		ArrayList<String> fontList = new ArrayList<String>( Arrays.asList(fontListArray) );
-		System.out.println(fontList);
+		LOGGER.info("FontSelectBox sees Available font list on this machine: " + fontList);
 		fontSelectBox.setItems(FXCollections.observableList(fontList));
 		fontSelectBox.getSelectionModel().select(10);
 		fontSelectBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
