@@ -1,4 +1,4 @@
-package test;
+package moduleExamples.javafx2;
 
 import java.util.Random;
 import javafx.application.Application;

@@ -21,9 +21,9 @@ import media.Encoder;
 import media.MusicVideo;
 import media.xuggle.EncoderXuggle;
 import media.xuggle.MusicVideoXuggle;
+import moduleExamples.javafx2.BackgroundProcesses;
 import playlist.Playlist;
 import playlist.PlaylistEntry;
-import test.BackgroundProcesses;
 import test.DecodeAndPlayAudioAndVideo;
 import themes.Theme;
 import themes.XMLReader;
@@ -44,7 +44,7 @@ public class MainController implements ViewControllerListener {
 	@Getter @Setter ViewController view;
 	@Getter @Setter static Stage stage; //has to be static as instantiated in static JavaFX launch method in ImageCompositorTester
 	
-	static Task copyWorker;
+	static Task renderWorker;
 
 	public final static Logger LOGGER = Logger.getLogger(MainController.class.getName()); //get a logger for this class
 
@@ -225,24 +225,22 @@ public class MainController implements ViewControllerListener {
 		}
 		catch (NullPointerException e) { throw new NullPointerException("Please select a file to save to");	}
 		
-		//then finally render it
-		if( file != null ) { Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC); }
-
-		//BackgroundProcesses progress = new BackgroundProcesses();
-		//progress.start(stage);
 		
-		
-		//lastly display it in the swing window
-		copyWorker = createWorker(outFileUNC);
-		new Thread(copyWorker).start();
+		renderWorker = createWorker(theme, file, outFileUNC);
+		new Thread(renderWorker).start();
 	}
 	
 	
-	public Task createWorker(final String outFileUNC) {
+	public Task createWorker(final Theme theme, final File file, final String outFileUNC) {
 		return new Task() {
 			
 			@Override
 			protected Object call() throws Exception {
+				//then finally render it
+				if( file != null ) { Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC); }
+
+				
+				//lastly display it in the swing window				
 				DecodeAndPlayAudioAndVideo player = new DecodeAndPlayAudioAndVideo(outFileUNC);
 				return true;
 			}
