@@ -17,14 +17,13 @@ public class ThumbnailGrabberXuggle {
 
 	public static final double SECONDS_BETWEEN_FRAMES = 1;
 	private static int videoStreamIndex = -1;
-	private static long lastPtsWrite = Global.NO_PTS;
-	public static final long MICRO_SECONDS_BETWEEN_FRAMES = 
-			(long)(Global.DEFAULT_PTS_PER_SECOND * SECONDS_BETWEEN_FRAMES);
+	private static long lastPtsWrite = 1;
+	//public static final long MICRO_SECONDS_BETWEEN_FRAMES = 
+			//(long)(Global.DEFAULT_PTS_PER_SECOND * SECONDS_BETWEEN_FRAMES);
 	
 	
 	
 	@Getter BufferedImage thumb;
-	@Getter Image fxImage;
 
 	public void grabThumbs(String fileUNC) {
 		IMediaReader mediaReader = ToolFactory.makeReader(fileUNC);
@@ -45,8 +44,8 @@ public class ThumbnailGrabberXuggle {
 	            }
 			 
 			 // if uninitialized, back date mLastPtsWrite to get the very first frame
-	            if (lastPtsWrite == Global.NO_PTS)
-	                lastPtsWrite = event.getTimeStamp() - MICRO_SECONDS_BETWEEN_FRAMES;
+	            //if (lastPtsWrite == Global.NO_PTS)
+	                lastPtsWrite = 1000;
 	            
 	            
 	            
@@ -55,9 +54,8 @@ public class ThumbnailGrabberXuggle {
 	             //       MICRO_SECONDS_BETWEEN_FRAMES) {
 	            	
 	            thumb = event.getImage(); 
-	            fxImage =  SwingFXUtils.toFXImage(thumb, null);
 	            
-	            lastPtsWrite += MICRO_SECONDS_BETWEEN_FRAMES;
+	            lastPtsWrite = 1000;
 	            
 	           // }
 	            

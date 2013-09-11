@@ -125,10 +125,9 @@ public class ViewController implements Initializable {
 				if (ov != null) {
 				ThumbnailGrabberXuggle thu = new ThumbnailGrabberXuggle();
 				thu.grabThumbs(ov.getValue().getFileUNC());
-				//BufferedImage thisThumb;
-				//thisThumb = thu.getThumb();
-				Image fxImage = thu.getFxImage();
-				//imageThumb.setImage(null);
+				BufferedImage thisThumb;
+				thisThumb = thu.getThumb();
+				Image fxImage = SwingFXUtils.toFXImage(thisThumb, null);
 				imageThumb.setImage( fxImage );
 				}
 			}
