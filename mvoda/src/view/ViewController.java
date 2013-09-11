@@ -150,8 +150,6 @@ public class ViewController implements Initializable {
 
 	@FXML void clearPlaylist(ActionEvent e) { 
 		viewListener.clearPlaylist(); 
-		//themeSelectBox.getSelectionModel().clearSelection();
-		//initThemeSelectBox();
 		checkMoveButtons(); 
 		themeSelectBox.getSelectionModel().clearSelection();
 		playlistView.setDisable(true);
@@ -178,35 +176,16 @@ public class ViewController implements Initializable {
 		if (playlistView.getItems().isEmpty()) { playlistView.setDisable(true); }
 	}
 
-	@FXML void moveUp(ActionEvent e) {
-		//MoveButtons moveUpButton = new MoveButtons(playlistView);
-		//moveUpButton.moveUp(e);	
-		viewListener.moveUp();
-	}
+	@FXML void moveUp(ActionEvent e) { viewListener.moveUp(); }
 
-	@FXML void moveDown(ActionEvent e) {
-		//Dialog dialog = new Dialog();
-		//Dialog.dialogBox(stage, "ehat");//, new Scene());
-		try {
-			viewListener.moveDown();
-		} catch (IndexOutOfBoundsException error) {
-			// TODO Auto-generated catch block
-			//Dialog.dialogBox(stage, "No playlist loaded. Please first create or load a playlist");//, new Scene());
-			error.printStackTrace();
-		}
-	}
+	@FXML void moveDown(ActionEvent e) { viewListener.moveDown(); }
 
 	@FXML void render(ActionEvent e) {
 		try { viewListener.render();} 
 		catch (NullPointerException e1) { popup(e1.getMessage()); }	
 		catch (MediaOpenException e2) { popup(e2.getMessage()); }	
-		catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (XMLParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		catch (IOException e1) { popup("Error: Could not access the file to write to");}
+		
 	}
 
 	public static void popup(String text) {

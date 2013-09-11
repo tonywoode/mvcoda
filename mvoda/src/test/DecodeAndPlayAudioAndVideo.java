@@ -65,7 +65,7 @@ public class DecodeAndPlayAudioAndVideo
    * The window we'll draw the video on.
    * 
    */
-  private static VideoImage mScreen = null;
+  private static SwingVideoWindow mScreen = null;
 
   private static long mSystemVideoClockStartTime;
 
@@ -352,7 +352,7 @@ public class DecodeAndPlayAudioAndVideo
    */
   private static void openJavaVideo()
   {
-    mScreen = new VideoImage();
+    mScreen = new SwingVideoWindow();
   }
 
   /**

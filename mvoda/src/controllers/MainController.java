@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -41,6 +42,8 @@ public class MainController implements ViewControllerListener {
 
 	@Getter @Setter ViewController view;
 	@Getter @Setter static Stage stage; //has to be static as instantiated in static JavaFX launch method in ImageCompositorTester
+	
+	static Task copyWorker;
 
 	public final static Logger LOGGER = Logger.getLogger(MainController.class.getName()); //get a logger for this class
 
@@ -175,7 +178,7 @@ public class MainController implements ViewControllerListener {
 	}
 
 
-	@Override public void render() throws IOException, XMLParseException, MediaOpenException, NullPointerException {
+	@Override public void render() throws IOException, MediaOpenException, NullPointerException {
 
 		//playlist array gets whatever is in the gui at this moment for its entries array
 		playlist.resetArray( observedEntries );
@@ -225,7 +228,20 @@ public class MainController implements ViewControllerListener {
 		if( file != null ) { Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC); }
 
 		//lastly display it in the swing window
-		DecodeAndPlayAudioAndVideo player = new DecodeAndPlayAudioAndVideo(outFileUNC);
+		copyWorker = createWorker(outFileUNC);
+		new Thread(copyWorker).start();
+	}
+	
+	
+	public Task createWorker(final String outFileUNC) {
+		return new Task() {
+			
+			@Override
+			protected Object call() throws Exception {
+				DecodeAndPlayAudioAndVideo player = new DecodeAndPlayAudioAndVideo(outFileUNC);
+				return true;
+			}
+		};
 	}
 
 

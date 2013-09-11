@@ -29,8 +29,6 @@ public class Dialog {
 		
 public static void dialogBox(final Stage primaryStage, String msg){ //, Scene scene) {
 	
-	//final WebView webView = new WebView(); webView.getEngine().load("http://docs.oracle.com/javafx/");
-			// initialize the confirmation dialog
 			final Stage dialog = new Stage(StageStyle.TRANSPARENT);
 			dialog.initModality(Modality.WINDOW_MODAL);
 			dialog.initOwner(primaryStage);
@@ -40,20 +38,10 @@ public static void dialogBox(final Stage primaryStage, String msg){ //, Scene sc
 									LabelBuilder.create().text(msg).build(),
 									ButtonBuilder.create().text("Ok, got it").defaultButton(true).onAction(new EventHandler<ActionEvent>() {
 										@Override public void handle(ActionEvent actionEvent) {
-											// take action and close the dialog.
-											//System.out.println("Liked: ");//" + webView.getEngine().getTitle());
 											primaryStage.getScene().getRoot().setEffect(null);
 											dialog.close();
 										}
-									}).build()//,
-									/*ButtonBuilder.create().text("No").cancelButton(true).onAction(new EventHandler<ActionEvent>() {
-										@Override public void handle(ActionEvent actionEvent) {
-											// abort action and close the dialog.
-											System.out.println("Disliked: ");// + webView.getEngine().getTitle());
-											primaryStage.getScene().getRoot().setEffect(null);
-											dialog.close();
-										}
-									}).build()*/
+									}).build()
 									).build()
 									, Color.TRANSPARENT
 							)
@@ -62,7 +50,6 @@ public static void dialogBox(final Stage primaryStage, String msg){ //, Scene sc
 			//http://stackoverflow.com/questions/8275499/how-to-call-getclass-from-a-static-method-in-java
 			dialog.getScene().getStylesheets().add(Dialog.class.getResource("modal-dialog.css").toExternalForm()); 
 			
-
 			// allow the dialog to be dragged around.
 			final Node root = dialog.getScene().getRoot();
 			final Delta dragDelta = new Dialog.Delta();
@@ -84,18 +71,7 @@ public static void dialogBox(final Stage primaryStage, String msg){ //, Scene sc
 			 //dialog.setX(primaryStage.getX() + primaryStage.getWidth() / 2  - dialog.getWidth() / 2 ); sounded right: http://stackoverflow.com/questions/13702191/center-location-of-stage
 		    // dialog.setY(primaryStage.getY() + primaryStage.getHeight() / 2 - dialog.getHeight() / 2);
 			dialog.show();
-
-			// show the confirmation dialog each time a new page is loaded.
-			/*webView.getEngine().getLoadWorker().stateProperty().addListener(new ChangeListener<Worker.State>() {
-				@Override public void changed(ObservableValue<? extends Worker.State> observableValue, Worker.State state, Worker.State newState) {
-					if (newState.equals(Worker.State.SUCCEEDED)) {
-						primaryStage.getScene().getRoot().setEffect(new BoxBlur());
-						dialog.show();
-					}
-				}
-			});*/
 		}
-
 		// records relative x and y co-ordinates.
 		static class Delta { double x, y; } //http://stackoverflow.com/questions/9744639/must-qualify-the-allocation-with-an-enclosing-instance-of-type-geolocation
 	}
