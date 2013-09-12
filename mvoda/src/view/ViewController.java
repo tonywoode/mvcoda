@@ -133,14 +133,13 @@ public class ViewController implements Initializable {
 				}
 				
 				iChanged = ov.getValue();
-				thisThumb =  ThumbnailGrabberXuggle.grabThumbs(iChanged.getFileUNC());
-	            fxImage = SwingFXUtils.toFXImage(thisThumb, null);
-				imageThumb.setImage( fxImage );
+				 thisThumb =  ThumbnailGrabberXuggle.grabThumbs(iChanged.getFileUNC());
+				 fxImage = SwingFXUtils.toFXImage(thisThumb, null);
+					imageThumb.setImage( fxImage );
+				/*Timer timer = new Timer(true);
+				timerTask = new ThumbGrabTask();
 				
-				//Timer timer = new Timer(true);
-				//timerTask = new ThumbGrabTask();
-				
-				//timer.scheduleAtFixedRate(timerTask, 0, 2000);
+				timer.scheduleAtFixedRate(timerTask, 0, 2000);*/
 				
 				
 				
@@ -148,17 +147,17 @@ public class ViewController implements Initializable {
 		});
 	}
 	
-	 public static class ThumbGrabTask extends TimerTask {
+	/* public static class ThumbGrabTask extends TimerTask {
 		 ThumbGrabTask() {
 		 }
 	        public void run() {
 	            System.out.format("hello");
-	            thisThumb =  ThumbnailGrabberXuggle.grabThumbs(iChanged.getFileUNC());
+	           thisThumb = ThumbnailGrabberXuggle.getThumb();
 	            fxImage = SwingFXUtils.toFXImage(thisThumb, null);
 				imageThumb.setImage( fxImage );
 				
 	        }
-	    }
+	    }*/
 
 	/**
 	 * Initialises the combobox that holds themes - these are held directly as Themes in the box and their toString() methods provide the text in the box

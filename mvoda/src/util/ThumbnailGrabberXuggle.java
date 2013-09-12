@@ -17,7 +17,7 @@ import com.xuggle.xuggler.Global;
 
 public class ThumbnailGrabberXuggle {
 
-	public static final double SECONDS_BETWEEN_FRAMES = 1;
+	public static final double SECONDS_BETWEEN_FRAMES = 10;
 	private static int videoStreamIndex = -1;
 	private static long lastPtsWrite = Global.NO_PTS;
 	public static final long MICRO_SECONDS_BETWEEN_FRAMES = 
@@ -51,13 +51,14 @@ public class ThumbnailGrabberXuggle {
 	            // if it's time to write the next frame
 	           // if (event.getTimeStamp() - lastPtsWrite >= 
 	             //       MICRO_SECONDS_BETWEEN_FRAMES) {
-	            if (event.getTimeStamp() >= 100)	 {
-	            thumb = event.getImage(); return;
-	            }
+	            if (event.getTimeStamp() - lastPtsWrite >= MICRO_SECONDS_BETWEEN_FRAMES)
+	            {
+	            thumb = event.getImage();
+	            
 	            
 	            lastPtsWrite += MICRO_SECONDS_BETWEEN_FRAMES;
-	            
-	           // }
+	            return;
+	            }
 	            
 	            
 	            
@@ -67,6 +68,10 @@ public class ThumbnailGrabberXuggle {
 	});
 	while (mediaReader.readPacket() == null) ;		
 	mediaReader.close();
+	
+	lastPtsWrite = Global.NO_PTS;
+	
+	
 	return thumb;
 	
 	}
