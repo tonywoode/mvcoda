@@ -186,7 +186,6 @@ public class ImageCompositor {
 	/**
 	 * Overlays an image on the overlay this class holds currently. Intended for alpha-channel images
 	 * @return the composited image
-	 * @throws IOException //TODO: Exception
 	 */
 	private BufferedImage overlayImage() {
 		Graphics2D g = videoFrame.createGraphics();
@@ -240,7 +239,7 @@ public class ImageCompositor {
 			//TODO: hard coded time - needs to be relative to framerate
 			if ( vidTimeStamp >= outTimeWithHandles - (fadeTime * 40000) && newWidth - widthInc >=0 && newHeight - heightInc >= 0 ) { 
 				newWidth = newWidth - widthInc;
-				newHeight = newHeight - heightInc;//TODO: now be careful here this only works because we first hit the below increment code so w+h will be at max
+				newHeight = newHeight - heightInc;//TODO: this only works because we first hit the below increment code so w+h will be at max
 			}
 			else {
 				if (newWidth + widthInc <= width) { newWidth = newWidth + widthInc; }

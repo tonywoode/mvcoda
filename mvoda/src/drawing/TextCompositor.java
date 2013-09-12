@@ -4,28 +4,27 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.logging.Logger;
 
 import lombok.Getter;
 import lombok.Setter;
+import view.GFXElementException;
 
 /**
- * Arranages to composite standard text fonts onto BufferedImages for MV-CoDA
+ * Arranges to composite standard text fonts onto BufferedImages for MV-CoDA
  * @author tony
  *
  */
 public class TextCompositor {
 
-	@Setter private Font textFont;
-	@Getter @Setter static String fontName = "Ariel Narrow";
+	public final static Logger LOGGER = Logger.getLogger(TextCompositor.class.getName()); //get a logger for this class
+
+	@Setter private static Font textFont;
+	@Getter @Setter static String fontName = "Ariel Narrow"; //JavaFX bug so we defensively set these to defaults
 	@Getter @Setter static int fontSize = 24;
 	@Setter private String text;
 	private int textXPos;
 	private int textYPos;
-
-	public final static Logger LOGGER = Logger.getLogger(TextCompositor.class.getName()); //get a logger for this class
-
 
 	public TextCompositor(String text, int textXPos, int textYPos){
 		this.text = text;
@@ -36,7 +35,7 @@ public class TextCompositor {
 	/**
 	 * For testing purposes we can get the fonts available on the local machine and choose one to use for the render
 	 */
-	public void getLocalFonts() {
+	public static void getLocalFonts() {
 		//see what fonts are available on local machine, for testing
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		String[] fontList = ge.getAvailableFontFamilyNames();
@@ -51,9 +50,9 @@ public class TextCompositor {
 	 * @param imOut does the current iteration require an overlay
 	 * @param videoFrame the image to overlay onto
 	 * @return the composited image
-	 * @throws IOException //TODO: exception
+	 * @throws GFXElementException if the overlay couldn't be accesed
 	 */
-	public BufferedImage overlayNextFontFrame(boolean imOut, BufferedImage videoFrame)  throws IOException {
+	public BufferedImage overlayNextFontFrame(boolean imOut, BufferedImage videoFrame) throws GFXElementException {
 		BufferedImage composite = nextText(imOut, videoFrame );
 		return composite;
 	}
@@ -63,8 +62,9 @@ public class TextCompositor {
 	 * @param imOut does the current interation require an overlay
 	 * @param videoFrame image to overlay onto
 	 * @return the composited image
+	 * @throws GFXElementException if the overlay couldn't be accessed
 	 */
-	private BufferedImage nextText(boolean imOut, BufferedImage videoFrame) {
+	private BufferedImage nextText(boolean imOut, BufferedImage videoFrame) throws GFXElementException {
 		textFont = new Font(fontName, 1, fontSize);
 		if ( imOut == false) { if (text != null) { renderText(videoFrame, text, textFont, textXPos, textYPos); } }
 		BufferedImage composite = videoFrame;
@@ -78,13 +78,15 @@ public class TextCompositor {
 	 * @param font font to print in
 	 * @param x at x coord in image
 	 * @param y at y coord in image
+	 * @throws GFXElementException if the overlay couldn't be accessed
 	 */
-	private void renderText(BufferedImage image, String text, Font font, int x, int y){
-		Graphics2D g = image.createGraphics();
-		g.setFont(font);
-		g.drawString(text, x, y);
+	private void renderText(BufferedImage image, String text, Font font, int x, int y) throws GFXElementException{
+		Graphics2D g2d;
+		if (image != null) { g2d = image.createGraphics(); }
+		else { throw new GFXElementException("Couldn't access the overlay image whilst rendering text"); }
+		g2d.setFont(font);
+		g2d.drawString(text, x, y);
 	}
-
 
 	//TODO: refactor with coord
 	public void setTextPos(int x, int y) {
