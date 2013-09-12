@@ -51,9 +51,9 @@ public class ThumbnailGrabberXuggle {
 	            // if it's time to write the next frame
 	           // if (event.getTimeStamp() - lastPtsWrite >= 
 	             //       MICRO_SECONDS_BETWEEN_FRAMES) {
-	            	
-	            thumb = event.getImage(); 
-	            
+	            if (event.getTimeStamp() >= 100)	 {
+	            thumb = event.getImage(); return;
+	            }
 	            
 	            lastPtsWrite += MICRO_SECONDS_BETWEEN_FRAMES;
 	            

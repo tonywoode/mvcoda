@@ -133,10 +133,14 @@ public class ViewController implements Initializable {
 				}
 				
 				iChanged = ov.getValue();
-				Timer timer = new Timer(true);
-				timerTask = new ThumbGrabTask();
+				thisThumb =  ThumbnailGrabberXuggle.grabThumbs(iChanged.getFileUNC());
+	            fxImage = SwingFXUtils.toFXImage(thisThumb, null);
+				imageThumb.setImage( fxImage );
 				
-				timer.scheduleAtFixedRate(timerTask, 0, 2000);
+				//Timer timer = new Timer(true);
+				//timerTask = new ThumbGrabTask();
+				
+				//timer.scheduleAtFixedRate(timerTask, 0, 2000);
 				
 				
 				
