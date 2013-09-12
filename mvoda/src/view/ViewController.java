@@ -6,8 +6,13 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Logger;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -61,6 +66,8 @@ public class ViewController implements Initializable {
 	@FXML @Getter @Setter ListView<PlaylistEntry> playlistView;
 	@FXML TextArea mediaInfoArea;
 	@FXML ImageView imageThumb;
+	private ObjectProperty<Image> imageProperty = new SimpleObjectProperty<>();
+	
 
 	public Button clearPlaylistButton;
 	public Button savePlaylistButton;
@@ -122,17 +129,36 @@ public class ViewController implements Initializable {
 					mediaInfoArea.setText(ov.getValue().getVideo().toString());//write media info to screen for this entry
 				}
 				
+		
+				
+				
 				if (ov != null) {
-				ThumbnailGrabberXuggle thu = new ThumbnailGrabberXuggle();
-				thu.grabThumbs(ov.getValue().getFileUNC());
-				BufferedImage thisThumb;
-				thisThumb = thu.getThumb();
-				Image fxImage = SwingFXUtils.toFXImage(thisThumb, null);
-				imageThumb.setImage( fxImage );
+				
+				//Bindings.bind(); //(imageThumb.imageProperty(), fxImage);
+				Timer timer = new Timer(true);
+				timer.scheduleAtFixedRate(new RemindTask(ov.getValue()), 0, 2000);
+				
 				}
 			}
 		});
 	}
+	
+	 class RemindTask extends TimerTask {
+		 PlaylistEntry pe;
+		 RemindTask(PlaylistEntry pe) {
+			 this.pe = pe;
+		 }
+	        public void run() {
+	            System.out.format("hello");
+	           
+	            ThumbnailGrabberXuggle thu = new ThumbnailGrabberXuggle();
+				thu.grabThumbs(pe.getFileUNC());
+				BufferedImage thisThumb;
+				thisThumb = thu.getThumb();
+				Image fxImage = SwingFXUtils.toFXImage(thisThumb, null);
+				imageThumb.setImage( fxImage );
+	        }
+	    }
 
 	/**
 	 * Initialises the combobox that holds themes - these are held directly as Themes in the box and their toString() methods provide the text in the box
