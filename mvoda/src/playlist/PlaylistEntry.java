@@ -28,10 +28,11 @@ import media.xuggle.MusicVideoXuggle;
 	
 	public PlaylistEntry(MusicVideo video) { this.video = video; fileUNC = video.getFileUNC(); }
 	
-	public PlaylistEntry(MusicVideo video, String trackName, String artistName) { 
+	public PlaylistEntry(MusicVideo video, String trackName, String artistName, String trackInfo) { 
 		this.video = video; 
 		this.trackName = trackName;
 		this.artistName = artistName;
+		this.trackInfo = trackInfo;
 		fileUNC = video.getFileUNC();
 	}
 	

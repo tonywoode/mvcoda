@@ -15,11 +15,8 @@ import javafx.stage.Stage;
 
 import javax.management.modelmbean.XMLParseException;
 
-import drawing.TextCompositor;
-
 import lombok.Getter;
 import lombok.Setter;
-import media.Encoder;
 import media.MusicVideo;
 import media.xuggle.EncoderXuggle;
 import media.xuggle.MusicVideoXuggle;
@@ -34,46 +31,58 @@ import util.FileUtil;
 import view.MediaOpenException;
 import view.ViewController;
 import view.ViewControllerListener;
+import drawing.TextCompositor;
 
+/**
+ * The main controller acts as presenter passing model data to GUI and passing DATA gui to model
+ * @author Tony
+ *
+ */
 public class MainController implements ViewControllerListener {
 
 	public final static Logger LOGGER = Logger.getLogger(MainController.class.getName()); //get a logger for this class
 
-	@Getter @Setter public Playlist playlist = new Playlist("Biggest Beats I've seen in a while"); //TODO: playlist name
+	@Getter @Setter private Playlist playlist = new Playlist("Standard Render");//Playlist name is for future use
 	@Getter @Setter private ObservableList<PlaylistEntry> observedEntries = FXCollections.observableArrayList(playlist.getPlaylistEntries());
-	@Getter @Setter ViewController view;
+	@Getter @Setter private ViewController view;
 	@Getter @Setter static Stage stage; //has to be static as instantiated in static JavaFX launch method in ImageCompositorTester
+	private static Task<?> renderWorker;
 
-	static Task<?> renderWorker;
-
-
+	/**
+	 * Clears the GUI's playlist view
+	 */
 	@Override public void clearPlaylist() { observedEntries.clear(); }
 
-	@Override public void addPlaylistEntry() throws IOException, MediaOpenException { //TOD: loading a music video exception please //note we pass a stage so we can popup in the cirrect place
+	/**
+	 * Actions caused by the add entry button in GUI
+	 */
+	@Override public void addPlaylistEntry() throws IOException, MediaOpenException {
 		final FileChooser fileChooser = new FileChooser();
 		File file = fileChooser.showOpenDialog(stage);
 		String fileUNC;
-		try {
-			fileUNC = file.getAbsolutePath();
-		} catch (NullPointerException e) {
-			throw new NullPointerException("Please choose a valid file");	
-		}
+		try { fileUNC = file.getAbsolutePath(); }
+		catch (NullPointerException e) { throw new NullPointerException("Please choose a valid file"); }
 		MusicVideo vid = new MusicVideoXuggle(fileUNC);
-		PlaylistEntry entry = new PlaylistEntry( vid, "Track" + (observedEntries.size() + 1), "Artist" + (observedEntries.size() + 1) );
-		entry.setPositionInPlaylist(observedEntries.size() + 1);//no point in doing this really
+		PlaylistEntry entry = new PlaylistEntry( vid, "Enter Track", "Enter Artist", "Enter Track Info" );
+		entry.setPositionInPlaylist(observedEntries.size() + 1);//defensively set position in case something happens later
 		setObservedEntries(view.getPlaylistView().getItems() ); //we must update the array passed in to get the view to refresh, cleaner to do it here than back in viewcontroller
 		observedEntries.add(entry);
 	}
 
-
+	/**
+	 * Actions caused by the delete entry button in GUI
+	 */
 	@Override public void deletePlaylistEntry() {
 		int indexOfItemToDelete = view.getPlaylistView().getSelectionModel().getSelectedIndex();
 		int indexSize = view.getPlaylistView().getItems().size();
-		//TODO still doesn't solve the issue where you lose focus and stop being able to delete after 2 items - yes 2 ITEMS!
+		//TODO JAVAFX incorrectly loses focus of entries in the Text List and has no setFocus method
 		if (indexOfItemToDelete >= 0 && indexOfItemToDelete < indexSize ) { view.getPlaylistView().getItems().remove(indexOfItemToDelete); }
 	}
 
-
+	/**
+	 * The move up button in the GUI must switch the postion in the playlist of the selected item, with the item above it in the list.
+	 * It must also update the chart numbers that display onscreen
+	 */
 	@Override public void moveUp() {
 		int indexOfItemToMove = view.getPlaylistView().getSelectionModel().getSelectedIndex();
 		if (indexOfItemToMove <= 0) { return; } //don't attempt to move the top item, or anything in an empty list
@@ -92,7 +101,10 @@ public class MainController implements ViewControllerListener {
 		LOGGER.info("Moving Down: " + moveDown.getPositionInPlaylist() + "; " + moveDown.getFileUNC());
 	}
 
-
+	/**
+	 * The move down button in the GUI must switch the postion in the playlist of the selected item, with the item below it in the list.
+	 * It must also update the chart numbers that display onscreen
+	 */
 	@Override public void moveDown() {
 		int indexOfItemToMove = view.getPlaylistView().getSelectionModel().getSelectedIndex();
 		int lastIndex = view.getPlaylistView().getItems().size() -1;
@@ -113,7 +125,10 @@ public class MainController implements ViewControllerListener {
 		LOGGER.info("Moving Up: " + moveUp.getPositionInPlaylist() + "; " + moveUp.getFileUNC());
 	}
 
-
+	/**
+	 * Load playlist must be above to clear the current GUI's list and populate it from the XML file that is selected by the user, and populate all the additional
+	 * GUI fields
+	 */
 	@Override public void loadPlaylist() throws FileNotFoundException, IOException, XMLParseException, MediaOpenException, InterruptedException {
 
 		final FileChooser fileChooser = ViewController.getFileChooser(".xml");
@@ -131,11 +146,12 @@ public class MainController implements ViewControllerListener {
 		boolean found = playlist.validatePlaylist(playlist);
 		observedEntries.clear(); //clear the gui list
 
-		setObservedEntries(view.getPlaylistView().getItems() );//we must update the array passed in to get the view to refresh, cleaner to do it here than back in viewcontroller
+		//we must update the array passed in to get the view to refresh, cleaner to do it here than back in viewcontroller
 		view.sendPlaylistNodesToScreen(playlist);
-		if (!found ) { 	view.popup("Problem with opening highlighted files, double click them to refind files");
-		}
+		setObservedEntries(view.getPlaylistView().getItems() );
 
+		//if one or more items are not found, we inform the GUI with a message
+		if (!found ) { 	ViewController.popup("Problem with opening highlighted files, double click them to refind files"); }
 
 		//select the XML's theme as the theme in theme select box, or clear it if not found
 		String themeName = playlist.getThemeName();
@@ -144,19 +160,17 @@ public class MainController implements ViewControllerListener {
 		for ( Theme theme : themeBoxItems ) {
 			if ( themeName.equals(theme.toString()) ) {
 				view.getThemeSelectBox().setValue(theme); 
-				view.getThemeSelectBox().getSelectionModel().select(theme); //currently a bug with javaFX we cannot fix see: http://stackoverflow.com/questions/12142518/combobox-clearing-value-issue
+				view.getThemeSelectBox().getSelectionModel().select(theme); //TODO: bug with javaFX causes erratic behaviour  see: http://stackoverflow.com/questions/12142518/combobox-clearing-value-issue
 				themeFound=true; }//and set that theme name as the active one in both the box and the list the box is generated from
 		}			
 		if (!themeFound) { //if a theme name match isn't found, we must clear any previous theme selection, and throw an exception
 			view.getThemeSelectBox().getSelectionModel().clearSelection();
-
 			throw new NullPointerException("The Theme in the XML cannot be found in your themes folder");
 		} 
 		LOGGER.info("themeName from playlist on load is : " + themeName);
 		LOGGER.info("Font select box has this selected on load playlist " + view.getFontSelectBox().getSelectionModel().getSelectedItem());
 
-
-		//now similar (but with subtle differences) with the font
+		//now similar (but with subtle differences) with the font TODO: generic method possible?
 		String fontName = playlist.getFontName();
 
 		ObservableList<String> fontBoxItems = view.getFontSelectBox().getItems();
@@ -174,8 +188,6 @@ public class MainController implements ViewControllerListener {
 		LOGGER.info("fontName from playlist on load is : " + fontName);
 		LOGGER.info("Font select box has this selected on load playlist " + view.getFontSelectBox().getSelectionModel().getSelectedItem());
 
-
-
 		//and again with the FontSize box
 		int fontSize = playlist.getFontSize();
 		ObservableList<Number> fontBoxSizes = view.getFontSizeBox().getItems();
@@ -184,7 +196,6 @@ public class MainController implements ViewControllerListener {
 			if ( num.intValue() == fontSize ) {
 				view.getFontSizeBox().getSelectionModel().select(fontSize);  //known JavaFX bug http://stackoverflow.com/questions/12142518/combobox-clearing-value-issue
 				view.getFontSizeBox().getSelectionModel().select(num);
-				//view.getFontSizeBox().getButtonCell().setText( Integer.toString(fontSize) );
 				fontSizeFound=true; }
 		}			
 		if (!fontSizeFound) {
@@ -196,6 +207,11 @@ public class MainController implements ViewControllerListener {
 
 	}	
 
+	/**
+	 * To save a playlist we must take changes from the GUI and ensure they are in the playlist object, we check the chart positions defensively,
+	 * and we ensure User has at least set a theme (faults default to values so are of secondary concern).
+	 * We then serialise the result to a file the user chooses
+	 */
 	@Override public void savePlaylist() throws FileNotFoundException, IOException {
 
 		playlist.resetArray( observedEntries );
@@ -221,24 +237,27 @@ public class MainController implements ViewControllerListener {
 		}
 		catch (NullPointerException e) { throw new NullPointerException("Please select a file to save to");	}
 		Path path = Paths.get(fileAsString);
-
+		//finally write the playlist
 		XMLWriter.writePlaylistXML(true, path, xmlSerialisable);	
 
 	}
 
-
+	/**
+	 * Rendering a playlist means to composite all the choices the user has made as a media file on disk. So Render will take all the choices, check what it can
+	 * and then call the media implementation to render if all is ok
+	 */
 	@Override public void render() throws IOException, MediaOpenException, NullPointerException {
 
 		//playlist array gets whatever is in the gui at this moment for its entries array
 		playlist.resetArray( observedEntries );
 		setNumbersInPlaylist();
 
-		if (playlist.getPlaylistEntries().size() <= 0 ) { return; } //do nothing if theres no playlist
-
+		if (playlist.getPlaylistEntries().size() <= 0 ) { return; } //do nothing if there's no playlist
+		//now check the theme is ok to render
 		Theme theme;
 		try {
 			theme = view.getThemeSelectBox().getSelectionModel().getSelectedItem();
-			theme.setIndex( view.getThemeSelectBox().getSelectionModel().getSelectedIndex() ); //TODO; the lines above is effectively a new so any index setting before this has no effect
+			theme.setIndex( view.getThemeSelectBox().getSelectionModel().getSelectedIndex() );
 		} 
 		catch (NullPointerException e) { throw new NullPointerException("Please select a Theme"); }
 
@@ -247,11 +266,12 @@ public class MainController implements ViewControllerListener {
 			LOGGER.info("Rendering begun - At index postion: " + i + " The UNC path is " + playlist.getPlaylistEntries().get(i).getFileUNC() );
 		}
 
+		//now validate the playlist entries
 		boolean ok = playlist.validatePlaylist(playlist);
 		if (!ok) { throw new MediaOpenException("There are still problems with the playlist. Cannot render"); }
-		//ok that will tell us if the files validate, but it won't tell us if all the files are the same. We do that next
 
-		//TODO: problem is we need to get the FIRST files' filetype....is there a better way of encapsulating this its not obvious it go through about 3 classes...
+
+		//In this version of MV-CoDA, we need to get chart number 1's filetype and refuse to render if all the files aren't that type
 		String filetype = playlist.getNextEntry(0).getVideo().getFiletype();
 
 		for (PlaylistEntry entry : playlist.getPlaylistEntries()) {
@@ -260,7 +280,7 @@ public class MainController implements ViewControllerListener {
 			}
 		}
 
-		//first we must ask where you want to save with a dialog
+		//we must ask where the user wants to save with a dialog
 		File file;
 		String outFileUNC;
 		try {
@@ -268,15 +288,22 @@ public class MainController implements ViewControllerListener {
 			file = fileChooser.showSaveDialog(stage);
 			outFileUNC = "";
 			if(!file.getName().endsWith( filetype ) ) { 	outFileUNC = file.toString() + filetype; } //this check helps if the file is already existing
-			else { outFileUNC = file.toString(); } //else we will get "x.filetype.filetype //TODO: same code as in save playlist button
+			else { outFileUNC = file.toString(); } //else we will get "x.filetype.filetype
 		}
 		catch (NullPointerException e) { throw new NullPointerException("Please select a file to save to");	}
+
 		//then thread the actual render and display work to createWorker()
 		renderWorker = createWorker(theme, file, outFileUNC);
 		new Thread(renderWorker).start();
 	}
 
-
+	/**
+	 * Actually renders the final result and displays the finshed produce in a window
+	 * @param theme the selected Theme
+	 * @param file the file reference the user has chosen
+	 * @param outFileUNC the path as string
+	 * @return true if successful, will also play result in a window
+	 */
 	public Task<?> createWorker(final Theme theme, final File file, final String outFileUNC) {
 		return new Task<Object>() {
 
@@ -292,15 +319,20 @@ public class MainController implements ViewControllerListener {
 
 	}
 
-
+	/**
+	 * Sets the chart numbers for a given playlist's entries array
+	 */
 	public void setNumbersInPlaylist() {
 		for (int t = 0; t < playlist.getPlaylistEntries().size(); t++) {
 			playlist.getPlaylistEntries().get(t).setPositionInPlaylist(t + 1); //set the playlist positions in the playlist to something sensible
 		}
 	}
 
-	@Override
-	public void reFindPlaylistEntry(int pos) throws MediaOpenException {
+	/**
+	 * If a playlist entry has to be refound by the user because it has a problem, we will re-validate that entry,
+	 * and if it is ok, we will replace the problem entry
+	 */
+	@Override public void reFindPlaylistEntry(int pos) throws MediaOpenException {
 		final FileChooser fileChooser = new FileChooser();
 		File file = fileChooser.showOpenDialog(stage);
 		String fileUNC = file.getAbsolutePath();

@@ -157,10 +157,6 @@ public class ViewController implements Initializable {
 		});
 	}
 	
-	
-	
-	
-	
 	/**
 	 * Worker thread that gets thumbnails for the GUI, for now by using Xuggler's Media Tools API
 	 * @param entry
@@ -180,7 +176,6 @@ public class ViewController implements Initializable {
 			};
 		
 	}
-	
 
 	/**
 	 * Initialises the combobox that holds themes - these are held directly as Themes in the box and their toString() methods provide the text in the box
@@ -226,10 +221,6 @@ public class ViewController implements Initializable {
 						}	
 			});
 		
-		
-			//LOGGER.info("Available font list on this machine: At index no.: " + i + " is: " + fontList[i]);
-			//textFont = new Font(fontList[10],1,32);
-		
 	}
 	
 	
@@ -254,7 +245,7 @@ public class ViewController implements Initializable {
 		catch (IOException e4) { popup("Error: Could not close the input file"); }
 		catch (MediaOpenException e5) { popup(e5.getMessage()); }
 		checkMoveButtons();
-		if (!playlistView.getItems().isEmpty()) { playlistView.setDisable(false); }
+		if (!playlistView.getItems().isEmpty()) { playlistView.setDisable(false); } //only enable if something loaded
 	}
 
 	@FXML void savePlaylist(ActionEvent e) { 
@@ -283,6 +274,9 @@ public class ViewController implements Initializable {
 		checkMoveButtons();
 	}
 
+	/**
+	 * We must only enable these buttons if there is more than ONE entry
+	 */
 	private void checkMoveButtons() {
 		if (playlistView.getItems().size() <= 1 ) { moveUpButton.setDisable(true); moveDownButton.setDisable(true);  }
 		else { moveUpButton.setDisable(false); moveDownButton.setDisable(false); }
