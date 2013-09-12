@@ -139,8 +139,8 @@ public class ViewController implements Initializable {
 	 * @param entry
 	 * @return
 	 */
-	public Task createWorker(final PlaylistEntry entry) {
-		return new Task() {
+	public Task<?> createWorker(final PlaylistEntry entry) {
+		return new Task<Object>() {
 			
 			@Override
 			protected Object call() throws Exception {
@@ -220,13 +220,16 @@ public class ViewController implements Initializable {
 	}
 
 	@FXML void loadPlaylist(ActionEvent e) throws InterruptedException {
-		try { viewListener.loadPlaylist(); playlistView.setDisable(false); } 
+		try { viewListener.loadPlaylist(); } 
 		catch (NullPointerException e1) { popup(e1.getMessage()); }
 		catch (XMLParseException e2) { popup("Error: not a valid MV-CoDA XML file"); }	
 		catch (FileNotFoundException e3) { popup(e3.getMessage() ); }
 		catch (IOException e4) { popup("Error: Could not close the input file"); }
 		catch (MediaOpenException e5) { popup(e5.getMessage()); }
 		checkMoveButtons();
+		if (!playlistView.getItems().isEmpty()) {
+			playlistView.setDisable(false);
+		}
 	}
 
 	@FXML void savePlaylist(ActionEvent e) { 
