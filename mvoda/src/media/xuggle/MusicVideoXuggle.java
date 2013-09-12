@@ -32,13 +32,15 @@ public class MusicVideoXuggle implements MusicVideo {
 
 	public final static Logger LOGGER = Logger.getLogger(MusicVideoXuggle.class.getName()); //get a logger for this class
 	
+	@Getter private double framesPerSecondAsDouble;
+	@Getter private ICodec.ID videoCodecID;
+	@Getter private IPixelFormat.Type pixFormat;
+	
 	private IContainer container;
 	private IStreamCoder audioCoder;
 	private IStreamCoder videoCoder;
-	@Getter private IPixelFormat.Type pixFormat;
 	private IRational framesPerSecond;
-	@Getter private double framesPerSecondAsDouble;
-	@Getter private ICodec.ID videoCodecID;
+	
 
 	/* The following methods are for adaptation, we need to use Xuggler's imp internally, 
 	so we only return the abstract interface for clients. We return null to caller if necessary */
@@ -55,8 +57,8 @@ public class MusicVideoXuggle implements MusicVideo {
 	@Getter private int width;
 	@Getter private int height;
 	@Getter private int numChannelsAudio;	
-	@Getter private int audioStreamIndex = -1; //set to negative because 0 is a valid ID
-	@Getter private int videoStreamIndex = -1; //set to negative because 0 is a valid ID
+	@Getter private int audioStreamIndex = -1; //set to negative because 0 is a valid stream ID
+	@Getter private int videoStreamIndex = -1; //set to negative because 0 is a valid stream ID
 	@Getter private int audioStreamID = -1;
 	@Getter private int videoStreamID = -1;
 	@Getter private long containerDuration; //always in microseconds
@@ -173,7 +175,6 @@ public class MusicVideoXuggle implements MusicVideo {
 				str += String.format("\nformat: %s ", coder.getPixelType());
 				str += String.format("\tframe-rate: %5.2f ", coder.getFrameRate().getDouble());
 			}
-			//str += String.format ("\n...End of Stream %d Info..\n", i);
 		}
 		return str;
 	}

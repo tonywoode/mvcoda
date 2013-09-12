@@ -17,6 +17,7 @@ import playlist.Playlist;
 import playlist.PlaylistEntry;
 import themes.Theme;
 import util.FrameRate;
+import view.MediaOpenException;
 
 import com.xuggle.mediatool.ToolFactory;
 import com.xuggle.xuggler.ICodec;
@@ -76,25 +77,18 @@ public class EncoderXuggle implements Encoder {
 		try {	
 			for (PlaylistEntry playlistEntry : reversedList) {
 				
-				themeCompositor.makeThemeElements(playlistEntry); //creat the elements properties for the theme
+				themeCompositor.makeThemeElements(playlistEntry); //create the elements properties for the theme
 				themeCompositor.resetThemeElements(); //reset any timers etc in the theme from the previous video
-				video = new MusicVideoXuggle( playlistEntry.getFileUNC() ); //TODO: we have to new this up here else the GUI can't render more than once.....see decoderXuggle it crashes out at HasNextPacket()
+				try { video = new MusicVideoXuggle( playlistEntry.getFileUNC() ); }  //we have to new this here or GUI can't render more than once: decoderXuggle crashes out at HasNextPacket()
+				catch (MediaOpenException e) { e.printStackTrace(); }
 				decoder = video.getDecoder(); //get the decoder associated with this video
 				renderNextVid(decoder, video);	
 				Number.setNumber(playlistEntry.getPositionInPlaylist() - 1); //This is so that GFX element's can lookup a live number for directory search rather than be passed a playlist entry
 				//could be changed back to Number.getNumber() -1....but number is required for live lookup during renders
 			}
-					
-		} catch (Exception ex) { //TODO: exception handling
-			ex.printStackTrace();
-		} finally {
-			if (writer != null) {
-				try {
-					writer.close();
-				} catch (RuntimeException ex) { //TODO: exception handling
-					ex.printStackTrace();
-				}
-			}
+		} 
+		finally { 
+			if (writer != null) { writer.close(); } //in Xuggler, null means more packets to go
 			if (video != null) video.close();
 		}
 	}
@@ -104,9 +98,8 @@ public class EncoderXuggle implements Encoder {
 	 * Prints timestamp information to the console
 	 * @param decoder the decoder instance being used
 	 * @param video a music video
-	 * @throws Exception //TODO exception
 	 */
-	public void renderNextVid(Decoder decoder, MusicVideo video) throws Exception { //TODO: exception
+	public void renderNextVid(Decoder decoder, MusicVideo video) {
 	    long nextAudioTimecode = 0;
 	    long nextVideoTimecode = 0;
 	    
@@ -132,9 +125,8 @@ public class EncoderXuggle implements Encoder {
 				writer.encodeVideo(0, videoFrame, newVideoTimecode, TimeUnit.MICROSECONDS);
 				
 			}
-		}
-		
-		offset = Math.max(nextVideoTimecode, nextAudioTimecode);//set timecode we pass on to be the LARGER of audio and video - this helps sync when concatenating
+		}	
+		offset = Math.max(nextVideoTimecode, nextAudioTimecode); //set timecode we pass on to be the LARGER of audio and video - this helps sync when concatenating
 		
 	}
 	
@@ -170,7 +162,7 @@ public class EncoderXuggle implements Encoder {
 	 * @param writer
 	 * @param audioCodec
 	 */
-	@Override public void addAudioStreamTo(MediaWriter writer, StreamCoder audioCodec) {//TODO: what's the point of passing the codec in but having the other things fields?
+	@Override public void addAudioStreamTo(MediaWriter writer, StreamCoder audioCodec) {
 		int numAudioChannels = audioCodec.getChannels();
 		int audioSampleRate = audioCodec.getSampleRate();
 		ICodec.ID codecId = audioCodec.getCodecID();

@@ -239,7 +239,7 @@ public class ThemeCompositor {
 	}
 
 	/**
-	 * resets the pop elements, and any future elements that do not have a transistion
+	 * resets the pop elements, and any future elements that do not have a transition
 	 */
 	//TODO: negate the need for this method 
 	private void resetElementsPop() {
