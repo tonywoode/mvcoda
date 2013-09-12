@@ -65,10 +65,11 @@ public class ViewController implements Initializable {
 	@FXML @Getter @Setter ComboBox<Number> fontSizeBox;
 	@FXML @Getter @Setter ListView<PlaylistEntry> playlistView;
 	@FXML TextArea mediaInfoArea;
-	@FXML ImageView imageThumb;
-	static TimerTask timerTask;
+	@FXML static ImageView imageThumb;
+	@Getter static TimerTask timerTask;
 	static Image fxImage;
-	
+	static BufferedImage thisThumb;
+	static PlaylistEntry iChanged;
 	
 
 	public Button clearPlaylistButton;
@@ -131,12 +132,9 @@ public class ViewController implements Initializable {
 					mediaInfoArea.setText(ov.getValue().getVideo().toString());//write media info to screen for this entry
 				}
 				
-				BufferedImage thisThumb =  ThumbnailGrabberXuggle.grabThumbs(ov.getValue().getFileUNC());
-				fxImage = SwingFXUtils.toFXImage(thisThumb, null);
-				timerTask = new ThumbGrabTask( ov.getValue() );
+				iChanged = ov.getValue();
 				Timer timer = new Timer(true);
-				
-				//timerTask.cancel();
+				timerTask = new ThumbGrabTask();
 				
 				timer.scheduleAtFixedRate(timerTask, 0, 2000);
 				
@@ -146,14 +144,15 @@ public class ViewController implements Initializable {
 		});
 	}
 	
-	 class ThumbGrabTask extends TimerTask {
-		 PlaylistEntry pe;
-		 ThumbGrabTask(PlaylistEntry pe) {
-			 this.pe = pe;
+	 public static class ThumbGrabTask extends TimerTask {
+		 ThumbGrabTask() {
 		 }
 	        public void run() {
 	            System.out.format("hello");
+	            thisThumb =  ThumbnailGrabberXuggle.grabThumbs(iChanged.getFileUNC());
+	            fxImage = SwingFXUtils.toFXImage(thisThumb, null);
 				imageThumb.setImage( fxImage );
+				
 	        }
 	    }
 

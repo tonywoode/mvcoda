@@ -2,6 +2,8 @@ package util;
 
 import java.awt.image.BufferedImage;
 
+import view.ViewController;
+
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 
@@ -26,6 +28,7 @@ public class ThumbnailGrabberXuggle {
 	@Getter static BufferedImage thumb;
 
 	public static BufferedImage grabThumbs(String fileUNC) {
+		
 		IMediaReader mediaReader = ToolFactory.makeReader(fileUNC);
 		mediaReader.setBufferedImageTypeToGenerate(BufferedImage.TYPE_3BYTE_BGR);
 		mediaReader.addListener(new MediaListenerAdapter() {
@@ -40,8 +43,8 @@ public class ThumbnailGrabberXuggle {
 	            }
 			 
 			 // if uninitialized, back date mLastPtsWrite to get the very first frame
-	            //if (lastPtsWrite == Global.NO_PTS)
-	              //  lastPtsWrite = event.getTimeStamp() - MICRO_SECONDS_BETWEEN_FRAMES;
+	            if (lastPtsWrite == Global.NO_PTS)
+	                lastPtsWrite = event.getTimeStamp() - MICRO_SECONDS_BETWEEN_FRAMES;
 	            
 	            
 	            
@@ -65,5 +68,6 @@ public class ThumbnailGrabberXuggle {
 	while (mediaReader.readPacket() == null) ;		
 	mediaReader.close();
 	return thumb;
+	
 	}
 }
