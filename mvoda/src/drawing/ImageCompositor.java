@@ -15,6 +15,7 @@ import javax.imageio.ImageIO;
 import lombok.Getter;
 import themes.GFXElement;
 import util.FrameRate;
+import view.GFXElementException;
 
 /**
  * deals with overlaying graphics over Buffered Images passed to it by the media package of MVODA
@@ -65,9 +66,9 @@ public class ImageCompositor {
 	 * @param desiredDuration GFX element's specified duration
 	 * @param videoFrame the image to overlay
 	 * @return the composited image
-	 * @throws IOException //TODO: exception
+	 * @throws GFXElementException a problem with accessing the GFX Element files
 	 */
-	public BufferedImage overlayNextImage(long vidTimeStamp, long inTime, long desiredDuration, BufferedImage videoFrame) throws IOException { //TODO expection
+	public BufferedImage overlayNextImage(long vidTimeStamp, long inTime, long desiredDuration, BufferedImage videoFrame) throws GFXElementException {
 		this.desiredDuration = desiredDuration;
 		this.videoFrame = videoFrame;
 		this.vidTimeStamp = vidTimeStamp;
@@ -92,14 +93,18 @@ public class ImageCompositor {
 		if (vidTimeStamp >= inTimeWithHandles && vidTimeStamp <= outTimeWithHandles) {
 			nextFileUNC();
 			String overlayFile = gfxFiles.get(fileIndex);
-			overlay = ImageIO.read(new File(overlayFile));
-			if (fadeIt) {
-				BufferedImage composite = wipeImage();
-				return composite;
-			}
-			else {
-				BufferedImage composite = overlayImage();
-				return composite;
+			try {
+				overlay = ImageIO.read(new File(overlayFile));
+				if (fadeIt) {
+					BufferedImage composite = wipeImage();
+					return composite;
+				}
+				else {
+					BufferedImage composite = overlayImage();
+					return composite;
+				}
+			} catch (IOException e) {
+				throw new GFXElementException("Problem with opening the Theme Element files");
 			}
 		}
 		else { imOut = true; return videoFrame; }
@@ -183,7 +188,7 @@ public class ImageCompositor {
 	 * @return the composited image
 	 * @throws IOException //TODO: Exception
 	 */
-	private BufferedImage overlayImage() throws IOException { //TOD: exception
+	private BufferedImage overlayImage() {
 		Graphics2D g = videoFrame.createGraphics();
 		g.drawImage(overlay, x, y, null);
 		//TODO - need a map of rendering hints: g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
@@ -194,19 +199,21 @@ public class ImageCompositor {
 	/**
 	 * Fades an image onto the overlay this class holds currently. Intended for static images eg: logos
 	 * @return the composited image
-	 * @throws IOException //TODO: exception
+	 * @throws GFXElementException 
 	 */
-	public BufferedImage fadeImage() throws IOException {//http://www.java2s.com/Code/Java/2D-Graphics-GUI/Fadeoutanimageimagegraduallygetmoretransparentuntilitiscompletelyinvisible.htm
+	public BufferedImage fadeImage() throws GFXElementException {//http://www.java2s.com/Code/Java/2D-Graphics-GUI/Fadeoutanimageimagegraduallygetmoretransparentuntilitiscompletelyinvisible.htm
 
 		float alphaFactor = 0.06f;
-		Graphics2D g2d = videoFrame.createGraphics();
+		Graphics2D g2d;
+		if (videoFrame != null) { g2d = videoFrame.createGraphics(); }
+		else { throw new GFXElementException("Couldn't access the overlay image while doing a fade"); }
 
 		if ( vidTimeStamp >= inTimeWithHandles && vidTimeStamp <= outTimeWithHandles) {
 			g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
 			g2d.drawImage(overlay, x, y, null);
 			if  (alpha < 1.00f - alphaFactor ) {	alpha += alphaFactor; }
 		}
-		else if ( vidTimeStamp >= outTimeWithHandles ) { //TODO: doesn't fade out completely
+		else if ( vidTimeStamp >= outTimeWithHandles ) {
 			g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
 			g2d.drawImage(overlay, x, y, null);
 			if ( alpha - alphaFactor >= 0.00f ) { alpha -= alphaFactor; }
@@ -219,9 +226,9 @@ public class ImageCompositor {
 	/**
 	 * Wipes an image onto the overlay this class holds currently. Intended for static images eg: logos
 	 * @return the composited image
-	 * @throws IOException //TODO: exception
+	 * @throws GFXElementException if we can't acces the overlay
 	 */
-	public BufferedImage wipeImage() throws IOException {
+	public BufferedImage wipeImage() throws GFXElementException {
 
 		if (vidTimeStamp > inTimeWithHandles && vidTimeStamp <= outTimeWithHandles ) {
 			double fadeTime = 50;
@@ -247,8 +254,10 @@ public class ImageCompositor {
 			LOGGER.info("New Height is currently: " + newHeight  );
 			//we must celing the number as late as possible
 			overlay = overlay.getSubimage(0, 0, (int) Math.ceil(newWidth), (int) Math.ceil(newHeight) );
-			Graphics2D g = videoFrame.createGraphics();
-			g.drawImage(overlay, x, y, null);
+			Graphics2D g2d;
+			if (videoFrame != null) { g2d = videoFrame.createGraphics(); }
+			else { throw new GFXElementException("Couldn't access the overlay image while doing a fade"); }
+			g2d.drawImage(overlay, x, y, null);
 		}
 		return videoFrame;
 	}
