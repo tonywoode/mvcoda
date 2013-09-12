@@ -75,9 +75,11 @@ public class ViewController implements Initializable {
 	
 	public TextField trackTextField;
 	public TextField artistTextField;
+	public TextArea trackInfoTextField;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {		
+		
 		playlistView.setDisable(true); //we will enable the playlistview when it populates with items
 		savePlaylistButton.disableProperty().bind(playlistView.disabledProperty()); //the save playlist button will follow the playlistview buttons enable status
 		deletePlaylistEntryButton.disableProperty().bind(playlistView.disabledProperty());
@@ -103,6 +105,7 @@ public class ViewController implements Initializable {
 				if (ov == null || ov.getValue() == null) { return; } // TODO: remove this
 				SimpleStringProperty sspTrack = new SimpleStringProperty( ov.getValue().getTrackName() );
 				SimpleStringProperty sspArtist = new SimpleStringProperty(ov.getValue().getArtistName() );
+				SimpleStringProperty sspInfoText = new SimpleStringProperty(ov.getValue().getTrackInfo() );
 
 				sspTrack.addListener(new ChangeListener<String>() {
 					public void changed(ObservableValue<? extends String> ovTrack, String old_val, String new_val) { 
@@ -114,28 +117,52 @@ public class ViewController implements Initializable {
 					public void changed(ObservableValue<? extends String> ovArtist, String old_val, String new_val) { 
 						ov.getValue().setArtistName(ovArtist.getValue().toString());
 					}
-				});		
+				});	
+				
+				sspInfoText.addListener(new ChangeListener<String>() {
+					public void changed(ObservableValue<? extends String> ovTrackInfo, String old_val, String new_val) { 
+						ov.getValue().setTrackInfo(ovTrackInfo.getValue().toString());
+					}
+				});	
 
 				trackTextField.textProperty().bindBidirectional(sspTrack);
 				artistTextField.textProperty().bindBidirectional(sspArtist); 
+				trackInfoTextField.textProperty().bindBidirectional(sspInfoText);
+				
 
 				if (ov == null || ov.getValue().getVideo() == null) {
-					
 					mediaInfoArea.setText("File Not Found");
-					imageThumb.setImage( null );
-					
+					imageThumb.setImage( null );	
 				}
 				else {
 					mediaInfoArea.setText(ov.getValue().getVideo().toString());//write media info to screen for this entry
-					thumbnailWorker = createWorker( ov.getValue() );
-					new Thread(thumbnailWorker).start();
+					
+					loadThumb(ov.getValue());
+					
 				}	
+			}
+
+			private void loadThumb(PlaylistEntry entry) {
+				thumbnailWorker = createWorker( entry );
+				
+				try {
+					new Thread(thumbnailWorker).start();
+					Thread.sleep(500); //we must introduce some delay into the master thread or our listeners stop being received
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 			}
 		});
 	}
 	
+	
+	
+	
+	
 	/**
-	 * Worker thread that gets thumbnails for the GUI by using Xuggler's Media Tools API
+	 * Worker thread that gets thumbnails for the GUI, for now by using Xuggler's Media Tools API
 	 * @param entry
 	 * @return
 	 */
@@ -227,9 +254,7 @@ public class ViewController implements Initializable {
 		catch (IOException e4) { popup("Error: Could not close the input file"); }
 		catch (MediaOpenException e5) { popup(e5.getMessage()); }
 		checkMoveButtons();
-		if (!playlistView.getItems().isEmpty()) {
-			playlistView.setDisable(false);
-		}
+		if (!playlistView.getItems().isEmpty()) { playlistView.setDisable(false); }
 	}
 
 	@FXML void savePlaylist(ActionEvent e) { 

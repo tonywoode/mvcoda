@@ -37,15 +37,15 @@ import view.ViewControllerListener;
 
 public class MainController implements ViewControllerListener {
 
+	public final static Logger LOGGER = Logger.getLogger(MainController.class.getName()); //get a logger for this class
+
 	@Getter @Setter public Playlist playlist = new Playlist("Biggest Beats I've seen in a while"); //TODO: playlist name
 	@Getter @Setter private ObservableList<PlaylistEntry> observedEntries = FXCollections.observableArrayList(playlist.getPlaylistEntries());
-
 	@Getter @Setter ViewController view;
 	@Getter @Setter static Stage stage; //has to be static as instantiated in static JavaFX launch method in ImageCompositorTester
-	
+
 	static Task<?> renderWorker;
 
-	public final static Logger LOGGER = Logger.getLogger(MainController.class.getName()); //get a logger for this class
 
 	@Override public void clearPlaylist() { observedEntries.clear(); }
 
@@ -149,16 +149,16 @@ public class MainController implements ViewControllerListener {
 		}			
 		if (!themeFound) { //if a theme name match isn't found, we must clear any previous theme selection, and throw an exception
 			view.getThemeSelectBox().getSelectionModel().clearSelection();
-			
+
 			throw new NullPointerException("The Theme in the XML cannot be found in your themes folder");
 		} 
 		LOGGER.info("themeName from playlist on load is : " + themeName);
 		LOGGER.info("Font select box has this selected on load playlist " + view.getFontSelectBox().getSelectionModel().getSelectedItem());
-		
-		
+
+
 		//now similar (but with subtle differences) with the font
 		String fontName = playlist.getFontName();
-		
+
 		ObservableList<String> fontBoxItems = view.getFontSelectBox().getItems();
 		boolean fontFound = false;
 		for ( String string : fontBoxItems ) {
@@ -171,29 +171,29 @@ public class MainController implements ViewControllerListener {
 			view.getFontSelectBox().getSelectionModel().clearSelection();
 			throw new NullPointerException("The Font in the XML cannot be found on your computer");
 		} 
-			LOGGER.info("fontName from playlist on load is : " + fontName);
-			LOGGER.info("Font select box has this selected on load playlist " + view.getFontSelectBox().getSelectionModel().getSelectedItem());
-			
-			
-			
+		LOGGER.info("fontName from playlist on load is : " + fontName);
+		LOGGER.info("Font select box has this selected on load playlist " + view.getFontSelectBox().getSelectionModel().getSelectedItem());
+
+
+
 		//and again with the FontSize box
-			int fontSize = playlist.getFontSize();
-			ObservableList<Number> fontBoxSizes = view.getFontSizeBox().getItems();
-			boolean fontSizeFound = false;
-			for ( Number num : fontBoxSizes ) {
-				if ( num.intValue() == fontSize ) {
-					view.getFontSizeBox().getSelectionModel().select(fontSize);  //known JavaFX bug http://stackoverflow.com/questions/12142518/combobox-clearing-value-issue
-					view.getFontSizeBox().getSelectionModel().select(num);
-					//view.getFontSizeBox().getButtonCell().setText( Integer.toString(fontSize) );
-					fontSizeFound=true; }
-			}			
-			if (!fontSizeFound) {
-				view.getFontSizeBox().getSelectionModel().clearSelection();
-				throw new NullPointerException("The FontSize in the XML cannot be set on your computer");
-			} 
-				LOGGER.info("fontSize from playlist on load is : " + fontSize);
-				LOGGER.info("Font size box has this selected on load playlist " + view.getFontSizeBox().getSelectionModel().getSelectedItem());
-		
+		int fontSize = playlist.getFontSize();
+		ObservableList<Number> fontBoxSizes = view.getFontSizeBox().getItems();
+		boolean fontSizeFound = false;
+		for ( Number num : fontBoxSizes ) {
+			if ( num.intValue() == fontSize ) {
+				view.getFontSizeBox().getSelectionModel().select(fontSize);  //known JavaFX bug http://stackoverflow.com/questions/12142518/combobox-clearing-value-issue
+				view.getFontSizeBox().getSelectionModel().select(num);
+				//view.getFontSizeBox().getButtonCell().setText( Integer.toString(fontSize) );
+				fontSizeFound=true; }
+		}			
+		if (!fontSizeFound) {
+			view.getFontSizeBox().getSelectionModel().clearSelection();
+			throw new NullPointerException("The FontSize in the XML cannot be set on your computer");
+		} 
+		LOGGER.info("fontSize from playlist on load is : " + fontSize);
+		LOGGER.info("Font size box has this selected on load playlist " + view.getFontSizeBox().getSelectionModel().getSelectedItem());
+
 	}	
 
 	@Override public void savePlaylist() throws FileNotFoundException, IOException {
@@ -201,7 +201,7 @@ public class MainController implements ViewControllerListener {
 		playlist.resetArray( observedEntries );
 		playlist.setFontName(TextCompositor.getFontName()); //set the fontname in the playlist before saving, GUI default writes here so no other checks apply
 		playlist.setFontSize(TextCompositor.getFontSize());
-		
+
 		try { playlist.setThemeName( view.getThemeSelectBox().getSelectionModel().getSelectedItem().toString()); } 
 		catch (NullPointerException e) { throw new NullPointerException("Please select a theme before saving"); } 
 
@@ -260,7 +260,6 @@ public class MainController implements ViewControllerListener {
 			}
 		}
 
-
 		//first we must ask where you want to save with a dialog
 		File file;
 		String outFileUNC;
@@ -272,28 +271,25 @@ public class MainController implements ViewControllerListener {
 			else { outFileUNC = file.toString(); } //else we will get "x.filetype.filetype //TODO: same code as in save playlist button
 		}
 		catch (NullPointerException e) { throw new NullPointerException("Please select a file to save to");	}
-		
-		
+		//then thread the actual render and display work to createWorker()
 		renderWorker = createWorker(theme, file, outFileUNC);
 		new Thread(renderWorker).start();
 	}
-	
-	
-	public Task createWorker(final Theme theme, final File file, final String outFileUNC) {
-		return new Task() {
-			
+
+
+	public Task<?> createWorker(final Theme theme, final File file, final String outFileUNC) {
+		return new Task<Object>() {
+
 			@Override
 			protected Object call() throws Exception {
 				//then finally render it
-				if( file != null ) { Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC); }
-
-				
+				if( file != null ) { new EncoderXuggle(playlist, theme, outFileUNC); }		
 				//lastly display it in the swing window				
-				DecodeAndPlayAudioAndVideo player = new DecodeAndPlayAudioAndVideo(outFileUNC);
+				new DecodeAndPlayAudioAndVideo(outFileUNC);
 				return true;
 			}
-			};
-		
+		};
+
 	}
 
 
@@ -316,8 +312,6 @@ public class MainController implements ViewControllerListener {
 			view.getPlaylistView().getItems().add(pos, entry);
 		}
 		else { throw new MediaOpenException("The file is not valid, try again"); }
-
-
 
 	}
 

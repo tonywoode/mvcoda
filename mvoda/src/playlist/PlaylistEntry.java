@@ -22,6 +22,7 @@ import media.xuggle.MusicVideoXuggle;
 	@Setter @Getter private int positionInPlaylist;
 	@Setter @Getter private String artistName;
 	@Setter @Getter private String trackName;
+	@Setter @Getter private String trackInfo;
 	@XStreamOmitField @Setter @Getter private MusicVideo video;
 	@Setter @Getter String fileUNC;
 	

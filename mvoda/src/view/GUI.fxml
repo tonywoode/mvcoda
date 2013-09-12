@@ -150,8 +150,12 @@
           </VBox.margin>
         </TextField>
         <TextField fx:id="trackTextField" prefWidth="200.0" promptText="Enter Track" VBox.margin="$x1" />
-        <TextArea fx:id="trackInfoTextField" prefHeight="31.0" prefWidth="400.0" promptText="Enter Track Info" wrapText="true" />
-        <TextArea fx:id="mediaInfoArea" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="-1.0" prefWidth="-1.0" text="Media Infomation" wrapText="true" />
+        <TextArea fx:id="trackInfoTextField" prefHeight="31.0" prefWidth="400.0" promptText="Enter Track Info" wrapText="true" VBox.vgrow="ALWAYS" />
+        <TextArea fx:id="mediaInfoArea" editable="false" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="-1.0" prefWidth="-1.0" text="Media Infomation" wrapText="true" VBox.vgrow="ALWAYS">
+          <VBox.margin>
+            <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
+          </VBox.margin>
+        </TextArea>
       </children>
     </VBox>
   </children>
