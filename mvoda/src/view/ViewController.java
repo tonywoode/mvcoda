@@ -1,5 +1,6 @@
 package view;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
@@ -17,6 +18,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -41,8 +43,11 @@ import drawing.TextCompositor;
 
 import lombok.Getter;
 import lombok.Setter;
+import media.Encoder;
+import media.xuggle.EncoderXuggle;
 import playlist.Playlist;
 import playlist.PlaylistEntry;
+import test.DecodeAndPlayAudioAndVideo;
 import test.ShowImageInFrame;
 import themes.Theme;
 import util.ThemeFinder;
@@ -70,6 +75,7 @@ public class ViewController implements Initializable {
 	static Image fxImage;
 	static BufferedImage thisThumb;
 	static PlaylistEntry iChanged;
+	static Task<?> thumbnailWorker;
 	
 
 	public Button clearPlaylistButton;
@@ -127,25 +133,46 @@ public class ViewController implements Initializable {
 
 				if (ov == null || ov.getValue().getVideo() == null) {
 					mediaInfoArea.setText("File Not Found");
+					imageThumb.setImage( null );
+					
 				}
 				else {
 					mediaInfoArea.setText(ov.getValue().getVideo().toString());//write media info to screen for this entry
+					thumbnailWorker = createWorker( ov.getValue() );
+					new Thread(thumbnailWorker).start();
 				}
 				
-				iChanged = ov.getValue();
-				 thisThumb =  ThumbnailGrabberXuggle.grabThumbs(iChanged.getFileUNC());
+				//iChanged = ov.getValue();
+				
+				/* thisThumb =  ThumbnailGrabberXuggle.grabThumbs(iChanged.getFileUNC());
 				 fxImage = SwingFXUtils.toFXImage(thisThumb, null);
-					imageThumb.setImage( fxImage );
+					imageThumb.setImage( fxImage );*/
 				/*Timer timer = new Timer(true);
 				timerTask = new ThumbGrabTask();
 				
-				timer.scheduleAtFixedRate(timerTask, 0, 2000);*/
-				
-				
-				
+				timer.scheduleAtFixedRate(timerTask, 0, 2000);*/		
 			}
 		});
 	}
+	
+	
+	public Task createWorker(final PlaylistEntry entry) {
+		return new Task() {
+			
+			@Override
+			protected Object call() throws Exception {
+				thisThumb =  ThumbnailGrabberXuggle.grabThumbs(entry.getFileUNC());
+				 fxImage = SwingFXUtils.toFXImage(thisThumb, null);
+					imageThumb.setImage( fxImage );
+				return true;
+			}
+			};
+		
+	}
+	
+	
+	
+	
 	
 	/* public static class ThumbGrabTask extends TimerTask {
 		 ThumbGrabTask() {
