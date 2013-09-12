@@ -17,6 +17,7 @@ import playlist.Playlist;
 import playlist.PlaylistEntry;
 import themes.Theme;
 import util.FrameRate;
+import view.ChartNumberException;
 import view.MediaOpenException;
 
 import com.xuggle.mediatool.ToolFactory;
@@ -72,7 +73,8 @@ public class EncoderXuggle implements Encoder {
 		writer = getWriter(outFilename);
 		
 		//This is so that GFX element's can lookup a live number rather than be passed a playlist entry
-		Number.setNumber( playlist.getSize() ); //the number to start on is the number of items in the playlist, irrespective
+		try { Number.setNumber( playlist.getSize() ); } 
+		catch (ChartNumberException e1) { e1.printStackTrace(); } //the number to start on is the number of items in the playlist, irrespective
 		
 		try {	
 			for (PlaylistEntry playlistEntry : reversedList) {
@@ -83,8 +85,11 @@ public class EncoderXuggle implements Encoder {
 				catch (MediaOpenException e) { e.printStackTrace(); }
 				decoder = video.getDecoder(); //get the decoder associated with this video
 				renderNextVid(decoder, video);	
-				Number.setNumber(playlistEntry.getPositionInPlaylist() - 1); //This is so that GFX element's can lookup a live number for directory search rather than be passed a playlist entry
+				//This is so that GFX element's can lookup a live number for directory search rather than be passed a playlist entry
 				//could be changed back to Number.getNumber() -1....but number is required for live lookup during renders
+				try { Number.setNumber(playlistEntry.getPositionInPlaylist() - 1);} 
+				catch (ChartNumberException e) { e.printStackTrace(); } 
+				
 			}
 		} 
 		finally { 

@@ -1,21 +1,16 @@
 package playlist;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import javafx.collections.ObservableList;
 import lombok.Getter;
 import lombok.Setter;
-import media.MusicVideo;
-import media.xuggle.MusicVideoXuggle;
 import themes.XMLReader;
 import themes.XMLSerialisable;
 import themes.XMLWriter;
 import view.MediaOpenException;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
-
-import drawing.TextCompositor;
 
 /**
  * A playlist determines which tracks form a chart, which position each is in, and acoompanying text and GFX to display
@@ -33,7 +28,7 @@ import drawing.TextCompositor;
 	@Getter @Setter int fontSize;
 
 	/**
-	 * A playlist must have a name //TODO: name for playlist?
+	 * A playlist may have a name, for future to add to GUI
 	 * @param playlistName
 	 */
 	public Playlist(String playlistName) {
@@ -53,10 +48,9 @@ import drawing.TextCompositor;
 		ArrayList<PlaylistEntry> temp = new ArrayList<>(); //because if we try to directly do this to playlistEntries we'll get the concurrentModificationError
 		temp.addAll(playlistObservable);
 		playlistEntries = temp;
-		playlistEntries = playlistEntries; //just so we can set the breakpoint here
 	}
 
-	@Override public String getItemName() {	return (playlistName == null)? "Default Playlist Name" : playlistName; //TODO: is this really best? What to do about playlist name - this is for xml serialisable so should be the filename we set really
+	@Override public String getItemName() {	return (playlistName == null)? "Default Playlist Name" : playlistName;
 	}
 
 
@@ -87,8 +81,8 @@ import drawing.TextCompositor;
 
 
 	@Override public String toString() { 
-		String entry = ""; //TODO: are you going to have a playlist name or not? if yes that's what should return from tostring....
-		for (PlaylistEntry element : playlistEntries) {	entry = entry + "Playlist entry in the real playlist " + element.getFileUNC() + "\n"; }
+		String entry = ""; 
+		for (PlaylistEntry element : playlistEntries) {	entry = entry + "Playlist entry "  + element.getFileUNC() + "\n"; }
 		return entry;
 	}
 
