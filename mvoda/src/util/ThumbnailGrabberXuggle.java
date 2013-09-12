@@ -2,11 +2,6 @@ package util;
 
 import java.awt.image.BufferedImage;
 
-import view.ViewController;
-
-import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.image.Image;
-
 import lombok.Getter;
 
 import com.xuggle.mediatool.IMediaReader;
@@ -15,7 +10,7 @@ import com.xuggle.mediatool.ToolFactory;
 import com.xuggle.mediatool.event.IVideoPictureEvent;
 import com.xuggle.xuggler.Global;
 
-public class ThumbnailGrabberXuggle {
+public class ThumbnailGrabberXuggle implements ThumbnailGrabber {
 
 	public static final double SECONDS_BETWEEN_FRAMES = 10;
 	private static int videoStreamIndex = -1;
@@ -27,7 +22,7 @@ public class ThumbnailGrabberXuggle {
 	
 	@Getter static BufferedImage thumb;
 
-	public static BufferedImage grabThumbs(String fileUNC) {
+	public BufferedImage grabThumbs(String fileUNC) {
 		
 		IMediaReader mediaReader = ToolFactory.makeReader(fileUNC);
 		mediaReader.setBufferedImageTypeToGenerate(BufferedImage.TYPE_3BYTE_BGR);

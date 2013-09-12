@@ -19,7 +19,7 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
           </GridPane.margin>
         </Button>
-        <ImageView fx:id="imageThumb" fitHeight="176.46250915527344" fitWidth="220.57814007367202" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+        <ImageView fx:id="imageThumb" blendMode="SRC_OVER" cache="true" cacheHint="SCALE" depthTest="ENABLE" fitHeight="169.99988474121346" fitWidth="212.49985974121185" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
           <image>
             <Image url="@../test/bru.png" />
           </image>

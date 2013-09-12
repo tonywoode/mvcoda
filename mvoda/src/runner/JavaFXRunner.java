@@ -7,7 +7,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import view.ViewController;
 import controllers.MainController;
 
@@ -25,6 +27,7 @@ public class JavaFXRunner extends Application {
 		
 		
 		stage.setTitle("MV-CODA");
+		//stage.setOpacity(0.67);
 		//Parent root = FXMLLoader.load(getClass().getResource("../view/GUI.fxml"));	
 		FXMLLoader loader = new FXMLLoader();
 		URL location = getClass().getResource("../view/GUI.fxml");

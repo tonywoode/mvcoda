@@ -1,19 +1,16 @@
 package view;
 
-import java.io.File;
+import java.awt.GraphicsEnvironment;
+import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
-import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Logger;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -37,26 +34,17 @@ import javafx.util.Callback;
 
 import javax.management.modelmbean.XMLParseException;
 
-import controllers.MainController;
-
-import drawing.TextCompositor;
-
 import lombok.Getter;
 import lombok.Setter;
-import media.Encoder;
-import media.xuggle.EncoderXuggle;
 import playlist.Playlist;
 import playlist.PlaylistEntry;
-import test.DecodeAndPlayAudioAndVideo;
-import test.ShowImageInFrame;
 import themes.Theme;
 import util.ThemeFinder;
 import util.ThemeFinderImpl;
+import util.ThumbnailGrabber;
 import util.ThumbnailGrabberXuggle;
 import view.buttons.Dialog;
-import java.awt.Font;
-import java.awt.GraphicsEnvironment;
-import java.awt.image.BufferedImage;
+import drawing.TextCompositor;
 
 public class ViewController implements Initializable {
 
@@ -72,9 +60,9 @@ public class ViewController implements Initializable {
 	@FXML TextArea mediaInfoArea;
 	@FXML static ImageView imageThumb;
 	@Getter static TimerTask timerTask;
+	private ThumbnailGrabber grabber = new ThumbnailGrabberXuggle();
 	static Image fxImage;
 	static BufferedImage thisThumb;
-	static PlaylistEntry iChanged;
 	static Task<?> thumbnailWorker;
 	
 
@@ -132,6 +120,7 @@ public class ViewController implements Initializable {
 				artistTextField.textProperty().bindBidirectional(sspArtist); 
 
 				if (ov == null || ov.getValue().getVideo() == null) {
+					
 					mediaInfoArea.setText("File Not Found");
 					imageThumb.setImage( null );
 					
@@ -140,28 +129,23 @@ public class ViewController implements Initializable {
 					mediaInfoArea.setText(ov.getValue().getVideo().toString());//write media info to screen for this entry
 					thumbnailWorker = createWorker( ov.getValue() );
 					new Thread(thumbnailWorker).start();
-				}
-				
-				//iChanged = ov.getValue();
-				
-				/* thisThumb =  ThumbnailGrabberXuggle.grabThumbs(iChanged.getFileUNC());
-				 fxImage = SwingFXUtils.toFXImage(thisThumb, null);
-					imageThumb.setImage( fxImage );*/
-				/*Timer timer = new Timer(true);
-				timerTask = new ThumbGrabTask();
-				
-				timer.scheduleAtFixedRate(timerTask, 0, 2000);*/		
+				}	
 			}
 		});
 	}
 	
-	
+	/**
+	 * Worker thread that gets thumbnails for the GUI by using Xuggler's Media Tools API
+	 * @param entry
+	 * @return
+	 */
 	public Task createWorker(final PlaylistEntry entry) {
 		return new Task() {
 			
 			@Override
 			protected Object call() throws Exception {
-				thisThumb =  ThumbnailGrabberXuggle.grabThumbs(entry.getFileUNC());
+				
+				thisThumb =  grabber.grabThumbs(entry.getFileUNC());
 				 fxImage = SwingFXUtils.toFXImage(thisThumb, null);
 					imageThumb.setImage( fxImage );
 				return true;
@@ -170,21 +154,6 @@ public class ViewController implements Initializable {
 		
 	}
 	
-	
-	
-	
-	
-	/* public static class ThumbGrabTask extends TimerTask {
-		 ThumbGrabTask() {
-		 }
-	        public void run() {
-	            System.out.format("hello");
-	           thisThumb = ThumbnailGrabberXuggle.getThumb();
-	            fxImage = SwingFXUtils.toFXImage(thisThumb, null);
-				imageThumb.setImage( fxImage );
-				
-	        }
-	    }*/
 
 	/**
 	 * Initialises the combobox that holds themes - these are held directly as Themes in the box and their toString() methods provide the text in the box
