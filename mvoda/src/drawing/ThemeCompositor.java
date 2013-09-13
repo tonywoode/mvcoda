@@ -78,8 +78,8 @@ public class ThemeCompositor {
 		//for the classic number holder, the holder is very small. We need to slot the number more to the left if its two digits
 		if (playlistEntry.getPositionInPlaylist() >= 10) { numberText = new TextCompositor(Integer.toString( playlistEntry.getPositionInPlaylist() ), 69, 331); }
 		else { numberText = new TextCompositor(Integer.toString( playlistEntry.getPositionInPlaylist() ), 75, 331); }
-		artistText = new TextCompositor(playlistEntry.getArtistName(), 100, 380);
-		trackText = new TextCompositor(playlistEntry.getTrackName(), 100, 420);
+		artistText = new TextCompositor(playlistEntry.getArtistName(), 100, 377);
+		trackText = new TextCompositor(playlistEntry.getTrackName(), 100, 417);
 		chartText = new TextCompositor(chartName, 494, 74);	
 	}
 
