@@ -237,7 +237,7 @@ public class ImageCompositor {
 			double widthInc = width / fadeTime;
 			double heightInc = height / fadeTime;
 			//TODO: hard coded time - needs to be relative to framerate
-			if ( vidTimeStamp >= outTimeWithHandles - (fadeTime * 40000) && newWidth - widthInc >=0 && newHeight - heightInc >= 0 ) { 
+			if ( vidTimeStamp >= outTimeWithHandles - (fadeTime * 160000) && newWidth - widthInc >=0 && newHeight - heightInc >= 0 ) { 
 				newWidth = newWidth - widthInc;
 				newHeight = newHeight - heightInc;//TODO: this only works because we first hit the below increment code so w+h will be at max
 			}

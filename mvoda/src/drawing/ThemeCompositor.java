@@ -25,6 +25,7 @@ public class ThemeCompositor {
 	private TextCompositor numberText;
 	private TextCompositor trackText;
 	private TextCompositor artistText;
+	private TextCompositor trackInfo;
 	private TextCompositor chartText;
 	private Theme theme;
 	
@@ -93,8 +94,9 @@ public class ThemeCompositor {
 		chartCompositor = new ImageCompositor(theme.getChart());
 		transitionCompositor = new ImageCompositor(theme.getTransition());
 		numbersCompositor = new ImageCompositor(theme.getNumbers());
-		artistText = new TextCompositor(playlistEntry.getArtistName(), 310, 480);	
-		trackText = new TextCompositor(playlistEntry.getTrackName(), 270, 510);
+		artistText = new TextCompositor(playlistEntry.getArtistName(), 165, 450);	
+		trackText = new TextCompositor(playlistEntry.getTrackName(), 165, 480);
+		trackInfo = new TextCompositor(playlistEntry.getTrackInfo(), 165, 465);
 	
 	}
 
@@ -183,8 +185,7 @@ public class ThemeCompositor {
 			videoFrame = numbersCompositor.overlayNextImage(decoder.getVideoTimeStamp(),2000000, 7000000, videoFrame);
 			videoFrame = trackText.overlayNextFontFrame(strapCompositor.isImOut(), videoFrame);
 			videoFrame = artistText.overlayNextFontFrame(strapCompositor.isImOut(), videoFrame);
-			videoFrame = trackText.overlayNextFontFrame(strapCompositor2.isImOut(), videoFrame);
-			videoFrame = artistText.overlayNextFontFrame(strapCompositor2.isImOut(), videoFrame);
+			videoFrame = trackInfo.overlayNextFontFrame(strapCompositor2.isImOut(), videoFrame);
 		} catch (GFXElementException e) { e.printStackTrace(); }
 	}
 
