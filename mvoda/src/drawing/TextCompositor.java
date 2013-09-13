@@ -19,7 +19,7 @@ public class TextCompositor {
 
 	public final static Logger LOGGER = Logger.getLogger(TextCompositor.class.getName()); //get a logger for this class
 
-	@Setter private static Font textFont;
+	@Getter @Setter public Font textFont;
 	@Getter @Setter static String fontName = "Ariel Narrow"; //JavaFX bug so we defensively set these to defaults
 	@Getter @Setter static int fontSize = 24;
 	@Setter private String text;
@@ -41,7 +41,7 @@ public class TextCompositor {
 		String[] fontList = ge.getAvailableFontFamilyNames();
 		for (int i = 0; i < fontList.length; i++) {
 			LOGGER.info("Available font list on this machine: At index no.: " + i + " is: " + fontList[i]);
-			textFont = new Font(fontList[10],1,32);
+			//textFont = new Font(fontList[10],1,32);
 		}
 	}
 
@@ -65,10 +65,15 @@ public class TextCompositor {
 	 * @throws GFXElementException if the overlay couldn't be accessed
 	 */
 	private BufferedImage nextText(boolean imOut, BufferedImage videoFrame) throws GFXElementException {
-		textFont = new Font(fontName, 1, fontSize);
+		setFont();
 		if ( imOut == false) { if (text != null) { renderText(videoFrame, text, textFont, textXPos, textYPos); } }
 		BufferedImage composite = videoFrame;
 		return composite;
+	}
+	
+	
+	protected void setFont() {
+		textFont = new Font(fontName, 1, fontSize);
 	}
 	
 	/**

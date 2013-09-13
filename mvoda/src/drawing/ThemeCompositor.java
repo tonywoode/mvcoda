@@ -41,7 +41,7 @@ public class ThemeCompositor {
 	 * Deals with compositing the three included themes and the possibility of a default render
 	 * @param playlistEntry an entry in the playlist ie: music vid plus metadata
 	 */
-	public void makeThemeElements(PlaylistEntry playlistEntry) {
+	public void makeThemeElements(PlaylistEntry playlistEntry)  {
 		//theme order = 0=classic 1=pop 2=urban
 		switch (theme.getIndex()) {
 		case 0:  setThemeOptionsClassic(playlistEntry); break;
@@ -73,10 +73,10 @@ public class ThemeCompositor {
 		//for the classic number holder, we need to slot the number more to the left if its two digits
 		if (playlistEntry.getPositionInPlaylist() >= 10) { numberText = new TextCompositor(Integer.toString( playlistEntry.getPositionInPlaylist() ), 67, 337); }
 		else { numberText = new TextCompositor(Integer.toString( playlistEntry.getPositionInPlaylist() ), 73, 337); }
-		//TextCompositor.setTextFont(new Font("Arial Narrow",1,30)); 
-		trackText = new TextCompositor(playlistEntry.getTrackName(), 100, 380);
-		artistText = new TextCompositor(playlistEntry.getArtistName(), 100, 420);
-		chartText = new TextCompositor("Classics of the 80's", 515, 75);
+		//TextCompositor.setTextFont(new Font("Arial Narrow",1,30)); 	
+		artistText = new TextCompositor(playlistEntry.getArtistName(), 100, 380);
+		trackText = new TextCompositor(playlistEntry.getTrackName(), 100, 420);
+		chartText = new TextChartCompositor("Classics of the 80's", 515, 72);
 		//TextCompositor.setTextFont(new Font("Arial Narrow",1,18));		
 	}
 
@@ -91,8 +91,9 @@ public class ThemeCompositor {
 		chartCompositor = new ImageCompositor(theme.getChart());
 		transitionCompositor = new ImageCompositor(theme.getTransition());
 		numbersCompositor = new ImageCompositor(theme.getNumbers());
-		trackText = new TextCompositor(playlistEntry.getTrackName(), 270, 485);
-		artistText = new TextCompositor(playlistEntry.getArtistName(), 300, 525);		
+		artistText = new TextCompositor(playlistEntry.getArtistName(), 310, 480);	
+		trackText = new TextCompositor(playlistEntry.getTrackName(), 270, 510);
+	
 	}
 
 	/**
@@ -105,12 +106,10 @@ public class ThemeCompositor {
 		strapCompositor2 = new ImageCompositor(theme.getStrap());
 		chartCompositor = new ImageCompositor(theme.getChart());
 		numbersCompositor = new ImageCompositor(theme.getNumbers());
-		numberText = new TextCompositor(Integer.toString( playlistEntry.getPositionInPlaylist() ), 285, 490);
-		//TextCompositor.setTextFont(new Font("Arial Narrow",1,55));
-		trackText = new TextCompositor(playlistEntry.getTrackName(), 390, 460);
-		artistText = new TextCompositor(playlistEntry.getArtistName(), 380, 500);
-		chartText = new TextCompositor("This Week's Fresh Music", 120, 75);
-		//TextCompositor.setTextFont(new Font("Arial Narrow", 1, 18));		
+		numberText = new TextNumberCompositor(Integer.toString( playlistEntry.getPositionInPlaylist() ), 285, 490);
+		artistText = new TextCompositor(playlistEntry.getArtistName(), 380, 460);
+		trackText = new TextCompositor(playlistEntry.getTrackName(), 390, 500);
+		chartText = new TextCompositor("This Week's Fresh Music", 120, 75);	
 	}
 
 	/**
@@ -201,7 +200,9 @@ public class ThemeCompositor {
 			videoFrame = strapCompositor2.overlayNextImage(decoder.getVideoTimeStamp(),14000000, 2000000, videoFrame);
 			videoFrame = chartCompositor.overlayNextImage(decoder.getVideoTimeStamp(),2000000, 2000000, videoFrame);
 			videoFrame = numbersCompositor.overlayNextImage(decoder.getVideoTimeStamp(),10000000, 2000000, videoFrame);
-			videoFrame = numberText.overlayNextFontFrame(strapCompositor.isImOut(), videoFrame); //THIS number is tied to strap NOT number
+			//TextCompositor.setFontSize(TextCompositor.getFontSize() * 2);
+			videoFrame = numberText.overlayNextFontFrame(strapCompositor.isImOut(), videoFrame); //For this chart, number TEXT is tied to strap, NOT tied to number
+			//TextCompositor.setFontSize(TextCompositor.getFontSize() / 2);
 			videoFrame = trackText.overlayNextFontFrame(strapCompositor.isImOut(), videoFrame);
 			videoFrame = artistText.overlayNextFontFrame(strapCompositor.isImOut(), videoFrame);
 			videoFrame = chartText.overlayNextFontFrame(chartCompositor.isImOut(), videoFrame);
