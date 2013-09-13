@@ -13,24 +13,24 @@ import media.types.Packet;
  */
 public interface Decoder {
 
-	public abstract AudioSamples getAudioSamples();
+	AudioSamples getAudioSamples();
 
-	public abstract BufferedImage getVideoFrame();
+	BufferedImage getVideoFrame();
 
-	public abstract long getVideoTimeStamp();
+	long getVideoTimeStamp();
 	
-	public abstract String getFormattedVideoTimestamp();
+	String getFormattedVideoTimestamp();
 	
-	public abstract long getAudioTimeStamp();
+	long getAudioTimeStamp();
 
-	public abstract String getFormattedAudioTimestamp();
+	String getFormattedAudioTimestamp();
 
-	public abstract void makeResampler(int outputWidth, int outputHeight);
+	void makeResampler(int outputWidth, int outputHeight);
 	
-	public abstract void readVideo(Packet packet) throws RuntimeException;
+	void readVideo(Packet packet) throws RuntimeException;
 	
-	public abstract void readAudio(Packet packet) throws RuntimeException;
+	void readAudio(Packet packet) throws RuntimeException;
 	
-	public abstract boolean hasNextPacket() throws RuntimeException;
+	boolean hasNextPacket() throws RuntimeException;
 
 }

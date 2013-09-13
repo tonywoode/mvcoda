@@ -33,7 +33,6 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 	//annotations because we'd like to omit some of these fields from the XML, they are calculated fields only for the class to use
 	@XStreamOmitField private String filetype = "";
 	@XStreamOmitField private String filePrefix = "";
-	private ArrayList<String> fileNumbers;
 	@XStreamOmitField private long duration;
 	
 	@Getter @Setter private String themeName;
@@ -41,12 +40,14 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 	@Getter @Setter private String elementName;
 	@Getter @Setter private String author;
 	@Getter @Setter private String version;
-	@Getter @Setter public CoOrd coOrd;
+	@Getter @Setter private CoOrd coOrd;
+	
+	private ArrayList<String> fileNumbers;
 	
 	public final static Logger LOGGER = Logger.getLogger(GFXElement.class.getName()); //setup a logger for this class
 
 	/**
-	 * The basic consituents that describe a GFX element are
+	 * The basic constituents that describe a GFX element are
 	 * @param themeName which Theme it belongs to
 	 * @param itemName what name we wish to give this element
 	 * @param elementName the type of element we have
@@ -93,7 +94,7 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 	/**
 	 * When passed a path containing a GFXElement, we will make an ordered array of the file sequence of the element
-	 * The process of so-doing also gives us the filtype.
+	 * The process of so-doing also gives us the filetype.
 	 * We allow for elements to have zero padding //TODO
 	 * @param dir path to the file sequence
 	 * @return ordered array of the file sequence according to the numbering system they were saved using ie: the number postfix on the filename
@@ -153,6 +154,9 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 		
 	}
 
+	/**
+	 * Returns merely the itemName of the element ie: what type it is
+	 */
 	@Override public String toString() { return itemName; }
 
 

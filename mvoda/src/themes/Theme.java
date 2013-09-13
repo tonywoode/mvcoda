@@ -29,7 +29,7 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 	
 	@XStreamOmitField @Getter private Path themeDir;
 	
-	@XStreamOmitField @Getter @Setter public int index; //TODO: omit means set this only after instantiating with a read
+	@XStreamOmitField @Getter @Setter private int index; //Note: to omit this field means we must always remember to set this AFTER instantiating with a read
 	
 	@Getter private String itemName;
 	
@@ -50,6 +50,10 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 	
 	public Theme(String itemName) { this.itemName = itemName; }
 	
+	
+	/**
+	 * Returns the item name of the theme. This is currently used heavily by JAVAFX's combo box, which contains themes, not strings, so uses this to display name
+	 */
 	@Override public String toString() { return itemName; } //this will get used by the Theme select combo box in the JavaFX GUI
 	
 

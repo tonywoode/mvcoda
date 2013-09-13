@@ -14,7 +14,6 @@ public class PlaylistEntryListCell extends ListCell<PlaylistEntry> {
         	
         	final int pos = this.getIndex();
         	
- 
         	System.out.println("PlaylistEntry Cell: " + "NUMBER: " + (pos + 1) + "\t" + item.getFileUNC());
         	
             setText("NUMBER " + (pos + 1) + "\t" + item.getFileUNC());

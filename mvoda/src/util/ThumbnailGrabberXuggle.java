@@ -14,7 +14,6 @@ import com.xuggle.xuggler.Global;
  * Intended to provide thumbnails for the MV-CoDA GUI. Uses the Xuggler MediaTools API, and much of the below taken straight from Xuggler's example code
  * Though we cannot use the Xuggler MediaTools API for MV-CoDA's compositing, we CAN use it for simply getting a thumbnail. The Xuggler code was altered
  * So that instead of writing one file every 10 seconds, we call the class to get an image that is 10 seconds into the video under scrutiny.
- * @author tony
  *
  */
 public class ThumbnailGrabberXuggle implements ThumbnailGrabber {
@@ -38,22 +37,18 @@ public class ThumbnailGrabberXuggle implements ThumbnailGrabber {
 
 			public void onVideoPicture(IVideoPictureEvent event) {
 				if (event.getStreamIndex() != videoStreamIndex) {
-					if (videoStreamIndex == -1)
-						videoStreamIndex = event.getStreamIndex();
+					if (videoStreamIndex == -1) { videoStreamIndex = event.getStreamIndex(); }
 					// no need to show frames from this video stream
-					else
-						return;
+					else { return; }
 				}
 
 				// if uninitialized, back date last presentation timestamp write, to get the very first frame
-				if (lastPtsWrite == Global.NO_PTS)
-					lastPtsWrite = event.getTimeStamp() - MICRO_SECONDS_BETWEEN_FRAMES;
+				if (lastPtsWrite == Global.NO_PTS) { lastPtsWrite = event.getTimeStamp() - MICRO_SECONDS_BETWEEN_FRAMES; }
 
 				// if it's time to write the next frame
 				if (event.getTimeStamp() - lastPtsWrite >= MICRO_SECONDS_BETWEEN_FRAMES)
 				{
 					thumb = event.getImage();
-
 					lastPtsWrite += MICRO_SECONDS_BETWEEN_FRAMES;
 					return;
 				}

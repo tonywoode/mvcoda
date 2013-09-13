@@ -53,17 +53,22 @@ import lombok.Setter;
 	@Override public boolean isNumbers() { return animationData.isNumbers(); }
 	@Override public int getSpeed() { return animationData.getSpeed(); } //factor by which we speed up the out. This is a common trick for some reverse-out animations
 
-	//TODO:pay attention to these two overrides when you doc
-	@Override public long getInDuration() {	
+	/**
+	 * Calculates the InDuration required for an animated element by looking at the FirstHoldFrame that was specified in the XML
+	 */
+	@Override public long getInDuration() {
 		inDuration = FrameRate.convertFrameToTime(getFirstHoldFrame() - 1);
 		return inDuration;
 	}
 
-	@Override
-	public long getOutDuration() {
+	/**
+	 * Calculates the OutDuration required for an animated element by looking at values like numberOfFrames, isReverse, speedUp that were specified in the XML
+	 */
+	@Override public long getOutDuration() throws IllegalArgumentException {
 		//if we have a reverse element, we need to use the inverse of the usual manner of getting duration AND know what speed we want the animate out to be
+		if ( getSpeed() == 0 ) throw new IllegalArgumentException("Error getting OutDuration of " + super.getItemName() + " : speedup for a GFX element cannot be zero");
 		if ( isReverse() ) { outDuration = FrameRate.convertFrameToTime( getNumberOfFrames() / getSpeed() ); }
-		else { outDuration = FrameRate.convertFrameToTime(getNumberOfFrames() - getLastHoldFrame() + 1); }//TODO: make sure framerate is never going to be zero
+		else { outDuration = FrameRate.convertFrameToTime(getNumberOfFrames() - getLastHoldFrame() + 1); }
 		return outDuration;
 	}
 

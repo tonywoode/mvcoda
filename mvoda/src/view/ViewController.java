@@ -178,8 +178,7 @@ public class ViewController implements Initializable {
 		ThemeFinder themeFinder = new ThemeFinderImpl(); //we must instantiate the themeFinder because it implements an interface - could use a factory instead
 		ArrayList<Theme> themeTemp = new ArrayList<>(); //we don't want the themeFinder to be tied to JavaFX's observable list imp
 		try { themeTemp = themeFinder.returnThemes(); } 
-		catch (IOException e) {e.printStackTrace();}  // TODO exception handling 	
-		catch (InterruptedException e) { e.printStackTrace(); } // TODO exception handling
+		catch (IOException e) { popup( e.getMessage() ); } 	
 		themeSelectBox.setItems(FXCollections.observableList(themeTemp) ); //NOW we make an observable list from our array list when we set it as the box's list
 	}
 

@@ -1,9 +1,5 @@
 package view.buttons;
 
-import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -14,7 +10,6 @@ import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBoxBuilder;
 import javafx.scene.paint.Color;
-import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -68,8 +63,6 @@ public static void dialogBox(final Stage primaryStage, String msg){ //, Scene sc
 			});
 			
 			primaryStage.getScene().getRoot().setEffect(new BoxBlur());
-			 //dialog.setX(primaryStage.getX() + primaryStage.getWidth() / 2  - dialog.getWidth() / 2 ); sounded right: http://stackoverflow.com/questions/13702191/center-location-of-stage
-		    // dialog.setY(primaryStage.getY() + primaryStage.getHeight() / 2 - dialog.getHeight() / 2);
 			dialog.show();
 		}
 		// records relative x and y co-ordinates.

@@ -15,50 +15,50 @@ import com.xuggle.xuggler.IPixelFormat;
  */
 public interface MusicVideo {
 
-	public abstract Container getContainer();
+	Container getContainer();
 
-	public abstract StreamCoder getAudioCoder();
+	StreamCoder getAudioCoder();
 
-	public abstract StreamCoder getVideoCoder(); 
+	StreamCoder getVideoCoder(); 
 
-	public abstract IPixelFormat.Type getPixFormat(); //we choose to keep the type safety instead of adapt with Strings
+	IPixelFormat.Type getPixFormat(); //we choose to keep the type safety instead of adapt with Strings
 
-	public abstract Rational getFramesPerSecond(); //
+	Rational getFramesPerSecond(); //
 
-	public abstract double getFramesPerSecondAsDouble();
+	double getFramesPerSecondAsDouble();
 	
-	public abstract ICodec.ID getVideoCodecID(); //we choose to keep the type safety instead of adapt with Strings
+	ICodec.ID getVideoCodecID(); //we choose to keep the type safety instead of adapt with Strings
 
-	public abstract String getFileUNC();
+	String getFileUNC();
 	
-	public abstract String getFiletype();
+	String getFiletype();
 
-	public abstract int getWidth();
+	int getWidth();
 
-	public abstract int getHeight();
+	int getHeight();
 
-	public abstract int getNumChannelsAudio();
+	int getNumChannelsAudio();
 
-	public abstract int getAudioStreamIndex();
+	int getAudioStreamIndex();
 
-	public abstract int getVideoStreamIndex();
+	int getVideoStreamIndex();
 
-	public abstract int getAudioStreamID();
+	int getAudioStreamID();
 	
-	public abstract int getVideoStreamID();
+	int getVideoStreamID();
 	
-	public abstract long getContainerDuration();
+	long getContainerDuration();
 	
-	public abstract long getFrameRateDivisor();
+	long getFrameRateDivisor();
 
-	public abstract long getVidStreamDuration();
+	long getVidStreamDuration();
 
-	public abstract long getNumVidFrames();
+	long getNumVidFrames();
 
-	public abstract Decoder getDecoder();
+	Decoder getDecoder();
 
-	public abstract void close();
+	void close();
 
-	public abstract String toString();
+	String toString();
 
 }

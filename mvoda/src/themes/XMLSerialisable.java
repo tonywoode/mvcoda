@@ -9,8 +9,7 @@ public interface XMLSerialisable {
 	
 	String getItemName();
 	
-	@Override
-	String toString();	
+	@Override String toString();	
 	
 	
 }

@@ -56,10 +56,13 @@ public class FileUtil  {
 
 	/**
 	 * When passed a path to a directory, will return the number of directories in that directory
-	 * @param path
+	 * This method is intended for future use - it's for when we want to make sure the user is not adding more chart entries than
+	 * there are rendered numbers
+	 * @param path a folder we wish to count folders in
 	 * @return number of dirs in dir
+	 * @throws IOException  if the folder could not be accessed
 	 */
-	public static int countFoldersInFolder(Path path) {
+	public static int countFoldersInFolder(Path path) throws IOException {
 
 		//first create a filter which will tell us if the file is a directory
 		DirectoryStream.Filter filter = new DirectoryStream.Filter() {
@@ -72,7 +75,7 @@ public class FileUtil  {
 			for (Path p : dstream) { 
 								LOGGER.info("Next filename " + p.getFileName()); 
 				i++;  }
-		} catch (IOException e) { e.printStackTrace(); }//todo
+		} catch (IOException e) { throw new IOException("Could not count folders in path" + e.getMessage()); }
 								LOGGER.info("found " + i + " folders");
 		return i;
 

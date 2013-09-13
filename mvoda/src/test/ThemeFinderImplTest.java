@@ -27,7 +27,7 @@ public class ThemeFinderImplTest {
 				
 		try { themeArray = themeFinder.returnThemes(); } 
 		catch (IOException e) { e.printStackTrace(); } 
-		catch (InterruptedException e) { e.printStackTrace();}
+
 		
 		assertEquals( "Testing Classic", "Classic", themeArray.get(0).getItemName() );
 		assertEquals( "Testing Pop", "Pop", themeArray.get(1).getItemName() );

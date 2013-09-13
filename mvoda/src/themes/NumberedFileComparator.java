@@ -4,7 +4,6 @@ import java.util.Comparator;
 
 /**
  * Compares two files in order to order them. Used to sort the filenames from GFXElement
- * @author tony
  *
  */
 public class NumberedFileComparator implements Comparator<Object> {

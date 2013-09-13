@@ -1,7 +1,6 @@
 /**
 * modal-dialog.css
-* place in same directory as WebViewConfirm.java
-* ensure your build system copies the file to your build output directory
+* describes the popup dialog box in FXScript CSS. Taken from: https://gist.github.com/jewelsea/1887631
 */
  
 .root {

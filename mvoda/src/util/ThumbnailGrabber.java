@@ -14,7 +14,7 @@ public interface ThumbnailGrabber {
 	 * @param fileUNC
 	 * @return
 	 */
-	public BufferedImage grabThumbs(String fileUNC);
+	BufferedImage grabThumbs(String fileUNC);
 	
 
 }

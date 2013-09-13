@@ -77,7 +77,7 @@ public class XMLReader {
 			try { xml = (XMLSerialisable) xstream.fromXML(fs); }
 			finally { if (fs != null) {fs.close();}
 			} //we want to decouple the controllers from XStream specific exceptions, so we throw a Java exception
-		} catch (XStreamException e1) { throw new  IOException("e1.printStackTrace()"); }
+		} catch (XStreamException e1) { throw new IOException( "Error reading playlist XML" ); }
 		
 		return xml;
 
