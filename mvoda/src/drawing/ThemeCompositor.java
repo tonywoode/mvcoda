@@ -76,8 +76,8 @@ public class ThemeCompositor {
 		transitionCompositor = new ImageCompositor(theme.getTransition());
 		numbersCompositor = new ImageCompositor(theme.getNumbers());
 		//for the classic number holder, the holder is very small. We need to slot the number more to the left if its two digits
-		if (playlistEntry.getPositionInPlaylist() >= 10) { numberText = new TextCompositor(Integer.toString( playlistEntry.getPositionInPlaylist() ), 67, 337); }
-		else { numberText = new TextCompositor(Integer.toString( playlistEntry.getPositionInPlaylist() ), 73, 337); }
+		if (playlistEntry.getPositionInPlaylist() >= 10) { numberText = new TextChartCompositor(Integer.toString( playlistEntry.getPositionInPlaylist() ), 70, 331); }
+		else { numberText = new TextChartCompositor(Integer.toString( playlistEntry.getPositionInPlaylist() ), 76, 331); }
 		artistText = new TextCompositor(playlistEntry.getArtistName(), 100, 380);
 		trackText = new TextCompositor(playlistEntry.getTrackName(), 100, 420);
 		chartText = new TextChartCompositor(chartName, 515, 72);	

@@ -7,7 +7,7 @@ import lombok.Setter;
 
 /**
  * Some Chart names need to be rendered in a smaller font than the other onscreen text. Rather than have the user specify this fontsize,
- * we halve the usual font number and allow this custom text compositor to be called for these forms of chart
+ * for this version of MV-CoDA we simply halve the usual font number and allow this custom text compositor to be called for these forms
  * @author tony
  *
  */
