@@ -12,7 +12,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-import media.Encoder;
 import media.MusicVideo;
 import media.xuggle.EncoderXuggle;
 import media.xuggle.MusicVideoXuggle;
@@ -27,12 +26,15 @@ import view.MediaOpenException;
 public class StandardRenderTimingTest {
 
 	/**
-	 * Tests time taken to compose standard render
+	 * Roughly tests time taken to compose standard render
 	 * @param args
 	 * @throws IOException 
 	 * @throws MediaOpenException 
 	 */
-	public static void main(String[] args) throws IOException, MediaOpenException {
+	public static void main(String[] args) {
+		
+		//set an output file
+		String outFileUNC = "E:/Output.mp4";
 
 		HandleLoggers.allLoggers();
 		long start = System.currentTimeMillis(); //get rough start time
@@ -65,10 +67,17 @@ public class StandardRenderTimingTest {
 
 		//make vids out of paths
 		ArrayList<MusicVideo> vids = new ArrayList<>();
-		for (int i = 0; i < strings.size(); i++) {	
-			MusicVideo video = new MusicVideoXuggle(strings.get(i) );
-			 vids.add(video);
-		}
+		
+			MusicVideo video = null;;
+			try {
+				try {
+					for (int i = 0; i < strings.size(); i++) {	video = new MusicVideoXuggle(strings.get(i) ); vids.add(video); } 
+				}
+				finally { if (video != null) { video.close(); }
+				}
+			}
+			catch (MediaOpenException e) {	e.printStackTrace(); }
+			 
 
 		//make playlist entries
 		ArrayList<PlaylistEntry> entries = new ArrayList<>();
@@ -78,24 +87,30 @@ public class StandardRenderTimingTest {
 
 		//make a playlist
 		Playlist playlist = new Playlist("Biggest Beats I've seen in a while");
-		for (PlaylistEntry entry : entries) { playlist.setNextEntry(entry); }
+		for (PlaylistEntry entry : entries) { playlist.getPlaylistEntries().add(entry); }
 		
-				//set an output file
-		String outFileUNC = "E:/Output.mp4";
+	
 
 		//Pop.setNum(1); //TODO: very silly AND has to be done before instantiation...
 		
 		String themeName = "Classic";
 		Path rootDir = Paths.get("Theme");
 		Path themeDir = Paths.get(rootDir.toString(),themeName);	
-		XMLSerialisable themeAsSerialisable = XMLReader.readXML(themeDir, themeName);
-		Theme theme = (Theme) themeAsSerialisable;
-		Path properDir = Paths.get( Theme.getRootDir().toString(), theme.getItemName() );
+		XMLSerialisable themeAsSerialisable;
+		Theme theme = null;
+		try { 
+			themeAsSerialisable = XMLReader.readXML(themeDir, themeName);	
+			theme = (Theme) themeAsSerialisable;	
+		} 
+		catch (IOException e) {	e.printStackTrace(); }
+		
+		//Path properDir = Paths.get( Theme.getRootDir().toString(), theme.getItemName() );
 
 		//get Xuggler's video info
 		System.out.println(vids.get(0).toString());
 		//draw onto video
-		Encoder draw = new EncoderXuggle(playlist, theme, outFileUNC);
+		if (theme != null ) { new EncoderXuggle(playlist, theme, outFileUNC); }
+		else System.out.println("Couldn't access the Classic Theme in the Theme directory");
 		vids.get(0).close();
 
 		//report time taken
@@ -105,7 +120,7 @@ public class StandardRenderTimingTest {
 		System.out.println("TIME TAKEN: " + df.format(new Date(elapsed)));
 
 		//play it in xugglers media player
-		DecodeAndPlayAudioAndVideo player = new DecodeAndPlayAudioAndVideo(outFileUNC);
+		new DecodeAndPlayAudioAndVideo(outFileUNC);
 
 	}
 }

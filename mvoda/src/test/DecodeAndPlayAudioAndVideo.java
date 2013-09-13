@@ -26,19 +26,17 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 import javax.swing.JOptionPane;
 
-
 import com.xuggle.xuggler.Global;
 import com.xuggle.xuggler.IAudioSamples;
+import com.xuggle.xuggler.ICodec;
 import com.xuggle.xuggler.IContainer;
 import com.xuggle.xuggler.IPacket;
 import com.xuggle.xuggler.IPixelFormat;
 import com.xuggle.xuggler.IStream;
 import com.xuggle.xuggler.IStreamCoder;
-import com.xuggle.xuggler.ICodec;
 import com.xuggle.xuggler.IVideoPicture;
 import com.xuggle.xuggler.IVideoResampler;
 import com.xuggle.xuggler.Utils;
-import com.xuggle.xuggler.demos.VideoImage;
 
 /**
  * Takes a media container, finds the first video stream,
@@ -83,9 +81,7 @@ public class DecodeAndPlayAudioAndVideo
   public DecodeAndPlayAudioAndVideo(String fileUNC)
   {
 	  String filename = fileUNC;
-	  
-	  
-	 
+	   
     
     // Let's make sure that we can actually convert video pixel formats.
     if (!IVideoResampler.isSupported(IVideoResampler.Feature.FEATURE_COLORSPACECONVERSION))

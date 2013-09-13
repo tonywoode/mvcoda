@@ -19,7 +19,7 @@ import com.thoughtworks.xstream.XStream;
  */
 public class XMLWriter {
 
-	public static void writeXML(Path themeDir, XMLSerialisable xmlserialisable) {
+	public static void writeXML(Path themeDir, XMLSerialisable xmlserialisable) throws IOException {
 
 		XStream xstream = new XStream();
 
@@ -34,23 +34,28 @@ public class XMLWriter {
 		//xstream.alias("GfxElement", GFXElement.class);	
 		//xstream.alias("Theme", Theme.class);
 
+
+
+		String xml = xstream.toXML(xmlserialisable);
+		System.out.println("\n ***********Generating xml " + xmlserialisable.getItemName() + "************\n");
+		System.out.println(xml);
+
 		try {	
-
-			String xml = xstream.toXML(xmlserialisable);
-			System.out.println("\n ***********Generating xml " + xmlserialisable.getItemName() + "************\n");
-			System.out.println(xml);
-
 			Path elementFileName = Paths.get(themeDir.toString(), xmlserialisable.getItemName() + ".xml");
-			FileOutputStream fs = new FileOutputStream(elementFileName.toString());
-
-			xstream.toXML(xmlserialisable, fs);
+			FileOutputStream fs = null;
+			try {
+				fs = new FileOutputStream(elementFileName.toString());
+				xstream.toXML(xmlserialisable, fs);
+			} finally {
+				if (fs != null) { fs.close(); }
+			}
 		} 
-		catch (FileNotFoundException e) {	e.printStackTrace(); } //TODO: Exception
+		catch (IOException e) {	throw new IOException("Could not write the XML file"); }
 	}
 
 
 
-	public static void writePlaylistXML(Boolean playlist, Path path, XMLSerialisable xmlserialisable) throws FileNotFoundException, IOException {
+	public static void writePlaylistXML(Boolean playlist, Path path, XMLSerialisable xmlserialisable) throws IOException {
 
 		XStream xstream = new XStream();
 
@@ -65,13 +70,15 @@ public class XMLWriter {
 		System.out.println("\n ***********Generating playlist xml " + xmlserialisable.getItemName() + "************\n");
 
 
-		FileOutputStream fs = new FileOutputStream(path.toString());
-		try {
-			xstream.toXML(xmlserialisable, fs);
-		} finally {
-			if (fs != null) {fs.close();}
-		}
-		System.out.println(xml);
+		try { 
+			FileOutputStream fs = new FileOutputStream(path.toString());
+			try { xstream.toXML(xmlserialisable, fs);} 
+			finally { if (fs != null) { fs.close(); }
+			}
+		} 
+		catch (IOException e) {	throw new IOException("Could not write the XML file"); }
+		
+		System.out.println(xml); //we will then print the XML to the console for reference
 
 
 	}

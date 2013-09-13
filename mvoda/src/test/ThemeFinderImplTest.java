@@ -25,15 +25,9 @@ public class ThemeFinderImplTest {
 		ThemeFinder themeFinder = new ThemeFinderImpl();	
 		ArrayList<Theme> themeArray = new ArrayList<>();
 				
-		try {
-			themeArray = themeFinder.returnThemes();
-		} catch (IOException e) { //TODO: exception
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) { //TODO:exception
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		try { themeArray = themeFinder.returnThemes(); } 
+		catch (IOException e) { e.printStackTrace(); } 
+		catch (InterruptedException e) { e.printStackTrace();}
 		
 		assertEquals( "Testing Classic", "Classic", themeArray.get(0).getItemName() );
 		assertEquals( "Testing Pop", "Pop", themeArray.get(1).getItemName() );
@@ -41,13 +35,12 @@ public class ThemeFinderImplTest {
 		
 	}
 	
-	
-	
-	@Test public final void testReturnDirectories() throws Exception { //todo: exception
+	@Test public final void testReturnDirectories() { 
 		ThemeFinder themeFinder = new ThemeFinderImpl();
 		ArrayList<Path> foundPaths = new ArrayList<>();
-		foundPaths = themeFinder.returnDirectories(Theme.getRootDir(), "xml", 2);
-		//System.out.println(thePathsItFound);
+		try {
+			foundPaths = themeFinder.returnDirectories(Theme.getRootDir(), "xml", 2);
+		} catch (Exception e) {	e.printStackTrace(); }
 		
 		assertEquals( "Path number two in standard build should be Theme\\Pop\\Pop.xml", "Theme\\Pop\\Pop.xml", foundPaths.get(1).toString() );
 		

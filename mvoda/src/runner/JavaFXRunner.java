@@ -7,15 +7,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import view.ViewController;
 import controllers.MainController;
 
+/**
+ * Main launcher for MV-CoDA, which uses JavaFX for its GUI. Will setup loggers, read the GUI from the FXML file, setup controller, and launch
+ * @author tony
+ *
+ */
 public class JavaFXRunner extends Application {
 
-	//private final static Logger logger = Logger.getLogger(JavaFXRunner.class.getName()); 
 
 	@Override
 	public void start(Stage stage) throws Exception {
@@ -27,38 +29,24 @@ public class JavaFXRunner extends Application {
 		
 		
 		stage.setTitle("MV-CODA");
-		//stage.setOpacity(0.67);
-		//Parent root = FXMLLoader.load(getClass().getResource("../view/GUI.fxml"));	
-		FXMLLoader loader = new FXMLLoader();
+		
+		//load resources from the FXML file and set root to the result
+		FXMLLoader loader = new FXMLLoader(); //this will load the JAVAFX FXML file from disk which describes the GUI
 		URL location = getClass().getResource("../view/GUI.fxml");
-		loader.setLocation(location);
+		loader.setLocation(location); //set the location of the above FXML
 		loader.setBuilderFactory(new JavaFXBuilderFactory());
 		Parent root = (Parent) loader.load(location.openStream());
-		ViewController viewController = (ViewController)loader.getController();
-		MainController controller = new MainController();
-		MainController.setStage(stage);
+		
+		//then setup our controller classes
+		ViewController viewController = (ViewController)loader.getController(); //specify the view controller class from the FXML
+		MainController controller = new MainController(); //we will also use a main controller
+		MainController.setStage(stage); //which we pass the javaFX stage to
 		controller.setView(viewController);
 		ViewController.setStage(stage); //pass the stage to the view controller, this is a field we have set for this purpose
-
-		ViewController.setViewListener(controller);
-		stage.setScene(new Scene(root));
+		ViewController.setViewListener(controller); //now we have both controllers able to see each other
+		stage.setScene(new Scene(root)); //start a new JAVAFX scene
 		stage.show();
 	}
-
-
-	
-
-	/*
-	 * IF IT STOPS WORKING, TRY THIS:
-	 * stage.setTitle("MVCODA");
-		URL location = getClass().getResource("GUI.fxml");
-		FXMLLoader fxmlloader = new FXMLLoader();
-		fxmlloader.setLocation(location);
-		fxmlloader.setBuilderFactory(new JavaFXBuilderFactory());
-		Parent root = (Parent) fxmlloader.load(location.openStream());
-		stage.setScene(new Scene(root));
-		stage.show();
-	 */
 
 	public static void main(String[] args) {
 		launch(args);

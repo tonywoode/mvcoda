@@ -23,11 +23,24 @@ import media.xuggle.MusicVideoXuggle;
 	@Setter @Getter private String artistName;
 	@Setter @Getter private String trackName;
 	@Setter @Getter private String trackInfo;
-	@XStreamOmitField @Setter @Getter private MusicVideo video;
-	@Setter @Getter String fileUNC;
+	@Setter @Getter private String fileUNC;
 	
+	@XStreamOmitField @Setter @Getter private MusicVideo video;
+	
+	
+	/**
+	 * We allow a contructor with just a Music Video, from which we determine the filepath
+	 * @param video the music video
+	 */
 	public PlaylistEntry(MusicVideo video) { this.video = video; fileUNC = video.getFileUNC(); }
 	
+	/**
+	 * We allow a constructor with full details for setting a full entry
+	 * @param video the music video
+	 * @param trackName the text track name given to the item
+	 * @param artistName the text artist name given to the item
+	 * @param trackInfo the text track information given to the item
+	 */
 	public PlaylistEntry(MusicVideo video, String trackName, String artistName, String trackInfo) { 
 		this.video = video; 
 		this.trackName = trackName;
@@ -47,8 +60,7 @@ import media.xuggle.MusicVideoXuggle;
 		File videoFile = new File(entry.getFileUNC());
 		if (videoFile.exists() ) { 
 			MusicVideo video = null;
-				video = new MusicVideoXuggle(entry.getFileUNC() );
-			
+			video = new MusicVideoXuggle(entry.getFileUNC() );	
 			entry.setVideo(video);
 			entry.setFileUNC(video.getFileUNC());
 			return entry;

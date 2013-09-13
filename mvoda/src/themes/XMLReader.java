@@ -13,8 +13,6 @@ import playlist.PlaylistEntry;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.XStreamException;
-import com.thoughtworks.xstream.io.StreamException;
-import com.thoughtworks.xstream.mapper.CannotResolveClassException;
 
 /**
  * Reads Themes,GFXElement types and Playlists that have been saved by MV-CoDA previously
@@ -24,7 +22,7 @@ import com.thoughtworks.xstream.mapper.CannotResolveClassException;
  */
 public class XMLReader {
 
-	public static XMLSerialisable readXML(Path themeDir, String itemName) throws FileNotFoundException {
+	public static XMLSerialisable readXML(Path themeDir, String itemName) throws IOException {
 
 		XStream xstream = new XStream();
 		XMLSerialisable xml = null;
@@ -36,15 +34,20 @@ public class XMLReader {
 		//but then we'd need a custom converter
 		//xstream.alias("AnimatedGFXElement", AnimatedGFXElement.class, GFXElement.class);
 
+		FileInputStream fs = null;
 		try {	
-			System.out.println("\n ***********Reading xml " + itemName + "************\n");
+			try {
+				System.out.println("\n ***********Reading xml " + itemName + "************\n");
 
-			Path elementFileName = Paths.get(themeDir.toString(), itemName + ".xml");
-			FileInputStream fs = new FileInputStream(elementFileName.toString());
-
-			xml = (XMLSerialisable) xstream.fromXML(fs);
+				Path elementFileName = Paths.get(themeDir.toString(), itemName + ".xml");
+				fs = new FileInputStream(elementFileName.toString());
+				xml = (XMLSerialisable) xstream.fromXML(fs);
+			} 
+			finally { if (fs != null) { fs.close(); }
+			}
 		} 
-		catch (FileNotFoundException e) { throw new FileNotFoundException("Could not access the XML file" );  }
+		catch (FileNotFoundException e) { throw new FileNotFoundException("Could not find the XML file" );  }
+		catch (IOException e) { throw new IOException("Could not access the XML file" );  }
 		return xml;
 	}
 
@@ -74,7 +77,7 @@ public class XMLReader {
 			try { xml = (XMLSerialisable) xstream.fromXML(fs); }
 			finally { if (fs != null) {fs.close();}
 			} //we want to decouple the controllers from XStream specific exceptions, so we throw a Java exception
-		} catch (XStreamException e1) { throw new  XMLParseException("e1.printStackTrace()"); }
+		} catch (XStreamException e1) { throw new  IOException("e1.printStackTrace()"); }
 		
 		return xml;
 

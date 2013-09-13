@@ -12,7 +12,7 @@ import media.types.Packet;
 public class PacketXuggle extends Packet {
 	private IPacket packet;
 	
-	public PacketXuggle(IPacket packet) { this.packet = packet;	assert(packet != null);	} //TODO: check
+	public PacketXuggle(IPacket packet) { this.packet = packet;	}
 
 	@Override public int getSize() { return packet.getSize(); }
 

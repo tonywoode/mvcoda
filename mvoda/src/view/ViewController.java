@@ -77,11 +77,10 @@ public class ViewController implements Initializable {
 	public TextField trackTextField;
 	public TextField artistTextField;
 	public TextArea trackInfoTextField;
-	
+
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {		
-		
 
 		playlistView.setDisable(true); //we will enable the playlistview when it populates with items
 		savePlaylistButton.disableProperty().bind(playlistView.disabledProperty()); //the save playlist button will follow the playlistview buttons enable status
@@ -134,33 +133,25 @@ public class ViewController implements Initializable {
 				trackInfoTextField.textProperty().bindBidirectional(sspInfoText);
 
 
-				if (ov == null || ov.getValue().getVideo() == null) {
-					mediaInfoArea.setText("File Not Found");
-					imageThumb.setImage( null );	
-				}
+				if (ov == null || ov.getValue().getVideo() == null) { mediaInfoArea.setText("File Not Found"); imageThumb.setImage( null );	}
 				else {
 					mediaInfoArea.setText(ov.getValue().getVideo().toString());//write media info to screen for this entry
-
 					loadThumb(ov.getValue());
-
 				}	
 			}
-
-			private void loadThumb(PlaylistEntry entry) {
-				thumbnailWorker = createWorker( entry );
-
-				try {
-					new Thread(thumbnailWorker).start();
-					Thread.sleep(500); //we must introduce some delay into the master thread or our listeners stop being received
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-			}
+			
 		});
 	}
 
+	
+	
+	private void loadThumb(PlaylistEntry entry) {
+		thumbnailWorker = createWorker( entry );
+		//we must introduce some delay into the master thread or our listeners stop being received
+		try { new Thread(thumbnailWorker).start(); Thread.sleep(500);  }
+		catch (InterruptedException e) { e.printStackTrace(); }
+
+	}
 	/**
 	 * Worker thread that gets thumbnails for the GUI, for now by using Xuggler's Media Tools API
 	 * @param entry
@@ -169,8 +160,7 @@ public class ViewController implements Initializable {
 	public Task<?> createWorker(final PlaylistEntry entry) {
 		return new Task<Object>() {
 
-			@Override
-			protected Object call() throws Exception {
+			@Override protected Object call() throws Exception {
 
 				thisThumb =  grabber.grabThumbs(entry.getFileUNC());
 				fxImage = SwingFXUtils.toFXImage(thisThumb, null);
@@ -223,7 +213,7 @@ public class ViewController implements Initializable {
 
 	}
 
-		
+
 	public void sendPlaylistNodesToScreen(Playlist playlist) {
 		for (PlaylistEntry playlistEntry : playlist.getPlaylistEntries())
 			playlistView.getItems().add(playlistEntry);

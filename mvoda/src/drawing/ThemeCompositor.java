@@ -155,12 +155,11 @@ public class ThemeCompositor {
 		try {
 			videoFrame = logoCompositor.overlayNextImage(
 					decoder.getVideoTimeStamp(),theme.getLogo().getInDuration(),
-					/*the logo is a reverse out element, therefore, since in this version of MV-CoDA we are putting the logo on and off 
+					/*the logo here is a reverse out element, therefore, since in this version of MV-CoDA we are putting the logo on and off 
 					 * at the start and close of EACH video, the desired duration will be: that videos duration, minus the logo's in-animation,
-					 * and also minus it's out-animation AT the factor of the speedup that has been set for the element */
-					video.getVidStreamDuration() - theme.getLogo().getInDuration() - ( theme.getLogo().getOutDuration() * theme.getLogo().getSpeed() ), 
-					videoFrame
-					);	
+					 * and also minus it's out-animation AT the factor of the speedup that has been set for the element.
+					 * These figures are obtained by getOutDuration in the GFXElement itself */
+					video.getVidStreamDuration() - theme.getLogo().getInDuration() - ( theme.getLogo().getOutDuration() ), videoFrame );	
 			videoFrame = strapCompositor.overlayNextImage(decoder.getVideoTimeStamp(),5000000, 2000000, videoFrame);
 			videoFrame = strapCompositor2.overlayNextImage(decoder.getVideoTimeStamp(),12000000, 3000000, videoFrame);
 			videoFrame = chartCompositor.overlayNextImage(decoder.getVideoTimeStamp(),theme.getChart().getInDuration() + 1000000, 10000000, videoFrame);

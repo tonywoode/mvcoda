@@ -2,7 +2,6 @@ package playlist;
 
 import java.util.ArrayList;
 
-import javafx.collections.ObservableList;
 import lombok.Getter;
 import lombok.Setter;
 import themes.XMLReader;
@@ -38,21 +37,11 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 		playlistEntries = new ArrayList<PlaylistEntry>();
 	}
 
-	public int getSize() { return playlistEntries.size(); }
 
-	public void setNextEntry(PlaylistEntry playlistEntry) {	playlistEntries.add(playlistEntry);	}
-
-	public PlaylistEntry getNextEntry(int index) { return playlistEntries.get(index); }
-
-
-	public void resetArray(ObservableList<PlaylistEntry> playlistObservable) {
-		ArrayList<PlaylistEntry> temp = new ArrayList<>(); //because if we try to directly do this to playlistEntries we'll get the concurrentModificationError
-		temp.addAll(playlistObservable);
-		playlistEntries = temp;
-	}
-
-	@Override public String getItemName() {	return (playlistName == null)? "Default Playlist Name" : playlistName;
-	}
+	/**
+	 * Returns a default name for the playlist item if one has not been set
+	 */
+	@Override public String getItemName() {	return (playlistName == null)? "Default MV-CoDA playlist" : playlistName; }
 
 
 	/**
@@ -66,21 +55,18 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 		boolean found = true;
 		for (int i = 0; i < playlist.getPlaylistEntries().size(); i++) {
 			PlaylistEntry entry = playlist.getPlaylistEntries().get( i );
-			try {
-				entry = entry.validatePlaylistEntry(entry);
-			} catch (MediaOpenException e) { //We wish to catch this here so we can carry on validating. The playlist cell will highlight any null video files for the user
-				System.out.println(e.getMessage());
-			}
-			
-			if (entry == null) {
-				found = false;
-			}
+			try { entry = entry.validatePlaylistEntry(entry); } 
+			//We wish to catch this here so we can carry on validating. The playlist cell will highlight any null video files for the user
+			catch (MediaOpenException e) { System.out.println(e.getMessage()); }
+			if (entry == null) { found = false; }
 			else { entry.setPositionInPlaylist(i + 1); } //defensively re-set the playlist entry number while we have a loop	
 		}
 		return found;
 	}
 
-
+	/**
+	 * Build up a string of playlist entry fileUNC's. this isn't used in the GUI so serves more as a development aid
+	 */
 	@Override public String toString() { 
 		String entry = ""; 
 		for (PlaylistEntry element : playlistEntries) {	entry = entry + "Playlist entry "  + element.getFileUNC() + "\n"; }

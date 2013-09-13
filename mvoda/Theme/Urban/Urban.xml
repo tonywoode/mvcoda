@@ -40,8 +40,8 @@
     <author>BoxTV Design Team</author>
     <version>1.0</version>
     <coOrd>
-      <xOffsetSD>-40</xOffsetSD>
-      <yOffsetSD>-30</yOffsetSD>
+      <xOffsetSD>0</xOffsetSD>
+      <yOffsetSD>0</yOffsetSD>
     </coOrd>
     <frameData>
       <firstHoldFrame>26</firstHoldFrame>
@@ -62,8 +62,8 @@
     <author>BoxTV Design Team</author>
     <version>1.0</version>
     <coOrd>
-      <xOffsetSD>365</xOffsetSD>
-      <yOffsetSD>-34</yOffsetSD>
+      <xOffsetSD>0</xOffsetSD>
+      <yOffsetSD>0</yOffsetSD>
     </coOrd>
     <frameData>
       <firstHoldFrame>26</firstHoldFrame>

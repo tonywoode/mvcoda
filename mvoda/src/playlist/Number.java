@@ -16,5 +16,6 @@ public class Number {
 		if (number >= 1 ) {	Number.number = number;	}
 		else throw new ChartNumberException("chart number set to less than 1");
 	}
-	//TODO: must not be more than the actual element numbers when they are pre-rendered!
+	/* TODO: when working with pre-rendered GFXElement numbers, the number of entries must not be more than the actual element numbers. But how do we know
+	 * which theme the might choose chosen since the theme select box starts blank - the only option is a default theme */
 }

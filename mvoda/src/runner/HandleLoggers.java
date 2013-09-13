@@ -13,18 +13,26 @@ import controllers.MainController;
 import drawing.ImageCompositor;
 import drawing.TextCompositor;
 
+/**
+ * Uses Java's logger class to keep track of particularly tricky classes. We can turn the level on and off for these classes separately
+ * @author tony
+ *
+ */
 public class HandleLoggers {
 
-	//http://stackoverflow.com/questions/470430/java-util-logging-logger-doesnt-respect-java-util-logging-level
-
+	/**
+	 * Allows the root logger and the sublogs to be individually set by the developer. There was considered no need for package-level logging
+	 * or a logging config file, instead we can indidually set the levels here. The top logger should NOT be set to ALL or we will get a great
+	 * deal of logging from JavaFX
+	 */
 	public static void allLoggers() {
 		Logger topLogger = java.util.logging.Logger.getLogger(""); //root logger
 		Handler consoleHandler = topLogger.getHandlers()[0]; //root's handler will be first in returned list - we have provided no way to make other handlers. 
 		topLogger.setLevel(Level.OFF); //we don't want JAVAFX's logging
 		consoleHandler.setLevel(Level.ALL);
-		
-		
+			
 		//now we have an opportunity to set levels on the pacakage or class level, we do this by having public static loggers in the classes
+		// see //http://stackoverflow.com/questions/470430/java-util-logging-logger-doesnt-respect-java-util-logging-level
 		
 		MainController.LOGGER.setLevel(Level.ALL);
 		ViewController.LOGGER.setLevel(Level.ALL);
@@ -35,35 +43,6 @@ public class HandleLoggers {
 		TextCompositor.LOGGER.setLevel(Level.OFF);
 		GFXElement.LOGGER.setLevel(Level.OFF);
 		
-		
-		//ThemeFinderImpl theme = new ThemeFinderImpl();
-		//themeFinder = Logger.getLogger("util.ThemeFinderImpl");
-		//themeFinder.setLevel(Level.OFF);
-		
-
-		//System.out.println("My Name is " + themeFinder.getName());
-		//Handler ch = new ConsoleHandler();
-        //themeFinder.addHandler(ch);
-       // ch.setLevel(Level.ALL);
-		
-		
-		
-		//themeFinder.setLevel(Level.OFF);
-		//themeFinder.setUseParentHandlers(false);
-		//boolean isInfoLoggable = themeFinder.isLoggable(Level.OFF);
-		//System.out.println(isInfoLoggable);
-		//System.out.println(Logger.getLogger("util.ThemeFinderImpl").getLevel());
-
-		//logger.setLevel(Level.OFF);
-		//Logger.getLogger("themes.GFXElement");
-		//Logger GFXLogger = logger.getLogger("themes.GFXElement");
-		//System.out.println(GFXLogger.getName());
-		//GFXLogger.setLevel(Level.FINE);
-		//LogManager.getLogManager().getLogger("themes.GFXElement").setLevel(Level.OFF);
-		//Enumeration<String> names = LogManager.getLogManager().getLoggerNames();
-
-		//System.out.println(names.nextElement());
-		//System.out.println(names.nextElement());
 	}
 	
 }

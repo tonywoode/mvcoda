@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
@@ -220,7 +221,7 @@ public class MainController implements ViewControllerListener {
 	 */
 	@Override public void savePlaylist() throws FileNotFoundException, IOException {
 
-		playlist.resetArray( observedEntries );
+		resetArray( observedEntries );
 		playlist.setFontName(TextCompositor.getFontName()); //set the fontname in the playlist before saving, GUI default writes here so no other checks apply
 		playlist.setFontSize(TextCompositor.getFontSize());
 		playlist.setChartName(view.getChartTextField().getText());
@@ -257,7 +258,7 @@ public class MainController implements ViewControllerListener {
 	@Override public void render() throws IOException, MediaOpenException, NullPointerException {
 
 		//playlist array gets whatever is in the gui at this moment for its entries array
-		playlist.resetArray( observedEntries );
+		resetArray( observedEntries );
 		setNumbersInPlaylist(); //defensively
 
 		if (playlist.getPlaylistEntries().size() <= 0 ) { return; } //do nothing if there's no playlist
@@ -284,7 +285,7 @@ public class MainController implements ViewControllerListener {
 
 
 		//In this version of MV-CoDA, we need to get chart number 1's filetype and refuse to render if all the files aren't that type
-		String filetype = playlist.getNextEntry(0).getVideo().getFiletype();
+		String filetype = playlist.getPlaylistEntries().get(0).getVideo().getFiletype();
 
 		for (PlaylistEntry entry : playlist.getPlaylistEntries()) {
 			if ( !FileUtil.getFiletype(entry.getVideo().getFiletype() ).equalsIgnoreCase(filetype) ) {
@@ -330,7 +331,14 @@ public class MainController implements ViewControllerListener {
 		};
 
 	}
-
+	
+	public void resetArray(ObservableList<PlaylistEntry> playlistObservable) {
+		ArrayList<PlaylistEntry> temp = new ArrayList<>(); //because if we try to directly do this to playlistEntries we'll get the concurrentModificationError
+		temp.addAll(playlistObservable);
+		playlist.getPlaylistEntries().clear(); //clear playlist outside of view
+		playlist.getPlaylistEntries().addAll( temp ); //replace its contents with the view
+	}
+	
 	/**
 	 * Sets the chart numbers for a given playlist's entries array
 	 */

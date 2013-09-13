@@ -81,7 +81,7 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 	public long getInDuration() { return 0;	}
 	public long getOutDuration() { return 0; }
 
-	//passer methods - an animatedGFXElement has none of these things TODO//refactor these out
+	//passer methods - an animatedGFXElement has none of these things
 	public boolean isReverse() { return false; }
 	public boolean isLoop() { return false; }
 	public boolean isNumbers() { return false; }

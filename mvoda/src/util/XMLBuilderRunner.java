@@ -1,7 +1,7 @@
 package util;
 
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -115,14 +115,15 @@ public class XMLBuilderRunner {
 	 */
 	private void writeThemeXML(Theme theme) {
 		themeDir = Paths.get(rootDir.toString(),theme.getItemName());
-		XMLWriter.writeXML(themeDir, theme);
+		try { XMLWriter.writeXML(themeDir, theme); } 
+		catch (IOException e) { e.printStackTrace(); }
 	}
 
 	/**
 	 * When run, will generate the three default MV-CoDA themes in the default Themes directory
 	 * @throws FileNotFoundException //TODO
 	 */
-	public static void main(String[] args) throws FileNotFoundException { //TODO: exception
+	public static void main(String[] args)  {
 		XMLBuilderRunner gfx = new XMLBuilderRunner(); //Make an object from this static class so we can run the code to generate the theme 
 		gfx.run();
 	}

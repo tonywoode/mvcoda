@@ -11,8 +11,8 @@ import lombok.Setter;
 /**
  * Describes a GFXElement that has motion therefore needs iteration control over a music video.
  * In addition to textual elements such as name, author etc, an animated element has:
- *  	FrameData: information about which frames in the sequence aer the animate-in/out or hold points
- *  	CoOrdinates: an element may be composited appropriately for a video pitcure, or may need positioning
+ *  	FrameData: information about which frames in the sequence are the animate-in/out or hold points
+ *  	CoOrdinates: an element may be composited appropriately for a video picture, or may need positioning
  *  	Animation data: an element may need to be looped in its middle "holding" point, or may reverse to animate-out
  * The class is serialisable and each GFXElement is combined into a Theme on disk - see {@link XMLReader} {@link XMLWriter}
  * @author tony
@@ -62,7 +62,7 @@ import lombok.Setter;
 	@Override
 	public long getOutDuration() {
 		//if we have a reverse element, we need to use the inverse of the usual manner of getting duration AND know what speed we want the animate out to be
-		if (isReverse()) { outDuration = ( FrameRate.convertFrameToTime(getNumberOfFrames() - (getNumberOfFrames() - getLastHoldFrame() + 1)) / getSpeed() ); }
+		if ( isReverse() ) { outDuration = FrameRate.convertFrameToTime( getNumberOfFrames() / getSpeed() ); }
 		else { outDuration = FrameRate.convertFrameToTime(getNumberOfFrames() - getLastHoldFrame() + 1); }//TODO: make sure framerate is never going to be zero
 		return outDuration;
 	}

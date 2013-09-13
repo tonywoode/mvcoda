@@ -13,10 +13,7 @@ public class AudioSamplesXuggle extends AudioSamples {
 	
 	private IAudioSamples audioSamples;
 	
-	public AudioSamplesXuggle(IAudioSamples audioSamples) {
-		this.audioSamples = audioSamples;
-		assert(audioSamples != null);
-	}
+	public AudioSamplesXuggle(IAudioSamples audioSamples) {	this.audioSamples = audioSamples; }
 
 	@Override public long getNextPresentationTimestamp() { return audioSamples.getNextPts(); }
 
