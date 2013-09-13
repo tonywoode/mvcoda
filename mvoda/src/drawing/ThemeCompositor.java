@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 
 import media.Decoder;
 import media.MusicVideo;
+import playlist.Playlist;
 import playlist.PlaylistEntry;
 import themes.Theme;
 import view.GFXElementException;
@@ -41,13 +42,13 @@ public class ThemeCompositor {
 	 * Deals with compositing the three included themes and the possibility of a default render
 	 * @param playlistEntry an entry in the playlist ie: music vid plus metadata
 	 */
-	public void makeThemeElements(PlaylistEntry playlistEntry)  {
+	public void makeThemeElements(PlaylistEntry playlistEntry, String chartName)  {
 		//theme order = 0=classic 1=pop 2=urban
 		switch (theme.getIndex()) {
-		case 0:  setThemeOptionsClassic(playlistEntry); break;
-		case 1:  setThemeOptionsPop(playlistEntry); break;
-		case 2:  setThemeOptionsUrban(playlistEntry); break;
-		default: makeTheBitsDefault(playlistEntry);	break;
+		case 0:  setThemeOptionsClassic(playlistEntry, chartName); break;
+		case 1:  setThemeOptionsPop(playlistEntry, chartName); break;
+		case 2:  setThemeOptionsUrban(playlistEntry, chartName); break;
+		default: setThemeOptionsDefault(playlistEntry, chartName);	break;
 		}
 
 	}
@@ -55,7 +56,7 @@ public class ThemeCompositor {
 	 * Sets params for a default Theme
 	 * @param playlistEntry
 	 */
-	private void makeTheBitsDefault(PlaylistEntry playlistEntry) {
+	private void setThemeOptionsDefault(PlaylistEntry playlistEntry, String chartName) {
 		//TODO DEFAULT SETTINGS FOR A NEW THEME
 	}
 
@@ -63,7 +64,7 @@ public class ThemeCompositor {
 	 * Sets params for the classic theme
 	 * @param playlistEntry
 	 */
-	private void setThemeOptionsClassic(PlaylistEntry playlistEntry) {
+	private void setThemeOptionsClassic(PlaylistEntry playlistEntry, String chartName) {
 		logoCompositor = new ImageCompositor(theme.getLogo());
 		strapCompositor = new ImageCompositor(theme.getStrap());
 		strapCompositor2 = new ImageCompositor(theme.getStrap());
@@ -75,14 +76,14 @@ public class ThemeCompositor {
 		else { numberText = new TextCompositor(Integer.toString( playlistEntry.getPositionInPlaylist() ), 73, 337); }
 		artistText = new TextCompositor(playlistEntry.getArtistName(), 100, 380);
 		trackText = new TextCompositor(playlistEntry.getTrackName(), 100, 420);
-		chartText = new TextChartCompositor("Classics of the 80's", 515, 72);	
+		chartText = new TextChartCompositor(chartName, 515, 72);	
 	}
 
 	/**
 	 * Sets params for the urban theme
 	 * @param playlistEntry
 	 */
-	private void setThemeOptionsUrban(PlaylistEntry playlistEntry) {
+	private void setThemeOptionsUrban(PlaylistEntry playlistEntry, String chartName) {
 		logoCompositor = new ImageCompositor(theme.getLogo());
 		strapCompositor = new ImageCompositor(theme.getStrap());
 		strapCompositor2 = new ImageCompositor(theme.getStrap());
@@ -98,16 +99,16 @@ public class ThemeCompositor {
 	 * Sets params for the pop theme
 	 * @param playlistEntry
 	 */
-	private void setThemeOptionsPop(PlaylistEntry playlistEntry) {
+	private void setThemeOptionsPop(PlaylistEntry playlistEntry, String chartName) {
 		logoCompositor = new ImageCompositor(theme.getLogo());
 		strapCompositor = new ImageCompositor(theme.getStrap());
 		strapCompositor2 = new ImageCompositor(theme.getStrap());
 		chartCompositor = new ImageCompositor(theme.getChart());
 		numbersCompositor = new ImageCompositor(theme.getNumbers());
 		numberText = new TextNumberCompositor(Integer.toString( playlistEntry.getPositionInPlaylist() ), 285, 490);
-		artistText = new TextCompositor(playlistEntry.getArtistName(), 380, 460);
-		trackText = new TextCompositor(playlistEntry.getTrackName(), 390, 500);
-		chartText = new TextChartCompositor("This Week's Fresh Music", 120, 75);	
+		artistText = new TextCompositor(playlistEntry.getArtistName(), 388, 460);
+		trackText = new TextCompositor(playlistEntry.getTrackName(), 378, 500);
+		chartText = new TextChartCompositor(chartName, 120, 75);	
 	}
 
 	/**
@@ -210,7 +211,7 @@ public class ThemeCompositor {
 	}
 
 	/**
-	 * Decides how to reset theme elements bases on their characteristics
+	 * Resets chart elements - meaning sets the iterator of filenames back to zero for each element so the next video can be composited
 	 */
 	public void resetThemeElements() {
 		logoCompositor.resetFileUNC();

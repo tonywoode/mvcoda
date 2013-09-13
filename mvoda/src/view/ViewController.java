@@ -48,7 +48,7 @@ import drawing.TextCompositor;
 
 public class ViewController implements Initializable {
 
-	
+
 	public final static Logger LOGGER = Logger.getLogger(ViewController.class.getName()); //get a logger for this class
 
 	@Getter @Setter	static ViewControllerListener viewListener;	
@@ -56,6 +56,7 @@ public class ViewController implements Initializable {
 	@FXML @Getter @Setter ComboBox<Theme> themeSelectBox;
 	@FXML @Getter @Setter ComboBox<String> fontSelectBox;
 	@FXML @Getter @Setter ComboBox<Number> fontSizeBox;
+	@FXML @Getter TextField chartTextField;
 	@FXML @Getter @Setter ListView<PlaylistEntry> playlistView;
 	@FXML TextArea mediaInfoArea;
 	@FXML static ImageView imageThumb;
@@ -64,7 +65,7 @@ public class ViewController implements Initializable {
 	static Image fxImage;
 	static BufferedImage thisThumb;
 	static Task<?> thumbnailWorker;
-	
+
 
 	public Button clearPlaylistButton;
 	public Button savePlaylistButton;
@@ -72,14 +73,16 @@ public class ViewController implements Initializable {
 	public Button moveUpButton;
 	public Button moveDownButton;
 	public Button renderButton;
-	
+
 	public TextField trackTextField;
 	public TextField artistTextField;
 	public TextArea trackInfoTextField;
+	
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {		
 		
+
 		playlistView.setDisable(true); //we will enable the playlistview when it populates with items
 		savePlaylistButton.disableProperty().bind(playlistView.disabledProperty()); //the save playlist button will follow the playlistview buttons enable status
 		deletePlaylistEntryButton.disableProperty().bind(playlistView.disabledProperty());
@@ -87,10 +90,11 @@ public class ViewController implements Initializable {
 		renderButton.disableProperty().bind(playlistView.disabledProperty());
 		moveUpButton.setDisable(true); //whereas these two buttons must be disabled if one or less entries are in the list
 		moveDownButton.setDisable(true); //so we handle these in checkMoveButtons() (you cannot both bind and set in javaFX)
-		
+
 		initThemeSelectBox(); //reads themes 
 		initFontSelectBox(); //font list to GUI
 		initFontSizeBox(); //font list to GUI
+
 
 		//custom cell factory for the playlist entries
 		playlistView.setCellFactory(new Callback<ListView<PlaylistEntry>, ListCell<PlaylistEntry>>() {
@@ -118,7 +122,7 @@ public class ViewController implements Initializable {
 						ov.getValue().setArtistName(ovArtist.getValue().toString());
 					}
 				});	
-				
+
 				sspInfoText.addListener(new ChangeListener<String>() {
 					public void changed(ObservableValue<? extends String> ovTrackInfo, String old_val, String new_val) { 
 						ov.getValue().setTrackInfo(ovTrackInfo.getValue().toString());
@@ -128,7 +132,7 @@ public class ViewController implements Initializable {
 				trackTextField.textProperty().bindBidirectional(sspTrack);
 				artistTextField.textProperty().bindBidirectional(sspArtist); 
 				trackInfoTextField.textProperty().bindBidirectional(sspInfoText);
-				
+
 
 				if (ov == null || ov.getValue().getVideo() == null) {
 					mediaInfoArea.setText("File Not Found");
@@ -136,15 +140,15 @@ public class ViewController implements Initializable {
 				}
 				else {
 					mediaInfoArea.setText(ov.getValue().getVideo().toString());//write media info to screen for this entry
-					
+
 					loadThumb(ov.getValue());
-					
+
 				}	
 			}
 
 			private void loadThumb(PlaylistEntry entry) {
 				thumbnailWorker = createWorker( entry );
-				
+
 				try {
 					new Thread(thumbnailWorker).start();
 					Thread.sleep(500); //we must introduce some delay into the master thread or our listeners stop being received
@@ -152,11 +156,11 @@ public class ViewController implements Initializable {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+
 			}
 		});
 	}
-	
+
 	/**
 	 * Worker thread that gets thumbnails for the GUI, for now by using Xuggler's Media Tools API
 	 * @param entry
@@ -164,17 +168,17 @@ public class ViewController implements Initializable {
 	 */
 	public Task<?> createWorker(final PlaylistEntry entry) {
 		return new Task<Object>() {
-			
+
 			@Override
 			protected Object call() throws Exception {
-				
+
 				thisThumb =  grabber.grabThumbs(entry.getFileUNC());
-				 fxImage = SwingFXUtils.toFXImage(thisThumb, null);
-					imageThumb.setImage( fxImage );
+				fxImage = SwingFXUtils.toFXImage(thisThumb, null);
+				imageThumb.setImage( fxImage );
 				return true;
 			}
-			};
-		
+		};
+
 	}
 
 	/**
@@ -188,8 +192,8 @@ public class ViewController implements Initializable {
 		catch (InterruptedException e) { e.printStackTrace(); } // TODO exception handling
 		themeSelectBox.setItems(FXCollections.observableList(themeTemp) ); //NOW we make an observable list from our array list when we set it as the box's list
 	}
-	
-	
+
+
 	public void initFontSelectBox() {
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		String[] fontListArray = ge.getAvailableFontFamilyNames();
@@ -198,15 +202,13 @@ public class ViewController implements Initializable {
 		fontSelectBox.setItems(FXCollections.observableList(fontList));
 		fontSelectBox.getSelectionModel().select(10); //displays but doesn't select - seems to be another javafx bug, we will set the same in text compositor
 		fontSelectBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-						@Override
-			public void changed(ObservableValue<? extends String> observable,
-					String oldValue, String newValue) {
+			@Override public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				TextCompositor.setFontName(newValue);
-						}	
-			});		
+			}	
+		});		
 	}
-	
-	
+
+
 	public void initFontSizeBox() {
 		ArrayList<Number> fontSizeList = new ArrayList<Number>();
 		fontSizeList.add(16); fontSizeList.add(20); fontSizeList.add(24); fontSizeList.add(28); fontSizeList.add(32); fontSizeList.add(36); fontSizeList.add(40);
@@ -214,22 +216,19 @@ public class ViewController implements Initializable {
 		fontSizeBox.setItems(FXCollections.observableList(fontSizeList));
 		fontSizeBox.getSelectionModel().select(2); //int method for index - also set as default in text compositor
 		fontSizeBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Number>() {
-						@Override
-			public void changed(ObservableValue<? extends Number> observable,
-					Number oldValue, Number newValue) {
+			@Override public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 				TextCompositor.setFontSize(newValue.intValue());
-						}	
-			});
-		
-	}
-	
-	
+			}	
+		});
 
+	}
+
+		
 	public void sendPlaylistNodesToScreen(Playlist playlist) {
 		for (PlaylistEntry playlistEntry : playlist.getPlaylistEntries())
 			playlistView.getItems().add(playlistEntry);
 	}
-	
+
 	public void replacePlaylistNodesToScreen(Playlist playlist) {
 		for (int i = 0; i < playlist.getPlaylistEntries().size(); i++) {
 			PlaylistEntry playlistEntry = playlist.getPlaylistEntries().get(i);
@@ -253,14 +252,16 @@ public class ViewController implements Initializable {
 		catch (NullPointerException e1) { popup(e1.getMessage()); }
 		catch (FileNotFoundException e2) { popup("Error: Could not access the ouptut file"); }
 		catch (IOException e3) { popup("Error: Could not close the ouptut file"); }
+		catch (IllegalArgumentException e4) { popup(e4.getMessage()); }
 	}
 
 	@FXML void clearPlaylist(ActionEvent e) { 
-		viewListener.clearPlaylist(); 
+		viewListener.clearPlaylistEntries(); 
 		checkMoveButtons(); 
 		themeSelectBox.getSelectionModel().clearSelection();
 		fontSelectBox.getSelectionModel().select(10);
 		fontSizeBox.getSelectionModel().select(2);
+		chartTextField.clear();
 		playlistView.setDisable(true);
 	}
 
@@ -281,7 +282,7 @@ public class ViewController implements Initializable {
 		if (playlistView.getItems().size() <= 1 ) { moveUpButton.setDisable(true); moveDownButton.setDisable(true);  }
 		else { moveUpButton.setDisable(false); moveDownButton.setDisable(false); }
 	}
-	
+
 	@FXML void deletePlaylistEntry(ActionEvent e) {
 		viewListener.deletePlaylistEntry();
 		checkMoveButtons();	
@@ -297,8 +298,9 @@ public class ViewController implements Initializable {
 		catch (NullPointerException e1) { popup(e1.getMessage() ); }	
 		catch (MediaOpenException e2) { popup(e2.getMessage() ); }
 		catch (GFXElementException e3) { popup(e3.getMessage() ); }
-		catch (IOException e1) { popup("Error: Could not access the file to write to");}
-		
+		catch (IOException e4) { popup("Error: Could not access the file to write to");}
+		catch (IllegalArgumentException e5) { popup(e5.getMessage() ); }	
+
 	}
 
 	public static void popup(String text) {
@@ -313,13 +315,13 @@ public class ViewController implements Initializable {
 		fileChooser.getExtensionFilters().add(extFilter);
 		return fileChooser;
 	}
-	
+
 	public static void reFindPlaylistEntry(int pos) {
 		try { viewListener.reFindPlaylistEntry(pos); } 
 		catch (MediaOpenException e) { popup(e.getMessage() ); }
 		catch (NullPointerException e1) { popup("Please select a file to load from to");	}
 	}
-	
+
 
 }
 

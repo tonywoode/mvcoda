@@ -13,7 +13,7 @@ import view.MediaOpenException;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 /**
- * A playlist determines which tracks form a chart, which position each is in, and acoompanying text and GFX to display
+ * A playlist determines which tracks form a chart, which position each is in, and accompanying text and GFX to display
  * Playlist is serialisable to and from disk - see {@link XMLReader} {@link XMLWriter}
  * @author tony
  *
@@ -26,6 +26,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 	@Getter @Setter String themeName;
 	@Getter @Setter String fontName;
 	@Getter @Setter int fontSize;
+	@Getter @Setter String chartName;
 
 	/**
 	 * A playlist may have a name, for future to add to GUI

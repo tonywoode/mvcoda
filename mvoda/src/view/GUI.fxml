@@ -86,6 +86,8 @@
         </HBox>
         <VBox id="VBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
           <children>
+            <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Chart Name" textAlignment="CENTER" VBox.vgrow="ALWAYS" />
+            <TextField fx:id="chartTextField" prefWidth="200.0" promptText="Enter Chart Name" />
             <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Theme to apply to video" textAlignment="CENTER" VBox.vgrow="ALWAYS" />
             <ComboBox fx:id="themeSelectBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="21.0" prefWidth="307.0" promptText="Select Theme">
               <items>

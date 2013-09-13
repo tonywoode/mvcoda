@@ -20,7 +20,7 @@ public class TextCompositor {
 	public final static Logger LOGGER = Logger.getLogger(TextCompositor.class.getName()); //get a logger for this class
 
 	@Getter @Setter public Font textFont;
-	@Getter @Setter static String fontName = "Ariel Narrow"; //JavaFX bug so we defensively set these to defaults
+	@Getter @Setter static String fontName = "Arial Narrow"; //we defensively set these to defaults
 	@Getter @Setter static int fontSize = 24;
 	@Setter private String text;
 	private int textXPos;

@@ -79,7 +79,7 @@ public class EncoderXuggle implements Encoder {
 		try {	
 			for (PlaylistEntry playlistEntry : reversedList) {
 				
-				themeCompositor.makeThemeElements(playlistEntry); //create the elements properties for the theme
+				themeCompositor.makeThemeElements(playlistEntry, playlist.getChartName()); //create the elements properties for the theme
 				themeCompositor.resetThemeElements(); //reset any timers etc in the theme from the previous video
 				try { video = new MusicVideoXuggle( playlistEntry.getFileUNC() ); }  //we have to new this here or GUI can't render more than once: decoderXuggle crashes out at HasNextPacket()
 				catch (MediaOpenException e) { e.printStackTrace(); }

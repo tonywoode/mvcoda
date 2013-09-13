@@ -6,7 +6,6 @@ import java.io.IOException;
 import javax.management.modelmbean.XMLParseException;
 
 import playlist.Playlist;
-import playlist.PlaylistEntry;
 
 public interface ViewControllerListener {
 
@@ -18,7 +17,7 @@ public interface ViewControllerListener {
 
 	void moveDown();
 
-	void clearPlaylist();
+	void clearPlaylistEntries();
 
 	void loadPlaylist() throws FileNotFoundException, IOException, XMLParseException, MediaOpenException, InterruptedException;
 
@@ -29,6 +28,8 @@ public interface ViewControllerListener {
 	Playlist getPlaylist();
 
 	void reFindPlaylistEntry(int pos) throws MediaOpenException;
+
+
 
 	
 

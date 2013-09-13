@@ -51,8 +51,8 @@ public class MainController implements ViewControllerListener {
 	/**
 	 * Clears the GUI's playlist view
 	 */
-	@Override public void clearPlaylist() { observedEntries.clear(); }
-
+	@Override public void clearPlaylistEntries() { observedEntries.clear(); }
+	
 	/**
 	 * Actions caused by the add entry button in GUI
 	 */
@@ -150,7 +150,7 @@ public class MainController implements ViewControllerListener {
 		view.sendPlaylistNodesToScreen(playlist);
 		setObservedEntries(view.getPlaylistView().getItems() );
 
-		//if one or more items are not found, we inform the GUI with a message
+		//if one or more items are not found, we inform the GUI with a message, but carry on....
 		if (!found ) { 	ViewController.popup("Problem with opening highlighted files, double click them to refind files"); }
 
 		//select the XML's theme as the theme in theme select box, or clear it if not found
@@ -165,7 +165,7 @@ public class MainController implements ViewControllerListener {
 		}			
 		if (!themeFound) { //if a theme name match isn't found, we must clear any previous theme selection, and throw an exception
 			view.getThemeSelectBox().getSelectionModel().clearSelection();
-			throw new NullPointerException("The Theme in the XML cannot be found in your themes folder");
+			ViewController.popup("The Theme in the XML cannot be found in your themes folder");
 		} 
 		LOGGER.info("themeName from playlist on load is : " + themeName);
 		LOGGER.info("Font select box has this selected on load playlist " + view.getFontSelectBox().getSelectionModel().getSelectedItem());
@@ -183,7 +183,7 @@ public class MainController implements ViewControllerListener {
 		}			
 		if (!fontFound) {
 			view.getFontSelectBox().getSelectionModel().clearSelection();
-			throw new NullPointerException("The Font in the XML cannot be found on your computer");
+			ViewController.popup("The Font in the XML cannot be found on your computer");
 		} 
 		LOGGER.info("fontName from playlist on load is : " + fontName);
 		LOGGER.info("Font select box has this selected on load playlist " + view.getFontSelectBox().getSelectionModel().getSelectedItem());
@@ -200,11 +200,17 @@ public class MainController implements ViewControllerListener {
 		}			
 		if (!fontSizeFound) {
 			view.getFontSizeBox().getSelectionModel().clearSelection();
-			throw new NullPointerException("The FontSize in the XML cannot be set on your computer");
+			ViewController.popup("The FontSize in the XML cannot be set on your computer");
 		} 
 		LOGGER.info("fontSize from playlist on load is : " + fontSize);
 		LOGGER.info("Font size box has this selected on load playlist " + view.getFontSizeBox().getSelectionModel().getSelectedItem());
 
+		
+		String chartName = playlist.getChartName();
+		if (chartName == null || chartName.equals("") ) { view.getChartTextField().clear(); }
+		view.getChartTextField().setText(chartName);
+		
+		
 	}	
 
 	/**
@@ -217,6 +223,8 @@ public class MainController implements ViewControllerListener {
 		playlist.resetArray( observedEntries );
 		playlist.setFontName(TextCompositor.getFontName()); //set the fontname in the playlist before saving, GUI default writes here so no other checks apply
 		playlist.setFontSize(TextCompositor.getFontSize());
+		playlist.setChartName(view.getChartTextField().getText());
+		if ( playlist.getChartName() == null || playlist.getChartName().equals("") ) { throw new IllegalArgumentException("Please give the Chart you're saving a name"); }
 
 		try { playlist.setThemeName( view.getThemeSelectBox().getSelectionModel().getSelectedItem().toString()); } 
 		catch (NullPointerException e) { throw new NullPointerException("Please select a theme before saving"); } 
@@ -250,7 +258,7 @@ public class MainController implements ViewControllerListener {
 
 		//playlist array gets whatever is in the gui at this moment for its entries array
 		playlist.resetArray( observedEntries );
-		setNumbersInPlaylist();
+		setNumbersInPlaylist(); //defensively
 
 		if (playlist.getPlaylistEntries().size() <= 0 ) { return; } //do nothing if there's no playlist
 		//now check the theme is ok to render
@@ -261,6 +269,10 @@ public class MainController implements ViewControllerListener {
 		} 
 		catch (NullPointerException e) { throw new NullPointerException("Please select a Theme"); }
 
+		//now set and check the chart name
+		playlist.setChartName(view.getChartTextField().getText());
+		if ( playlist.getChartName() == null || playlist.getChartName().equals("") ) { throw new IllegalArgumentException("You must give the Chart you're rendering a name"); }
+		
 		//LOG the entries
 		for ( int i=0;i < playlist.getPlaylistEntries().size(); i++ ) {
 			LOGGER.info("Rendering begun - At index postion: " + i + " The UNC path is " + playlist.getPlaylistEntries().get(i).getFileUNC() );
