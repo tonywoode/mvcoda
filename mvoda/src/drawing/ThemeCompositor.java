@@ -4,7 +4,6 @@ import java.awt.image.BufferedImage;
 
 import media.Decoder;
 import media.MusicVideo;
-import playlist.Playlist;
 import playlist.PlaylistEntry;
 import themes.Theme;
 import view.GFXElementException;
@@ -28,6 +27,10 @@ public class ThemeCompositor {
 	private TextCompositor artistText;
 	private TextCompositor chartText;
 	private Theme theme;
+	
+	/*
+	 * ALL 1-3 DIGIT MAGIC NUMBERS IN THIS CLASS ARE ONSCREEN COORDINATES. ALL 7-8 DIGIT MAGIC NUMBERS ARE TIMECODES (MICROSECONDS)
+	 */
 
 	/**
 	 * Must take a theme
