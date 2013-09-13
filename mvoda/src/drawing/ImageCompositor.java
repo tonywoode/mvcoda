@@ -123,12 +123,12 @@ public class ImageCompositor {
 		  we CHECK by seeing if the time you've said to come-in is less time than the in-handle, we ACTION
 		  if the current time is ALSO less than the in-handle, we EXECUTE by setting the Array Index of the 
 		  gfx element to the number of frames we need to miss*/
-
+		if (vidTimeStamp > inTime && vidTimeStamp < outTime  ) { imOut = false; } //note no handles so text comes in and out only while we are on hold
 		if (inTime < gfxElement.getInDuration() && vidTimeStamp < gfxElement.getInDuration() && fileIndex == 0) { 
 			fileIndex = FrameRate.timeCodeToFrameIndexConverter(gfxElement.getInDuration() - inTime); } 
 
-		if (gfxElement.isReverse() == true) { nextFileUNCForReverseOut();} //if its a reverse out, go to that method
-		if (gfxElement.isLoop() == true) { nextFileUNCForLoop();}
+		if (gfxElement.isReverse() == true) { nextFileUNCForReverseOut(); return; } //if its a reverse out, go to that method
+		if (gfxElement.isLoop() == true) { nextFileUNCForLoop(); }
 
 		else if (fileIndex < gfxFiles.size() -1 ) { //if we aren't at the last element frame
 			if (fileIndex < gfxElement.getFirstHoldFrame() ) { //and if we aren't at the half-way point of the element
@@ -140,7 +140,7 @@ public class ImageCompositor {
 				imOut = true;
 			}
 		}
-		if (vidTimeStamp > inTime && vidTimeStamp < outTime  ) { imOut = false; } //note no handles so text comes in and out only while we are on hold
+		
 		//else we are before, after, or at the animation hold point, so don't animate...
 	}
 
@@ -152,7 +152,7 @@ public class ImageCompositor {
 		if (fileIndex > 0 && vidTimeStamp >= outTime) { //otherwise so long as we are above the sequence start frame, and past the out time
 			if (fileIndex - gfxElement.getSpeed() >= 0) { fileIndex = fileIndex - gfxElement.getSpeed(); }//iterate backwards through the animation at the specified time factor
 		}
-		else if (fileIndex < gfxFiles.size() -1 && fileIndex < gfxElement.getFirstHoldFrame() ) { fileIndex++; } //animate
+		else if (fileIndex < gfxFiles.size() -1 && fileIndex < gfxElement.getFirstHoldFrame() ) { fileIndex++; imOut = true; } //animate
 	}
 
 	/**

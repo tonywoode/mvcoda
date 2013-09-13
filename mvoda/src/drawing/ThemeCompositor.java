@@ -10,7 +10,7 @@ import view.GFXElementException;
 
 /**
  * Arranges which elements in a theme go where on screen. This class should be replaced with generic calls and 
- * injections as it only contains data and a lot of repetition.
+ * injections from the elements themselves and from theme options, as it only contains data and a lot of repetition.
  * @author tony
  *
  */
@@ -28,9 +28,9 @@ public class ThemeCompositor {
 	private TextCompositor trackInfo;
 	private TextCompositor chartText;
 	private Theme theme;
-	
+
 	/*
-	 * ALL 1-3 DIGIT MAGIC NUMBERS IN THIS CLASS ARE ONSCREEN COORDINATES. ALL 7-8 DIGIT MAGIC NUMBERS ARE TIMECODES (MICROSECONDS)
+	 * ALL 1-3 DIGIT MAGIC NUMBERS IN THIS CLASS ARE ONSCREEN COORDINATES. ALL 7-8 DIGIT MAGIC NUMBERS ARE TIMECODES ( IN MICROSECONDS)
 	 */
 
 	/**
@@ -97,7 +97,7 @@ public class ThemeCompositor {
 		artistText = new TextCompositor(playlistEntry.getArtistName(), 165, 450);	
 		trackText = new TextCompositor(playlistEntry.getTrackName(), 165, 480);
 		trackInfo = new TextCompositor(playlistEntry.getTrackInfo(), 165, 465);
-	
+
 	}
 
 	/**
@@ -153,9 +153,16 @@ public class ThemeCompositor {
 	private void renderClassic(BufferedImage videoFrame, Decoder decoder, MusicVideo video) {
 
 		try {
-			videoFrame = logoCompositor.overlayNextImage(decoder.getVideoTimeStamp(),theme.getLogo().getInDuration(),video.getVidStreamDuration() - theme.getLogo().getInDuration() - theme.getLogo().getOutDuration(), videoFrame);	
-			videoFrame = strapCompositor.overlayNextImage(decoder.getVideoTimeStamp(),5000000, 3000000, videoFrame);
-			videoFrame = strapCompositor2.overlayNextImage(decoder.getVideoTimeStamp(),14000000, 3000000, videoFrame);
+			videoFrame = logoCompositor.overlayNextImage(
+					decoder.getVideoTimeStamp(),theme.getLogo().getInDuration(),
+					/*the logo is a reverse out element, therefore, since in this version of MV-CoDA we are putting the logo on and off 
+					 * at the start and close of EACH video, the desired duration will be: that videos duration, minus the logo's in-animation,
+					 * and also minus it's out-animation AT the factor of the speedup that has been set for the element */
+					video.getVidStreamDuration() - theme.getLogo().getInDuration() - ( theme.getLogo().getOutDuration() * theme.getLogo().getSpeed() ), 
+					videoFrame
+					);	
+			videoFrame = strapCompositor.overlayNextImage(decoder.getVideoTimeStamp(),5000000, 2000000, videoFrame);
+			videoFrame = strapCompositor2.overlayNextImage(decoder.getVideoTimeStamp(),12000000, 3000000, videoFrame);
 			videoFrame = chartCompositor.overlayNextImage(decoder.getVideoTimeStamp(),theme.getChart().getInDuration() + 1000000, 10000000, videoFrame);
 			videoFrame = transitionCompositor.overlayNextImage(decoder.getVideoTimeStamp(),0, 4000000, videoFrame);
 			videoFrame = numbersCompositor.overlayNextImage(decoder.getVideoTimeStamp(),5000000, 8000000, videoFrame);
@@ -227,7 +234,7 @@ public class ThemeCompositor {
 
 	}
 
-	
+
 
 
 }
