@@ -85,9 +85,10 @@ public class EncoderXuggle implements Encoder {
 				catch (MediaOpenException e) { e.printStackTrace(); }
 				decoder = video.getDecoder(); //get the decoder associated with this video
 				renderNextVid(decoder, video);	
-				//This is so that GFX element's can lookup a live number for directory search rather than be passed a playlist entry
-				//could be changed back to Number.getNumber() -1....but number is required for live lookup during renders
-				try { Number.setNumber(playlistEntry.getPositionInPlaylist() - 1);} 
+				/*The next argument is for GFX elements to lookup a live number for directory search, rather than be passed a playlist entry
+				 It could be changed to Number.getNumber() -1....but number is required for live lookup during renders
+				 experience of onair GFX shows it is wise to be extremely defensive when setting live chart numbers */
+				if ( Number.getNumber() > 1 ) try { Number.setNumber(playlistEntry.getPositionInPlaylist() - 1);} 
 				catch (ChartNumberException e) { e.printStackTrace(); } 
 				
 			}
