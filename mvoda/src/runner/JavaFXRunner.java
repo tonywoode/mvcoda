@@ -23,7 +23,7 @@ public class JavaFXRunner extends Application {
 	public void start(Stage stage) throws Exception {
 		
 		/**
-		 * Configure logging in this class also in runner package
+		 * Configure logging in this class, the logging controller is also in runner package
 		 */
 		HandleLoggers.allLoggers();
 		
