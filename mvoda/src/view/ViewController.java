@@ -78,7 +78,7 @@ public class ViewController implements Initializable {
 
 	public TextField trackTextField;
 	public TextField artistTextField;
-	public TextArea trackInfoTextField;
+	public TextArea trackInfoTextArea;
 
 	private ThumbnailGrabber grabber = new ThumbnailGrabberXuggle();
 
@@ -137,7 +137,7 @@ public class ViewController implements Initializable {
 
 				trackTextField.textProperty().bindBidirectional(sspTrack);
 				artistTextField.textProperty().bindBidirectional(sspArtist); 
-				trackInfoTextField.textProperty().bindBidirectional(sspInfoText);
+				trackInfoTextArea.textProperty().bindBidirectional(sspInfoText);
 
 				//now deal with the media Info area and the thumbnail display
 				if (ov == null || ov.getValue().getVideo() == null) { mediaInfoArea.setText("File Not Found"); imageThumb.setImage( null );	}
@@ -254,7 +254,7 @@ public class ViewController implements Initializable {
 		if (!playlistView.getItems().isEmpty()) { 
 			trackTextField.clear();
 			artistTextField.clear();
-			trackInfoTextField.clear();
+			trackInfoTextArea.clear();
 			playlistView.setDisable(false); } //only enable if something loaded
 	}
 
@@ -284,7 +284,7 @@ public class ViewController implements Initializable {
 		chartTextField.clear();
 		trackTextField.clear();
 		artistTextField.clear();
-		trackInfoTextField.clear();
+		trackInfoTextArea.clear();
 		playlistView.setDisable(true);
 	}
 

@@ -1,10 +1,11 @@
 package view;
 
-import playlist.PlaylistEntry;
 import javafx.event.EventHandler;
 import javafx.scene.control.ListCell;
+import javafx.scene.control.Tooltip;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.input.MouseEvent;
+import playlist.PlaylistEntry;
 
 public class PlaylistEntryListCell extends ListCell<PlaylistEntry> {
 	
@@ -12,11 +13,14 @@ public class PlaylistEntryListCell extends ListCell<PlaylistEntry> {
         super.updateItem(item, empty);
         if (item != null) {
         	
-        	final int pos = this.getIndex();
+        	/**
+        	 * The chart position we want to display
+        	 */
+        	final int chartPosition = this.getIndex() + 1;
+        	this.setTooltip(new Tooltip("Double click to refind files"));
+        	System.out.println("PlaylistEntry Cell: " + "Chart Position  " + chartPosition + "\t" + item.getFileUNC());
         	
-        	System.out.println("PlaylistEntry Cell: " + "NUMBER: " + (pos + 1) + "\t" + item.getFileUNC());
-        	
-            setText("NUMBER " + (pos + 1) + "\t" + item.getFileUNC());
+            setText( "Chart Number " + chartPosition + "\t" + item.getFileUNC() );
             
             final String itemname = item.getFileUNC();
             
@@ -29,7 +33,7 @@ public class PlaylistEntryListCell extends ListCell<PlaylistEntry> {
                     if (event.getClickCount() > 1) {
                         System.out.println("double clicked on " + itemname);
                        
-                        ViewController.reFindPlaylistEntry(pos);
+                        ViewController.reFindPlaylistEntry(chartPosition - 1); //ie this.getIndex()
                     }
                 }
             });
