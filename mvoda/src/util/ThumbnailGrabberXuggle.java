@@ -13,7 +13,7 @@ import com.xuggle.xuggler.Global;
 /**
  * Intended to provide thumbnails for the MV-CoDA GUI. Uses the Xuggler MediaTools API, and much of the below taken straight from Xuggler's example code
  * Though we cannot use the Xuggler MediaTools API for MV-CoDA's compositing, we CAN use it for simply getting a thumbnail. The Xuggler code was altered
- * So that instead of writing one file every 10 seconds, we call the class to get an image that is 10 seconds into the video under scrutiny.
+ * so that instead of writing one file every 10 seconds, we call the class to get an image that is 10 seconds into the video under scrutiny.
  *
  */
 public class ThumbnailGrabberXuggle implements ThumbnailGrabber {

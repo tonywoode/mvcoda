@@ -56,7 +56,7 @@ public class ViewController implements Initializable {
 	public final static Logger LOGGER = Logger.getLogger(ViewController.class.getName()); //get a logger for this class
 	@FXML private static ImageView imageThumb;
 	@Setter	private static ViewControllerListener viewListener;	
-	@Setter	private static Stage stage;
+	@Getter @Setter	private static Stage stage;
 	private static Image fxImage;
 	private static BufferedImage thisThumb;
 	private static Task<?> thumbnailWorker;
