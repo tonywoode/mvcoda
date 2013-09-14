@@ -252,9 +252,6 @@ public class ViewController implements Initializable {
 		catch (MediaOpenException e5) { popup(e5.getMessage()); }
 		checkMoveButtons();
 		if (!playlistView.getItems().isEmpty()) { 
-			trackTextField.clear();
-			artistTextField.clear();
-			trackInfoTextArea.clear();
 			playlistView.setDisable(false); } //only enable if something loaded
 	}
 
@@ -282,9 +279,6 @@ public class ViewController implements Initializable {
 		fontSelectBox.getSelectionModel().select(10);
 		fontSizeBox.getSelectionModel().select(2);
 		chartTextField.clear();
-		trackTextField.clear();
-		artistTextField.clear();
-		trackInfoTextArea.clear();
 		playlistView.setDisable(true);
 	}
 
