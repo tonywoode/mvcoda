@@ -11,8 +11,6 @@ import themes.CoOrd;
 import themes.FrameData;
 import themes.GFXElement;
 import themes.Theme;
-import themes.XMLSerialisable;
-import themes.XMLWriter;
 
 /**
  * This class was used to create the initial Theme XML files for default themes included in MV-CoDA i.e.: it describes each GFXElement in the three included themes

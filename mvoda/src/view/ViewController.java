@@ -8,7 +8,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
-import java.util.TimerTask;
 import java.util.logging.Logger;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -31,56 +30,64 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-
-import javax.management.modelmbean.XMLParseException;
-
 import lombok.Getter;
 import lombok.Setter;
+import media.MediaOpenException;
 import playlist.Playlist;
 import playlist.PlaylistEntry;
+import themes.GFXElementException;
 import themes.Theme;
 import util.ThemeFinder;
 import util.ThemeFinderImpl;
 import util.ThumbnailGrabber;
 import util.ThumbnailGrabberXuggle;
 import view.buttons.Dialog;
-import drawing.TextCompositor;
 
+/**
+ * Handles communication between the JavaFX FXML file and MV-CoDA's main controller, and reports information and errors to the user
+ * The ViewController talks to the main controller via a listener interface to decouple the two.
+ * This class contains a number of JAVAFX bindings and listeners to enable communication between diferent parts of the GUI, and the model
+ * via the main controller
+ * @author tony
+ *
+ */
 public class ViewController implements Initializable {
 
-
 	public final static Logger LOGGER = Logger.getLogger(ViewController.class.getName()); //get a logger for this class
+	@FXML private static ImageView imageThumb;
+	@Setter	private static ViewControllerListener viewListener;	
+	@Setter	private static Stage stage;
+	private static Image fxImage;
+	private static BufferedImage thisThumb;
+	private static Task<?> thumbnailWorker;
 
-	@Getter @Setter	static ViewControllerListener viewListener;	
-	@Getter @Setter	static Stage stage;
-	@FXML @Getter @Setter ComboBox<Theme> themeSelectBox;
-	@FXML @Getter @Setter ComboBox<String> fontSelectBox;
-	@FXML @Getter @Setter ComboBox<Number> fontSizeBox;
-	@FXML @Getter TextField chartTextField;
-	@FXML @Getter @Setter ListView<PlaylistEntry> playlistView;
-	@FXML TextArea mediaInfoArea;
-	@FXML static ImageView imageThumb;
-	@Getter static TimerTask timerTask;
-	private ThumbnailGrabber grabber = new ThumbnailGrabberXuggle();
-	static Image fxImage;
-	static BufferedImage thisThumb;
-	static Task<?> thumbnailWorker;
+	@FXML private Button clearPlaylistButton;
+	@FXML private Button savePlaylistButton;
+	@FXML private Button deletePlaylistEntryButton;
+	@FXML private Button moveUpButton;
+	@FXML private Button moveDownButton;
+	@FXML private Button renderButton;
 
+	@FXML @Getter @Setter private ListView<PlaylistEntry> playlistView;
+	@FXML @Getter private ComboBox<Theme> themeSelectBox;
+	@FXML @Getter private ComboBox<String> fontSelectBox;
+	@FXML @Getter private ComboBox<Number> fontSizeBox;
+	@FXML @Getter private TextField chartTextField;
 
-	public Button clearPlaylistButton;
-	public Button savePlaylistButton;
-	public Button deletePlaylistEntryButton;
-	public Button moveUpButton;
-	public Button moveDownButton;
-	public Button renderButton;
+	@FXML private TextArea mediaInfoArea;
 
 	public TextField trackTextField;
 	public TextField artistTextField;
 	public TextArea trackInfoTextField;
 
+	private ThumbnailGrabber grabber = new ThumbnailGrabberXuggle();
 
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {		
+
+
+	/**
+	 * Main constructor for the GUI - binds buttons and views to the model with bindings, bidirectional bindings and listeners
+	 */
+	@Override public void initialize(URL arg0, ResourceBundle arg1) {		
 
 		playlistView.setDisable(true); //we will enable the playlistview when it populates with items
 		savePlaylistButton.disableProperty().bind(playlistView.disabledProperty()); //the save playlist button will follow the playlistview buttons enable status
@@ -132,19 +139,22 @@ public class ViewController implements Initializable {
 				artistTextField.textProperty().bindBidirectional(sspArtist); 
 				trackInfoTextField.textProperty().bindBidirectional(sspInfoText);
 
-
+				//now deal with the media Info area and the thumbnail display
 				if (ov == null || ov.getValue().getVideo() == null) { mediaInfoArea.setText("File Not Found"); imageThumb.setImage( null );	}
 				else {
 					mediaInfoArea.setText(ov.getValue().getVideo().toString());//write media info to screen for this entry
 					loadThumb(ov.getValue());
 				}	
 			}
-			
+
 		});
 	}
 
-	
-	
+
+	/**
+	 * Loads the thumbnail display in a worker thread, and delays main thread so listeners can get through
+	 * @param entry playlist entry we want to find a thumbnail for
+	 */
 	private void loadThumb(PlaylistEntry entry) {
 		thumbnailWorker = createWorker( entry );
 		//we must introduce some delay into the master thread or our listeners stop being received
@@ -153,7 +163,7 @@ public class ViewController implements Initializable {
 
 	}
 	/**
-	 * Worker thread that gets thumbnails for the GUI, for now by using Xuggler's Media Tools API
+	 * Worker thread that gets thumbnails for the GUI, for now by using Xuggler's Media Tools API in Thumbnail Grabber imp in the util package
 	 * @param entry
 	 * @return
 	 */
@@ -183,6 +193,10 @@ public class ViewController implements Initializable {
 	}
 
 
+	/**
+	 * By obtaining the fonts on the local machine, we populate the font select box with their string representations, and because we are using strings
+	 * We are able to set a font in the model. A listener ensures that changes in the value are provided to the main controller
+	 */
 	public void initFontSelectBox() {
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		String[] fontListArray = ge.getAvailableFontFamilyNames();
@@ -192,12 +206,15 @@ public class ViewController implements Initializable {
 		fontSelectBox.getSelectionModel().select(10); //displays but doesn't select - seems to be another javafx bug, we will set the same in text compositor
 		fontSelectBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				TextCompositor.setFontName(newValue);
+				viewListener.setFontName(newValue);
 			}	
 		});		
 	}
 
-
+	/**
+	 * We set a specific number of fontsizes which can be used (these must be sensible to fit in straps, chart, number boxes in a television resolution)
+	 * and allow the user to set these. A listener ensures that changes in the value are provided to the main controller
+	 */
 	public void initFontSizeBox() {
 		ArrayList<Number> fontSizeList = new ArrayList<Number>();
 		fontSizeList.add(16); fontSizeList.add(20); fontSizeList.add(24); fontSizeList.add(28); fontSizeList.add(32); fontSizeList.add(36); fontSizeList.add(40);
@@ -206,36 +223,46 @@ public class ViewController implements Initializable {
 		fontSizeBox.getSelectionModel().select(2); //int method for index - also set as default in text compositor
 		fontSizeBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Number>() {
 			@Override public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				TextCompositor.setFontSize(newValue.intValue());
+				viewListener.setFontSize(newValue.intValue());
 			}	
 		});
 
 	}
 
-
+	/**
+	 * Takes a playlist and sends the entries to the GUI's list view
+	 * @param playlist a playlist
+	 */
 	public void sendPlaylistNodesToScreen(Playlist playlist) {
 		for (PlaylistEntry playlistEntry : playlist.getPlaylistEntries())
 			playlistView.getItems().add(playlistEntry);
 	}
 
-	public void replacePlaylistNodesToScreen(Playlist playlist) {
-		for (int i = 0; i < playlist.getPlaylistEntries().size(); i++) {
-			PlaylistEntry playlistEntry = playlist.getPlaylistEntries().get(i);
-			playlistView.getItems().set(i, playlistEntry);
-		}
-	}
-
-	@FXML void loadPlaylist(ActionEvent e) throws InterruptedException {
+	/**
+	 * Allows the user to request that a playlist file is deserialised and returned to the GUI. Will clear any existing entries if the user doesn't cancel
+	 * Will report errors with that process directly to the user
+	 * @param e when button accessed by user
+	 */
+	@FXML void loadPlaylist(ActionEvent e) {
+		if ( !playlistView.getItems().isEmpty() ) { popup("This will clear any existing information"); }
 		try { viewListener.loadPlaylist(); } 
 		catch (NullPointerException e1) { popup(e1.getMessage()); }
-		catch (XMLParseException e2) { popup("Error: not a valid MV-CoDA XML file"); }	
 		catch (FileNotFoundException e3) { popup(e3.getMessage() ); }
 		catch (IOException e4) { popup("Error: Could not close the input file"); }
 		catch (MediaOpenException e5) { popup(e5.getMessage()); }
 		checkMoveButtons();
-		if (!playlistView.getItems().isEmpty()) { playlistView.setDisable(false); } //only enable if something loaded
+		if (!playlistView.getItems().isEmpty()) { 
+			trackTextField.clear();
+			artistTextField.clear();
+			trackInfoTextField.clear();
+			playlistView.setDisable(false); } //only enable if something loaded
 	}
 
+	/**
+	 * Allows the user to request that a playlist file is serialised containing data currently in the GUI.
+	 * Will report errors with that process directly to the user
+	 * @param e when button is accessed by user
+	 */
 	@FXML void savePlaylist(ActionEvent e) { 
 		try { viewListener.savePlaylist(); } 
 		catch (NullPointerException e1) { popup(e1.getMessage()); }
@@ -244,16 +271,29 @@ public class ViewController implements Initializable {
 		catch (IllegalArgumentException e4) { popup(e4.getMessage()); }
 	}
 
-	@FXML void clearPlaylist(ActionEvent e) { 
+	/**
+	 * Allows the user to clear a playlist and start afresh. Will check the values of buttons and return fonts to default sizes
+	 * @param e when button is accessed by user
+	 */
+	@FXML void clearPlaylist(ActionEvent e) { //TODO: "are you sure" popup
 		viewListener.clearPlaylistEntries(); 
 		checkMoveButtons(); 
 		themeSelectBox.getSelectionModel().clearSelection();
 		fontSelectBox.getSelectionModel().select(10);
 		fontSizeBox.getSelectionModel().select(2);
 		chartTextField.clear();
+		trackTextField.clear();
+		artistTextField.clear();
+		trackInfoTextField.clear();
 		playlistView.setDisable(true);
 	}
 
+	/**
+	 * Allows the user to request that an individual music video from secondary storage is added to their current playlist. Will be added at the bottom
+	 * of the playlist.
+	 * Will report errors with that process directly to the user
+	 * @param e when button is accessed by user
+	 */
 	@FXML void addPlaylistEntry(ActionEvent e) throws IOException {
 		try { 
 			viewListener.addPlaylistEntry(); 
@@ -265,23 +305,39 @@ public class ViewController implements Initializable {
 	}
 
 	/**
-	 * We must only enable these buttons if there is more than ONE entry
+	 * We must only enable these buttons if there is more than ONE playlist entry
 	 */
 	private void checkMoveButtons() {
 		if (playlistView.getItems().size() <= 1 ) { moveUpButton.setDisable(true); moveDownButton.setDisable(true);  }
 		else { moveUpButton.setDisable(false); moveDownButton.setDisable(false); }
 	}
 
+	/**
+	 * Allows the user to request that the highlighted playlist entry is deleted from the playlist
+	 * @param e when button is accessed by user
+	 */
 	@FXML void deletePlaylistEntry(ActionEvent e) {
 		viewListener.deletePlaylistEntry();
 		checkMoveButtons();	
 		if (playlistView.getItems().isEmpty()) { playlistView.setDisable(true); }
 	}
 
+	/**
+	 * Moves a playlist up one in the list
+	 * @param e when button is accessed by user
+	 */
 	@FXML void moveUp(ActionEvent e) { viewListener.moveUp(); }
 
+	/**
+	 * Moves a playlist entry down one in the list
+	 * @param e when button is accessed by user
+	 */
 	@FXML void moveDown(ActionEvent e) { viewListener.moveDown(); }
 
+	/**
+	 * Allows the user to request the current GUI's playlist to render to a video file. Reports errors in that proces back to the user
+	 * @param e when button is accessed by user
+	 */
 	@FXML void render(ActionEvent e) {
 		try { viewListener.render();} 
 		catch (NullPointerException e1) { popup(e1.getMessage() ); }	
@@ -292,11 +348,20 @@ public class ViewController implements Initializable {
 
 	}
 
+	/**
+	 * JAVAFX has no default dialog boxes. We call a simple implementation of a dialog box when the user needs to be informed from the model
+	 * @param text the text to display
+	 */
 	public static void popup(String text) {
 		Dialog.dialogBox(stage, text);
 	}
 
-
+	/**
+	 * Generic method for the load/save actions the user can request. JAVAFX brings up a standard windows file dialog, which handles a lot of problems for us.
+	 * Ensures that the file extension the user requests is provided to the dialog
+	 * @param filetype
+	 * @return
+	 */
 	public static FileChooser getFileChooser(String filetype) {
 		final FileChooser fileChooser = new FileChooser();
 		//below we receive a full filetype i.e: .mp4 and convert to the word MP4 for the filetype notification
@@ -305,13 +370,17 @@ public class ViewController implements Initializable {
 		return fileChooser;
 	}
 
+	/**
+	 * When the user double clicks on a problem entry in the playlist, we allow them to select a file from secondary storage
+	 * @param pos the position in the playlist array the entry concerned is located
+	 */
 	public static void reFindPlaylistEntry(int pos) {
 		try { viewListener.reFindPlaylistEntry(pos); } 
 		catch (MediaOpenException e) { popup(e.getMessage() ); }
-		catch (NullPointerException e1) { popup("Please select a file to load from to");	}
+		catch (NullPointerException e1) { popup("Please select a file to load from");	}
 	}
 
-
+	
 }
 
 

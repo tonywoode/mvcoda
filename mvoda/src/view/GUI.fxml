@@ -58,12 +58,12 @@
             </Button>
             <Button fx:id="deletePlaylistEntryButton" font="$x3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#deletePlaylistEntry" prefHeight="-1.0" prefWidth="-1.0" text="Delete Playlist Entry" textAlignment="CENTER" wrapText="true" HBox.hgrow="ALWAYS">
               <HBox.margin>
-                <Insets fx:id="x2" />
+                <Insets fx:id="x6" />
               </HBox.margin>
             </Button>
             <Button fx:id="moveUpButton" font="$x3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#moveUp" prefHeight="-1.0" prefWidth="-1.0" text="Move Up" HBox.hgrow="ALWAYS">
               <HBox.margin>
-                <Insets fx:id="x2" />
+                <Insets fx:id="x7" />
               </HBox.margin>
             </Button>
             <Button fx:id="moveDownButton" font="$x3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#moveDown" prefHeight="-1.0" prefWidth="-1.0" text="Move Down" HBox.hgrow="ALWAYS" />
@@ -153,7 +153,7 @@
         </TextField>
         <TextField fx:id="trackTextField" prefWidth="200.0" promptText="Enter Track" VBox.margin="$x1" />
         <TextArea fx:id="trackInfoTextField" prefHeight="31.0" prefWidth="400.0" promptText="Enter Track Info" wrapText="true" VBox.vgrow="ALWAYS" />
-        <TextArea fx:id="mediaInfoArea" editable="false" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="-1.0" prefWidth="-1.0" text="Media Infomation" wrapText="true" VBox.vgrow="ALWAYS">
+        <TextArea fx:id="mediaInfoArea" editable="false" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="-1.0" prefWidth="-1.0" promptText="Media Infomation" text="" wrapText="false" VBox.vgrow="ALWAYS">
           <VBox.margin>
             <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
           </VBox.margin>

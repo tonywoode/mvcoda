@@ -14,8 +14,8 @@ import javax.imageio.ImageIO;
 
 import lombok.Getter;
 import themes.GFXElement;
+import themes.GFXElementException;
 import util.FrameRate;
-import view.GFXElementException;
 
 /**
  * deals with overlaying graphics over Buffered Images passed to it by the media package of MVODA

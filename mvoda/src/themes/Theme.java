@@ -3,6 +3,8 @@ package themes;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import util.XMLSerialisable;
+
 import lombok.Getter;
 import lombok.Setter;
 

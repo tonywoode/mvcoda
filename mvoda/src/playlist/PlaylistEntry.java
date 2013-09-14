@@ -2,13 +2,13 @@ package playlist;
 
 import java.io.File;
 
-import view.MediaOpenException;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 import lombok.Getter;
 import lombok.Setter;
+import media.MediaOpenException;
 import media.MusicVideo;
 import media.xuggle.MusicVideoXuggle;
 

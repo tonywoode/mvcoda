@@ -1,4 +1,4 @@
-package view;
+package media;
 
 /**
  * Signals that the media implementnation is not going to be able to process inputs

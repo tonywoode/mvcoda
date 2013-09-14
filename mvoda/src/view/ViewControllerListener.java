@@ -2,10 +2,9 @@ package view;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
-import javax.management.modelmbean.XMLParseException;
-
+import media.MediaOpenException;
 import playlist.Playlist;
+import themes.GFXElementException;
 
 public interface ViewControllerListener {
 
@@ -19,7 +18,7 @@ public interface ViewControllerListener {
 
 	void clearPlaylistEntries();
 
-	void loadPlaylist() throws FileNotFoundException, IOException, XMLParseException, MediaOpenException, InterruptedException;
+	void loadPlaylist() throws FileNotFoundException, IOException, MediaOpenException;
 
 	void savePlaylist() throws FileNotFoundException, IOException;
 
@@ -28,6 +27,12 @@ public interface ViewControllerListener {
 	Playlist getPlaylist();
 
 	void reFindPlaylistEntry(int pos) throws MediaOpenException;
+	
+	void setFontName(String newValue);
+
+	void setFontSize(int intValue);
+
+
 
 
 

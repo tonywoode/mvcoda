@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 import lombok.Getter;
 import lombok.Setter;
-import view.GFXElementException;
+import themes.GFXElementException;
 
 /**
  * Arranges to composite standard text fonts onto BufferedImages for MV-CoDA

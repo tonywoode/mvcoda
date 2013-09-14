@@ -1,4 +1,4 @@
-package view;
+package playlist;
 
 /**
  * Intended to signal problems with chart numbers. Important otherwise these will be rendered onscreen and may not be noticed

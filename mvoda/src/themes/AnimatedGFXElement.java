@@ -1,6 +1,8 @@
 package themes;
 
 import util.FrameRate;
+import util.XMLReader;
+import util.XMLWriter;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;

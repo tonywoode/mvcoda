@@ -1,4 +1,4 @@
-package themes;
+package util;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -7,6 +7,9 @@ import java.nio.file.Paths;
 
 import playlist.Playlist;
 import playlist.PlaylistEntry;
+import themes.AnimatedGFXElement;
+import themes.GFXElement;
+import themes.Theme;
 
 import com.thoughtworks.xstream.XStream;
 

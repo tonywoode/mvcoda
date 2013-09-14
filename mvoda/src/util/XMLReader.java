@@ -1,4 +1,4 @@
-package themes;
+package util;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -10,6 +10,9 @@ import javax.management.modelmbean.XMLParseException;
 
 import playlist.Playlist;
 import playlist.PlaylistEntry;
+import themes.AnimatedGFXElement;
+import themes.GFXElement;
+import themes.Theme;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.XStreamException;
@@ -30,9 +33,6 @@ public class XMLReader {
 		xstream.processAnnotations(GFXElement.class);
 		xstream.processAnnotations(AnimatedGFXElement.class);
 		xstream.processAnnotations(Theme.class);
-		//TODO - If we do the below we don't get animate elements with "Class=AnimatedGFXElement" in the xml - see http://stackoverflow.com/questions/2008043/xstream-removing-class-attribute
-		//but then we'd need a custom converter
-		//xstream.alias("AnimatedGFXElement", AnimatedGFXElement.class, GFXElement.class);
 
 		FileInputStream fs = null;
 		try {	
@@ -52,7 +52,7 @@ public class XMLReader {
 	}
 
 
-	public static XMLSerialisable readPlaylistXML(Path path) throws FileNotFoundException, IOException, XMLParseException {
+	public static XMLSerialisable readPlaylistXML(Path path) throws FileNotFoundException, IOException {
 
 		XStream xstream = new XStream();
 		XMLSerialisable xml = null;

@@ -9,8 +9,8 @@ import java.nio.file.Paths;
 import org.junit.Test;
 
 import themes.Theme;
-import themes.XMLReader;
-import themes.XMLSerialisable;
+import util.XMLReader;
+import util.XMLSerialisable;
 
 public class XMLReaderTest {
 

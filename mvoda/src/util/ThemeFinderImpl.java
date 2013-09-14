@@ -13,8 +13,6 @@ import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import themes.Theme;
-import themes.XMLReader;
-import themes.XMLSerialisable;
 
 /**
  * Finds Theme XML's for MV-CoDA and deserialises them into Themes

@@ -13,11 +13,9 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
-import javax.management.modelmbean.XMLParseException;
-
 import lombok.Getter;
 import lombok.Setter;
+import media.MediaOpenException;
 import media.MusicVideo;
 import media.xuggle.EncoderXuggle;
 import media.xuggle.MusicVideoXuggle;
@@ -25,11 +23,10 @@ import playlist.Playlist;
 import playlist.PlaylistEntry;
 import test.DecodeAndPlayAudioAndVideo;
 import themes.Theme;
-import themes.XMLReader;
-import themes.XMLSerialisable;
-import themes.XMLWriter;
 import util.FileUtil;
-import view.MediaOpenException;
+import util.XMLReader;
+import util.XMLSerialisable;
+import util.XMLWriter;
 import view.ViewController;
 import view.ViewControllerListener;
 import drawing.TextCompositor;
@@ -130,7 +127,7 @@ public class MainController implements ViewControllerListener {
 	 * Load playlist must be above to clear the current GUI's list and populate it from the XML file that is selected by the user, and populate all the additional
 	 * GUI fields
 	 */
-	@Override public void loadPlaylist() throws FileNotFoundException, IOException, XMLParseException, MediaOpenException, InterruptedException {
+	@Override public void loadPlaylist() throws FileNotFoundException, IOException, MediaOpenException {
 
 		final FileChooser fileChooser = ViewController.getFileChooser(".xml");
 
@@ -366,7 +363,19 @@ public class MainController implements ViewControllerListener {
 		else { throw new MediaOpenException("The file is not valid, try again"); }
 
 	}
+	
+	public void setFontName(String fontName) {
+		TextCompositor.setFontName(fontName);
+	}	
+	/**
+	 * Takes fontsizes from the view and passes them to the model
+	 * @param fontSize
+	 */
+	public void setFontSize(int fontSize) {
+		TextCompositor.setFontSize(fontSize);
+	}
 
+	
 
 
 }

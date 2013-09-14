@@ -7,18 +7,18 @@ import java.util.concurrent.TimeUnit;
 
 import media.Decoder;
 import media.Encoder;
+import media.MediaOpenException;
 import media.MusicVideo;
 import media.types.AudioSamples;
 import media.types.MediaWriter;
 import media.types.StreamCoder;
 import media.xuggle.types.MediaWriterXuggle;
+import playlist.ChartNumberException;
 import playlist.Number;
 import playlist.Playlist;
 import playlist.PlaylistEntry;
 import themes.Theme;
 import util.FrameRate;
-import view.ChartNumberException;
-import view.MediaOpenException;
 
 import com.xuggle.mediatool.ToolFactory;
 import com.xuggle.xuggler.ICodec;

@@ -1,4 +1,4 @@
-package view;
+package themes;
 
 /**
  * Signals problems with GFX Elements that would cause them not to render, or worse render incorrectly, which may not be noticed...

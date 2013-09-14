@@ -5,8 +5,8 @@ import java.awt.image.BufferedImage;
 import media.Decoder;
 import media.MusicVideo;
 import playlist.PlaylistEntry;
+import themes.GFXElementException;
 import themes.Theme;
-import view.GFXElementException;
 
 /**
  * Arranges which elements in a theme go where on screen. This class should be replaced with generic calls and 

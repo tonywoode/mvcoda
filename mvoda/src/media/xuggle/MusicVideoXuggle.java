@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import lombok.Getter;
 import media.Decoder;
+import media.MediaOpenException;
 import media.MusicVideo;
 import media.types.Container;
 import media.types.Rational;
@@ -13,7 +14,6 @@ import media.xuggle.types.RationalXuggle;
 import media.xuggle.types.StreamCoderXuggle;
 import util.FileUtil;
 import util.FrameRate;
-import view.MediaOpenException;
 
 import com.xuggle.xuggler.Global;
 import com.xuggle.xuggler.ICodec;

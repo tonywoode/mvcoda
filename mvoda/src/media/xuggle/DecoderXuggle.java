@@ -27,6 +27,12 @@ import com.xuggle.xuggler.video.BgrConverter;
  *
  */
 public class DecoderXuggle implements Decoder {
+	
+	/*
+	 * Some inspiration for this class and elements of the encoder taken from http://syntaxcandy.blogspot.co.uk/2011/03/video-with-gps-overlay.html
+	 * Particularly the idea of simplifying calls where possible, using hasNext..methods, and hard coding the buffer size
+	 * however, this is not so different to how Xuggle do things...
+	 */
 
 	public static final int CONVERT_MICRO_TO_MILLISEC = 1000; //Xuggler is best in microseconds
 	public static final Type XUGGLER_PIX_TYPE = IPixelFormat.Type.BGR24; //Xuggler can only work with BGR24 pixel type as a fundamental limitation

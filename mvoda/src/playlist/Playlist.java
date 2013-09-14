@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 import lombok.Getter;
 import lombok.Setter;
-import themes.XMLReader;
-import themes.XMLSerialisable;
-import themes.XMLWriter;
-import view.MediaOpenException;
+import media.MediaOpenException;
+import util.XMLReader;
+import util.XMLSerialisable;
+import util.XMLWriter;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 

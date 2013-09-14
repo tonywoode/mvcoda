@@ -1,4 +1,4 @@
-package themes;
+package util;
 
 /**
  * Used as a shared type for XML serialisable classes i.e.: so we can have generic reader and writer

@@ -1,7 +1,6 @@
 package playlist;
 
 import lombok.Getter;
-import view.ChartNumberException;
 
 /**
  * Sets the current chart number for live renders ie: which postition are we at in the music video chart

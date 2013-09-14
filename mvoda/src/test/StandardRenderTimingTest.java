@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
+import media.MediaOpenException;
 import media.MusicVideo;
 import media.xuggle.EncoderXuggle;
 import media.xuggle.MusicVideoXuggle;
@@ -19,9 +20,8 @@ import playlist.Playlist;
 import playlist.PlaylistEntry;
 import runner.HandleLoggers;
 import themes.Theme;
-import themes.XMLReader;
-import themes.XMLSerialisable;
-import view.MediaOpenException;
+import util.XMLReader;
+import util.XMLSerialisable;
 
 public class StandardRenderTimingTest {
 
