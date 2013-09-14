@@ -49,6 +49,8 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 	
 	@Getter @Setter public GFXElement transition;
 	
+	@Getter @Setter public GFXElement special;
+	
 	
 	public Theme(String itemName) { this.itemName = itemName; }
 	

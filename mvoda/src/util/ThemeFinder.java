@@ -17,9 +17,9 @@ import themes.Theme;
  */
 public interface ThemeFinder {
 	
-	Theme returnTheme(String Theme) throws IOException;
+	Theme returnTheme(String theme) throws IOException;
 
 	ArrayList<Theme> returnThemes() throws IOException;
 
-	ArrayList<Path> returnDirectories(Path rootDir, String string, int i) throws IOException;
+	ArrayList<Path> returnDirectories(Path rootDir, String fileType, int numLevels) throws IOException;
 }
