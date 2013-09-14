@@ -24,7 +24,7 @@ public class FileUtil  {
 
 		String reverse = reverseString(fileUNC);
 		int j = 0;
-		while (!(reverse.charAt(j) == '.')) { j++; }	//then we go back through our reversed string till we find a period. That's not going to work on unix then TODO: maybe "if system=windows"
+		while (!(reverse.charAt(j) == '.')) { j++; }	//then we go back through our reversed string till we find a period
 								LOGGER.info("The first digit is at position: " + j); 
 		String filetypeReversed = reverse.substring(0, j + 1);
 		//we digress here to save out the filetype

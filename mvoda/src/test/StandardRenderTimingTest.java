@@ -89,9 +89,6 @@ public class StandardRenderTimingTest {
 		Playlist playlist = new Playlist("Biggest Beats I've seen in a while");
 		for (PlaylistEntry entry : entries) { playlist.getPlaylistEntries().add(entry); }
 		
-	
-
-		//Pop.setNum(1); //TODO: very silly AND has to be done before instantiation...
 		
 		String themeName = "Classic";
 		Path rootDir = Paths.get("Theme");
@@ -104,8 +101,6 @@ public class StandardRenderTimingTest {
 		} 
 		catch (IOException e) {	e.printStackTrace(); }
 		
-		//Path properDir = Paths.get( Theme.getRootDir().toString(), theme.getItemName() );
-
 		//get Xuggler's video info
 		System.out.println(vids.get(0).toString());
 		//draw onto video

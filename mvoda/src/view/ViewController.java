@@ -112,7 +112,7 @@ public class ViewController implements Initializable {
 		//tie the track and artist and media select boxes to the currently selected playlist entry
 		playlistView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<PlaylistEntry>() {
 			public void changed( final ObservableValue<? extends PlaylistEntry> ov, PlaylistEntry old_val, PlaylistEntry new_val ) {
-				if (ov == null || ov.getValue() == null) { return; } // TODO: remove this
+				if (ov == null || ov.getValue() == null) { return; }
 				SimpleStringProperty sspTrack = new SimpleStringProperty( ov.getValue().getTrackName() );
 				SimpleStringProperty sspArtist = new SimpleStringProperty(ov.getValue().getArtistName() );
 				SimpleStringProperty sspInfoText = new SimpleStringProperty(ov.getValue().getTrackInfo() );

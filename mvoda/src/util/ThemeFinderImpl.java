@@ -49,12 +49,7 @@ public class ThemeFinderImpl implements ThemeFinder {
 		ArrayList<Path> pathArray = new ArrayList<>();
 		ArrayList<Theme> themeArray = new ArrayList<>();
 
-		try {
-			pathArray = returnDirectories(rootDir, "xml", 2);
-		} catch (Exception e) {
-			// TODO Exception
-			e.printStackTrace();
-		}
+		pathArray = returnDirectories(rootDir, "xml", 2);
 
 		for ( int i=0; i<pathArray.size(); i++) {
 			Path themePath = pathArray.get(i);
@@ -106,9 +101,9 @@ public class ThemeFinderImpl implements ThemeFinder {
 					return FileVisitResult.CONTINUE;
 				}
 
-				@Override public FileVisitResult visitFileFailed(Path path, IOException e) throws IOException { //TODO: this exception in particular
+				@Override public FileVisitResult visitFileFailed(Path path, IOException e) throws IOException {
 					e.printStackTrace();
-					//Do not continue if root dir has failed TODO: this to gui.... 
+					//Don't continue if root dir failed TODO: this to gui.... 
 					return path.equals(rootDir)? FileVisitResult.TERMINATE:FileVisitResult.CONTINUE;
 				}
 			});

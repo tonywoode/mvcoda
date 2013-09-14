@@ -32,7 +32,7 @@ import view.ViewControllerListener;
 import drawing.TextCompositor;
 
 /**
- * The main controller acts as presenter passing model data to GUI and passing DATA gui to model
+ * The main controller acts as presenter passing model data to GUI, passing GUI events to model, and actioning events up to the final save or render
  * @author Tony
  *
  */
@@ -40,7 +40,7 @@ public class MainController implements ViewControllerListener {
 
 	public final static Logger LOGGER = Logger.getLogger(MainController.class.getName()); //get a logger for this class
 
-	@Getter @Setter private Playlist playlist = new Playlist("Standard Render");//Playlist name is for future use
+	@Getter @Setter private Playlist playlist = new Playlist("Standard MV-CoDA v1 Render");//Playlist name is for future use
 	@Getter @Setter private ObservableList<PlaylistEntry> observedEntries = FXCollections.observableArrayList(playlist.getPlaylistEntries());
 	@Getter @Setter private ViewController view;
 	@Getter @Setter static Stage stage; //has to be static as instantiated in static JavaFX launch method in ImageCompositorTester
@@ -50,7 +50,7 @@ public class MainController implements ViewControllerListener {
 	 * Clears the GUI's playlist view
 	 */
 	@Override public void clearPlaylistEntries() { observedEntries.clear(); }
-	
+
 	/**
 	 * Actions caused by the add entry button in GUI
 	 */
@@ -78,7 +78,7 @@ public class MainController implements ViewControllerListener {
 	}
 
 	/**
-	 * The move up button in the GUI must switch the postion in the playlist of the selected item, with the item above it in the list.
+	 * The move up button in the GUI must switch the position in the playlist of the selected item, with the item above it in the list.
 	 * It must also update the chart numbers that display onscreen
 	 */
 	@Override public void moveUp() {
@@ -118,7 +118,6 @@ public class MainController implements ViewControllerListener {
 		moveUp.setPositionInPlaylist(indexOfItemToMove);
 		moveDown.setPositionInPlaylist(indexOfItemToMove);
 
-
 		LOGGER.info("Moving Down: " + moveDown.getPositionInPlaylist() + "; " + moveDown.getFileUNC());
 		LOGGER.info("Moving Up: " + moveUp.getPositionInPlaylist() + "; " + moveUp.getFileUNC());
 	}
@@ -134,17 +133,18 @@ public class MainController implements ViewControllerListener {
 		//read XML (exceptions thrown to view)
 		File file;
 		XMLSerialisable playlistAsSerialisable;
-		try { file = fileChooser.showOpenDialog(stage);
-		playlistAsSerialisable = XMLReader.readPlaylistXML(file.toPath());	
+		try { 
+			file = fileChooser.showOpenDialog(stage);
+			playlistAsSerialisable = XMLReader.readPlaylistXML(file.toPath());	
 		} 
-		catch (NullPointerException e) { throw new NullPointerException("Please select a file to load from to");	}
+		catch (NullPointerException e) { throw new NullPointerException("Please select a file to load from");	}
 
 		//set XML contents as playlist to work on
 		playlist = (Playlist) playlistAsSerialisable;
 		boolean found = playlist.validatePlaylist(playlist);
 		observedEntries.clear(); //clear the gui list
 
-		//we must update the array passed in to get the view to refresh, cleaner to do it here than back in viewcontroller
+		//we must update the array passed in to get the view to refresh, cleaner to do it here than back in view controller
 		view.sendPlaylistNodesToScreen(playlist);
 		setObservedEntries(view.getPlaylistView().getItems() );
 
@@ -158,7 +158,7 @@ public class MainController implements ViewControllerListener {
 		for ( Theme theme : themeBoxItems ) {
 			if ( themeName.equals(theme.toString()) ) {
 				view.getThemeSelectBox().setValue(theme); 
-				view.getThemeSelectBox().getSelectionModel().select(theme); //TODO: bug with javaFX causes erratic behaviour  see: http://stackoverflow.com/questions/12142518/combobox-clearing-value-issue
+				view.getThemeSelectBox().getSelectionModel().select(theme);
 				themeFound=true; }//and set that theme name as the active one in both the box and the list the box is generated from
 		}			
 		if (!themeFound) { //if a theme name match isn't found, we must clear any previous theme selection, and throw an exception
@@ -203,12 +203,12 @@ public class MainController implements ViewControllerListener {
 		LOGGER.info("fontSize from playlist on load is : " + fontSize);
 		LOGGER.info("Font size box has this selected on load playlist " + view.getFontSizeBox().getSelectionModel().getSelectedItem());
 
-		
+
 		String chartName = playlist.getChartName();
 		if (chartName == null || chartName.equals("") ) { view.getChartTextField().clear(); }
 		view.getChartTextField().setText(chartName);
-		
-		
+
+
 	}	
 
 	/**
@@ -270,7 +270,7 @@ public class MainController implements ViewControllerListener {
 		//now set and check the chart name
 		playlist.setChartName(view.getChartTextField().getText());
 		if ( playlist.getChartName() == null || playlist.getChartName().equals("") ) { throw new IllegalArgumentException("You must give the Chart you're rendering a name"); }
-		
+
 		//LOG the entries
 		for ( int i=0;i < playlist.getPlaylistEntries().size(); i++ ) {
 			LOGGER.info("Rendering begun - At index postion: " + i + " The UNC path is " + playlist.getPlaylistEntries().get(i).getFileUNC() );
@@ -328,14 +328,14 @@ public class MainController implements ViewControllerListener {
 		};
 
 	}
-	
+
 	public void resetArray(ObservableList<PlaylistEntry> playlistObservable) {
 		ArrayList<PlaylistEntry> temp = new ArrayList<>(); //because if we try to directly do this to playlistEntries we'll get the concurrentModificationError
 		temp.addAll(playlistObservable);
 		playlist.getPlaylistEntries().clear(); //clear playlist outside of view
 		playlist.getPlaylistEntries().addAll( temp ); //replace its contents with the view
 	}
-	
+
 	/**
 	 * Sets the chart numbers for a given playlist's entries array
 	 */
@@ -363,10 +363,15 @@ public class MainController implements ViewControllerListener {
 		else { throw new MediaOpenException("The file is not valid, try again"); }
 
 	}
-	
+
+	/**
+	 * Takes fontNames from the view and passes them to the model
+	 * @param fontName string representation of a font on secondary storage
+	 */
 	public void setFontName(String fontName) {
 		TextCompositor.setFontName(fontName);
 	}	
+	
 	/**
 	 * Takes fontsizes from the view and passes them to the model
 	 * @param fontSize
@@ -374,8 +379,6 @@ public class MainController implements ViewControllerListener {
 	public void setFontSize(int fontSize) {
 		TextCompositor.setFontSize(fontSize);
 	}
-
-	
 
 
 }

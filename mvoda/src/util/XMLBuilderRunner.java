@@ -119,7 +119,6 @@ public class XMLBuilderRunner {
 
 	/**
 	 * When run, will generate the three default MV-CoDA themes in the default Themes directory
-	 * @throws FileNotFoundException //TODO
 	 */
 	public static void main(String[] args)  {
 		XMLBuilderRunner gfx = new XMLBuilderRunner(); //Make an object from this static class so we can run the code to generate the theme 
