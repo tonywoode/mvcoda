@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 import lombok.Getter;
 import lombok.Setter;
+import themes.CoOrd;
 import themes.GFXElementException;
 
 /**
@@ -23,13 +24,12 @@ public class TextCompositor {
 	@Getter @Setter static String fontName = "Arial Narrow"; //we defensively set these to defaults
 	@Getter @Setter static int fontSize = 24;
 	@Setter private String text;
-	private int textXPos;
-	private int textYPos;
+	private CoOrd coOrd = new CoOrd(0,0);
 
 	public TextCompositor(String text, int textXPos, int textYPos){
 		this.text = text;
-		this.textXPos = textXPos;
-		this.textYPos = textYPos;
+		this.coOrd.setXOffsetSD(textXPos);
+		this.coOrd.setYOffsetSD(textYPos);
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class TextCompositor {
 	 */
 	private BufferedImage nextText(boolean imOut, BufferedImage videoFrame) throws GFXElementException {
 		setFont();
-		if ( imOut == false) { if (text != null) { renderText(videoFrame, text, textFont, textXPos, textYPos); } }
+		if ( imOut == false) { if (text != null) { renderText(videoFrame, text, textFont, coOrd.getXOffsetSD(), coOrd.getYOffsetSD() ); } }
 		BufferedImage composite = videoFrame;
 		return composite;
 	}
@@ -91,12 +91,6 @@ public class TextCompositor {
 		else { throw new GFXElementException("Couldn't access the overlay image whilst rendering text"); }
 		g2d.setFont(font);
 		g2d.drawString(text, x, y);
-	}
-
-	//TODO: refactor with coord
-	public void setTextPos(int x, int y) {
-		textXPos = x;
-		textYPos = y;
 	}
 
 

@@ -105,7 +105,7 @@ public class EncoderXuggle implements Encoder {
 	 * @param decoder the decoder instance being used
 	 * @param video a music video
 	 */
-	public void renderNextVid(Decoder decoder, MusicVideo video) {
+	private void renderNextVid(Decoder decoder, MusicVideo video) {
 	    long nextAudioTimecode = 0;
 	    long nextVideoTimecode = 0;
 	    

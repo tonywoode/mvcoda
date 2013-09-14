@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 import lombok.Getter;
+import themes.CoOrd;
 import themes.GFXElement;
 import themes.GFXElementException;
 import util.FrameRate;
@@ -23,30 +24,29 @@ import util.FrameRate;
  *
  */
 public class ImageCompositor {
+	
+	public final static Logger LOGGER = Logger.getLogger(ImageCompositor.class.getName()); //get a logger for this class
 
+	@Getter private boolean imOut = false;
+	
 	private int fileIndex;
-	private ArrayList<String> gfxFiles;
-	private GFXElement gfxElement;
-
-	long vidTimeStamp = 0;
-	long inTime = 0;
-	long desiredDuration = 0;
-	long outTime = 0;
-	long inTimeWithHandles = 0;
-	long outTimeWithHandles = 0;
-	int x = 0;
-	int y = 0;
-	double newWidth = 0;
-	double newHeight = 0;
+	private long vidTimeStamp = 0;
+	private long inTime = 0;
+	private long outTime = 0;
+	private long inTimeWithHandles = 0;
+	private long outTimeWithHandles = 0;
+	private double newWidth = 0;
+	private double newHeight = 0;
 	private float alpha = 0f;
-	boolean fadeIt = false;
-	int outOffset = 0;
-
-	@Getter boolean imOut = false;
+	private int outOffset = 0;
+	private boolean fadeIt = false;
+	private ArrayList<String> gfxFiles;
+	
+	private CoOrd coOrd = new CoOrd(0,0);
+	private GFXElement gfxElement;
 	private BufferedImage videoFrame;
 	private BufferedImage overlay;
 
-	public final static Logger LOGGER = Logger.getLogger(ImageCompositor.class.getName()); //get a logger for this class
 
 	/**
 	 * Takes a theme name and arranges to overlay the sequence of images set as logo
@@ -69,15 +69,14 @@ public class ImageCompositor {
 	 * @throws GFXElementException a problem with accessing the GFX Element files
 	 */
 	public BufferedImage overlayNextImage(long vidTimeStamp, long inTime, long desiredDuration, BufferedImage videoFrame) throws GFXElementException {
-		this.desiredDuration = desiredDuration;
 		this.videoFrame = videoFrame;
 		this.vidTimeStamp = vidTimeStamp;
 		this.inTime = inTime;
 		inTimeWithHandles = inTime - gfxElement.getInDuration();
 		outTime = inTime + desiredDuration;		
 		outTimeWithHandles = outTime + gfxElement.getOutDuration();
-		x = gfxElement.getXOffsetSD();
-		y = gfxElement.getYOffsetSD();
+		coOrd.setXOffsetSD(gfxElement.getXOffsetSD() );
+		coOrd.setYOffsetSD(gfxElement.getYOffsetSD() );
 
 		LOGGER.info(gfxElement.getDirectory() + " inDuration is " + gfxElement.getInDuration());
 		LOGGER.info("inDuration is :" + gfxElement.getInDuration());
@@ -189,7 +188,7 @@ public class ImageCompositor {
 	 */
 	private BufferedImage overlayImage() {
 		Graphics2D g = videoFrame.createGraphics();
-		g.drawImage(overlay, x, y, null);
+		g.drawImage(overlay, coOrd.getXOffsetSD(), coOrd.getYOffsetSD(), null);
 		//TODO - need a map of rendering hints: g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
 		return videoFrame;
 	}
@@ -209,12 +208,12 @@ public class ImageCompositor {
 
 		if ( vidTimeStamp >= inTimeWithHandles && vidTimeStamp <= outTimeWithHandles) {
 			g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
-			g2d.drawImage(overlay, x, y, null);
+			g2d.drawImage(overlay, coOrd.getXOffsetSD(), coOrd.getYOffsetSD(), null);
 			if  (alpha < 1.00f - alphaFactor ) {	alpha += alphaFactor; }
 		}
 		else if ( vidTimeStamp >= outTimeWithHandles ) {
 			g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
-			g2d.drawImage(overlay, x, y, null);
+			g2d.drawImage(overlay, coOrd.getXOffsetSD(), coOrd.getYOffsetSD(), null);
 			if ( alpha - alphaFactor >= 0.00f ) { alpha -= alphaFactor; }
 			if ( alpha - alphaFactor < 0.0f ) { alpha = 0.0f; } //we really want it to fade off at the end
 		}
@@ -256,7 +255,7 @@ public class ImageCompositor {
 			Graphics2D g2d;
 			if (videoFrame != null) { g2d = videoFrame.createGraphics(); }
 			else { throw new GFXElementException("Couldn't access the overlay image while doing a fade"); }
-			g2d.drawImage(overlay, x, y, null);
+			g2d.drawImage(overlay, coOrd.getXOffsetSD(), coOrd.getYOffsetSD(), null);
 		}
 		return videoFrame;
 	}
