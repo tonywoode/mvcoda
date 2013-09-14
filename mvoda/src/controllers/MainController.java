@@ -17,11 +17,11 @@ import lombok.Getter;
 import lombok.Setter;
 import media.MediaOpenException;
 import media.MusicVideo;
+import media.xuggle.PlayVideoFile;
 import media.xuggle.EncoderXuggle;
 import media.xuggle.MusicVideoXuggle;
 import playlist.Playlist;
 import playlist.PlaylistEntry;
-import test.DecodeAndPlayAudioAndVideo;
 import themes.Theme;
 import util.FileUtil;
 import util.XMLReader;
@@ -322,7 +322,7 @@ public class MainController implements ViewControllerListener {
 				//then finally render it
 				if( file != null ) { new EncoderXuggle(playlist, theme, outFileUNC); }		
 				//lastly display it in the swing window				
-				new DecodeAndPlayAudioAndVideo(outFileUNC);
+				new PlayVideoFile(outFileUNC);
 				return true;
 			}
 		};

@@ -14,6 +14,7 @@ import java.util.TimeZone;
 
 import media.MediaOpenException;
 import media.MusicVideo;
+import media.xuggle.PlayVideoFile;
 import media.xuggle.EncoderXuggle;
 import media.xuggle.MusicVideoXuggle;
 import playlist.Playlist;
@@ -115,7 +116,7 @@ public class StandardRenderTimingTest {
 		System.out.println("TIME TAKEN: " + df.format(new Date(elapsed)));
 
 		//play it in xugglers media player
-		new DecodeAndPlayAudioAndVideo(outFileUNC);
+		new PlayVideoFile(outFileUNC);
 
 	}
 }

@@ -17,7 +17,7 @@
  * along with Xuggle-Xuggler-Main.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
 
-package test;
+package media.xuggle;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
@@ -25,6 +25,8 @@ import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 import javax.swing.JOptionPane;
+
+import test.SwingVideoWindow;
 
 import com.xuggle.xuggler.Global;
 import com.xuggle.xuggler.IAudioSamples;
@@ -50,7 +52,7 @@ import com.xuggle.xuggler.Utils;
  * @author aclarke
  *
  */
-public class DecodeAndPlayAudioAndVideo
+public class PlayVideoFile
 {
 
   /**
@@ -78,7 +80,7 @@ public class DecodeAndPlayAudioAndVideo
    * @param args Must contain one string which represents a filename
    */
   @SuppressWarnings("deprecation")
-  public DecodeAndPlayAudioAndVideo(String fileUNC)
+  public PlayVideoFile(String fileUNC)
   {
 	  String filename = fileUNC;
 	   
