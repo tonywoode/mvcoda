@@ -379,6 +379,9 @@ public class MainController implements ViewControllerListener {
 	public void setFontSize(int fontSize) {
 		TextCompositor.setFontSize(fontSize);
 	}
+	
+	
+	
 
 
 }

@@ -7,6 +7,7 @@ import media.MusicVideo;
 import playlist.PlaylistEntry;
 import themes.GFXElementException;
 import themes.Theme;
+import util.FrameRate;
 
 /**
  * Arranges which elements in a theme go where on screen. This class should be replaced with generic calls and 
@@ -22,15 +23,21 @@ public class ThemeCompositor {
 	private ImageCompositor chartCompositor;
 	private ImageCompositor transitionCompositor;
 	private ImageCompositor numbersCompositor;
+	private ImageCompositor specialCompositor;
 	private TextCompositor numberText;
 	private TextCompositor trackText;
 	private TextCompositor artistText;
 	private TextCompositor trackInfo;
 	private TextCompositor chartText;
 	private Theme theme;
+	
+	/**
+	 * The time basis by which to multiply seconds, obtained from the FrameRate class
+	 */
+	private long tb = FrameRate.getTimeBasis();
 
 	/*
-	 * ALL 1-3 DIGIT MAGIC NUMBERS IN THIS CLASS ARE ONSCREEN COORDINATES. ALL 7-8 DIGIT MAGIC NUMBERS ARE TIMECODES ( IN MICROSECONDS)
+	 * ALL SINGLULAR 1-3 DIGIT MAGIC NUMBERS IN THIS CLASS ARE ONSCREEN COORDINATES, WHEREAS ALL (MAGIC NUMBER * TB) ARE TIMECODES IN SECONDS
 	 */
 
 	/**
@@ -61,7 +68,16 @@ public class ThemeCompositor {
 	 * @param playlistEntry
 	 */
 	private void setThemeOptionsDefault(PlaylistEntry playlistEntry, String chartName) {
-		//TODO DEFAULT SETTINGS FOR A NEW THEME
+		if (theme.getLogo() != null) logoCompositor = new ImageCompositor(theme.getLogo());
+		if (theme.getStrap() != null) strapCompositor = new ImageCompositor(theme.getStrap());
+		if (theme.getStrap() != null) strapCompositor2 = new ImageCompositor(theme.getStrap());
+		if (theme.getChart() != null) chartCompositor = new ImageCompositor(theme.getChart());
+		if (theme.getTransition() != null) transitionCompositor = new ImageCompositor(theme.getTransition());
+		if (theme.getNumbers() != null) numbersCompositor = new ImageCompositor(theme.getNumbers());
+		if (theme.getSpecial() != null) specialCompositor = new ImageCompositor(theme.getSpecial());
+		artistText = new TextCompositor(playlistEntry.getArtistName(), 165, 450); //TODO: rather random text ordering requires refactor
+		trackText = new TextCompositor(playlistEntry.getTrackName(), 165, 480);
+		trackInfo = new TextCompositor(playlistEntry.getTrackInfo(), 165, 465);
 	}
 
 	/**
@@ -132,16 +148,27 @@ public class ThemeCompositor {
 		break;
 		case 2:  renderUrban(videoFrame, decoder, video);
 		break;
-		default: renderDefault();
+		default: renderDefault(videoFrame, decoder, video);
 		break;
 		}
 	}
 
 	/**
-	 * component and timing options for rendering the default theme onscreen
+	 * component and timing options for rendering the default theme onscreen, based on urban theme but with a special
 	 */
-	private void renderDefault() {
-		//TODO DEFAULT
+	private void renderDefault(BufferedImage videoFrame, Decoder decoder, MusicVideo video) {
+		try {
+			if (theme.getLogo() != null) videoFrame = logoCompositor.overlayNextImage(decoder.getVideoTimeStamp(),theme.getLogo().getInDuration(),video.getVidStreamDuration() - theme.getLogo().getInDuration() - theme.getLogo().getOutDuration(), videoFrame);	
+			if (theme.getStrap() != null) videoFrame = strapCompositor.overlayNextImage(decoder.getVideoTimeStamp(),2 * tb, 10 * tb, videoFrame);
+			if (theme.getStrap() != null) videoFrame = strapCompositor2.overlayNextImage(decoder.getVideoTimeStamp(),15 * tb, 2* tb, videoFrame);
+			if (theme.getChart() != null) videoFrame = chartCompositor.overlayNextImage(decoder.getVideoTimeStamp(), 2 * tb, 10 * tb, videoFrame);
+			if (theme.getTransition() != null) videoFrame = transitionCompositor.overlayNextImage(decoder.getVideoTimeStamp(),0 , theme.getTransition().getDuration(), videoFrame);
+			if (theme.getNumbers() != null) videoFrame = numbersCompositor.overlayNextImage(decoder.getVideoTimeStamp(),2 * tb, 7 * tb, videoFrame);
+			if (theme.getSpecial() != null) videoFrame = specialCompositor.overlayNextImage(decoder.getVideoTimeStamp(),5 * tb, 4 * tb, videoFrame);
+			if (theme.getStrap() != null) videoFrame = trackText.overlayNextFontFrame(strapCompositor.isImOut(), videoFrame);
+			if (theme.getStrap() != null) videoFrame = artistText.overlayNextFontFrame(strapCompositor.isImOut(), videoFrame);
+			if (theme.getStrap() != null) videoFrame = trackInfo.overlayNextFontFrame(strapCompositor2.isImOut(), videoFrame);
+		} catch (GFXElementException e) { e.printStackTrace(); }
 	}
 
 	/**
@@ -158,13 +185,13 @@ public class ThemeCompositor {
 					/*the logo here is a reverse out element, therefore, since in this version of MV-CoDA we are putting the logo on and off 
 					 * at the start and close of EACH video, the desired duration will be: that videos duration, minus the logo's in-animation,
 					 * and also minus it's out-animation AT the factor of the speedup that has been set for the element.
-					 * These figures are obtained by getOutDuration in the GFXElement itself */
+					 * These figures are obtained by getOutDuration from the GFXElement itself */
 					video.getVidStreamDuration() - theme.getLogo().getInDuration() - ( theme.getLogo().getOutDuration() ), videoFrame );	
-			videoFrame = strapCompositor.overlayNextImage(decoder.getVideoTimeStamp(),5000000, 2000000, videoFrame);
-			videoFrame = strapCompositor2.overlayNextImage(decoder.getVideoTimeStamp(),12000000, 3000000, videoFrame);
-			videoFrame = chartCompositor.overlayNextImage(decoder.getVideoTimeStamp(),theme.getChart().getInDuration() + 1000000, 10000000, videoFrame);
-			videoFrame = transitionCompositor.overlayNextImage(decoder.getVideoTimeStamp(),0, 4000000, videoFrame);
-			videoFrame = numbersCompositor.overlayNextImage(decoder.getVideoTimeStamp(),5000000, 8000000, videoFrame);
+			videoFrame = strapCompositor.overlayNextImage(decoder.getVideoTimeStamp(),5 * tb, 2 * tb, videoFrame);
+			videoFrame = strapCompositor2.overlayNextImage(decoder.getVideoTimeStamp(),12 * tb, 3 * tb, videoFrame);
+			videoFrame = chartCompositor.overlayNextImage(decoder.getVideoTimeStamp(),theme.getChart().getInDuration() + 1 * tb, 10 * tb, videoFrame);
+			videoFrame = transitionCompositor.overlayNextImage(decoder.getVideoTimeStamp(),0, 4 * tb, videoFrame);
+			videoFrame = numbersCompositor.overlayNextImage(decoder.getVideoTimeStamp(),5 * tb, 8 * tb, videoFrame);
 			videoFrame = numberText.overlayNextFontFrame(numbersCompositor.isImOut(), videoFrame);
 			videoFrame = trackText.overlayNextFontFrame(strapCompositor.isImOut(), videoFrame);
 			videoFrame = artistText.overlayNextFontFrame(strapCompositor.isImOut(), videoFrame);
@@ -184,11 +211,11 @@ public class ThemeCompositor {
 
 		try {
 			videoFrame = logoCompositor.overlayNextImage(decoder.getVideoTimeStamp(),theme.getLogo().getInDuration(),video.getVidStreamDuration() - theme.getLogo().getInDuration() - theme.getLogo().getOutDuration(), videoFrame);	
-			videoFrame = strapCompositor.overlayNextImage(decoder.getVideoTimeStamp(),2000000, 10000000, videoFrame);
-			videoFrame = strapCompositor2.overlayNextImage(decoder.getVideoTimeStamp(),15000000, 2000000, videoFrame);
-			videoFrame = chartCompositor.overlayNextImage(decoder.getVideoTimeStamp(), 2000000, 10000000, videoFrame);
-			videoFrame = transitionCompositor.overlayNextImage(decoder.getVideoTimeStamp(),2000, theme.getTransition().getDuration(), videoFrame);
-			videoFrame = numbersCompositor.overlayNextImage(decoder.getVideoTimeStamp(),2000000, 7000000, videoFrame);
+			videoFrame = strapCompositor.overlayNextImage(decoder.getVideoTimeStamp(),2 * tb, 10 * tb, videoFrame);
+			videoFrame = strapCompositor2.overlayNextImage(decoder.getVideoTimeStamp(),15 * tb, 2 * tb, videoFrame);
+			videoFrame = chartCompositor.overlayNextImage(decoder.getVideoTimeStamp(), 2 * tb, 10 * tb, videoFrame);
+			videoFrame = transitionCompositor.overlayNextImage(decoder.getVideoTimeStamp(),0 , theme.getTransition().getDuration(), videoFrame);
+			videoFrame = numbersCompositor.overlayNextImage(decoder.getVideoTimeStamp(),2 * tb, 7 * tb, videoFrame);
 			videoFrame = trackText.overlayNextFontFrame(strapCompositor.isImOut(), videoFrame);
 			videoFrame = artistText.overlayNextFontFrame(strapCompositor.isImOut(), videoFrame);
 			videoFrame = trackInfo.overlayNextFontFrame(strapCompositor2.isImOut(), videoFrame);
@@ -205,10 +232,10 @@ public class ThemeCompositor {
 
 		try {
 			videoFrame = logoCompositor.overlayNextImage(decoder.getVideoTimeStamp(),theme.getLogo().getInDuration(),video.getVidStreamDuration() - theme.getLogo().getInDuration() - theme.getLogo().getOutDuration(), videoFrame);
-			videoFrame = strapCompositor.overlayNextImage(decoder.getVideoTimeStamp(),3000000, 5000000, videoFrame);
-			videoFrame = strapCompositor2.overlayNextImage(decoder.getVideoTimeStamp(),14000000, 2000000, videoFrame);
-			videoFrame = chartCompositor.overlayNextImage(decoder.getVideoTimeStamp(),2000000, 2000000, videoFrame);
-			videoFrame = numbersCompositor.overlayNextImage(decoder.getVideoTimeStamp(),10000000, 2000000, videoFrame);
+			videoFrame = strapCompositor.overlayNextImage(decoder.getVideoTimeStamp(),3 * tb, 5 * tb, videoFrame);
+			videoFrame = strapCompositor2.overlayNextImage(decoder.getVideoTimeStamp(),14 * tb, 2 * tb, videoFrame);
+			videoFrame = chartCompositor.overlayNextImage(decoder.getVideoTimeStamp(),2 * tb, 2 * tb, videoFrame);
+			videoFrame = numbersCompositor.overlayNextImage(decoder.getVideoTimeStamp(),10 * tb, 2 * tb, videoFrame);
 			videoFrame = numberText.overlayNextFontFrame(strapCompositor.isImOut(), videoFrame); //For this chart, number TEXT is tied to strap, NOT tied to number
 			videoFrame = trackText.overlayNextFontFrame(strapCompositor.isImOut(), videoFrame);
 			videoFrame = artistText.overlayNextFontFrame(strapCompositor.isImOut(), videoFrame);
@@ -224,12 +251,13 @@ public class ThemeCompositor {
 	 * Resets chart elements - meaning sets the iterator of filenames back to zero for each element so the next video can be composited
 	 */
 	public void resetThemeElements() {
-		logoCompositor.resetFileUNC();
-		strapCompositor.resetFileUNC();
-		strapCompositor2.resetFileUNC();
-		chartCompositor.resetFileUNC();
-		if (transitionCompositor != null) transitionCompositor.resetFileUNC(); //TODO: numbers has no transition. Elements should reset themselves
-		numbersCompositor.resetFileUNC();
+		//TODO: Elements should reset themselves
+		if (logoCompositor != null) logoCompositor.resetFileUNC();
+		if (strapCompositor != null) strapCompositor.resetFileUNC();
+		if (strapCompositor2 != null) strapCompositor2.resetFileUNC();
+		if (chartCompositor != null) chartCompositor.resetFileUNC();
+		if (transitionCompositor != null) transitionCompositor.resetFileUNC(); 
+		if (numbersCompositor != null) numbersCompositor.resetFileUNC();
 
 	}
 
