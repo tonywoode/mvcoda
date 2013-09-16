@@ -52,6 +52,7 @@ public class MusicVideoXuggle implements MusicVideo {
 		
 	public Rational getFramesPerSecond() { return framesPerSecond != null ? new RationalXuggle(framesPerSecond) : null;	}
 
+	@Getter private Decoder decoder;
 	@Getter private String fileUNC;	
 	@Getter private String filetype;
 	@Getter private int width;
@@ -66,8 +67,6 @@ public class MusicVideoXuggle implements MusicVideo {
 	@Getter private long vidStreamDuration;
 	@Getter private long numVidFrames;
 	private int numStreams;
-
-	@Getter private Decoder decoder;
 
 	/**
 	 * Constructor takes only a filename, if that filename is a video FFMpeg can read i.e.: has audio and/or video streams codecs that can decode

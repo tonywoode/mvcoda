@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import javax.management.modelmbean.XMLParseException;
-
 import playlist.Playlist;
 import playlist.PlaylistEntry;
 import themes.AnimatedGFXElement;

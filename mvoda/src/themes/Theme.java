@@ -27,8 +27,6 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 	 */
 	@XStreamOmitField @Getter private static final Path rootDir = Paths.get("Theme");
 	
-	
-	
 	@XStreamOmitField @Getter private Path themeDir;
 	
 	@XStreamOmitField @Getter @Setter private int index; //Note: to omit this field means we must always remember to set this AFTER instantiating with a read

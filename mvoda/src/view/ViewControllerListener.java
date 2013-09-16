@@ -30,16 +30,7 @@ public interface ViewControllerListener {
 	
 	void setFontName(String newValue);
 
-	void setFontSize(int intValue);
-
-
-
-
-
-	
-
-	
-	
+	void setFontSize(int intValue);	
 
 	
 }

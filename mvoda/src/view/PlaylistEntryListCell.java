@@ -7,8 +7,18 @@ import javafx.scene.effect.BlendMode;
 import javafx.scene.input.MouseEvent;
 import playlist.PlaylistEntry;
 
+/**
+ * Customises the Playlist List View's list cells, thus each cell will behave as the below
+ * @author tony
+ *
+ */
 public class PlaylistEntryListCell extends ListCell<PlaylistEntry> {
 	
+	/**
+	 * Listening on the cell for a change in the position of a chart number, a change in validation status (for which the
+	 * cell will change background and text colour), or a double click for which we ask the viewController to produce its
+	 * open file dialog
+	 */
 	@Override protected void updateItem(PlaylistEntry item, boolean empty) {
         super.updateItem(item, empty);
         if (item != null) {
@@ -28,11 +38,9 @@ public class PlaylistEntryListCell extends ListCell<PlaylistEntry> {
             if (this.getItem().getVideo() != null ) { this.setBlendMode(null); }
             
            addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
+                @Override public void handle(MouseEvent event) {
                     if (event.getClickCount() > 1) {
-                        System.out.println("double clicked on " + itemname);
-                       
+                        System.out.println("double clicked on " + itemname);                      
                         ViewController.reFindPlaylistEntry(chartPosition - 1); //ie this.getIndex()
                     }
                 }

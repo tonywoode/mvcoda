@@ -25,10 +25,10 @@ public class FileUtil  {
 		String reverse = reverseString(fileUNC);
 		int j = 0;
 		while (!(reverse.charAt(j) == '.')) { j++; }	//then we go back through our reversed string till we find a period
-								LOGGER.info("The first digit is at position: " + j); 
+		LOGGER.info("The first digit is at position: " + j); 
 		String filetypeReversed = reverse.substring(0, j + 1);
 		//we digress here to save out the filetype
-								LOGGER.info("Here's the reversed filetype: " + filetypeReversed);
+		LOGGER.info("Here's the reversed filetype: " + filetypeReversed);
 		String filetype = new StringBuilder(filetypeReversed).reverse().toString(); //we reverse the filetype
 		return filetype;
 	}
@@ -50,7 +50,7 @@ public class FileUtil  {
 
 	private static String reverseString(String fileUNC) {
 		String reverse = new StringBuilder(fileUNC).reverse().toString(); //so we reverse
-								LOGGER.info("reversed relative filename is: " + reverse);
+		LOGGER.info("reversed relative filename is: " + reverse);
 		return reverse;
 	}
 
@@ -68,15 +68,15 @@ public class FileUtil  {
 		DirectoryStream.Filter filter = new DirectoryStream.Filter() {
 			@Override public boolean accept(Object entry) throws IOException { return Files.isDirectory( (Path) entry); } 
 		};
-								LOGGER.info("Path to count" + path);
+		LOGGER.info("Path to count" + path);
 		//then iterate through the folders, incrementing the output number
 		int i = 0;
 		try (DirectoryStream<Path> dstream =  Files.newDirectoryStream(path, filter ) ) {
 			for (Path p : dstream) { 
-								LOGGER.info("Next filename " + p.getFileName()); 
+				LOGGER.info("Next filename " + p.getFileName()); 
 				i++;  }
 		} catch (IOException e) { throw new IOException("Could not count folders in path" + e.getMessage()); }
-								LOGGER.info("found " + i + " folders");
+		LOGGER.info("found " + i + " folders");
 		return i;
 
 	}

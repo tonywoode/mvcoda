@@ -34,9 +34,9 @@ public class HandleLoggers {
 		//now we have an opportunity to set levels on the pacakage or class level, we do this by having public static loggers in the classes
 		// see //http://stackoverflow.com/questions/470430/java-util-logging-logger-doesnt-respect-java-util-logging-level
 		
-		MainController.LOGGER.setLevel(Level.ALL);
-		ViewController.LOGGER.setLevel(Level.ALL);
-		ThemeFinderImpl.LOGGER.setLevel(Level.ALL);
+		MainController.LOGGER.setLevel(Level.OFF);
+		ViewController.LOGGER.setLevel(Level.OFF);
+		ThemeFinderImpl.LOGGER.setLevel(Level.OFF);
 		MusicVideoXuggle.LOGGER.setLevel(Level.OFF);
 		ImageCompositor.LOGGER.setLevel(Level.OFF);
 		FileUtil.LOGGER.setLevel(Level.OFF);

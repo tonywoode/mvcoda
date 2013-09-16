@@ -95,7 +95,7 @@ public class EncoderXuggle implements Encoder {
 		} 
 		finally { 
 			if (writer != null) { writer.close(); } //in Xuggler, null means more packets to go
-			if (video != null) video.close();
+			if (video != null)  {video.close(); }
 		}
 	}
 	
