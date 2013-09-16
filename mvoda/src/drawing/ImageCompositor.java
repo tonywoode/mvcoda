@@ -102,9 +102,7 @@ public class ImageCompositor {
 					BufferedImage composite = overlayImage();
 					return composite;
 				}
-			} catch (IOException e) {
-				throw new GFXElementException("Problem with opening the Theme Element files");
-			}
+			} catch (IOException e) { throw new GFXElementException("Problem with opening the Theme Element files"); }
 		}
 		else { imOut = true; return videoFrame; }
 	}

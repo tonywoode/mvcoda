@@ -45,9 +45,7 @@ public class ThemeCompositor {
 	 * @param theme the theme to arrange
 	 *
 	 */
-	public ThemeCompositor(Theme theme) {
-		this.theme = theme;
-	}
+	public ThemeCompositor(Theme theme) { this.theme = theme; }
 
 	/**
 	 * Deals with compositing the three included themes and the possibility of a default render

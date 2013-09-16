@@ -7,6 +7,4 @@ import com.xuggle.xuggler.IContainerFormat;
  * @author tony
  *
  */
-public abstract class ContainerFormat {
-	public abstract IContainerFormat getInternalFormat();
-}
+public abstract class ContainerFormat {	public abstract IContainerFormat getInternalFormat(); }

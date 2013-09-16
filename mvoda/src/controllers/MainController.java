@@ -317,8 +317,7 @@ public class MainController implements ViewControllerListener {
 	public Task<?> createWorker(final Theme theme, final File file, final String outFileUNC) {
 		return new Task<Object>() {
 
-			@Override
-			protected Object call() throws Exception {
+			@Override protected Object call() throws Exception {
 				//then finally render it
 				if( file != null ) { new EncoderXuggle(playlist, theme, outFileUNC); }		
 				//lastly display it in the swing window				
@@ -368,17 +367,13 @@ public class MainController implements ViewControllerListener {
 	 * Takes fontNames from the view and passes them to the model
 	 * @param fontName string representation of a font on secondary storage
 	 */
-	public void setFontName(String fontName) {
-		TextCompositor.setFontName(fontName);
-	}	
+	public void setFontName(String fontName) { TextCompositor.setFontName(fontName); }	
 	
 	/**
 	 * Takes fontsizes from the view and passes them to the model
 	 * @param fontSize
 	 */
-	public void setFontSize(int fontSize) {
-		TextCompositor.setFontSize(fontSize);
-	}
+	public void setFontSize(int fontSize) { TextCompositor.setFontSize(fontSize); }
 	
 	
 	

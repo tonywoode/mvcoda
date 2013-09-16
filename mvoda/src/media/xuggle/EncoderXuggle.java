@@ -39,7 +39,7 @@ public class EncoderXuggle implements Encoder {
 	
 	private ThemeCompositor themeCompositor;
 	
-	long offset;
+	private long offset;
 
 	/**
 	 * By passing two UNCpaths to the constructor we specify and input and an output filename

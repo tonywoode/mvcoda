@@ -14,9 +14,7 @@ public class VideoPictureXuggle extends VideoPicture {
 
 	IVideoPicture picture;
 	
-	public VideoPictureXuggle(IVideoPicture picture) {
-		this.picture = picture;
-	}
+	public VideoPictureXuggle(IVideoPicture picture) { this.picture = picture; }
 	
 	@Override public Object getInternalVideoPicture() {	return picture; }
 

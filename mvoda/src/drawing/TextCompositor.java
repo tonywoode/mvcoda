@@ -72,9 +72,7 @@ public class TextCompositor {
 	}
 	
 	
-	protected void setFont() {
-		textFont = new Font(fontName, 1, fontSize);
-	}
+	protected void setFont() { textFont = new Font(fontName, 1, fontSize); }
 	
 	/**
 	 * Renders text to image

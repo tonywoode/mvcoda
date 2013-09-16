@@ -21,7 +21,7 @@
         </Button>
         <ImageView fx:id="imageThumb" blendMode="SRC_OVER" cache="true" cacheHint="SCALE" depthTest="ENABLE" fitHeight="169.99988474121346" fitWidth="212.49985974121185" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
           <image>
-            <Image url="@../test/bru.png" />
+            <Image url="@MV-CoDA.png" />
           </image>
           <GridPane.margin>
             <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
@@ -152,7 +152,7 @@
           </VBox.margin>
         </TextField>
         <TextField fx:id="trackTextField" prefWidth="200.0" promptText="Enter Track" VBox.margin="$x1" />
-        <TextArea id="trackInfoTextArea" fx:id="trackInfoTextArea" prefHeight="31.0" prefWidth="400.0" promptText="Enter Track Info" wrapText="true" VBox.vgrow="ALWAYS" />
+        <TextArea fx:id="trackInfoTextArea" prefHeight="31.0" prefWidth="400.0" promptText="Enter Track Info" wrapText="true" VBox.vgrow="ALWAYS" />
         <TextArea fx:id="mediaInfoArea" editable="false" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="-1.0" prefWidth="-1.0" promptText="Media Infomation" text="" wrapText="false" VBox.vgrow="ALWAYS">
           <VBox.margin>
             <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />

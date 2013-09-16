@@ -23,8 +23,6 @@ public class TextNumberCompositor extends TextCompositor{
 	/**
 	 * Overrides the sentFont method of TextCompositor providing a double-size number for chart numbers
 	 */
-	@Override protected void setFont() {
-		textFont = new Font(fontName, 1, numberFontSize);
-	}
+	@Override protected void setFont() { textFont = new Font(fontName, 1, numberFontSize); }
 
 }

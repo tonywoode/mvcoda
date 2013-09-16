@@ -52,13 +52,9 @@ public class DecoderXuggle implements Decoder {
 	
 	private MusicVideo video;
 
-	public DecoderXuggle(MusicVideo video) {
-		this.video = video;
-	}
+	public DecoderXuggle(MusicVideo video) { this.video = video; }
 
-	public AudioSamples getAudioSamples() { //part of the adapting framework
-		return audioSamples;
-	}
+	public AudioSamples getAudioSamples() { return audioSamples; } //part of the adapting framework
 
 	/**
 	 * Checks whether a packet passed to it is audio or video. If either is passed calls readVideo or readAudio respectively and returns true
