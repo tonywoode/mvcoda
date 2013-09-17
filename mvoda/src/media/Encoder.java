@@ -11,13 +11,31 @@ import playlist.Playlist;
  *
  */
 public interface Encoder {
-	
+
+	/**
+	 * When passed a playlist, will render the theme that has already been set for the encoder over that playlist
+	 * @param playlist a playlist of music videos
+	 */
 	void render(Playlist playlist);
-	
+
+	/**
+	 * Gets a new media writer so that it can start a container to hold media data on disk
+	 * @param filepath the file representing the container will have
+	 * @return a new media writer capable of writing a media file
+	 */
 	MediaWriter getWriter(String filename);
-	
+
+	/**
+	 * Adds a video stream to an instantiated writer so that it can give it an ID, index and hold it in a container
+	 * @param writer the writer which is going to have a video stream addded to it
+	 */
 	void addVideoStreamTo(MediaWriter writer);
 
+	/**
+	 * Adds an audio stream to an instantiated writer so that it can give it an ID, index and hold it in a container
+	 * @param writer the writer which is going to have a audio stream addded to it
+	 * @param audioCodec the audio codec which is going to be used to write
+	 */
 	void addAudioStreamTo(MediaWriter writer, StreamCoder audioCodec);
 
 }
