@@ -1,0 +1,3 @@
+# this file is for use with the first FFMpeg option for concatenating media
+file 'C:\Users\Tony\MusicVids\4kAvi\FalloutBoySugar.avi'
+file 'C:\Users\Tony\MusicVids\4kAvi\ColdplayClocks.avi'
