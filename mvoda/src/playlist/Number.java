@@ -21,6 +21,9 @@ public class Number {
 		return uniqueInstance;
 	}
 	
+	/**
+	 * The current chart number in the playlist sequence
+	 */
 	@Getter private static int number = 10; //better a number between 1 and 20 than starting at zero, since zero has no corresponding fileset
 	
 	public static void setNumber(int number) throws ChartNumberException {

@@ -19,12 +19,39 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
  */
 @XStreamAlias("Playlist") public class Playlist implements XMLSerialisable {
 
-	@Getter private static int playlistID; 
+	/**
+	 * An ID for the playlist
+	 */
+	@Getter private static int playlistID;
+	
+	/**
+	 * A series of playlist entries held in an array
+	 */
 	@Getter @Setter private ArrayList<PlaylistEntry> playlistEntries;
+	
+	/**
+	 * A name for the playlist
+	 */
 	@Getter @Setter String playlistName;
+	
+	/**
+	 * The name of the theme associated with the playlist
+	 */
 	@Getter @Setter String themeName;
+	
+	/**
+	 * The nfamily name of the font associated with the playlist
+	 */
 	@Getter @Setter String fontName;
+	
+	/**
+	 * The size of the font associated with the playlist
+	 */
 	@Getter @Setter int fontSize;
+	
+	/**
+	 * The chart name given to the playlist
+	 */
 	@Getter @Setter String chartName;
 
 	/**

@@ -13,9 +13,20 @@ import lombok.Setter;
  */
 public class FrameData {
 	
+	/**
+	 * At what frame does the element begin to hold onscreen in its sequence
+	 */
 	@Getter @Setter public int firstHoldFrame;
+	
+	/**
+	 * Which is the last frame the element holds on screen in its seequence
+	 */
 	@Getter @Setter public int lastHoldFrame;
-	@Getter @Setter public int numberOfFrames;
+	
+	/**
+	 * How many frames in total comprise the element
+	 */
+	@Getter @Setter public int numberOfFrames; //TDOO: should be a calulated field
 	
 	public FrameData(int firstHoldFrame, int lastHoldFrame, int numberOfFrames) {
 	this.firstHoldFrame = firstHoldFrame;

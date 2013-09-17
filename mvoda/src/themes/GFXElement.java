@@ -33,21 +33,52 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
  */
 @XStreamAlias("GFXElement") public class GFXElement implements XMLSerialisable {
 
+	/**
+	 * A logger for this class
+	 */
+	public final static Logger LOGGER = Logger.getLogger(GFXElement.class.getName());
+	
 	//annotations because we'd like to omit some of these fields from the XML, they are calculated fields only for the class to use
 	@XStreamOmitField private String filetype = "";
 	@XStreamOmitField private String filePrefix = "";
 	@XStreamOmitField private long duration;
 
+	/**
+	 * The name of the theme this element belongs to
+	 */
 	@Getter @Setter private String themeName;
+	
+	/**
+	 * The elements type ie: Strap, Logo
+	 */
 	@Getter @Setter private String itemName;
+	
+	/**
+	 * The individual name given to the element
+	 */
 	@Getter @Setter private String elementName;
+	
+	/**
+	 * The author of the element
+	 */
 	@Getter @Setter private String author;
+	
+	/**
+	 * The version number of the element
+	 */
 	@Getter @Setter private String version;
+	
+	/**
+	 * The coordinates the element needs to be offset by to appear where it is desired onscreen
+	 */
 	@Getter @Setter private CoOrd coOrd;
 
+	/**
+	 * The array of sequence numbers that represent the file order to lookup for this element's sequence on disk
+	 */
 	private ArrayList<String> fileNumbers;
 
-	public final static Logger LOGGER = Logger.getLogger(GFXElement.class.getName()); //setup a logger for this class
+
 
 	/**
 	 * The basic constituents that describe a GFX element are

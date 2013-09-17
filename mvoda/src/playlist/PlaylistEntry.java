@@ -19,12 +19,34 @@ import media.xuggle.MusicVideoXuggle;
  */
 @XStreamAlias("PlaylistEntry") public class PlaylistEntry {
 	
+	/**
+	 * This entries chart position in the playlist that holds it
+	 */
 	@Setter @Getter private int positionInPlaylist;
+	
+	/**
+	 * The entered name of the artist who sang this entry
+	 */
 	@Setter @Getter private String artistName;
+	
+	/**
+	 * The entered name of the song
+	 */
 	@Setter @Getter private String trackName;
+	
+	/**
+	 * The entered track info associated with this entry
+	 */
 	@Setter @Getter private String trackInfo;
+	
+	/**
+	 * String representaion of the path to the media file associated with this entry
+	 */
 	@Setter @Getter private String fileUNC;
 	
+	/**
+	 * The music video object associated with this entry
+	 */
 	@XStreamOmitField @Setter @Getter private MusicVideo video;
 	
 	

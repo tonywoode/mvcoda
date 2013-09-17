@@ -14,9 +14,24 @@ import lombok.Setter;
  */
 public class AnimationData {
 
+	/**
+	 * Does the element need to reverse out through the file sequence
+	 */
 	@Getter @Setter boolean reverse;
+	
+	/**
+	 * Does the element have a looping middle section
+	 */
 	@Getter @Setter boolean loop;
+	
+	/**
+	 * Is the element of the numbers type
+	 */
 	@Getter @Setter boolean numbers;
+	
+	/**
+	 * If the element were a reverse type, at what speed would it reverse out
+	 */
 	@Getter @Setter int speed = 1; //all other variables are fine as defaults but speed should default to 1x not 0x
 
 	public AnimationData(boolean reverse, boolean loop, boolean numbers, int speed) {

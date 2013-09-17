@@ -53,7 +53,14 @@ import view.buttons.Dialog;
  */
 public class ViewController implements Initializable {
 
-	public final static Logger LOGGER = Logger.getLogger(ViewController.class.getName()); //get a logger for this class
+	/**
+	 * A logger for this class
+	 */
+	public final static Logger LOGGER = Logger.getLogger(ViewController.class.getName());
+	
+	/**
+	 * GUI element for holding music video thumbnails
+	 */
 	@FXML private static ImageView imageThumb;
 	@Setter	private static ViewControllerListener viewListener;	
 	@Getter @Setter	private static Stage stage;

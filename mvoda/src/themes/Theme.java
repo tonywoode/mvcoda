@@ -21,18 +21,30 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
  */
 @XStreamAlias("Theme") public class Theme implements XMLSerialisable {
 	
-	/*
+	/**
 	 * 
 	 * This is the root directory for all the XML's. It is not expected to change or be alterable
-	 */
+	 **/
 	@XStreamOmitField @Getter private static final Path rootDir = Paths.get("Theme");
 	
+	/**
+	 * The path relative to the root directory set in this class where we can find this theme
+	 */
 	@XStreamOmitField @Getter private Path themeDir;
 	
+	/**
+	 * The index number of the theme for MV-CoDA
+	 */
 	@XStreamOmitField @Getter @Setter private int index; //Note: to omit this field means we must always remember to set this AFTER instantiating with a read
 	
+	/**
+	 * The name of the theme
+	 */
 	@Getter private String itemName;
 	
+	/**
+	 * The directory the theme elements reside in
+	 */
 	@Getter @Setter private String directory;
 
 	//elements cited in order of importance which is maintained in other classes e.g.: xml generation classes

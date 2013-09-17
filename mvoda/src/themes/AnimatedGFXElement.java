@@ -22,11 +22,24 @@ import lombok.Setter;
  */
 @XStreamAlias("AnimatedGFXElement") public class AnimatedGFXElement extends GFXElement {
 
-
+/**
+ * The length of time it takes this element to reach its hold point
+ */
 	@XStreamOmitField private long inDuration;
+	
+	/**
+	 * The length of time it takes this element to end its hold point and animate offscreen
+	 */
 	@XStreamOmitField private long outDuration;
 
+	/**
+	 * Value object with information about which frames numbers signal changes in the element
+	 */
 	@Getter @Setter public FrameData frameData;
+	
+	/**
+	 * Value object with information about how the element animates when it is onscreen
+	 */
 	@Getter @Setter public AnimationData animationData;
 
 	public AnimatedGFXElement(
