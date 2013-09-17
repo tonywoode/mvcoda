@@ -18,12 +18,34 @@ import themes.GFXElementException;
  */
 public class TextCompositor {
 
-	public final static Logger LOGGER = Logger.getLogger(TextCompositor.class.getName()); //get a logger for this class
+	/**
+	 * A logger for this class
+	 */
+	public final static Logger LOGGER = Logger.getLogger(TextCompositor.class.getName());
 
+	/**
+	 * The font to use
+	 */
 	@Getter @Setter public Font textFont;
+	
+	/**
+	 * The given family name for this font, as returned by a call to getAvailableFontFamilyNames() 
+	 */
 	@Getter @Setter static String fontName = "Arial Narrow"; //we defensively set these to defaults
+	
+	/**
+	 * The size of the font
+	 */
 	@Getter @Setter static int fontSize = 24;
+	
+	/**
+	 * The text to be rendered by the font
+	 */
 	@Setter private String text;
+	
+	/**
+	 * Simple value object for coordinate
+	 */
 	private CoOrd coOrd = new CoOrd(0,0);
 
 	public TextCompositor(String text, int textXPos, int textYPos){

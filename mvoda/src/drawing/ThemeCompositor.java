@@ -17,18 +17,69 @@ import util.FrameRate;
  */
 public class ThemeCompositor {
 
+	/**
+	 * An image compositor to be used with a logo
+	 */
 	private ImageCompositor logoCompositor;
+	
+	/**
+	 * An image compositor to be used with a strap
+	 */
 	private ImageCompositor strapCompositor;
+	
+	/**
+	 * An image compositor to be used with a 2nd strap
+	 */
 	private ImageCompositor strapCompositor2;
+	
+	/**
+	 * An image compositor to be used with a chart name graphic
+	 */
 	private ImageCompositor chartCompositor;
+	
+	/**
+	 * An image compositor to be used with a trainsition sequence
+	 */
 	private ImageCompositor transitionCompositor;
+	
+	/**
+	 * An image compositor to be used with a numbers element
+	 */
 	private ImageCompositor numbersCompositor;
+	
+	/**
+	 * An image compositor to be used with a special GFX element
+	 */
 	private ImageCompositor specialCompositor;
+	
+	/**
+	 * A text compositor to be used to render numbers 
+	 */
 	private TextCompositor numberText;
+	
+	/**
+	 * A text compositor to be used to render track names
+	 */
 	private TextCompositor trackText;
+	
+	/**
+	 * A text compositor to be used to render artist names
+	 */
 	private TextCompositor artistText;
+	
+	/**
+	 * A text compositor to be used to redner track info
+	 */
 	private TextCompositor trackInfo;
+	
+	/**
+	 * A text compositor to be used to render chart names
+	 */
 	private TextCompositor chartText;
+	
+	/**
+	 * A Theme ie: set of GFX elements
+	 */
 	private Theme theme;
 	
 	/**

@@ -25,26 +25,94 @@ import util.FrameRate;
  */
 public class ImageCompositor {
 	
-	public final static Logger LOGGER = Logger.getLogger(ImageCompositor.class.getName()); //get a logger for this class
+	/**
+	 * A logger for this class
+	 */
+	public final static Logger LOGGER = Logger.getLogger(ImageCompositor.class.getName());
 
+	/**
+	 * A boolean which will signify to text compositors that the GFX element being composited is currently at its hold position or not
+	 */
 	@Getter private boolean imOut = false;
 	
+	/**
+	 * The position in the GFX element we are compositing that we are currently at
+	 */
 	private int fileIndex;
+	
+	/**
+	 * The timestamp of the video codec
+	 */
 	private long vidTimeStamp = 0;
+	
+	/**
+	 * the in time set for the GFX element we are compositing
+	 */
 	private long inTime = 0;
+	
+	/**
+	 * The out time set for the GFX element we are compositing
+	 */
 	private long outTime = 0;
+	
+	/**
+	 * The in time for the GFX element we are compositing if its in-animation is considered
+	 */
 	private long inTimeWithHandles = 0;
+	
+	/**
+	 * The in time for the GFX element we are compositing if its in-animation is considered
+	 */
 	private long outTimeWithHandles = 0;
+	
+	/**
+	 * The width after a wipe operation of the overlaid image
+	 */
 	private double newWidth = 0;
+	
+	/**
+	 * The height after a wipe operation of the overlaid image
+	 */
 	private double newHeight = 0;
+	
+	/**
+	 * The alpha bitmask set at a particular moment for a static image which is fading in
+	 */
 	private float alpha = 0f;
+	
+	/**
+	 * An offset by which we count whether to increment an image sequence each time round a loop
+	 */
 	private int outOffset = 0;
+	
+	/**
+	 * Indicator of whether an image should be faded at a timestamp
+	 */
 	private boolean fadeIt = false;
+	
+	/**
+	 * The file sequence numbers of a GFX element so we can lookup each in turn from the hard drive
+	 */
 	private ArrayList<String> gfxFiles;
 	
+	/**
+	 * simple value object for co-ordinate
+	 */
 	private CoOrd coOrd = new CoOrd(0,0);
+	
+	/**
+	 * The GFX element that is to be composited
+	 */
 	private GFXElement gfxElement;
+	
+	/**
+	 * The video frame that is to be composited over
+	 */
 	private BufferedImage videoFrame;
+	
+	/**
+	 * The frame of a GFX element that is to be overlaid on a videoframe
+	 */
 	private BufferedImage overlay;
 
 

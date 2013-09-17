@@ -13,6 +13,9 @@ import lombok.Setter;
  */
 public class TextChartCompositor extends TextCompositor{
 
+	/**
+	 * The font size to use
+	 */
 	@Getter @Setter static int chartFontSize = 12; //set to half the default font size
 
 	public TextChartCompositor(String text, int textXPos, int textYPos) {

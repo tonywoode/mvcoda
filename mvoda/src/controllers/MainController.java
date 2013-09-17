@@ -38,12 +38,34 @@ import drawing.TextCompositor;
  */
 public class MainController implements ViewControllerListener {
 
-	public final static Logger LOGGER = Logger.getLogger(MainController.class.getName()); //get a logger for this class
+	/**
+	 * a logger to log this class with
+	 */
+	public final static Logger LOGGER = Logger.getLogger(MainController.class.getName());
 
-	@Getter @Setter private Playlist playlist = new Playlist("Standard MV-CoDA v1 Render");//Playlist name is for future use
+	/**
+	 * a playlist with a name (name is for future use) for use by the controller
+	 */
+	@Getter @Setter private Playlist playlist = new Playlist("Standard MV-CoDA v1 Render");
+	
+	/**
+	 * A JAVAFX observable list to hold playlist entries returned by the model. Can then be passed to the GUI
+	 */
 	@Getter @Setter private ObservableList<PlaylistEntry> observedEntries = FXCollections.observableArrayList(playlist.getPlaylistEntries());
+	
+	/**
+	 * The view controller associated with this instance. Set in the main MV-CoDA runner
+	 */
 	@Getter @Setter private ViewController view;
+	
+	/**
+	 * The stage associated with this instance. Passed by the main MC-CoDA runner
+	 */
 	@Getter @Setter static Stage stage; //has to be static as instantiated in static JavaFX launch method in ImageCompositorTester
+	
+	/**
+	 * A task to separate the rendering of a playlist from the main UI thread
+	 */
 	private static Task<?> renderWorker;
 
 	/**

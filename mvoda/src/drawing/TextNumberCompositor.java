@@ -13,6 +13,9 @@ import lombok.Setter;
  */
 public class TextNumberCompositor extends TextCompositor{
 
+	/**
+	 * The font size to use
+	 */
 	@Getter @Setter static int numberFontSize = 48; //set to double the default font size
 
 	public TextNumberCompositor(String text, int textXPos, int textYPos) {
