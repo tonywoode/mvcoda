@@ -9,17 +9,34 @@ import com.xuggle.xuggler.ICodec.ID;
  */
 public abstract class StreamCoder {
 
-  public abstract int decodeAudio(AudioSamples audioSamples, Packet packet, int offset);
 
-  public abstract int decodeVideo(VideoPicture picture, Packet packet, int offset);
+	public abstract int decodeAudio(AudioSamples audioSamples, Packet packet, int offset);
 
-  public abstract Object getInternalCoder();
+	public abstract int decodeVideo(VideoPicture picture, Packet packet, int offset);
 
-public abstract int getChannels();
+	/**
+	 * Get the stream codec as an object of the type specified by the media implementation
+	 * @return an object containing the codec of the type specified by the media implementation
+	 */
+	public abstract Object getInternalCoder();
 
-public abstract int getSampleRate();
+	/**
+	 * gets the number of channels reported by the codec
+	 * @return the number of channels
+	 */
+	public abstract int getChannels();
 
-public abstract ID getCodecID();
+	/**
+	 * Gets the sample rate reported by the codec
+	 * @return the sample rate
+	 */
+	public abstract int getSampleRate();
+
+	/**
+	 * Get the ID of the codec within the container
+	 * @return the ID of ID's types this codec matches
+	 */
+	public abstract ID getCodecID();
 
 
 }

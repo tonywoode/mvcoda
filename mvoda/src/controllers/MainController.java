@@ -76,7 +76,7 @@ public class MainController implements ViewControllerListener {
 	/**
 	 * Actions caused by the add entry button in GUI
 	 */
-	@Override public void addPlaylistEntry() throws IOException, MediaOpenException {
+	@Override public void addPlaylistEntry() throws MediaOpenException {
 		final FileChooser fileChooser = new FileChooser();
 		File file = fileChooser.showOpenDialog(stage);
 		String fileUNC;
@@ -148,7 +148,7 @@ public class MainController implements ViewControllerListener {
 	 * Load playlist must be above to clear the current GUI's list and populate it from the XML file that is selected by the user, and populate all the additional
 	 * GUI fields
 	 */
-	@Override public void loadPlaylist() throws FileNotFoundException, IOException, MediaOpenException {
+	@Override public void loadPlaylist() throws IOException, MediaOpenException {
 
 		final FileChooser fileChooser = ViewController.getFileChooser(".xml");
 

@@ -11,8 +11,15 @@ import lombok.Setter;
  */
 public class FrameRate {
 	
+	/**
+	 * The frame rate to be used for a playlist, taken from the first loaded video
+	 */
 	@Getter @Setter private static double frameRate;
-	@Getter @Setter private static long timeBasis = 1000000; //we will be working in microseconds
+	
+	/**
+	 * The time basis used to convert seconds the the media imp's time basis
+	 */
+	@Getter @Setter private static long timeBasis = 1000000; //xuggler will be working in microseconds
 
 
 	/**

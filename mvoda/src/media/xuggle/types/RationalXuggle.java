@@ -11,8 +11,15 @@ import media.types.Rational;
  */
 public class RationalXuggle extends Rational {
 	
+	/**
+	 * Holds a reference to the xuggle rational
+	 */
 	private IRational rational;
 
+	/**
+	 * Returns a xuggle rational
+	 * @param rational a xuggle rational
+	 */
 	public RationalXuggle(IRational rational) {
 		this.rational = rational;
 	}

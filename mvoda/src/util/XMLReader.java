@@ -25,7 +25,14 @@ public class XMLReader {
 
 	public static XMLSerialisable readXML(Path themeDir, String itemName) throws IOException {
 
+		/**
+		 * Create a new xstream insance
+		 */
 		XStream xstream = new XStream();
+		
+		/**
+		 * Holds the content of various MV-CoDA types as xmlSerialisable types
+		 */
 		XMLSerialisable xml = null;
 
 		xstream.processAnnotations(GFXElement.class);
@@ -52,7 +59,14 @@ public class XMLReader {
 
 	public static XMLSerialisable readPlaylistXML(Path path) throws FileNotFoundException, IOException {
 
+		/**
+		 * Create a new xstream insance
+		 */
 		XStream xstream = new XStream();
+		
+		/**
+		 * Holds the content of various MV-CoDA types as xmlSerialisable types
+		 */
 		XMLSerialisable xml = null;
 
 		xstream.processAnnotations(GFXElement.class);

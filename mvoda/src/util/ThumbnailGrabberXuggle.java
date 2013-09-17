@@ -18,11 +18,29 @@ import com.xuggle.xuggler.Global;
  */
 public class ThumbnailGrabberXuggle implements ThumbnailGrabber {
 
+	/**
+	 * The number of seconds to seek before grabbing a frame
+	 */
 	public static final double SECONDS_BETWEEN_FRAMES = 10;
+	
+	/**
+	 * The video stream index, defaulted to -1 because 0 is a valid index
+	 */
 	private static int videoStreamIndex = -1;
+	
+	/**
+	 * The last presentation timestamp to write to, defaulted the xuggler's "no presentation timestamp" because most other numbers could be a timestamp
+	 */
 	private static long lastPtsWrite = Global.NO_PTS;
+	
+	/**
+	 * measuring 1000000th's of a secnod to use with timestamps so we can increment them
+	 */
 	public static final long MICRO_SECONDS_BETWEEN_FRAMES =  (long)(Global.DEFAULT_PTS_PER_SECOND * SECONDS_BETWEEN_FRAMES);
 
+	/**
+	 * The image that is going to be returned
+	 */
 	@Getter static BufferedImage thumb;
 
 	/**

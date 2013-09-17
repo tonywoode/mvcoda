@@ -59,34 +59,119 @@ public class ViewController implements Initializable {
 	public final static Logger LOGGER = Logger.getLogger(ViewController.class.getName());
 	
 	/**
-	 * GUI element for holding music video thumbnails
+	 * JavaFX ImageView for holding music video thumbnails
 	 */
 	@FXML private static ImageView imageThumb;
-	@Setter	private static ViewControllerListener viewListener;	
+	
+	/**
+ 	 * The view controller Listener associated with this instance. Set in the main MV-CoDA runner. This listener decouples the main
+ 	 * controller from the viewController
+	 */ 
+	@Setter	private static ViewControllerListener viewListener;
+	
+	/**
+	 * The stage associated with this instance. Passed by the main MC-CoDA runner
+	 */
 	@Getter @Setter	private static Stage stage;
+	
+	/**
+	 * The JavaFX Image for the thumbnail
+	 */
 	private static Image fxImage;
+	
+	/**
+	 * The BufferedImage that will be passed to the JavaFX Image for use as a music video thumbnail
+	 */
 	private static BufferedImage thisThumb;
+	
+	/**
+	 * The JavaFX task that will offload obtaining a video's thumbnail from the main GUI thread
+	 */
 	private static Task<?> thumbnailWorker;
 
+	/**
+	 * A JavaFX button that will clear the ListView's playlist upon clicking
+	 */
 	@FXML private Button clearPlaylistButton;
+	
+	/**
+	 * A JavaFX button that will save the ListView's playlist upon clicking
+	 */
 	@FXML private Button savePlaylistButton;
+	
+	/**
+	 * A JavaFX button that will delete the higlighted playlist entry upon clicking
+	 */
 	@FXML private Button deletePlaylistEntryButton;
+	
+	
+	/**
+	 * A JavaFX button that will move the highlighted playlist entry up upon clicking, and move the entry which
+	 * was above the highlighted one, to below it
+	 */
 	@FXML private Button moveUpButton;
+	
+	
+	/**
+	 * A JavaFX button that will move the highlighted playlist entry down upon clicking, and move the entry which
+	 * was below the highlighted one, to above it
+	 */
 	@FXML private Button moveDownButton;
+	
+	/**
+	 * A JavaFX button that will validate, and if successful, render, the ListView's playlist upon clicking
+	 */
 	@FXML private Button renderButton;
 
+	/**
+	 * JAVAFX ListView holding playlist entries backed by an observable array
+	 */
 	@FXML @Getter @Setter private ListView<PlaylistEntry> playlistView;
+	
+	/**
+	 * JavaFX ComboBox that will contain themes and display their names using their toStrings(), for the user to select
+	 */
 	@FXML @Getter private ComboBox<Theme> themeSelectBox;
+	
+	/**
+	 * JavaFX ComboBoX that will hold the family names of fonts, for the user to select
+	 */
 	@FXML @Getter private ComboBox<String> fontSelectBox;
+	
+	/**
+	 * JavaFX ComboBox that will hold a choice of Font sizes, for the user to select
+	 */
 	@FXML @Getter private ComboBox<Number> fontSizeBox;
+	
+	/**
+	 * JavaFX TextField that will display a playlist's chart name and allow the user to input a chart name
+	 */
 	@FXML @Getter private TextField chartTextField;
 
-	@FXML private TextArea mediaInfoArea;
-
+	/**
+	 * JavaFX TextField that will display a playlist entries' track name and allow the user to input a track name
+	 */
 	public TextField trackTextField;
+	
+	/**
+	 * JavaFX Text field that will display a playlist entries' artist name and allow the user to input an artist name
+	 */
 	public TextField artistTextField;
+	
+	/**
+	 * JAVAFX TextArea that will display a playlist entries' track information and allow the user to input track information
+	 */
 	public TextArea trackInfoTextArea;
-
+	
+	/**
+	 * JavaFX TextArea that will display media information related to a MusicVideo associated with the highlighted playlist entry
+	 */
+	@FXML private TextArea mediaInfoArea;
+	
+	/**
+	 * The implementation for the code that grabs a thumbnail from a MuscicVideo associated with the highlighted playlist entry
+	 * in order to display that image in the ImageView
+	 */
 	private ThumbnailGrabber grabber = new ThumbnailGrabberXuggle();
 
 
@@ -171,8 +256,8 @@ public class ViewController implements Initializable {
 	}
 	/**
 	 * Worker thread that gets thumbnails for the GUI, for now by using Xuggler's Media Tools API in Thumbnail Grabber imp in the util package
-	 * @param entry
-	 * @return
+	 * @param entry a playlist entry
+	 * @return a boolean when the method has compled
 	 */
 	public Task<?> createWorker(final PlaylistEntry entry) {
 		return new Task<Object>() {
@@ -295,7 +380,7 @@ public class ViewController implements Initializable {
 	 * Will report errors with that process directly to the user
 	 * @param e when button is accessed by user
 	 */
-	@FXML void addPlaylistEntry(ActionEvent e) throws IOException {
+	@FXML void addPlaylistEntry(ActionEvent e) {
 		try { 
 			viewListener.addPlaylistEntry(); 
 			if (playlistView.isDisable()) {	playlistView.setDisable(false); }
@@ -360,8 +445,8 @@ public class ViewController implements Initializable {
 	/**
 	 * Generic method for the load/save actions the user can request. JAVAFX brings up a standard windows file dialog, which handles a lot of problems for us.
 	 * Ensures that the file extension the user requests is provided to the dialog
-	 * @param filetype
-	 * @return
+	 * @param filetype the filetype to filter for in the dialog box
+	 * @return a filechooser object
 	 */
 	public static FileChooser getFileChooser(String filetype) {
 		final FileChooser fileChooser = new FileChooser();

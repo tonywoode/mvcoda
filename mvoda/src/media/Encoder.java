@@ -21,7 +21,6 @@ public interface Encoder {
 	/**
 	 * Gets a new media writer so that it can start a container to hold media data on disk
 	 * @param filepath the file representing the container will have
-	 * @return a new media writer capable of writing a media file
 	 */
 	MediaWriter getWriter(String filename);
 

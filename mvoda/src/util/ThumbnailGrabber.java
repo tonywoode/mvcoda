@@ -12,9 +12,9 @@ public interface ThumbnailGrabber {
 	/**
 	 * Seeks to a point in the video passed in as string UNC and passes back the image at that point. Intended for the GUI to display thumbnails
 	 * @param fileUNC
-	 * @return
+	 * @return the thumbnail of an image from the music video file
 	 */
-	BufferedImage grabThumbs(String fileUNC);
+	BufferedImage grabThumbs(String fileUNC); //TODO: should pass number of seconds in also
 	
 
 }

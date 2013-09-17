@@ -13,7 +13,10 @@ import java.util.logging.Logger;
  */
 public class FileUtil  {
 
-	public final static Logger LOGGER = Logger.getLogger(FileUtil.class.getName()); //get a logger for this class
+	/**
+	 * get a logger for this class
+	 */
+	public final static Logger LOGGER = Logger.getLogger(FileUtil.class.getName());
 
 	/**
 	 * When passed a path to a file will return its filetype as a string

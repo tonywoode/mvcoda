@@ -17,6 +17,10 @@ import media.types.VideoPicture;
  *
  */
 public class StreamCoderXuggle extends StreamCoder {
+	
+	/**
+	 * 
+	 */
 	private IStreamCoder streamCoder;
 	
 	public StreamCoderXuggle(IStreamCoder streamCoder) { this.streamCoder = streamCoder; }

@@ -19,15 +19,29 @@ import themes.Theme;
  */
 public class XMLBuilderRunner {
 
-	private Path rootDir = Theme.getRootDir(); //RootDir held by theme
-	//this is the changable directory for the theme being generated
+	/**
+	 * RootDir is held by theme and we grab it from there
+	 */
+	private Path rootDir = Theme.getRootDir(); 
+	/**
+	 * this is the changable directory for the theme being generated
+	 */
 	private Path themeDir;
 
 
-	//these variables will be constant to all the XML's that are being created for version 1.0 so are fields here
+	/**
+	 * Name of the element's author. These variables will be constant to all the XML's that are being created for MV-CoDA version 1.0 so are fields here
+	 */
 	private String author = "BoxTV Design Team";
+	
+	/**
+	 * Text representing the element's version. These variables will be constant to all the XML's that are being created for MV-CoDA version 1.0 so are fields here
+	 */
 	private String version  = "1.0";
 
+	/**
+	 * Serialises the information in this class to xml files for each theme setup
+	 */
 	private void run() {	
 		makeUrbanTheme();
 		makePopTheme();

@@ -22,11 +22,14 @@ import com.thoughtworks.xstream.XStream;
 public class XMLWriter {
 
 	/*
-	 * TODO: these two methods can be merged
+	 * TODO: these two methods should be merged
 	 */
 	
 	public static void writeXML(Path themeDir, XMLSerialisable xmlserialisable) throws IOException {
 
+		/**
+		 * Create a new xstream insance
+		 */
 		XStream xstream = new XStream();
 
 		xstream.processAnnotations(GFXElement.class);

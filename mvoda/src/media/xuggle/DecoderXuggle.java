@@ -34,22 +34,74 @@ public class DecoderXuggle implements Decoder {
 	 * however, this is not so different to how Xuggle do things...
 	 */
 
+	/**
+	 * the factor to use to convert microseconds to milliseconds
+	 */
 	public static final int CONVERT_MICRO_TO_MILLISEC = 1000; //Xuggler is best in microseconds
+	
+	/**
+	 * The pixel format type that xuggle will use
+	 */
 	public static final Type XUGGLER_PIX_TYPE = IPixelFormat.Type.BGR24; //Xuggler can only work with BGR24 pixel type as a fundamental limitation
+	
+	/**
+	 * The size of the audio bugger that xuggle will use
+	 */
 	public static final int SIZE_AUDIO_BUFFER = 1024; //Xuggler works well with 1024 buffer size
 
-	@Getter private BufferedImage videoFrame;	
+	/**
+	 * The individual image to composite over
+	 */
+	@Getter private BufferedImage videoFrame;
+	
+	/**
+	 * holds the video time stamp reported by the video codec
+	 */
 	@Getter private long videoTimeStamp;
+	
+	/**
+	 * Holds the video timestamp reporte by the video codec, but formatted in human readable form
+	 */
 	@Getter private String formattedVideoTimestamp;
+	
+	/**
+	 * holds the audio time stamp reported by the video codec
+	 */
 	@Getter private long audioTimeStamp;
+	
+	/**
+	 *  Holds the audio timestamp reporte by the video codec, but formatted in human readable form
+	 */
 	@Getter private String formattedAudioTimestamp;
 	
+	/**
+	 * Holds the width of the video to ouptut
+	 */
 	private int outputWidth;
+	
+	/**
+	 * Holds the height of the video to output
+	 */
 	private int outputHeight;
+	
+	/**
+	 * A resampler to convert image types to BGR24 if necessrary
+	 */
 	private IVideoResampler resampler;
+	
+	/**
+	 * A converter fr use by the resampler
+	 */
 	private BgrConverter converter;
+	
+	/**
+	 * Holds individually decoded audio samples
+	 */
 	private AudioSamples audioSamples;
 	
+	/**
+	 * The music video that will be worked on by this class
+	 */
 	private MusicVideo video;
 
 	public DecoderXuggle(MusicVideo video) { this.video = video; }

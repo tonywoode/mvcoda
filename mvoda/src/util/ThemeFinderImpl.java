@@ -20,16 +20,22 @@ import themes.Theme;
  *
  */
 public class ThemeFinderImpl implements ThemeFinder {
-
-	/*
-	 * The path to the Theme root directory is specified in Theme
-	 * //TODO: should the dir live in theme if we wish to decouple?
+	
+	/**
+	 * get a logger for this class
 	 */
-	private static final Path rootDir = Theme.getRootDir();
-
-	public final static Logger LOGGER = Logger.getLogger(ThemeFinderImpl.class.getName()); //get a logger for this class
+	public final static Logger LOGGER = Logger.getLogger(ThemeFinderImpl.class.getName()); 
 
 	
+	/*
+	 * The path to the Theme root directory is specified in Theme. We obtian it from there
+	 */
+	private static final Path rootDir = Theme.getRootDir(); 
+	//TODO: should the dir live in theme if we wish to decouple?
+
+	/**
+	 * Implementation for looking up themes from XML files. When passed the name of a theme will deserialise it and return it as a Theme
+	 */
 	@Override public Theme returnTheme(String theme) throws IOException {
 		ArrayList<Theme> themeArray = returnThemes();
 		for (Theme thisTheme : themeArray) { if (thisTheme.getItemName().compareTo(theme) == 1) { return thisTheme;	} }
@@ -73,7 +79,6 @@ public class ThemeFinderImpl implements ThemeFinder {
 	 * @throws IOException if the directory can't be accessed for the filetype
 	 */
 	@Override public ArrayList<Path> returnDirectories(Path rootdir, final String filetype, int numLevels) throws IOException {
-
 
 		final ArrayList<Path> pathArray = new ArrayList<>();
 

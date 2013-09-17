@@ -113,7 +113,7 @@ public interface MusicVideo {
 	
 	/**
 	 * Gets the video duration of a container, as reported by the container rather than the video codec
-	 * @return
+	 * @return the duration of the container
 	 */
 	long getContainerDuration();
 	

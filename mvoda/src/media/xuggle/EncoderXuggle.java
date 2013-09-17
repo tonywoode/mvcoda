@@ -32,11 +32,29 @@ import drawing.ThemeCompositor;
  */
 public class EncoderXuggle implements Encoder {
 
+	/**
+	 * Holds the music video that will be worked on by this class
+	 */
 	private MusicVideo video;
+	
+	/**
+	 * The output media files name
+	 */
 	private String outFilename;
+	
+	/**
+	 * The decoder associated with a music video
+	 */
 	private Decoder decoder;
+	
+	/**
+	 * The IMediaWriter that write the output file
+	 */
 	private MediaWriter writer = null;
 	
+	/**
+	 * The compositor that will compose a theme over the individual image files
+	 */
 	private ThemeCompositor themeCompositor;
 	
 	private long offset;

@@ -32,13 +32,39 @@ public class MusicVideoXuggle implements MusicVideo {
 
 	public final static Logger LOGGER = Logger.getLogger(MusicVideoXuggle.class.getName()); //get a logger for this class
 	
+	/**
+	 * The frames per second of the video as reported by xuggle's video codes, as a double
+	 */
 	@Getter private double framesPerSecondAsDouble;
+	
+	/**
+	 * Will hold the ID of the video codec as reported by xuggle
+	 */
 	@Getter private ICodec.ID videoCodecID;
+	
+	/**
+	 * The pixel format of the video as reported by xuggle
+	 */
 	@Getter private IPixelFormat.Type pixFormat;
 	
+	/**
+	 * The container holding the video and auio streams of the video
+	 */
 	private IContainer container;
+	
+	/**
+	 * The audio codec of the video
+	 */
 	private IStreamCoder audioCoder;
+	
+	/**
+	 * The video codec of the video
+	 */
 	private IStreamCoder videoCoder;
+	
+	/**
+	 * The frames per second as a Xuggle IRATIONAL
+	 */
 	private IRational framesPerSecond;
 	
 
