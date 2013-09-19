@@ -1,11 +1,11 @@
 setlocal
 set FFMPEG="..\FFmpeg\ffmpeg-20130418-git-ee94362-win64-static\bin\ffmpeg.exe"
 
-set AVILOC="C:\Users\Tony\CODE\MVODAInputs\Love\\"
+set AVILOC="C:\Users\Tony\CODE\MVCODAInputs\Love\\"
 
-set OUTPUTLOC="C:\Users\Tony\CODE\MVODAOutputs\\"
+set OUTPUTLOC="C:\Users\Tony\CODE\MVCODAOutputs\\"
 
-set LOGOLOC="C:\Users\Tony\CODE\Repo\mvoda\MVODA\Theme\Pop\Logo\\"
+set LOGOLOC="C:\Users\Tony\CODE\Repo\mvcoda\MVCODA\Theme\Pop\Logo\\"
 
 ::The files
 set FILE1=%AVILOC%"BrunoMarsJustTheWay.avi"

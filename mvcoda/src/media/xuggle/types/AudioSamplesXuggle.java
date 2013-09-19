@@ -17,7 +17,7 @@ public class AudioSamplesXuggle extends AudioSamples {
 	private IAudioSamples audioSamples;
 	
 	/**
-	 * sets the audio samples to the xuggle imp
+	 * returns the audio samples of the xuggle imp
 	 * @param audioSamples
 	 */
 	public AudioSamplesXuggle(IAudioSamples audioSamples) {	this.audioSamples = audioSamples; }
