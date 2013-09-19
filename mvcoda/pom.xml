@@ -59,6 +59,21 @@
 			<artifactId>junit</artifactId>
 			<version>4.5</version>
 		</dependency>
+		
+				<dependency>
+			<groupId>org.im4java</groupId>
+			<artifactId>im4java</artifactId>
+			<version>1.4.0</version>
+		</dependency>
+		
+				<dependency>
+			<groupId>com.googlecode.gstreamer-java</groupId>
+			<artifactId>gstreamer-java</artifactId>
+			<version>1.5</version>
+		</dependency>
+		
+		
+		
 
 	</dependencies>
 
