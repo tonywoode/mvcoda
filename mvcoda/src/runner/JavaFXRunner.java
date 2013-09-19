@@ -49,7 +49,7 @@ public class JavaFXRunner extends Application {
 	}
 
 	/**
-	 * Launches
+	 * Launches MV-CoDA
 	 * @param args
 	 */
 	public static void main(String[] args) {
