@@ -7,11 +7,9 @@ Enables television producers to automate the creation of music video playlists f
 
 Uses JavaFX2, the Xuggle media framework API into FFMpeg, TDD (Junit), Version Control (EGit), Build/Revision Control (Maven) with an XML DB backend (XStream)
 
-![PokerApp GUI in action] (http://i1291.photobucket.com/albums/b551/tonywoodecode/PokerApp_zpsb7e895de.png~original)
-
 ## Author
 
-* [Tony Woode](https://bitbucket.org/tonywoode)
+* [Tony Woode](https://github.com/tonywoode)
 
 ![MVCoda Sample Output] (http://i1291.photobucket.com/albums/b551/tonywoodecode/Diamonds_zps89d5ce8b.png~original)
 
