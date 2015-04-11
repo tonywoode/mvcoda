@@ -1,0 +1,13 @@
+HTTrack3.46+htsswf+htsjava launched on Fri, 14 Jun 2013 14:57:31 at http://www.xuggle.com/public/documentation/java/api/ +*.png +*.gif +*.jpg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar
+(winhttrack -qwC2%Ps2u1%s%uN0%I0p3DaK0H0%kf2A25000%f#f -F "Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)" -%F "<!-- Mirrored from %s%s by HTTrack Website Copier/3.x [XR&CO'2010], %s -->" -%l "en, en, *" http://www.xuggle.com/public/documentation/java/api/ -O1 C:\AAATransfer\XuggleAPI\xugglerAPIdocs +*.png +*.gif +*.jpg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+15:01:14	Error: 	"Not Found" (404) at link www.xuggle.com/public/documentation/java/api/src-html/com/xuggle/xuggler/Converter.html (from www.xuggle.com/public/documentation/java/api/overview-summary.html)
+15:02:24	Error: 	"Not Found" (404) at link www.xuggle.com/public/documentation/java/api/com/xuggle/mediatool/MediaViewer.StatsFrame.StreamPanel.html (from www.xuggle.com/public/documentation/java/api/serialized-form.html)
+
+HTTrack Website Copier/3.46 mirror complete in 4 minutes 53 seconds : 968 links scanned, 965 files written (10640922 bytes overall) [4161106 bytes received at 14201 bytes/sec], 8293732 bytes transfered using HTTP compression in 790 files, ratio 17%, 30.2 requests per connection
+(2 errors, 0 warnings, 0 messages)
