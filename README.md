@@ -18,11 +18,11 @@ Uses JavaFX2, the Xuggle media framework API into FFMpeg, TDD (Junit), Version C
 
 ## Example Outputs
 
-[Classic](https://github.com/tonywoode/mvcoda/blob/master/sampleOutputs/StandardRenderClassic.mp4)
+[Classic](https://github.com/tonywoode/mvcoda/blob/master/sampleOutputs/StandardRenderClassic.mp4?raw=true)
 
-[Pop](https://github.com/tonywoode/mvcoda/blob/master/mvcoda/sampleOutputs/StandardRenderPOP.mp4?raw=true)
+[Pop](https://github.com/tonywoode/mvcoda/blob/master/sampleOutputs/StandardRenderPOP.mp4?raw=true)
 
-[Urban](https://github.com/tonywoode/mvcoda/blob/master/mvcoda/sampleOutputs/StandardRenderURBAN.mp4?raw=true)
+[Urban](https://github.com/tonywoode/mvcoda/blob/master/sampleOutputs/StandardRenderURBAN.mp4?raw=true)
 
 ## License
 
