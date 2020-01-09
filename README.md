@@ -13,7 +13,7 @@ Uses JavaFX2, the Xuggle media framework API into FFMpeg, TDD (Junit), Version C
 
 ![MVCoda Sample Output](../images/Diamonds.PNG?raw=true)
 
-##Class Diagram
+## Class Diagram
 ![MVCoda Class Diagram](../images/Class.PNG?raw=true)
 
 ## Example Outputs
